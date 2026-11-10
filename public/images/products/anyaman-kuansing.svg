@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgAnyaman" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2D9C8" />
+      <stop offset="100%" stop-color="#C5B8A1" />
+    </linearGradient>
+    <linearGradient id="basketStraw" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E5C287" />
+      <stop offset="50%" stop-color="#BA9455" />
+      <stop offset="100%" stop-color="#8C6A32" />
+    </linearGradient>
+    <pattern id="weavePattern" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="12" height="12" fill="#DDBB7F" />
+      <rect x="12" width="12" height="12" fill="#C29F64" />
+      <rect y="12" width="12" height="12" fill="#BA9455" />
+      <rect x="12" y="12" width="12" height="12" fill="#E8CD96" />
+      <path d="M0 12 L12 0 M12 24 L24 12" stroke="#9E783A" stroke-width="1" opacity="0.4" />
+    </pattern>
+    <filter id="craftShadow" x="-20%" y="-10%" width="140%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#3D301C" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="600" fill="url(#bgAnyaman)" />
+
+  <!-- Shadow Floor -->
+  <ellipse cx="400" cy="480" rx="260" ry="40" fill="#6E5939" opacity="0.4" />
+
+  <!-- Anyaman Tote Bag / Keranjang Pandan Handcrafted -->
+  <g transform="translate(400, 270)" filter="url(#craftShadow)">
+    <!-- Leather/Rattan Handles -->
+    <path d="M-60 -40 C-60 -170 60 -170 60 -40" fill="none" stroke="#7A4B1D" stroke-width="12" stroke-linecap="round" />
+    <path d="M-60 -40 C-60 -170 60 -170 60 -40" fill="none" stroke="#543110" stroke-width="4" stroke-dasharray="6 4" stroke-linecap="round" />
+
+    <!-- Bag Main Trapezoid Body -->
+    <path d="M-150 -40 L150 -40 L180 180 C180 195 160 210 140 210 L-140 210 C-160 210 -180 195 -180 180 Z" fill="url(#basketStraw)" stroke="#6B4F24" stroke-width="3" />
+    
+    <!-- Weave Pattern Fill Overlay -->
+    <path d="M-148 -38 L148 -38 L178 178 C178 193 158 208 138 208 L-138 208 C-158 208 -178 193 -178 178 Z" fill="url(#weavePattern)" opacity="0.85" />
+
+    <!-- Traditional Color Accent Band (Pewarna Alami Melayu Merah & Hijau) -->
+    <g transform="translate(0, 70)">
+      <!-- Red Band -->
+      <path d="M-167 0 L167 0 L170 28 L-170 28 Z" fill="#991B1B" opacity="0.85" stroke="#7F1D1D" stroke-width="1" />
+      <line x1="-165" y1="14" x2="165" y2="14" stroke="#FEF08A" stroke-width="2" stroke-dasharray="6 6" />
+      <!-- Forest Green Band -->
+      <path d="M-170 30 L170 30 L173 55 L-173 55 Z" fill="#166534" opacity="0.85" stroke="#14532D" stroke-width="1" />
+      <line x1="-168" y1="42" x2="168" y2="42" stroke="#FEF08A" stroke-width="2" stroke-dasharray="6 6" />
+    </g>
+
+    <!-- Rim Stitching -->
+    <path d="M-150 -40 L150 -40" stroke="#4A3414" stroke-width="8" stroke-linecap="round" />
+    <path d="M-146 -40 L146 -40" stroke="#E5C287" stroke-width="3" stroke-dasharray="5 5" />
+    
+    <!-- Wooden Tag Emblem -->
+    <g transform="translate(70, -20) rotate(15)">
+      <line x1="0" y1="-25" x2="0" y2="0" stroke="#7A4B1D" stroke-width="2" />
+      <rect x="-35" y="0" width="70" height="42" rx="4" fill="#E8D5B5" stroke="#7A4B1D" stroke-width="1.5" />
+      <circle cx="0" cy="8" r="3" fill="#7A4B1D" />
+      <text x="0" y="24" fill="#3B2610" font-family="Arial, sans-serif" font-weight="800" font-size="7.5" text-anchor="middle">KUANSING</text>
+      <text x="0" y="34" fill="#7A4B1D" font-family="Arial, sans-serif" font-weight="600" font-size="6.5" text-anchor="middle">HANDMADE</text>
+    </g>
+  </g>
+
+  <!-- Text Label Overlay -->
+  <rect x="180" y="525" width="440" height="42" rx="6" fill="#2E2214" stroke="#DDBB7F" stroke-width="1" />
+  <text x="400" y="551" fill="#FEF3C7" font-family="Arial, sans-serif" font-weight="700" font-size="15" text-anchor="middle" letter-spacing="2">KERAJINAN ANYAMAN PANDAN KUANSING</text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgTanjak" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="60%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0A101D" />
+    </linearGradient>
+    <linearGradient id="navyCloth" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A" />
+      <stop offset="50%" stop-color="#0A255C" />
+      <stop offset="100%" stop-color="#061638" />
+    </linearGradient>
+    <linearGradient id="tanjakGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="45%" stop-color="#CA8A04" />
+      <stop offset="85%" stop-color="#854D0E" />
+      <stop offset="100%" stop-color="#FEF08A" />
+    </linearGradient>
+    <filter id="elevate" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="600" fill="url(#bgTanjak)" />
+
+  <!-- Subtle Ambient Glow -->
+  <circle cx="400" cy="270" r="260" fill="#1E3A8A" opacity="0.25" />
+
+  <!-- Showcase Pedestal / Stand -->
+  <g transform="translate(400, 420)">
+    <!-- Base Plate -->
+    <ellipse cx="0" cy="50" rx="190" ry="24" fill="#0A0F1D" />
+    <ellipse cx="0" cy="45" rx="180" ry="20" fill="#1E293B" stroke="url(#tanjakGold)" stroke-width="2" />
+    <!-- Pillar -->
+    <path d="M-30 45 L-20 -70 L20 -70 L30 45 Z" fill="#334155" />
+    <!-- Head Rest Mound -->
+    <ellipse cx="0" cy="-70" rx="90" ry="45" fill="#1E293B" />
+  </g>
+
+  <!-- Tanjak Melayu (Traditional Headdress) -->
+  <g transform="translate(400, 240)" filter="url(#elevate)">
+    <!-- Back Fold Layer -->
+    <path d="M-150 110 C-170 30 -100 -50 0 -90 C100 -50 170 30 150 110 Z" fill="#091A42" stroke="url(#tanjakGold)" stroke-width="1.5" />
+
+    <!-- Upward Fold / Puncak Tanjak (Left to Right Peak) -->
+    <path d="M-120 100 C-80 -40 -20 -150 80 -180 C50 -100 20 -20 140 100 Z" fill="url(#navyCloth)" stroke="url(#tanjakGold)" stroke-width="2" />
+    
+    <!-- Inner Fold Contour and Gold Weaves -->
+    <path d="M-90 85 C-50 -20 0 -100 70 -140 C45 -70 25 -10 115 85 Z" fill="#102C6E" />
+    <path d="M-40 60 C-10 -10 30 -60 65 -110" stroke="url(#tanjakGold)" stroke-width="3" stroke-linecap="round" />
+    <path d="M-20 70 C10 10 50 -30 85 -80" stroke="url(#tanjakGold)" stroke-width="1.5" stroke-dasharray="4 4" />
+
+    <!-- Front Band / Ikat Kepala -->
+    <path d="M-160 110 C-90 140 90 140 160 110 C150 65 90 75 0 75 C-90 75 -150 65 -160 110 Z" fill="url(#navyCloth)" stroke="url(#tanjakGold)" stroke-width="2.5" />
+    
+    <!-- Songket Gold Brocade on Band -->
+    <path d="M-140 96 Q0 116 140 96" stroke="url(#tanjakGold)" stroke-width="3.5" fill="none" />
+    <path d="M-130 90 Q0 110 130 90" stroke="url(#tanjakGold)" stroke-width="1" stroke-dasharray="3 3" fill="none" />
+
+    <!-- Center Royal Brooch / Kerongsang Diraja -->
+    <g transform="translate(0, 88)">
+      <circle r="18" fill="url(#tanjakGold)" />
+      <circle r="14" fill="#0A255C" stroke="url(#tanjakGold)" stroke-width="1.5" />
+      <circle r="7" fill="#DC2626" />
+      <!-- Star rays -->
+      <path d="M0 -22 L0 22 M-22 0 L22 0 M-15 -15 L15 15 M-15 15 L15 -15" stroke="url(#tanjakGold)" stroke-width="2" />
+    </g>
+
+    <!-- Simpul Tanjak (Knot on Left) -->
+    <g transform="translate(-130, 95)">
+      <path d="M0 0 C-25 -20 -35 20 -10 30 C15 35 15 -10 0 0 Z" fill="url(#tanjakGold)" />
+      <circle cx="-5" cy="10" r="4" fill="#1E3A8A" />
+    </g>
+  </g>
+
+  <!-- Text Label Overlay -->
+  <rect x="200" y="500" width="400" height="46" rx="6" fill="#0A101D" stroke="url(#tanjakGold)" stroke-width="1" />
+  <text x="400" y="529" fill="url(#tanjakGold)" font-family="Arial, sans-serif" font-weight="700" font-size="16" text-anchor="middle" letter-spacing="2">TANJAK MELAYU RIAU</text>
+</svg>

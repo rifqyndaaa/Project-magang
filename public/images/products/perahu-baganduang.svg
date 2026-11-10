@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgRiver" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0E2A47" />
+      <stop offset="60%" stop-color="#1B4965" />
+      <stop offset="100%" stop-color="#0F304E" />
+    </linearGradient>
+    <linearGradient id="woodBoat" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8B5A2B" />
+      <stop offset="50%" stop-color="#5C3317" />
+      <stop offset="100%" stop-color="#3A1E0B" />
+    </linearGradient>
+    <linearGradient id="goldTrims" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="50%" stop-color="#CA8A04" />
+      <stop offset="100%" stop-color="#854D0E" />
+    </linearGradient>
+    <filter id="boatShadow" x="-20%" y="-10%" width="140%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#061829" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="600" fill="url(#bgRiver)" />
+
+  <!-- River Water Surface Waves -->
+  <path d="M0 430 Q200 415 400 430 T800 430 L800 600 L0 600 Z" fill="#0C253E" />
+  <path d="M0 450 Q200 435 400 450 T800 450 L800 600 L0 600 Z" fill="#081A2D" />
+  <line x1="50" y1="440" x2="250" y2="440" stroke="#38BDF8" stroke-width="2" opacity="0.3" stroke-linecap="round" />
+  <line x1="550" y1="445" x2="720" y2="445" stroke="#38BDF8" stroke-width="2" opacity="0.3" stroke-linecap="round" />
+
+  <!-- Perahu Baganduang (Double/Triple Canoe with Grand Malay Pavilion) -->
+  <g transform="translate(400, 270)" filter="url(#boatShadow)">
+    <!-- Main Triple Boat Hulls (Baganduang) -->
+    <!-- Center Hull -->
+    <path d="M-260 90 Q-230 150 0 150 Q230 150 260 90 Q220 120 0 120 Q-220 120 -260 90 Z" fill="url(#woodBoat)" stroke="#271305" stroke-width="2" />
+    <!-- Hull Gold Carvings (Selo Lembayung / Selembayung Motif) -->
+    <path d="M-280 70 Q-260 110 -240 90" stroke="url(#goldTrims)" stroke-width="4" fill="none" stroke-linecap="round" />
+    <path d="M280 70 Q260 110 240 90" stroke="url(#goldTrims)" stroke-width="4" fill="none" stroke-linecap="round" />
+    <line x1="-220" y1="110" x2="220" y2="110" stroke="url(#goldTrims)" stroke-width="2.5" />
+
+    <!-- Deck / Anjungan Panggung -->
+    <rect x="-190" y="55" width="380" height="24" rx="2" fill="#8B5A2B" stroke="#3D200E" stroke-width="1.5" />
+    <line x1="-180" y1="67" x2="180" y2="67" stroke="url(#goldTrims)" stroke-width="1.5" stroke-dasharray="8 6" />
+
+    <!-- Pavilion Pillars -->
+    <rect x="-140" y="-30" width="10" height="85" fill="url(#goldTrims)" />
+    <rect x="-60" y="-30" width="10" height="85" fill="url(#goldTrims)" />
+    <rect x="50" y="-30" width="10" height="85" fill="url(#goldTrims)" />
+    <rect x="130" y="-30" width="10" height="85" fill="url(#goldTrims)" />
+
+    <!-- Traditional Tiered Roof (Atap Rumah Gadang / Lontiok Riau) -->
+    <!-- Tier 1 -->
+    <polygon points="-170,-20 170,-20 150,-45 -150,-45" fill="#B91C1C" stroke="#7F1D1D" stroke-width="2" />
+    <!-- Tier 2 (Peak) -->
+    <path d="M-190 -45 Q-140 -80 -120 -110 Q-60 -75 0 -75 Q60 -75 120 -110 Q140 -80 190 -45 Z" fill="#DC2626" stroke="url(#goldTrims)" stroke-width="2" />
+    
+    <!-- Selembayung Horns on Roof Peak (Khas Arsitektur Melayu Riau) -->
+    <path d="M-120 -110 Q-140 -150 -160 -155 Q-135 -145 -115 -125" fill="url(#goldTrims)" stroke="#854D0E" stroke-width="1" />
+    <path d="M120 -110 Q140 -150 160 -155 Q135 -145 115 -125" fill="url(#goldTrims)" stroke="#854D0E" stroke-width="1" />
+
+    <!-- Ceremonial Umbrellas (Payung Adat Tiga Warna: Kuning, Merah, Putih) -->
+    <!-- Left Yellow Umbrella -->
+    <g transform="translate(-80, -115)">
+      <line x1="0" y1="0" x2="0" y2="40" stroke="#713F12" stroke-width="3" />
+      <path d="M-35 0 Q0 -25 35 0 Z" fill="#EAB308" stroke="#A16207" stroke-width="1.5" />
+    </g>
+    <!-- Center Royal Gold Crown / Banner -->
+    <g transform="translate(0, -95)">
+      <line x1="0" y1="-30" x2="0" y2="20" stroke="url(#goldTrims)" stroke-width="3" />
+      <polygon points="-25,-30 0,-45 25,-30 0,-15" fill="url(#goldTrims)" />
+    </g>
+    <!-- Right Red Umbrella -->
+    <g transform="translate(80, -115)">
+      <line x1="0" y1="0" x2="0" y2="40" stroke="#713F12" stroke-width="3" />
+      <path d="M-35 0 Q0 -25 35 0 Z" fill="#22C55E" stroke="#15803D" stroke-width="1.5" />
+    </g>
+  </g>
+
+  <!-- Text Label Overlay -->
+  <rect x="180" y="525" width="440" height="42" rx="6" fill="#0C253E" stroke="url(#goldTrims)" stroke-width="1" />
+  <text x="400" y="551" fill="#FEF08A" font-family="Arial, sans-serif" font-weight="700" font-size="15" text-anchor="middle" letter-spacing="2">REPLIKA PERAHU BAGANDUANG KUANSING</text>
+</svg>

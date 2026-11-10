@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgSongket" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#082A1A" />
+      <stop offset="50%" stop-color="#0E422B" />
+      <stop offset="100%" stop-color="#061D12" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE885" />
+      <stop offset="40%" stop-color="#D4AF37" />
+      <stop offset="70%" stop-color="#AA771C" />
+      <stop offset="100%" stop-color="#FDF0A6" />
+    </linearGradient>
+    <linearGradient id="goldShine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF5C2" />
+      <stop offset="100%" stop-color="#C59B27" />
+    </linearGradient>
+    <pattern id="songketPattern" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M30 5 L55 30 L30 55 L5 30 Z" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" />
+      <circle cx="30" cy="30" r="4" fill="url(#goldGrad)" />
+      <path d="M30 15 L45 30 L30 45 L15 30 Z" fill="none" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="2 2" />
+      <path d="M0 0 L10 10 M50 50 L60 60 M0 60 L10 50 M50 10 L60 0" stroke="url(#goldGrad)" stroke-width="1" opacity="0.6" />
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="600" fill="url(#bgSongket)" />
+
+  <!-- Fabric Texture / Weave -->
+  <rect x="40" y="40" width="720" height="520" rx="8" fill="url(#songketPattern)" opacity="0.85" />
+
+  <!-- Decorative Outer Border -->
+  <rect x="40" y="40" width="720" height="520" rx="8" fill="none" stroke="url(#goldGrad)" stroke-width="4" />
+  <rect x="52" y="52" width="696" height="496" rx="4" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-dasharray="4 4" />
+
+  <!-- Corner Melayu Ornaments -->
+  <g fill="url(#goldGrad)">
+    <!-- Top-Left -->
+    <path d="M56 56 L120 56 L120 62 L66 62 L66 120 L56 120 Z" />
+    <circle cx="72" cy="72" r="6" />
+    <!-- Top-Right -->
+    <path d="M744 56 L680 56 L680 62 L734 62 L734 120 L744 120 Z" />
+    <circle cx="728" cy="72" r="6" />
+    <!-- Bottom-Left -->
+    <path d="M56 544 L120 544 L120 538 L66 538 L66 480 L56 480 Z" />
+    <circle cx="72" cy="528" r="6" />
+    <!-- Bottom-Right -->
+    <path d="M744 544 L680 544 L680 538 L734 538 L734 480 L744 480 Z" />
+    <circle cx="728" cy="528" r="6" />
+  </g>
+
+  <!-- Center Plaque / Motif Utama Pucuk Rebung -->
+  <g transform="translate(400, 300)">
+    <!-- Center Medal Background -->
+    <circle r="130" fill="#082A1A" stroke="url(#goldGrad)" stroke-width="4" />
+    <circle r="120" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-dasharray="3 3" />
+    <circle r="110" fill="#0D3B25" />
+
+    <!-- Pucuk Rebung Iconography -->
+    <path d="M0 -90 L30 -20 L15 -20 L40 30 L20 30 L45 75 L-45 75 L-20 30 L-40 30 L-15 -20 L-30 -20 Z" fill="url(#goldGrad)" />
+    <path d="M0 -75 L20 -20 L10 -20 L28 25 L12 25 L30 65 L-30 65 L-12 25 L-28 25 L-10 -20 L-20 -75 Z" fill="#0E422B" />
+    <circle cx="0" cy="5" r="8" fill="url(#goldGrad)" />
+    <circle cx="0" cy="-35" r="5" fill="url(#goldGrad)" />
+  </g>
+
+  <!-- Text Label Overlay -->
+  <rect x="180" y="475" width="440" height="50" rx="6" fill="#082A1A" stroke="url(#goldGrad)" stroke-width="1.5" />
+  <text x="400" y="506" fill="url(#goldShine)" font-family="Arial, sans-serif" font-weight="700" font-size="18" text-anchor="middle" letter-spacing="3">TENUN SONGKET SIAK RIAU</text>
+</svg>

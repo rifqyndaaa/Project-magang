@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgLempuk" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D1B06" />
+      <stop offset="50%" stop-color="#4A2E0D" />
+      <stop offset="100%" stop-color="#1F1203" />
+    </linearGradient>
+    <linearGradient id="rollGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6B3F11" />
+      <stop offset="40%" stop-color="#4A2906" />
+      <stop offset="100%" stop-color="#2A1602" />
+    </linearGradient>
+    <linearGradient id="upeiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C29F68" />
+      <stop offset="40%" stop-color="#DFBF8A" />
+      <stop offset="70%" stop-color="#BC9962" />
+      <stop offset="100%" stop-color="#8A6B3A" />
+    </linearGradient>
+    <linearGradient id="durianGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <filter id="rollShadow" x="-20%" y="-10%" width="140%" height="130%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="600" fill="url(#bgLempuk)" />
+
+  <!-- Showcase Surface -->
+  <ellipse cx="400" cy="460" rx="350" ry="70" fill="#170D03" />
+
+  <!-- Traditional Palm Leaf Wrapping (Upei Pinang / Daun Jagung) -->
+  <g transform="translate(400, 260)" filter="url(#rollShadow)">
+    <!-- Back Leaf Wings -->
+    <path d="M-220 30 C-260 -60 -180 -120 -80 -80 C-40 -40 -120 40 -220 30 Z" fill="#997744" opacity="0.8" />
+    <path d="M220 30 C260 -60 180 -120 80 -80 C40 -40 120 40 220 30 Z" fill="#997744" opacity="0.8" />
+
+    <!-- Main Cylindrical Roll (Lempuk Durian) -->
+    <!-- Shadow underneath roll -->
+    <ellipse cx="0" cy="90" rx="190" ry="25" fill="#0D0701" opacity="0.8" />
+
+    <!-- Cylinder Body (Wrapped in traditional Upei) -->
+    <rect x="-170" y="-30" width="340" height="110" rx="20" fill="url(#upeiGrad)" stroke="#664D27" stroke-width="2" />
+    
+    <!-- Leaf Fiber Lines -->
+    <path d="M-150 -10 L150 -10 M-160 20 L160 20 M-155 50 L155 50" stroke="#7A5D31" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.7" />
+
+    <!-- Tied Natural Rattan Strings (Tali Bambu / Rotan) -->
+    <!-- Left String -->
+    <rect x="-105" y="-32" width="12" height="114" rx="2" fill="#543A17" stroke="#2B1D0A" stroke-width="1" />
+    <circle cx="-99" cy="25" r="5" fill="#D97706" />
+    <!-- Right String -->
+    <rect x="93" y="-32" width="12" height="114" rx="2" fill="#543A17" stroke="#2B1D0A" stroke-width="1" />
+    <circle cx="99" cy="25" r="5" fill="#D97706" />
+
+    <!-- Sliced Open Portion (Exposing Rich Brown Durian Fudge Inside) -->
+    <g transform="translate(145, 25)">
+      <ellipse rx="35" ry="50" fill="url(#rollGrad)" stroke="#2A1602" stroke-width="3" />
+      <ellipse rx="26" ry="40" fill="#3D2104" />
+      <ellipse rx="15" ry="24" fill="#573108" opacity="0.8" />
+      <!-- Glistening highlights of caramelized durian -->
+      <circle cx="-6" cy="-10" r="4" fill="#995E1B" opacity="0.6" />
+      <circle cx="8" cy="12" r="3" fill="#995E1B" opacity="0.6" />
+    </g>
+
+    <!-- Traditional Label Seal in Center -->
+    <g transform="translate(-10, 25)">
+      <circle r="46" fill="#1E293B" stroke="url(#durianGold)" stroke-width="2.5" />
+      <circle r="40" fill="#0F172A" stroke="url(#durianGold)" stroke-width="1" stroke-dasharray="2 2" />
+      <text x="0" y="-14" fill="url(#durianGold)" font-family="Arial, sans-serif" font-weight="900" font-size="9" text-anchor="middle" letter-spacing="1">BENGKALIS RIAU</text>
+      <text x="0" y="6" fill="#FFFFFF" font-family="'Georgia', serif" font-weight="700" font-size="12" text-anchor="middle">LEMPUK</text>
+      <text x="0" y="20" fill="url(#durianGold)" font-family="'Georgia', serif" font-weight="700" font-size="11" text-anchor="middle">DURIAN</text>
+      <text x="0" y="32" fill="#94A3B8" font-family="Arial, sans-serif" font-size="7" text-anchor="middle">100% Daging Durian Asli</text>
+    </g>
+  </g>
+
+  <!-- Text Label Overlay -->
+  <rect x="180" y="520" width="440" height="42" rx="6" fill="#170D03" stroke="url(#durianGold)" stroke-width="1" />
+  <text x="400" y="546" fill="#FEF08A" font-family="Arial, sans-serif" font-weight="700" font-size="15" text-anchor="middle" letter-spacing="2">LEMPUK DURIAN ASLI BENGKALIS</text>
+</svg>

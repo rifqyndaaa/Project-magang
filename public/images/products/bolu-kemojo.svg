@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgKemojo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBF7EE" />
+      <stop offset="100%" stop-color="#EBE3D0" />
+    </linearGradient>
+    <linearGradient id="pandanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#73A336" />
+      <stop offset="35%" stop-color="#4E8221" />
+      <stop offset="80%" stop-color="#345B13" />
+      <stop offset="100%" stop-color="#23400A" />
+    </linearGradient>
+    <linearGradient id="crustGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#B2822A" />
+      <stop offset="50%" stop-color="#8C5C15" />
+      <stop offset="100%" stop-color="#5B3808" />
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8DBF44" />
+      <stop offset="100%" stop-color="#345B13" />
+    </radialGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#3B2E1E" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="600" fill="url(#bgKemojo)" />
+
+  <!-- Banana Leaf / Serving Mat Underneath -->
+  <g transform="translate(400, 290)">
+    <path d="M-280 40 C-320 -150 -100 -240 100 -220 C280 -200 320 -50 290 80 C260 210 50 250 -120 220 C-240 200 -260 140 -280 40 Z" fill="#2E6930" opacity="0.9" />
+    <path d="M-270 30 C-300 -140 -90 -230 90 -210 C260 -190 300 -40 275 70 C250 190 50 235 -110 205 C-220 185 -250 130 -270 30 Z" fill="#3D7D37" />
+    <!-- Leaf veins -->
+    <path d="M-200 0 L200 0 M-150 -100 L120 80 M-120 100 L150 -80 M0 -180 L0 180" stroke="#4F9342" stroke-width="2" opacity="0.6" />
+  </g>
+
+  <!-- Bolu Kemojo (Flower Petal Shaped Cake) -->
+  <g transform="translate(400, 275)" filter="url(#softShadow)">
+    <!-- 8 Petals Structure -->
+    <g fill="url(#pandanGrad)" stroke="url(#crustGrad)" stroke-width="3">
+      <!-- Petal 1 (Top) -->
+      <path d="M-30 -110 C-30 -190 30 -190 30 -110 Z" />
+      <!-- Petal 2 (Top-Right) -->
+      <path d="M-30 -110 C-30 -190 30 -190 30 -110 Z" transform="rotate(45)" />
+      <!-- Petal 3 (Right) -->
+      <path d="M-30 -110 C-30 -190 30 -190 30 -110 Z" transform="rotate(90)" />
+      <!-- Petal 4 (Bottom-Right) -->
+      <path d="M-30 -110 C-30 -190 30 -190 30 -110 Z" transform="rotate(135)" />
+      <!-- Petal 5 (Bottom) -->
+      <path d="M-30 -110 C-30 -190 30 -190 30 -110 Z" transform="rotate(180)" />
+      <!-- Petal 6 (Bottom-Left) -->
+      <path d="M-30 -110 C-30 -190 30 -190 30 -110 Z" transform="rotate(225)" />
+      <!-- Petal 7 (Left) -->
+      <path d="M-30 -110 C-30 -190 30 -190 30 -110 Z" transform="rotate(270)" />
+      <!-- Petal 8 (Top-Left) -->
+      <path d="M-30 -110 C-30 -190 30 -190 30 -110 Z" transform="rotate(315)" />
+    </g>
+
+    <!-- Main Body Round -->
+    <circle r="120" fill="url(#pandanGrad)" stroke="url(#crustGrad)" stroke-width="3" />
+    <circle r="105" fill="url(#centerGlow)" opacity="0.9" />
+
+    <!-- Baked Crust Edges (Browning effect) -->
+    <circle r="90" fill="none" stroke="url(#crustGrad)" stroke-width="8" stroke-dasharray="14 10" opacity="0.75" />
+
+    <!-- Center Dimple / Hollow -->
+    <circle r="42" fill="#203808" stroke="url(#crustGrad)" stroke-width="3" />
+    <circle r="32" fill="#142405" />
+    <circle r="15" fill="#0D1803" />
+
+    <!-- Subtle Texture Specks -->
+    <circle cx="-50" cy="-40" r="3" fill="#B2822A" opacity="0.6" />
+    <circle cx="55" cy="30" r="3.5" fill="#B2822A" opacity="0.6" />
+    <circle cx="30" cy="-60" r="2.5" fill="#B2822A" opacity="0.6" />
+    <circle cx="-45" cy="50" r="3" fill="#B2822A" opacity="0.6" />
+  </g>
+
+  <!-- Text Label Overlay -->
+  <rect x="200" y="495" width="400" height="46" rx="6" fill="#1E293B" />
+  <text x="400" y="524" fill="#F8FAFC" font-family="Arial, sans-serif" font-weight="700" font-size="16" text-anchor="middle" letter-spacing="2">BOLU KEMOJO KHAS RIAU</text>
+</svg>
