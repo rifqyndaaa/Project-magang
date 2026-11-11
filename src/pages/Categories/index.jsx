@@ -154,7 +154,7 @@ export default function Categories() {
                     className="gov-btn gov-btn-primary gov-btn-sm"
                     style={{ width: '100%', justifyContent: 'center' }}
                   >
-                    <span>Pilih Kategori Ini & Ajukan</span>
+                    <span>Ajukan Layanan</span>
                     <Icon name="arrow-right" size={14} />
                   </Link>
                 </div>

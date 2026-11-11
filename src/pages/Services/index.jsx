@@ -1,24 +1,74 @@
 import { Link } from 'react-router-dom';
 import Breadcrumbs from '../../components/common/Breadcrumbs';
 import Icon from '../../components/common/Icon';
+import { CATEGORIES } from '../../data/categories';
 
 export default function Services() {
   return (
     <div>
-      <Breadcrumbs items={[{ label: 'Standar Layanan' }]} />
+      <Breadcrumbs items={[{ label: 'Layanan Pengaduan & Konsultasi' }]} />
 
       <section style={{ padding: '2.5rem 0', backgroundColor: '#FFFFFF' }}>
-        <div className="gov-container" style={{ maxWidth: '960px' }}>
+        <div className="gov-container" style={{ maxWidth: '1080px' }}>
+          {/* Header Bagian Layanan */}
           <div className="gov-section-header">
-            <span className="gov-section-tag">Transparansi & Akuntabilitas</span>
-            <h1 className="gov-section-title">Standar Layanan Pengaduan Masyarakat</h1>
+            <span className="gov-section-tag">Pelayanan Publik Terpadu</span>
+            <h1 className="gov-section-title">3 Kategori Layanan Pemerintah Provinsi Riau</h1>
             <p className="gov-section-desc">
-              Pemerintah Provinsi Riau berkomitmen memberikan kepastian pelayanan, kecepatan respon, dan penyelesaian masalah publik sesuai peraturan perundang-undangan.
+              Pilih kategori layanan yang sesuai dengan kebutuhan Anda. Klik tombol <strong>Ajukan Layanan</strong> pada kartu terkait untuk langsung mengisi formulir permohonan.
             </p>
           </div>
 
-          {/* Maklumat Pelayanan */}
-          <div className="gov-card" style={{ borderLeft: '4px solid var(--gov-blue)', padding: '1.5rem', marginBottom: '2rem', backgroundColor: 'var(--gov-blue-soft)' }}>
+          {/* 1. TIGA KARTU LAYANAN UTAMA DENGAN TOMBOL "AJUKAN LAYANAN" LANGSUNG */}
+          <div className="gov-services-action-grid" role="region" aria-label="Daftar 3 Kategori Layanan">
+            {CATEGORIES.map((cat) => (
+              <div key={cat.id} className="gov-service-card-interactive">
+                <div className="gov-service-card-header">
+                  <div className="gov-service-icon-box" aria-hidden="true">
+                    <Icon name={cat.icon || 'file-check'} size={22} />
+                  </div>
+                  <span className="gov-service-opd-badge">{cat.shortName}</span>
+                </div>
+
+                <div className="gov-service-card-content">
+                  <h2 className="gov-service-card-title">{cat.name}</h2>
+                  <p className="gov-service-card-desc">{cat.description}</p>
+                </div>
+
+                <div className="gov-service-card-footer">
+                  <Link
+                    to={`/report?category=${cat.id}`}
+                    className="gov-service-btn-ajukan"
+                    id={`btn-ajukan-${cat.id}`}
+                    aria-label={`Ajukan Layanan ${cat.name}`}
+                  >
+                    <span>Ajukan Layanan</span>
+                    <Icon name="arrow-right" size={16} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 2. TOMBOL PELACAKAN TERPISAH (UNTUK MEMBEDAKAN PENGAJUAN BARU & PELACAKAN) */}
+          <div className="gov-services-track-box" role="region" aria-label="Pelacakan Pengajuan Sebelumnya">
+            <div className="gov-track-box-info">
+              <div className="gov-service-icon-box" style={{ backgroundColor: '#FEF3C7', borderColor: '#FDE68A', color: '#B45309' }}>
+                <Icon name="search" size={20} />
+              </div>
+              <div className="gov-track-box-info-text">
+                <strong>Sudah Menyampaikan Laporan atau Pengajuan?</strong>
+                <p>Gunakan nomor tiket resmi Anda (contoh: <code>Riau-2026-000001</code>) untuk memantau status verifikasi dan tindak lanjut.</p>
+              </div>
+            </div>
+            <Link to="/track" className="gov-track-box-btn" id="btn-services-lacak-laporan">
+              <Icon name="search" size={15} />
+              <span>Lacak Laporan</span>
+            </Link>
+          </div>
+
+          {/* 3. MAKLUMAT PELAYANAN PENGADUAN */}
+          <div className="gov-card" style={{ borderLeft: '4px solid var(--gov-blue)', padding: '1.5rem', marginBottom: '2.5rem', backgroundColor: 'var(--gov-blue-soft)' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--gov-blue-dark)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
               MAKLUMAT PELAYANAN PENGADUAN PEMPROV RIAU
             </span>
@@ -30,7 +80,7 @@ export default function Services() {
             </div>
           </div>
 
-          {/* SLA (Service Level Agreement) Standar Waktu */}
+          {/* 4. SLA (SERVICE LEVEL AGREEMENT) STANDAR WAKTU PENYELESAIAN */}
           <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--gov-blue-dark)', marginBottom: '1rem' }}>
             Standar Waktu Penyelesaian (Service Level Agreement)
           </h2>
@@ -75,7 +125,7 @@ export default function Services() {
             </div>
           </div>
 
-          {/* Kriteria Laporan */}
+          {/* 5. KRITERIA LAPORAN PENGADUAN */}
           <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--gov-blue-dark)', marginBottom: '1rem' }}>
             Kriteria Laporan Pengaduan
           </h2>
@@ -113,8 +163,8 @@ export default function Services() {
             </div>
           </div>
 
-          {/* Dasar Hukum */}
-          <div className="gov-card" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
+          {/* 6. DASAR HUKUM */}
+          <div className="gov-card" style={{ padding: '1.5rem' }}>
             <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--neutral-800)', marginBottom: '0.75rem' }}>
               Dasar Hukum Pelayanan Pengaduan
             </h3>
@@ -125,14 +175,6 @@ export default function Services() {
               <li>Peraturan Menteri PAN-RB Nomor 62 Tahun 2018 tentang Pedoman Sistem Pengaduan Pelayanan Publik Nasional.</li>
               <li>Peraturan Gubernur Riau tentang Tata Kelola Sistem Pengaduan dan Aspirasi Masyarakat di Lingkungan Pemerintah Provinsi Riau.</li>
             </ol>
-          </div>
-
-          {/* CTA */}
-          <div style={{ textAlign: 'center' }}>
-            <Link to="/report" className="gov-btn gov-btn-primary gov-btn-lg">
-              <Icon name="message" size={18} />
-              <span>Sampaikan Pengaduan Sekarang</span>
-            </Link>
           </div>
         </div>
       </section>
