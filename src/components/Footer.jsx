@@ -39,10 +39,19 @@ export default function Footer() {
                 <Link to="/struktur">Struktur Organisasi</Link>
               </li>
               <li>
-                <Link to="/informasi">Pusat Informasi &amp; FAQ</Link>
+                <Link to="/wilayah">Wilayah Kepengurusan</Link>
               </li>
               <li>
-                <Link to="/kontak">Kontak Sekretariat</Link>
+                <Link to="/kegiatan">Kegiatan &amp; Agenda</Link>
+              </li>
+              <li>
+                <Link to="/merchandise">Merchandise &amp; Cenderamata</Link>
+              </li>
+              <li>
+                <a href="/#faq">Pusat Informasi &amp; FAQ</a>
+              </li>
+              <li>
+                <a href="/#kontak">Kontak Sekretariat</a>
               </li>
               <li>
                 <Link to="/track">Lacak Status Pengajuan</Link>

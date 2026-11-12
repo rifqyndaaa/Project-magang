@@ -74,12 +74,12 @@ export default function OrganizationDetail() {
       <section className="pcr-profile-hero">
         <div className="pcr-profile-hero__bg" aria-hidden="true">
           <img
-            src="/images/pelayanan-publik-riau.jpg"
-            alt=""
+            src="/images/jembatan-siak.jpg"
+            alt="Jembatan Siak Provinsi Riau"
             className="pcr-profile-hero__img"
             onError={(e) => {
-              // fallback jika gambar lokal belum termuat
-              e.target.src = 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1600&q=80';
+              // Fallback landmark Riau
+              e.target.src = '/images/istana-siak.jpg';
             }}
           />
           <div className="pcr-profile-hero__overlay" />

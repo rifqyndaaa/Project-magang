@@ -17,6 +17,13 @@ import Organization       from './pages/guest/Organization';
 import OrganizationDetail from './pages/guest/Organization/Detail';
 import RegionsPage        from './pages/guest/Regions';
 import RegionStructure    from './pages/guest/Regions/RegionStructure';
+import Activities         from './pages/guest/Activities';
+import ProgramKerja       from './pages/guest/Activities/ProgramKerja';
+import Agenda             from './pages/guest/Activities/Agenda';
+import GaleriFoto         from './pages/guest/Activities/Galeri';
+import Merchandise        from './pages/guest/Merchandise';
+import PernakPernik       from './pages/guest/Merchandise/PernakPernik';
+import Cenderamata        from './pages/guest/Merchandise/Cenderamata';
 import Products           from './pages/guest/Products';
 import ProductDetail      from './pages/guest/Products/Detail';
 import NotFound           from './pages/guest/NotFound';
@@ -48,6 +55,13 @@ export default function App() {
           <Route path="/struktur/:id"  element={<OrganizationDetail />} />
           <Route path="/wilayah"       element={<RegionsPage />} />
           <Route path="/wilayah/:id"   element={<RegionStructure />} />
+          <Route path="/kegiatan"               element={<Activities />} />
+          <Route path="/kegiatan/program-kerja" element={<ProgramKerja />} />
+          <Route path="/kegiatan/agenda"        element={<Agenda />} />
+          <Route path="/kegiatan/galeri"        element={<GaleriFoto />} />
+          <Route path="/merchandise"                 element={<Merchandise />} />
+          <Route path="/merchandise/pernak-pernik"   element={<PernakPernik />} />
+          <Route path="/merchandise/cenderamata"     element={<Cenderamata />} />
           <Route path="*"              element={<NotFound />} />
         </Route>
 

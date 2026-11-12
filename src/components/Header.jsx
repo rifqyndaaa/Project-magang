@@ -63,9 +63,11 @@ export default function Header() {
     location.pathname.startsWith('/categories') ||
     location.pathname === '/track';
 
-  const isInformasiActive =
-    location.pathname.startsWith('/informasi') ||
-    location.pathname.startsWith('/kontak');
+  const isKegiatanActive =
+    location.pathname.startsWith('/kegiatan');
+
+  const isMerchandiseActive =
+    location.pathname.startsWith('/merchandise');
 
   return (
     <header className={`gov-header-official ${scrolled ? 'is-scrolled' : ''}`} role="banner">
@@ -121,7 +123,7 @@ export default function Header() {
                   to="/layanan"
                   className={`gov-nav-parent-link ${isLayananActive ? 'active' : ''}`}
                   onClick={(e) => {
-                    if (window.innerWidth <= 900) {
+                    if (window.innerWidth <= 1024) {
                       e.preventDefault();
                       toggleMobileSubmenu('layanan');
                     } else {
@@ -223,7 +225,7 @@ export default function Header() {
                   to="/wilayah"
                   className={`gov-nav-parent-link ${location.pathname.startsWith('/wilayah') ? 'active' : ''}`}
                   onClick={(e) => {
-                    if (window.innerWidth <= 900) {
+                    if (window.innerWidth <= 1024) {
                       e.preventDefault();
                       toggleMobileSubmenu('wilayah');
                     } else {
@@ -305,30 +307,30 @@ export default function Header() {
               </div>
             </li>
 
-            {/* 5. INFORMASI (DROPDOWN) */}
+            {/* 5. KEGIATAN (DROPDOWN) */}
             <li
-              className={`gov-nav-has-dropdown ${activeDropdown === 'informasi' ? 'is-dropdown-open' : ''} ${mobileSubmenu === 'informasi' ? 'is-mobile-submenu-open' : ''}`}
-              onMouseEnter={() => setActiveDropdown('informasi')}
+              className={`gov-nav-has-dropdown ${activeDropdown === 'kegiatan' ? 'is-dropdown-open' : ''} ${mobileSubmenu === 'kegiatan' ? 'is-mobile-submenu-open' : ''}`}
+              onMouseEnter={() => setActiveDropdown('kegiatan')}
               onMouseLeave={() => setActiveDropdown(null)}
             >
               <div className="gov-nav-parent-wrapper">
                 <NavLink
-                  to="/informasi"
-                  className={`gov-nav-parent-link ${isInformasiActive ? 'active' : ''}`}
+                  to="/kegiatan"
+                  className={`gov-nav-parent-link ${isKegiatanActive ? 'active' : ''}`}
                   onClick={(e) => {
-                    if (window.innerWidth <= 900) {
+                    if (window.innerWidth <= 1024) {
                       e.preventDefault();
-                      toggleMobileSubmenu('informasi');
+                      toggleMobileSubmenu('kegiatan');
                     } else {
                       closeMenu();
                     }
                   }}
-                  aria-expanded={activeDropdown === 'informasi' || mobileSubmenu === 'informasi'}
+                  aria-expanded={activeDropdown === 'kegiatan' || mobileSubmenu === 'kegiatan'}
                   aria-haspopup="true"
                 >
-                  <span>Informasi</span>
+                  <span>Kegiatan</span>
                   <span className="gov-nav-arrow-icon" aria-hidden="true">
-                    <Icon name={mobileSubmenu === 'informasi' ? 'chevron-up' : 'chevron-down'} size={14} />
+                    <Icon name={mobileSubmenu === 'kegiatan' ? 'chevron-up' : 'chevron-down'} size={14} />
                   </span>
                 </NavLink>
 
@@ -336,65 +338,129 @@ export default function Header() {
                 <button
                   type="button"
                   className="gov-mobile-submenu-btn"
-                  aria-label="Buka submenu Informasi"
-                  onClick={() => toggleMobileSubmenu('informasi')}
+                  aria-label="Buka submenu Kegiatan"
+                  onClick={() => toggleMobileSubmenu('kegiatan')}
                 >
-                  <Icon name={mobileSubmenu === 'informasi' ? 'chevron-up' : 'chevron-down'} size={15} />
+                  <Icon name={mobileSubmenu === 'kegiatan' ? 'chevron-up' : 'chevron-down'} size={15} />
                 </button>
               </div>
 
-              {/* Isi Dropdown Informasi */}
+              {/* Isi Dropdown Kegiatan */}
               <div className="gov-dropdown-menu" role="menu">
                 <Link
-                  to="/informasi"
+                  to="/kegiatan/program-kerja"
                   className="gov-dropdown-item"
-                  role="menuitem"
-                  onClick={closeMenu}
-                >
-                  <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">Informasi Layanan</span>
-                    <span className="gov-dropdown-item-desc">Mekanisme pelayanan, SLA, dan standar operasional</span>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/informasi#panduan"
-                  className="gov-dropdown-item"
-                  role="menuitem"
-                  onClick={() => handleAnchorClick('panduan')}
-                >
-                  <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">Panduan Penggunaan</span>
-                    <span className="gov-dropdown-item-desc">Tips penyampaian pengaduan yang efektif & tepat sasaran</span>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/informasi#faq"
-                  className="gov-dropdown-item"
-                  role="menuitem"
-                  onClick={() => handleAnchorClick('faq')}
-                >
-                  <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">FAQ / Pertanyaan Umum</span>
-                    <span className="gov-dropdown-item-desc">Pertanyaan yang sering diajukan seputar penanganan laporan</span>
-                  </div>
-                </Link>
-
-                <div className="gov-dropdown-divider" role="separator" />
-
-                <Link
-                  to="/kontak"
-                  className="gov-dropdown-item gov-dropdown-item-highlight"
                   role="menuitem"
                   onClick={closeMenu}
                 >
                   <div className="gov-dropdown-item-content">
                     <span className="gov-dropdown-item-title">
-                      <Icon name="phone" size={14} className="gov-dropdown-item-icon" />
-                      Kontak Kami
+                      <Icon name="file-text" size={14} className="gov-dropdown-item-icon" />
+                      Program Kerja
                     </span>
-                    <span className="gov-dropdown-item-desc">Alamat sekretariat, nomor telepon, call center 112, & email</span>
+                    <span className="gov-dropdown-item-desc">Rencana strategis dan program kerja 5 divisi IFPI</span>
+                  </div>
+                </Link>
+
+                <Link
+                  to="/kegiatan/agenda"
+                  className="gov-dropdown-item"
+                  role="menuitem"
+                  onClick={closeMenu}
+                >
+                  <div className="gov-dropdown-item-content">
+                    <span className="gov-dropdown-item-title">
+                      <Icon name="calendar" size={14} className="gov-dropdown-item-icon" />
+                      Agenda
+                    </span>
+                    <span className="gov-dropdown-item-desc">Jadwal rakerwil, workshop, bimtek, &amp; forum PBJ</span>
+                  </div>
+                </Link>
+
+                <Link
+                  to="/kegiatan/galeri"
+                  className="gov-dropdown-item"
+                  role="menuitem"
+                  onClick={closeMenu}
+                >
+                  <div className="gov-dropdown-item-content">
+                    <span className="gov-dropdown-item-title">
+                      <Icon name="image" size={14} className="gov-dropdown-item-icon" />
+                      Galeri Foto
+                    </span>
+                    <span className="gov-dropdown-item-desc">Dokumentasi visual rangkaian kegiatan resmi IFPI</span>
+                  </div>
+                </Link>
+              </div>
+            </li>
+
+            {/* 6. MERCHANDISE (DROPDOWN) */}
+            <li
+              className={`gov-nav-has-dropdown ${activeDropdown === 'merchandise' ? 'is-dropdown-open' : ''} ${mobileSubmenu === 'merchandise' ? 'is-mobile-submenu-open' : ''}`}
+              onMouseEnter={() => setActiveDropdown('merchandise')}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+              <div className="gov-nav-parent-wrapper">
+                <NavLink
+                  to="/merchandise"
+                  className={`gov-nav-parent-link ${isMerchandiseActive ? 'active' : ''}`}
+                  onClick={(e) => {
+                    if (window.innerWidth <= 1024) {
+                      e.preventDefault();
+                      toggleMobileSubmenu('merchandise');
+                    } else {
+                      closeMenu();
+                    }
+                  }}
+                  aria-expanded={activeDropdown === 'merchandise' || mobileSubmenu === 'merchandise'}
+                  aria-haspopup="true"
+                >
+                  <span>Merchandise</span>
+                  <span className="gov-nav-arrow-icon" aria-hidden="true">
+                    <Icon name={mobileSubmenu === 'merchandise' ? 'chevron-up' : 'chevron-down'} size={14} />
+                  </span>
+                </NavLink>
+
+                {/* Tombol ekspansi mobile */}
+                <button
+                  type="button"
+                  className="gov-mobile-submenu-btn"
+                  aria-label="Buka submenu Merchandise"
+                  onClick={() => toggleMobileSubmenu('merchandise')}
+                >
+                  <Icon name={mobileSubmenu === 'merchandise' ? 'chevron-up' : 'chevron-down'} size={15} />
+                </button>
+              </div>
+
+              {/* Isi Dropdown Merchandise */}
+              <div className="gov-dropdown-menu" role="menu">
+                <Link
+                  to="/merchandise/pernak-pernik"
+                  className="gov-dropdown-item"
+                  role="menuitem"
+                  onClick={closeMenu}
+                >
+                  <div className="gov-dropdown-item-content">
+                    <span className="gov-dropdown-item-title">
+                      <Icon name="tag" size={14} className="gov-dropdown-item-icon" />
+                      Pernak-pernik
+                    </span>
+                    <span className="gov-dropdown-item-desc">Pin, badge, tumbler, kaos, &amp; atribut identitas IFPI</span>
+                  </div>
+                </Link>
+
+                <Link
+                  to="/merchandise/cenderamata"
+                  className="gov-dropdown-item"
+                  role="menuitem"
+                  onClick={closeMenu}
+                >
+                  <div className="gov-dropdown-item-content">
+                    <span className="gov-dropdown-item-title">
+                      <Icon name="award" size={14} className="gov-dropdown-item-icon" />
+                      Cenderamata
+                    </span>
+                    <span className="gov-dropdown-item-desc">Plakat resmi, piagam, &amp; paket kenang-kenangan tamu</span>
                   </div>
                 </Link>
               </div>

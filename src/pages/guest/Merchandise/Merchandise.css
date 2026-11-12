@@ -1,0 +1,527 @@
+/* ================================================================
+   MERCHANDISE.CSS — Modul Merchandise DPW IFPI Provinsi Riau
+   Identitas: Merah IFPI (#B8202D), Merah Gelap (#8F1723), Putih (#FFFFFF)
+   Karakter: Institusional Resmi, Elegan, Rapi, Non-Komersial Berlebih
+   ================================================================ */
+
+.merch-page {
+  background-color: #F8FAFC;
+  min-height: 85vh;
+  padding: 2rem 0 5rem;
+  color: #1E293B;
+}
+
+/* Header Halaman Publik */
+.merch-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.merch-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  background-color: var(--ifpi-light-red, #F9EDEF);
+  color: var(--ifpi-red, #B8202D);
+  border: 1px solid rgba(184, 32, 45, 0.2);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.merch-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.5rem;
+  line-height: 1.25;
+}
+
+.merch-title-accent {
+  color: var(--ifpi-red, #B8202D);
+}
+
+.merch-desc {
+  font-size: 0.95rem;
+  color: #64748B;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* Navigasi Tab 2 Submenu: Pernak-pernik & Cenderamata */
+.merch-nav-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2.25rem;
+  flex-wrap: wrap;
+}
+
+.merch-nav-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.45rem;
+  background-color: #FFFFFF;
+  color: #475569;
+  border: 1px solid #CBD5E1;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.merch-nav-tab-btn:hover {
+  border-color: var(--ifpi-red, #B8202D);
+  color: var(--ifpi-red, #B8202D);
+  transform: translateY(-1px);
+}
+
+.merch-nav-tab-btn.is-active {
+  background-color: var(--ifpi-red, #B8202D);
+  border-color: var(--ifpi-red, #B8202D);
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(184, 32, 45, 0.25);
+}
+
+/* Filter Chip Bar */
+.merch-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.merch-filter-btn {
+  padding: 0.35rem 0.85rem;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.merch-filter-btn:hover {
+  border-color: #94A3B8;
+  color: #1E293B;
+}
+
+.merch-filter-btn.is-active {
+  background-color: #0F172A;
+  border-color: #0F172A;
+  color: #FFFFFF;
+}
+
+/* Grid Kartu Merchandise */
+.merch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+
+.merch-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.merch-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  border-color: #CBD5E1;
+}
+
+/* Bagian Visual / Preview Produk */
+.merch-card-visual {
+  position: relative;
+  background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+  border-bottom: 1px solid #E2E8F0;
+  padding: 2.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  overflow: hidden;
+}
+
+.merch-card-icon-wrap {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid rgba(184, 32, 45, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ifpi-red, #B8202D);
+  box-shadow: 0 4px 12px rgba(184, 32, 45, 0.1);
+  margin-bottom: 0.5rem;
+}
+
+.merch-card-code-pill {
+  font-size: 0.6875rem;
+  font-family: monospace;
+  font-weight: 700;
+  color: #64748B;
+  background-color: #FFFFFF;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #E2E8F0;
+}
+
+.merch-card-status-pill {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+}
+
+.merch-status-tersedia {
+  background-color: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+}
+
+.merch-status-preorder {
+  background-color: #FFFBEB;
+  color: #B45309;
+  border: 1px solid #FDE68A;
+}
+
+.merch-status-kedinasan {
+  background-color: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #BFDBFE;
+}
+
+/* Konten Deskripsi Kartu */
+.merch-card-body {
+  padding: 1.25rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.merch-card-cat {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--ifpi-red, #B8202D);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+}
+
+.merch-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.5rem;
+  line-height: 1.35;
+}
+
+.merch-card-desc {
+  font-size: 0.84rem;
+  color: #475569;
+  line-height: 1.55;
+  margin: 0 0 1rem;
+  flex-grow: 1;
+}
+
+/* Kotak Spesifikasi Mini */
+.merch-specs-box {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 0.75rem 0.85rem;
+  margin-bottom: 1.15rem;
+}
+
+.merch-specs-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #334155;
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.merch-specs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.merch-specs-list li {
+  font-size: 0.75rem;
+  color: #64748B;
+  line-height: 1.4;
+  position: relative;
+  padding-left: 0.85rem;
+}
+
+.merch-specs-list li::before {
+  content: '•';
+  color: var(--ifpi-red, #B8202D);
+  position: absolute;
+  left: 0;
+  top: -1px;
+}
+
+/* Keterangan Peruntukan Khusus Cenderamata */
+.merch-peruntukan-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  background-color: #FEF2F2;
+  border: 1px solid rgba(184, 32, 45, 0.15);
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.75rem;
+  color: #8F1723;
+  margin-bottom: 1.15rem;
+  line-height: 1.45;
+}
+
+.merch-peruntukan-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Footer Kartu & Harga */
+.merch-card-footer {
+  border-top: 1px solid #F1F5F9;
+  padding-top: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.merch-price-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.merch-price-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #94A3B8;
+  text-transform: uppercase;
+}
+
+.merch-price-val {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.merch-btn-inquiry {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.95rem;
+  background-color: var(--ifpi-red, #B8202D);
+  color: #FFFFFF !important;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.18s ease;
+  white-space: nowrap;
+}
+
+.merch-btn-inquiry:hover,
+.merch-btn-inquiry:active {
+  background-color: var(--ifpi-dark-red, #8F1723);
+}
+
+/* Modal Informasi & Pemesanan */
+.merch-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.merch-modal {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  max-width: 580px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.merch-modal-header {
+  padding: 1.25rem 1.5rem;
+  background-color: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.merch-modal-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.merch-modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #64748B;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.merch-modal-close-btn:hover {
+  color: #0F172A;
+  background-color: #E2E8F0;
+}
+
+.merch-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.merch-modal-info-box {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.merch-modal-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--ifpi-light-red, #F9EDEF);
+  border: 1px solid rgba(184, 32, 45, 0.2);
+  border-radius: 10px;
+  font-size: 0.8125rem;
+  color: var(--ifpi-red, #B8202D);
+}
+
+.merch-modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.merch-modal-btn-close {
+  padding: 0.55rem 1.15rem;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+}
+
+.merch-modal-btn-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.15rem;
+  background-color: var(--ifpi-red, #B8202D);
+  color: #FFFFFF !important;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.merch-modal-btn-contact:hover {
+  background-color: var(--ifpi-dark-red, #8F1723);
+}
+
+/* Box Catatan Resmi */
+.merch-notice-box {
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-left: 4px solid var(--ifpi-red, #B8202D);
+  border-radius: 10px;
+  padding: 1.15rem 1.35rem;
+  margin-top: 2.5rem;
+  font-size: 0.8125rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.merch-notice-box strong {
+  color: #0F172A;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 768px) {
+  .merch-page {
+    padding: 1.5rem 0 3.5rem;
+  }
+
+  .merch-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .merch-nav-tab-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

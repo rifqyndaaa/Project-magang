@@ -898,6 +898,284 @@
 }
 
 /* ============================================================
+   INTEGRASI INFORMASI: PANDUAN TIPS, FAQ & KONTAK DI BERANDA
+   ============================================================ */
+
+/* Scroll margin untuk navigasi anchor sticky header */
+#panduan,
+#faq,
+#kontak,
+#layanan {
+  scroll-margin-top: 90px;
+}
+
+/* Tips Efektif Melapor */
+.home-tips-wrapper {
+  margin-top: 3rem;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-left: 4px solid var(--ifpi-red);
+  border-radius: 12px;
+  padding: 1.75rem;
+}
+
+.home-tips-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.home-tips-header h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.home-tips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.home-tip-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.home-tip-card strong {
+  font-size: 0.875rem;
+  color: var(--ifpi-red);
+  display: block;
+}
+
+.home-tip-card p {
+  font-size: 0.8125rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Section FAQ di Beranda */
+.home-faq {
+  padding: 5rem 0;
+  background-color: #F8FAFC;
+}
+
+.home-faq__container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.home-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 2rem;
+}
+
+.home-faq__item {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.home-faq__item.is-open {
+  border-color: var(--ifpi-red);
+  box-shadow: 0 4px 14px rgba(184, 32, 45, 0.08);
+}
+
+.home-faq__btn {
+  width: 100%;
+  padding: 1.15rem 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0F172A;
+  transition: color 0.15s ease;
+}
+
+.home-faq__item.is-open .home-faq__btn {
+  color: var(--ifpi-red);
+  background-color: #FFFBFB;
+}
+
+.home-faq__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #F1F5F9;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.home-faq__item.is-open .home-faq__icon {
+  background-color: var(--ifpi-light-red);
+  color: var(--ifpi-red);
+}
+
+.home-faq__content {
+  padding: 1.15rem 1.35rem;
+  border-top: 1px solid #F1F5F9;
+  background-color: #FFFFFF;
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.home-faq__help-box {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1.75rem;
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.home-faq__help-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.35rem;
+}
+
+.home-faq__help-text {
+  font-size: 0.875rem;
+  color: #64748B;
+  margin: 0 0 1.25rem;
+}
+
+.home-faq__help-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+/* Section Kontak & Sekretariat di Beranda */
+.home-contact {
+  padding: 5rem 0;
+  background-color: #FFFFFF;
+}
+
+.home-contact__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.home-contact__card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 1.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.home-contact__card--ifpi {
+  border-top: 4px solid var(--ifpi-red);
+}
+
+.home-contact__card--opd {
+  border-top: 4px solid #047857;
+}
+
+.home-contact__card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 1.25rem;
+}
+
+.home-contact__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.home-contact__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.home-contact__item-icon {
+  color: var(--ifpi-red);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.home-contact__item-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 0.15rem;
+}
+
+.home-contact__item-val {
+  font-size: 0.8125rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.home-opd-item {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.home-opd-item:last-child {
+  margin-bottom: 0;
+}
+
+.home-opd-item strong {
+  display: block;
+  font-size: 0.84rem;
+  color: #0F172A;
+}
+
+.home-opd-item span.role {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #047857;
+  margin: 0.15rem 0 0.25rem;
+}
+
+.home-opd-item p {
+  font-size: 0.75rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1100px) {
@@ -944,6 +1222,14 @@
 
   .home-steps__row::before {
     display: none;
+  }
+
+  .home-tips-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-contact__grid {
+    grid-template-columns: 1fr;
   }
 }
 
