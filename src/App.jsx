@@ -1,29 +1,30 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// Guest Layout
-import PublicLayout from './guest/layouts/PublicLayout';
-
-// Admin Layout
-import AdminLayout from './admin/layouts/AdminLayout';
+// Layouts
+import PublicLayout from './layouts/PublicLayout';
+import AdminLayout from './layouts/AdminLayout';
 
 // Guest Pages
-import Home         from './guest/pages/Home';
-import Categories   from './guest/pages/Categories';
-import Report       from './guest/pages/Report';
-import Success      from './guest/pages/Success';
-import Track        from './guest/pages/Track';
-import Services     from './guest/pages/Services';
-import Information  from './guest/pages/Information';
-import Contact      from './guest/pages/Contact';
-import Organization from './guest/pages/Organization';
-import NotFound     from './guest/pages/NotFound';
-import Products     from './guest/pages/Products';
-import ProductDetail from './guest/pages/Products/Detail';
+import Home               from './pages/guest/Home';
+import Categories         from './pages/guest/Categories';
+import Report             from './pages/guest/Report';
+import Success            from './pages/guest/Success';
+import Track              from './pages/guest/Track';
+import Services           from './pages/guest/Services';
+import Information        from './pages/guest/Information';
+import Contact            from './pages/guest/Contact';
+import Organization       from './pages/guest/Organization';
+import OrganizationDetail from './pages/guest/Organization/Detail';
+import RegionsPage        from './pages/guest/Regions';
+import RegionStructure    from './pages/guest/Regions/RegionStructure';
+import Products           from './pages/guest/Products';
+import ProductDetail      from './pages/guest/Products/Detail';
+import NotFound           from './pages/guest/NotFound';
 
 // Admin Pages
-import AdminLogin     from './admin/pages/Login';
-import AdminDashboard from './admin/pages/Dashboard';
-import AdminDetail    from './admin/pages/Detail';
+import AdminLogin     from './pages/admin/Login';
+import AdminDashboard from './pages/admin/Dashboard';
+import AdminDetail    from './pages/admin/Detail';
 
 import './App.css';
 
@@ -33,27 +34,30 @@ export default function App() {
       <Routes>
         {/* Rute Publik */}
         <Route element={<PublicLayout />}>
-          <Route path="/"          element={<Home />} />
-          <Route path="/layanan"   element={<Services />} />
-          <Route path="/informasi" element={<Information />} />
-          <Route path="/kontak"    element={<Contact />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/report"    element={<Report />} />
-          <Route path="/success"   element={<Success />} />
-          <Route path="/track"     element={<Track />} />
-          <Route path="/produk"    element={<Products />} />
-          <Route path="/produk/:id" element={<ProductDetail />} />
-          <Route path="/struktur"  element={<Organization />} />
-          <Route path="*"          element={<NotFound />} />
+          <Route path="/"              element={<Home />} />
+          <Route path="/layanan"       element={<Services />} />
+          <Route path="/informasi"     element={<Information />} />
+          <Route path="/kontak"        element={<Contact />} />
+          <Route path="/categories"    element={<Categories />} />
+          <Route path="/report"        element={<Report />} />
+          <Route path="/success"       element={<Success />} />
+          <Route path="/track"         element={<Track />} />
+          <Route path="/produk"        element={<Products />} />
+          <Route path="/produk/:id"    element={<ProductDetail />} />
+          <Route path="/struktur"      element={<Organization />} />
+          <Route path="/struktur/:id"  element={<OrganizationDetail />} />
+          <Route path="/wilayah"       element={<RegionsPage />} />
+          <Route path="/wilayah/:id"   element={<RegionStructure />} />
+          <Route path="*"              element={<NotFound />} />
         </Route>
 
         {/* Rute Login Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
 
-        {/* Rute Admin Panel */}
+        {/* Rute Admin Panel Berproteksi */}
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index                element={<AdminDashboard />} />
-          <Route path="report/:id"    element={<AdminDetail />} />
+          <Route index             element={<AdminDashboard />} />
+          <Route path="report/:id" element={<AdminDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

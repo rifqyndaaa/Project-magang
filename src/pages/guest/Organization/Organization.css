@@ -1,0 +1,2561 @@
+/* ================================================================
+   ORGANIZATION.CSS — Bagan Struktur Organisasi DPW IFPI Riau
+   Model: Foto Profil Lingkaran + Hierarki Pohon Lengkap + Modal Biodata
+   Identitas: Merah IFPI (#B8202D), Putih (#FFFFFF), Abu-abu (#F7F7F7)
+   ================================================================ */
+
+:root {
+  --ifpi-red: #B8202D;
+  --ifpi-dark-red: #8F1723;
+  --ifpi-light-red: #F9EDEF;
+  --org-line-color: #64748B;
+  --org-line-width: 2px;
+  --org-col-w: 200px;
+}
+
+/* ---------- Halaman Wrapper ---------- */
+.org-page {
+  padding: 3rem 0 5rem;
+  background-color: #FAFAFA;
+  min-height: 80vh;
+  color: #252525;
+}
+
+.org-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Header Halaman ---------- */
+.org-page-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.org-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  background-color: var(--ifpi-light-red);
+  color: var(--ifpi-red);
+  border: 1px solid rgba(184, 32, 45, 0.2);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.org-page-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: #1A1A1A;
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+.org-title-accent {
+  color: var(--ifpi-red);
+}
+
+.org-page-subtitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4B5563;
+  margin: 0 0 0.5rem;
+}
+
+.org-page-desc {
+  font-size: 0.9375rem;
+  color: #6B7280;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* Petunjuk Interaksi */
+.org-hint-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.4rem 1rem;
+  background-color: #FFFFFF;
+  border: 1px dashed #CBD5E1;
+  border-radius: 20px;
+  font-size: 0.8125rem;
+  color: #64748B;
+}
+
+/* ---------- Horizontal Scroll Wrapper ---------- */
+.org-scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem 1rem 3rem;
+  margin: 0 -1rem;
+}
+
+.org-chart-canvas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 1060px;
+  width: max-content;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 2.5rem;
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #E5E7EB;
+}
+
+/* Judul Formal Dokumen Bagan */
+.org-doc-header {
+  text-align: center;
+  margin-bottom: 2.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--ifpi-red);
+  width: 100%;
+  max-width: 720px;
+}
+
+.org-doc-logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.org-doc-title-main {
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--ifpi-red);
+  margin: 0;
+}
+
+.org-doc-title-sub {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #1F2937;
+  margin: 0.15rem 0;
+}
+
+.org-doc-title-period {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #4B5563;
+  margin: 0;
+}
+
+/* ================================================================
+   KOMPONEN KARTU PROFIL PENGURUS
+   ================================================================ */
+.org-profile-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-top: 3px solid var(--ifpi-red);
+  border-radius: 12px;
+  padding: 1rem 0.85rem 0.9rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+.org-profile-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(184, 32, 45, 0.14);
+  border-color: var(--ifpi-red);
+}
+
+.org-profile-card:focus-visible {
+  outline: 2px solid var(--ifpi-red);
+  outline-offset: 2px;
+}
+
+/* Indikator klik pada hover */
+.org-card-hover-pill {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--ifpi-light-red);
+  color: var(--ifpi-red);
+  opacity: 0.6;
+  transition: all 0.15s ease;
+}
+
+.org-profile-card:hover .org-card-hover-pill {
+  opacity: 1;
+  background-color: var(--ifpi-red);
+  color: #FFFFFF;
+}
+
+/* Avatar Foto Lingkaran */
+.org-avatar-ring {
+  position: relative;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--ifpi-red), #E11D48);
+  box-shadow: 0 4px 12px rgba(184, 32, 45, 0.2);
+  margin-bottom: 0.75rem;
+  flex-shrink: 0;
+}
+
+.org-avatar-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.org-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.org-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--ifpi-light-red) 100%);
+  color: var(--ifpi-red);
+}
+
+.org-avatar-initials {
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+/* Info Nama & Jabatan */
+.org-card-name {
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.35;
+  margin: 0 0 0.35rem;
+  word-break: break-word;
+}
+
+.org-card-name--empty {
+  color: #9CA3AF;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.org-card-jabatan-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  background-color: var(--ifpi-light-red);
+  color: var(--ifpi-dark-red);
+  border: 1px solid rgba(184, 32, 45, 0.25);
+  border-radius: 6px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+
+/* ---- Varian Ukuran Kartu ---- */
+/* 1. Ketua */
+.org-card--ketua {
+  width: 250px;
+  padding: 1.25rem 1rem 1.1rem;
+  border-top-width: 4px;
+}
+
+.org-card--ketua .org-avatar-ring {
+  width: 90px;
+  height: 90px;
+}
+
+.org-card--ketua .org-avatar-initials {
+  font-size: 1.75rem;
+}
+
+.org-card--ketua .org-card-name {
+  font-size: 1.0625rem;
+}
+
+.org-card--ketua .org-card-jabatan-badge {
+  font-size: 0.75rem;
+  background-color: var(--ifpi-red);
+  color: #FFFFFF;
+  border-color: var(--ifpi-red);
+}
+
+/* 2. Tingkat 2 (Bendahara & Sekretaris I) */
+.org-card--t2 {
+  width: 215px;
+  padding: 1.1rem 0.85rem 1rem;
+}
+
+.org-card--t2 .org-avatar-ring {
+  width: 76px;
+  height: 76px;
+}
+
+.org-card--t2 .org-avatar-initials {
+  font-size: 1.4rem;
+}
+
+.org-card--t2 .org-card-name {
+  font-size: 0.9375rem;
+}
+
+/* 3. Koordinator Divisi */
+.org-card--koordinator {
+  width: 175px;
+  padding: 0.85rem 0.65rem;
+}
+
+.org-card--koordinator .org-avatar-ring {
+  width: 62px;
+  height: 62px;
+}
+
+.org-card--koordinator .org-avatar-initials {
+  font-size: 1.15rem;
+}
+
+.org-card--koordinator .org-card-name {
+  font-size: 0.8125rem;
+}
+
+.org-card--koordinator .org-card-jabatan-badge {
+  font-size: 0.65rem;
+  background-color: #FEF2F2;
+  color: var(--ifpi-red);
+}
+
+/* 4. Anggota */
+.org-card--anggota {
+  width: 165px;
+  padding: 0.75rem 0.5rem;
+  border-top-width: 2px;
+  background-color: #FAFAFA;
+}
+
+.org-card--anggota .org-avatar-ring {
+  width: 52px;
+  height: 52px;
+  padding: 2px;
+}
+
+.org-card--anggota .org-avatar-initials {
+  font-size: 0.95rem;
+}
+
+.org-card--anggota .org-card-name {
+  font-size: 0.75rem;
+}
+
+.org-card--anggota .org-card-jabatan-badge {
+  font-size: 0.6rem;
+  padding: 0.15rem 0.45rem;
+}
+
+/* ================================================================
+   GARIS STRUKTURAL & CONNECTOR
+   ================================================================ */
+.org-vline {
+  width: var(--org-line-width);
+  background-color: var(--org-line-color);
+  flex-shrink: 0;
+}
+
+/* Bar Tingkat 2 (Bendahara & Sekretaris) */
+.org-t2-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.org-t2-horizontal-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 440px;
+  height: var(--org-line-width);
+  background-color: var(--org-line-color);
+}
+
+.org-t2-row {
+  display: flex;
+  justify-content: center;
+  gap: 160px;
+  position: relative;
+}
+
+.org-t2-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ================================================================
+   LEVEL 3 — LIMA DIVISI HORIZONTAL
+   ================================================================ */
+.org-divisi-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+}
+
+.org-divisi-horizontal-bus {
+  height: var(--org-line-width);
+  background-color: var(--org-line-color);
+  position: relative;
+}
+
+.org-divisi-grid {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.org-divisi-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--org-col-w);
+}
+
+/* Header Divisi Box */
+.org-divisi-header-badge {
+  width: 100%;
+  background: linear-gradient(135deg, var(--ifpi-red), var(--ifpi-dark-red));
+  color: #FFFFFF;
+  border-radius: 8px;
+  padding: 0.65rem 0.5rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(184, 32, 45, 0.18);
+}
+
+.org-divisi-code {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  opacity: 0.9;
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+
+.org-divisi-name {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Stack Anggota Divisi */
+.org-divisi-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.org-member-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* ================================================================
+   MODAL BIODATA PENGURUS
+   ================================================================ */
+.org-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  animation: orgFadeIn 0.2s ease-out;
+}
+
+@keyframes orgFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.org-modal-card {
+  position: relative;
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid #E2E8F0;
+  animation: orgSlideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes orgSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal Header with Banner */
+.org-modal-banner {
+  background: linear-gradient(135deg, var(--ifpi-red) 0%, var(--ifpi-dark-red) 100%);
+  padding: 1.5rem 1.5rem 2.5rem;
+  color: #FFFFFF;
+  position: relative;
+  text-align: center;
+}
+
+.org-modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.org-modal-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.org-modal-org-tag {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  margin-bottom: 0.25rem;
+}
+
+.org-modal-banner-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+/* Modal Avatar Overlay */
+.org-modal-avatar-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: -45px;
+  position: relative;
+  z-index: 2;
+}
+
+.org-modal-avatar-ring {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  padding: 3px;
+  background: #FFFFFF;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.org-modal-avatar-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--ifpi-light-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.org-modal-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Modal Content Body */
+.org-modal-body {
+  padding: 1rem 1.5rem 1.5rem;
+  text-align: center;
+}
+
+.org-modal-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 0.35rem;
+}
+
+.org-modal-jabatan-badge {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  background-color: var(--ifpi-light-red);
+  color: var(--ifpi-red);
+  border: 1px solid rgba(184, 32, 45, 0.25);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+/* Info Grid */
+.org-modal-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  text-align: left;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.org-modal-meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.org-modal-meta-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
+}
+
+.org-modal-meta-val {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+/* Detail Section */
+.org-modal-desc-box {
+  text-align: left;
+  background-color: #FFFFFF;
+  border-top: 1px solid #F1F5F9;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+.org-modal-section-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.org-modal-desc-text {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+
+.org-modal-task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.org-modal-task-item {
+  font-size: 0.8125rem;
+  color: #334155;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.org-modal-task-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--ifpi-red);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+/* Status Belum Terisi Box */
+.org-modal-empty-notice {
+  background-color: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: left;
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.org-modal-empty-text {
+  font-size: 0.8125rem;
+  color: #92400E;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Modal Footer */
+.org-modal-footer {
+  padding: 0.85rem 1.5rem;
+  border-top: 1px solid #F1F5F9;
+  background-color: #F8FAFC;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.org-modal-btn-close {
+  padding: 0.55rem 1.25rem;
+  background-color: #FFFFFF;
+  color: #334155;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.org-modal-btn-close:hover {
+  background-color: #F1F5F9;
+  border-color: #94A3B8;
+  color: #0F172A;
+}
+
+/* ================================================================
+   TOGGLE VIEW & NAVIGASI MOBILE (BAGAN VS DAFTAR VERTIKAL)
+   ================================================================ */
+
+.org-view-toggle-bar {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.org-view-toggle-group {
+  display: inline-flex;
+  align-items: center;
+  background-color: #E2E8F0;
+  padding: 4px;
+  border-radius: 50px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.org-view-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.25rem;
+  background: transparent;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.org-view-toggle-btn:hover {
+  color: #0F172A;
+}
+
+.org-view-toggle-btn.is-active {
+  background-color: var(--ifpi-red);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(184, 32, 45, 0.3);
+}
+
+.org-view-toggle-badge {
+  font-size: 0.6875rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 20px;
+  background-color: #FEF2F2;
+  color: var(--ifpi-red);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.org-view-toggle-btn.is-active .org-view-toggle-badge {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+/* Navigasi Cepat Geser Bagan pada Mobile */
+.org-mobile-scroll-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding: 0.6rem 1rem;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+@media (min-width: 1025px) {
+  .org-mobile-scroll-nav {
+    display: none;
+  }
+}
+
+.org-mobile-scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.org-mobile-scroll-btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.org-scroll-nav-btn {
+  padding: 0.4rem 0.85rem;
+  background-color: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 36px;
+}
+
+.org-scroll-nav-btn:hover,
+.org-scroll-nav-btn:active {
+  background-color: var(--ifpi-light-red);
+  border-color: var(--ifpi-red);
+  color: var(--ifpi-red);
+}
+
+.org-scroll-nav-btn.is-center {
+  background-color: var(--ifpi-red);
+  border-color: var(--ifpi-red);
+  color: #FFFFFF;
+}
+
+/* ================================================================
+   TAMPILAN MODE VERTIKAL (MOBILE-OPTIMIZED LIST)
+   ================================================================ */
+.org-mob-view-container {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.org-mob-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.org-mob-section__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #E2E8F0;
+}
+
+.org-mob-section__tier-pill {
+  padding: 0.2rem 0.65rem;
+  background-color: var(--ifpi-red);
+  color: #FFFFFF;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 20px;
+}
+
+.org-mob-section__title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+/* Kartu Hero Ketua DPW Mobile */
+.org-mob-hero-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-top: 4px solid var(--ifpi-red);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.org-mob-hero-card__top {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.org-mob-hero__avatar-ring {
+  width: 90px !important;
+  height: 90px !important;
+  flex-shrink: 0;
+  margin-bottom: 0 !important;
+}
+
+.org-mob-hero-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.org-mob-hero-card__badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--ifpi-red);
+  background-color: var(--ifpi-light-red);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.org-mob-hero-card__name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.org-mob-hero-card__fungsional,
+.org-mob-hero-card__unit {
+  font-size: 0.8125rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.org-mob-hero-card__footer {
+  border-top: 1px dashed #E2E8F0;
+  padding-top: 0.85rem;
+}
+
+.org-mob-btn-detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--ifpi-red);
+  color: #FFFFFF !important;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.18s ease;
+  min-height: 44px;
+}
+
+.org-mob-btn-detail:hover,
+.org-mob-btn-detail:active {
+  background-color: var(--ifpi-dark-red);
+}
+
+/* Grid Kartu Pengurus Inti (Bendahara & Sekretaris) */
+.org-mob-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.85rem;
+}
+
+/* Kartu Anggota / Pengurus Horizontal */
+.org-mob-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.18s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  min-height: 48px;
+}
+
+.org-mob-card:hover,
+.org-mob-card:active {
+  border-color: var(--ifpi-red);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(184, 32, 45, 0.08);
+}
+
+.org-mob-card.is-leader {
+  border-left: 4px solid var(--ifpi-red);
+}
+
+.org-mob-card.is-koordinator {
+  border-left: 4px solid #E11D48;
+  background: linear-gradient(to right, #FFFBFB, #FFFFFF);
+}
+
+.org-mob-avatar__avatar-ring {
+  width: 54px !important;
+  height: 54px !important;
+  flex-shrink: 0;
+  margin-bottom: 0 !important;
+}
+
+.org-mob-card__content {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.org-mob-card__role {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--ifpi-red);
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+
+.org-mob-card__name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #1E293B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.org-mob-card__name.is-empty {
+  color: #94A3B8;
+  font-style: italic;
+}
+
+.org-mob-card__meta {
+  font-size: 0.75rem;
+  color: #64748B;
+  margin-top: 0.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.org-mob-card__action {
+  color: #94A3B8;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.org-mob-card:hover .org-mob-card__action {
+  color: var(--ifpi-red);
+  transform: translateX(3px);
+}
+
+/* Tab Selector 5 Divisi pada Mobile */
+.org-mob-tabs-scroll {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.25rem 0.2rem 0.5rem;
+  scrollbar-width: none;
+}
+
+.org-mob-tabs-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.org-mob-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.95rem;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 50px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+  min-height: 40px;
+}
+
+.org-mob-tab-btn__code {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  background-color: #F1F5F9;
+  border-radius: 12px;
+  font-size: 0.6875rem;
+  color: #64748B;
+}
+
+.org-mob-tab-btn.is-active {
+  background-color: var(--ifpi-red);
+  border-color: var(--ifpi-red);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(184, 32, 45, 0.25);
+}
+
+.org-mob-tab-btn.is-active .org-mob-tab-btn__code {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+/* Panel Rincian Divisi Terpilih */
+.org-mob-divisi-panel {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.org-mob-divisi-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.org-mob-divisi-card-header__code {
+  padding: 0.35rem 0.75rem;
+  background-color: var(--ifpi-light-red);
+  color: var(--ifpi-red);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.org-mob-divisi-card-header__title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.25rem;
+}
+
+.org-mob-divisi-card-header__desc {
+  font-size: 0.8125rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.org-mob-divisi-members {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.org-mob-members-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.org-mob-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 1024px) {
+  :root {
+    --org-col-w: 190px;
+  }
+}
+
+@media (max-width: 768px) {
+  .org-page {
+    padding: 1.75rem 0 3.5rem;
+  }
+
+  .org-container {
+    padding: 0 1rem;
+  }
+
+  .org-chart-canvas {
+    padding: 1.25rem 0.85rem 2rem;
+    min-width: 980px;
+  }
+
+  .org-scroll-wrapper {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .org-view-toggle-btn {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.8125rem;
+  }
+
+  .org-mob-hero-card__top {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.85rem;
+  }
+
+  .org-mob-hero-card__badge {
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .org-page-header {
+    margin-bottom: 1.75rem;
+  }
+
+  .org-view-toggle-group {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .org-view-toggle-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 0.5rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .org-view-toggle-badge {
+    display: none;
+  }
+}
+
+
+/* ================================================================
+   HALAMAN BARU: DETAIL PROFIL PENGURUS (/struktur/:id)
+   ================================================================ */
+
+.org-detail-page {
+  padding: 2rem 0 5rem;
+  background-color: #F8FAFC;
+  min-height: 85vh;
+  color: #1E293B;
+}
+
+.org-detail-top-nav {
+  margin: 1rem 0 1.5rem;
+}
+
+.org-btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  background-color: #FFFFFF;
+  color: #334155 !important;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.org-btn-back:hover {
+  background-color: #F1F5F9;
+  border-color: #94A3B8;
+  color: #0F172A !important;
+  transform: translateX(-2px);
+}
+
+/* Grid Layout Detail */
+.org-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.org-detail-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.org-detail-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+/* Hero Card Pengurus */
+.org-detail-hero-card {
+  border-top: 4px solid var(--ifpi-red);
+}
+
+.org-detail-hero-banner {
+  background: linear-gradient(135deg, var(--ifpi-red) 0%, var(--ifpi-dark-red) 100%);
+  color: #FFFFFF;
+  padding: 1.25rem 2rem 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.org-detail-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+
+.org-detail-period-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.18);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+}
+
+/* Avatar Hero */
+.org-detail-avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-top: -55px;
+  position: relative;
+  z-index: 2;
+}
+
+.org-detail-avatar-ring {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  padding: 4px;
+  background: #FFFFFF;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.org-detail-avatar-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--ifpi-light-red) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.org-detail-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.org-detail-hero-info {
+  padding: 1.25rem 2rem 1.5rem;
+  text-align: center;
+}
+
+.org-detail-name {
+  font-size: clamp(1.4rem, 2.8vw, 1.85rem);
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.5rem;
+  line-height: 1.25;
+}
+
+.org-detail-jabatan-badge {
+  display: inline-block;
+  padding: 0.4rem 1.15rem;
+  background-color: var(--ifpi-light-red);
+  color: var(--ifpi-dark-red);
+  border: 1px solid rgba(184, 32, 45, 0.3);
+  border-radius: 50px;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+}
+
+.org-detail-division-sub {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  color: #475569;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+
+.org-detail-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.85rem;
+  background-color: #F1F5F9;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.org-detail-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.org-detail-status-dot.is-active {
+  background-color: #16A34A;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+}
+
+.org-detail-status-dot.is-pending {
+  background-color: #D97706;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
+}
+
+/* Meta Grid */
+.org-detail-meta-box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1.25rem 2rem;
+  background-color: #F8FAFC;
+  border-top: 1px solid #E2E8F0;
+  text-align: left;
+}
+
+.org-detail-meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.org-detail-meta-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.25rem;
+}
+
+.org-detail-meta-val {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1E293B;
+  line-height: 1.35;
+}
+
+/* Body Card */
+.org-detail-body-card {
+  padding: 2rem 2.25rem;
+}
+
+.org-detail-section-heading {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 2px solid #F1F5F9;
+}
+
+.org-detail-block {
+  margin-bottom: 1.75rem;
+}
+
+.org-detail-block-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 0.5rem;
+}
+
+.org-detail-block-text {
+  font-size: 0.9375rem;
+  color: #475569;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.org-detail-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.org-detail-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.9375rem;
+  color: #334155;
+  line-height: 1.55;
+}
+
+.org-detail-check-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--ifpi-light-red);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Unfilled Formasi Info */
+.org-detail-unfilled-box {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.org-detail-unfilled-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #FEF3C7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.org-detail-unfilled-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #92400E;
+  margin: 0 0 0.4rem;
+}
+
+.org-detail-unfilled-text {
+  font-size: 0.875rem;
+  color: #78350F;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* CTA Box */
+.org-detail-cta-box {
+  margin-top: 2rem;
+  padding: 1.75rem;
+  background: linear-gradient(135deg, #FEF2F2 0%, #FFF5F5 100%);
+  border: 1px solid rgba(184, 32, 45, 0.2);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.org-detail-cta-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #8F1723;
+  margin: 0 0 0.35rem;
+}
+
+.org-detail-cta-desc {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.org-detail-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.org-detail-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
+  background-color: var(--ifpi-red);
+  color: #FFFFFF !important;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.18s ease;
+}
+
+.org-detail-btn-primary:hover {
+  background-color: var(--ifpi-dark-red);
+}
+
+.org-detail-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background-color: #FFFFFF;
+  color: #334155 !important;
+  border: 1px solid #CBD5E1;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.org-detail-btn-secondary:hover {
+  background-color: #F8FAFC;
+  border-color: #94A3B8;
+}
+
+/* Sidebar Cards */
+.org-detail-side-card {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.org-detail-side-title {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.org-detail-leaders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.org-detail-leader-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.org-detail-leader-item:hover {
+  background-color: #FFFFFF;
+  border-color: var(--ifpi-red);
+  transform: translateX(3px);
+  box-shadow: 0 2px 8px rgba(184, 32, 45, 0.1);
+}
+
+.org-detail-leader-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--ifpi-light-red);
+  color: var(--ifpi-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1.5px solid var(--ifpi-red);
+}
+
+.org-detail-leader-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.org-detail-leader-name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #0F172A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.org-detail-leader-role {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--ifpi-red);
+  text-transform: uppercase;
+}
+
+.org-detail-side-text {
+  font-size: 0.8125rem;
+  color: #64748B;
+  line-height: 1.5;
+  margin: 0 0 0.85rem;
+}
+
+.org-detail-contact-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 0.75rem;
+}
+
+.org-detail-contact-label {
+  color: #64748B;
+  font-weight: 500;
+}
+
+.org-detail-contact-val {
+  color: #0F172A;
+  font-weight: 700;
+}
+
+.org-detail-side-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ifpi-red);
+  text-decoration: none;
+}
+
+.org-detail-side-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Detail */
+@media (max-width: 960px) {
+  .org-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .org-detail-meta-box {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .org-detail-hero-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 1.25rem 3.5rem;
+  }
+
+  .org-detail-hero-info {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .org-detail-meta-box {
+    grid-template-columns: 1fr;
+    padding: 1rem 1.25rem;
+  }
+
+  .org-detail-body-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .org-detail-cta-actions {
+    flex-direction: column;
+  }
+
+  .org-detail-btn-primary,
+  .org-detail-btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* ================================================================
+   MODEL BARU DETAIL PROFIL: EDITORIAL PCR STYLE (REFERENSI GAMBAR)
+   ================================================================ */
+
+.pcr-profile-page {
+  background-color: #FFFFFF;
+  color: #1E293B;
+  min-height: 90vh;
+}
+
+/* 1. HERO BANNER ATAS */
+.pcr-profile-hero {
+  position: relative;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  border-radius: 0 0 24px 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.pcr-profile-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.pcr-profile-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.pcr-profile-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(15, 23, 42, 0.88) 0%,
+    rgba(24, 38, 65, 0.82) 50%,
+    rgba(140, 20, 30, 0.65) 100%
+  );
+}
+
+.pcr-profile-hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 3.5rem 0 2.5rem;
+}
+
+.pcr-profile-hero__title-wrap {
+  display: inline-block;
+  margin-bottom: 0.85rem;
+}
+
+.pcr-profile-hero__prefix {
+  font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+  font-weight: 300;
+  color: #FFFFFF;
+  margin-right: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.pcr-profile-hero__name {
+  display: inline;
+  font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.pcr-profile-hero__underline {
+  height: 4px;
+  background-color: var(--ifpi-red);
+  margin-top: 8px;
+  border-radius: 2px;
+  width: 100%;
+}
+
+.pcr-profile-hero__breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pcr-profile-hero__breadcrumb a {
+  color: rgba(255, 255, 255, 0.8) !important;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.pcr-profile-hero__breadcrumb a:hover {
+  color: #FFFFFF !important;
+}
+
+.pcr-breadcrumb-slash {
+  color: var(--ifpi-red);
+  font-weight: 800;
+}
+
+.pcr-breadcrumb-active {
+  color: #FFFFFF;
+}
+
+/* 2. BODY LAYOUT (2 KOLOM) */
+.pcr-profile-body {
+  padding: 3.5rem 0 5rem;
+  background-color: #FFFFFF;
+}
+
+.pcr-profile-layout {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+/* ----- KOLOM KIRI (FOTO & INFO SINGKAT) ----- */
+.pcr-profile-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pcr-photo-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.pcr-photo-wrap {
+  width: 100%;
+  aspect-ratio: 3 / 3.8;
+  overflow: hidden;
+  background-color: #0F172A;
+}
+
+.pcr-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.pcr-photo-card:hover .pcr-photo-img {
+  transform: scale(1.03);
+}
+
+.pcr-photo-placeholder {
+  width: 100%;
+  aspect-ratio: 3 / 3.5;
+  background: linear-gradient(135deg, #F8FAFC 0%, var(--ifpi-light-red) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--ifpi-red);
+  gap: 0.5rem;
+}
+
+.pcr-photo-initials {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.pcr-photo-caption {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  letter-spacing: 0.08em;
+}
+
+.pcr-photo-meta {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.pcr-meta-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.pcr-meta-role-badge {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background-color: var(--ifpi-light-red);
+  color: var(--ifpi-dark-red);
+  border: 1px solid rgba(184, 32, 45, 0.25);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+
+.pcr-meta-fungsional,
+.pcr-meta-unit {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: #334155;
+  line-height: 1.45;
+}
+
+.pcr-meta-fungsional {
+  font-weight: 700;
+}
+
+.pcr-meta-period {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-top: 1px solid #F1F5F9;
+  font-size: 0.8125rem;
+  color: #64748B;
+}
+
+.pcr-meta-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  background-color: #F8FAFC;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+  border: 1px solid #E2E8F0;
+  align-self: flex-start;
+}
+
+.pcr-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pcr-status-dot.is-active {
+  background-color: #16A34A;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+}
+
+.pcr-status-dot.is-pending {
+  background-color: #D97706;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
+}
+
+/* Tombol Kembali */
+.pcr-btn-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: #FFFFFF;
+  color: #334155 !important;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.pcr-btn-back:hover {
+  background-color: #F8FAFC;
+  border-color: #94A3B8;
+  color: #0F172A !important;
+  transform: translateX(-3px);
+}
+
+/* Sidebar Box Pimpinan */
+.pcr-sidebar-box {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 1.25rem;
+}
+
+.pcr-sidebar-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.85rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #F1F5F9;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pcr-sidebar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pcr-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.65rem;
+  background-color: #F8FAFC;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.pcr-sidebar-item:hover {
+  background-color: #FFFFFF;
+  border-color: var(--ifpi-red);
+  transform: translateX(3px);
+}
+
+.pcr-sidebar-item__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--ifpi-light-red);
+  color: var(--ifpi-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.pcr-sidebar-item__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pcr-sidebar-item__name {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #0F172A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pcr-sidebar-item__role {
+  display: block;
+  font-size: 0.6875rem;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+/* ----- KOLOM KANAN (EDITORIAL CONTENT) ----- */
+.pcr-profile-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+}
+
+.pcr-content-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.pcr-section-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0B3A53;
+  margin: 0;
+  letter-spacing: -0.01em;
+  position: relative;
+  display: inline-block;
+}
+
+.pcr-editorial-lead {
+  font-size: 1.0625rem;
+  color: #334155;
+  line-height: 1.85;
+  margin: 0;
+}
+
+/* Timeline Card Karir ASN */
+.pcr-timeline-card {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
+  border: 1px solid #E2E8F0;
+  border-left: 4px solid var(--ifpi-red);
+  border-radius: 10px;
+}
+
+.pcr-timeline-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: var(--ifpi-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pcr-timeline-heading {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.35rem;
+}
+
+.pcr-timeline-text {
+  font-size: 0.9375rem;
+  color: #475569;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Daftar Publikasi Editorial */
+.pcr-publication-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-left: 2px solid #E2E8F0;
+  padding-left: 1.5rem;
+}
+
+.pcr-pub-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pcr-pub-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.pcr-pub-authors {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748B;
+  margin: 0;
+}
+
+/* Facts Grid */
+.pcr-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.pcr-fact-card {
+  padding: 1.25rem;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  transition: all 0.18s ease;
+}
+
+.pcr-fact-card:hover {
+  border-color: var(--ifpi-red);
+  box-shadow: 0 4px 14px rgba(184, 32, 45, 0.08);
+}
+
+.pcr-fact-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748B;
+}
+
+.pcr-fact-val {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.35;
+}
+
+.pcr-fact-sub {
+  font-size: 0.8125rem;
+  color: #94A3B8;
+  margin-top: 0.25rem;
+}
+
+/* Task List */
+.pcr-task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.pcr-task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background-color: #F8FAFC;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  color: #334155;
+  line-height: 1.6;
+}
+
+.pcr-task-number {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: var(--ifpi-red);
+  background-color: var(--ifpi-light-red);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* Action Banner */
+.pcr-action-banner {
+  margin-top: 1.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #FEF2F2 0%, #FFF5F5 100%);
+  border: 1px solid rgba(184, 32, 45, 0.25);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pcr-action-banner__title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #8F1723;
+  margin: 0 0 0.35rem;
+}
+
+.pcr-action-banner__desc {
+  font-size: 0.9375rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.pcr-action-banner__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.pcr-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.6rem;
+  background-color: var(--ifpi-red);
+  color: #FFFFFF !important;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.18s ease;
+}
+
+.pcr-btn-primary:hover {
+  background-color: var(--ifpi-dark-red);
+}
+
+.pcr-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 1.4rem;
+  background-color: #FFFFFF;
+  color: #334155 !important;
+  border: 1px solid #CBD5E1;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.pcr-btn-secondary:hover {
+  background-color: #F8FAFC;
+  border-color: #94A3B8;
+}
+
+.pcr-notfound-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.pcr-notfound-card h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 1rem 0 0.5rem;
+}
+
+.pcr-notfound-card p {
+  color: #64748B;
+  font-size: 0.9375rem;
+  margin: 0 0 1.5rem;
+}
+
+.pcr-btn-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.3rem;
+  background-color: var(--ifpi-red);
+  color: #FFFFFF !important;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .pcr-profile-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .pcr-profile-left {
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .pcr-facts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .pcr-profile-hero {
+    border-radius: 0 0 16px 16px;
+  }
+
+  .pcr-profile-hero__content {
+    padding: 2.5rem 0 2rem;
+  }
+
+  .pcr-action-banner__buttons {
+    flex-direction: column;
+  }
+
+  .pcr-btn-primary,
+  .pcr-btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

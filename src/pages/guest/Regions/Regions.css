@@ -1,0 +1,674 @@
+/* ================================================================
+   REGIONS.CSS — Peta Geografis Interaktif Provinsi Riau & Wilayah IFPI
+   Identitas: Merah IFPI (#B8202D), Putih (#FFFFFF), Abu-abu (#F7F7F7)
+   ================================================================ */
+
+.regions-page {
+  background-color: #F8FAFC;
+  min-height: 85vh;
+  padding: 2.5rem 0 5rem;
+  color: #1E293B;
+}
+
+/* Header Halaman */
+.regions-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.regions-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  background-color: var(--ifpi-light-red);
+  color: var(--ifpi-red);
+  border: 1px solid rgba(184, 32, 45, 0.25);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.regions-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.5rem;
+  line-height: 1.25;
+}
+
+.regions-title-accent {
+  color: var(--ifpi-red);
+}
+
+.regions-desc {
+  font-size: 1rem;
+  color: #64748B;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* Quick Pills Selector di Atas Peta */
+.regions-pills-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.regions-pill-btn {
+  padding: 0.45rem 0.9rem;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 50px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.regions-pill-btn:hover {
+  border-color: var(--ifpi-red);
+  color: var(--ifpi-red);
+  transform: translateY(-1px);
+}
+
+.regions-pill-btn.is-active {
+  background-color: var(--ifpi-red);
+  border-color: var(--ifpi-red);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(184, 32, 45, 0.25);
+}
+
+/* Grid Layout: Peta di Kiri + Panel Info di Kanan */
+.regions-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* ================================================================
+   KOMPONEN RIAU MAP (SVG CARD)
+   ================================================================ */
+.riau-map-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.riau-map-controls {
+  padding: 1rem 1.5rem;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #F1F5F9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.riau-map-filter-group {
+  display: flex;
+  gap: 0.35rem;
+  background-color: #F1F5F9;
+  padding: 0.25rem;
+  border-radius: 8px;
+}
+
+.riau-map-filter-btn {
+  padding: 0.35rem 0.75rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.riau-map-filter-btn.is-active {
+  background-color: #FFFFFF;
+  color: var(--ifpi-red);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.riau-map-zoom-group {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.riau-zoom-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.riau-zoom-btn:hover {
+  background-color: #FFFFFF;
+  border-color: var(--ifpi-red);
+  color: var(--ifpi-red);
+}
+
+/* Viewport Peta */
+.riau-map-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 860 / 670;
+  max-height: 580px;
+  background-color: #F8FAFC;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.riau-svg-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Path Wilayah */
+.riau-region-path {
+  fill: #FFFFFF;
+  stroke: #94A3B8;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.riau-region-path:hover,
+.riau-region-path.is-hovered {
+  fill: var(--ifpi-light-red);
+  stroke: var(--ifpi-red);
+  stroke-width: 2.2;
+}
+
+.riau-region-path.is-selected {
+  fill: var(--ifpi-red) !important;
+  stroke: var(--ifpi-dark-red) !important;
+  stroke-width: 2.8;
+}
+
+.riau-region-path.is-dimmed {
+  opacity: 0.35;
+}
+
+/* Labels Peta */
+.riau-map-label-text {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  fill: #1E293B;
+  text-anchor: middle;
+  user-select: none;
+  paint-order: stroke;
+  stroke: #FFFFFF;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  transition: all 0.18s ease;
+}
+
+.riau-map-label-text.is-selected {
+  fill: #FFFFFF;
+  stroke: var(--ifpi-dark-red);
+  stroke-width: 3.5px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.riau-map-label-text.is-kota {
+  font-size: 10.5px;
+  fill: #8F1723;
+}
+
+/* Pins */
+.riau-map-pin-circle {
+  fill: #64748B;
+  stroke: #FFFFFF;
+  stroke-width: 1.5;
+  transition: all 0.18s ease;
+}
+
+.riau-map-pin-circle.is-kota {
+  fill: #D97706;
+}
+
+.riau-map-pin-circle.is-selected {
+  fill: #FFFFFF;
+  stroke: var(--ifpi-dark-red);
+  stroke-width: 2.5;
+}
+
+.riau-map-pin-pulse {
+  fill: none;
+  stroke: #FFFFFF;
+  stroke-width: 2;
+  animation: riauPinPulse 1.8s infinite ease-out;
+}
+
+@keyframes riauPinPulse {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Perairan / Tetangga Labels */
+.riau-map-sea-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  fill: #94A3B8;
+  opacity: 0.7;
+}
+
+.riau-map-neighbor-text {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  fill: #94A3B8;
+}
+
+/* Floating Tooltip */
+.riau-map-tooltip {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background-color: #0F172A;
+  color: #FFFFFF;
+  padding: 0.55rem 0.95rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  animation: riauTooltipFade 0.15s ease-out;
+  z-index: 10;
+}
+
+@keyframes riauTooltipFade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.riau-map-tooltip-type {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #F87171;
+}
+
+.riau-map-tooltip-name {
+  font-size: 0.875rem;
+  font-weight: 800;
+}
+
+.riau-map-tooltip-cta {
+  font-size: 0.6875rem;
+  color: #94A3B8;
+}
+
+/* Footer Peta */
+.riau-map-footer {
+  padding: 0.85rem 1.5rem;
+  background-color: #FFFFFF;
+  border-top: 1px solid #F1F5F9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.riau-map-legend {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.riau-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #475569;
+}
+
+.riau-legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid #CBD5E1;
+}
+
+.riau-legend-color.is-active {
+  background-color: var(--ifpi-red);
+  border-color: var(--ifpi-dark-red);
+}
+
+.riau-legend-color.is-kota {
+  background-color: #FEF3C7;
+  border-color: #D97706;
+}
+
+.riau-legend-color.is-kab {
+  background-color: #FFFFFF;
+  border-color: #94A3B8;
+}
+
+.riau-map-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #64748B;
+}
+
+/* ================================================================
+   PANEL INFORMASI WILAYAH (KOLOM KANAN)
+   ================================================================ */
+.region-info-panel {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  position: sticky;
+  top: 90px;
+}
+
+/* Banner Atas Panel */
+.region-panel-banner {
+  background: linear-gradient(135deg, var(--ifpi-red) 0%, var(--ifpi-dark-red) 100%);
+  color: #FFFFFF;
+  padding: 1.25rem 1.5rem;
+  position: relative;
+}
+
+.region-panel-type-tag {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 0.35rem;
+}
+
+.region-panel-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.25;
+}
+
+/* Visual Foto Landmark jika Tersedia */
+.region-panel-visual-box {
+  width: 100%;
+  height: 170px;
+  overflow: hidden;
+  background-color: #0F172A;
+  position: relative;
+}
+
+.region-panel-visual-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.region-panel-visual-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Body Panel */
+.region-panel-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Quick Facts Grid */
+.region-panel-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+.region-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.region-stat-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.region-stat-val {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.region-panel-desc {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Box Status Kepengurusan IFPI */
+.region-panel-status-card {
+  background-color: #FEF2F2;
+  border: 1px solid rgba(184, 32, 45, 0.2);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+}
+
+.region-status-card-icon {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.region-status-card-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #8F1723;
+  margin: 0 0 0.15rem;
+}
+
+.region-status-card-text {
+  font-size: 0.75rem;
+  color: #64748B;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Tombol Aksi */
+.region-panel-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.region-btn-structure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  background-color: var(--ifpi-red);
+  color: #FFFFFF !important;
+  font-size: 0.875rem;
+  font-weight: 800;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  box-shadow: 0 4px 12px rgba(184, 32, 45, 0.25);
+}
+
+.region-btn-structure:hover {
+  background-color: var(--ifpi-dark-red);
+  transform: translateY(-1px);
+}
+
+/* ================================================================
+   HALAMAN STRUKTUR KEPENGURUSAN WILAYAH (/wilayah/:id)
+   ================================================================ */
+.reg-struct-page {
+  background-color: #F8FAFC;
+  min-height: 85vh;
+  padding: 2.5rem 0 5rem;
+  color: #1E293B;
+}
+
+.reg-struct-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.reg-struct-top-nav {
+  margin: 1rem 0 1.5rem;
+}
+
+.reg-struct-unfilled-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  padding: 3.5rem 2rem;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.reg-struct-unfilled-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: #FEF3C7;
+  color: #D97706;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.reg-struct-unfilled-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.85rem;
+}
+
+.reg-struct-unfilled-lead {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #92400E;
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #FFFBEB;
+  border-radius: 8px;
+  border: 1px solid #FDE68A;
+}
+
+.reg-struct-unfilled-text {
+  font-size: 0.9375rem;
+  color: #64748B;
+  line-height: 1.7;
+  margin: 0 0 2rem;
+}
+
+.reg-struct-unfilled-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ================================================================
+   RESPONSIVE DESIGN
+   ================================================================ */
+@media (max-width: 1024px) {
+  .regions-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .region-info-panel {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .regions-page {
+    padding: 1.75rem 0 3.5rem;
+  }
+
+  .riau-map-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .riau-map-filter-group {
+    justify-content: center;
+  }
+
+  .riau-map-zoom-group {
+    justify-content: center;
+  }
+
+  .region-panel-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
