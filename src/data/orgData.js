@@ -61,8 +61,8 @@ export const PENGURUS_INTI = [
   },
   {
     id: 'sekretaris-1',
-    jabatan: 'SEKRETARIS I',
-    jabatanLengkap: 'Sekretaris I DPW IFPI Provinsi Riau',
+    jabatan: 'SEKRETARIS',
+    jabatanLengkap: 'Sekretaris DPW IFPI Provinsi Riau',
     nama: 'Muh. Syahril, SE',
     foto: null,
     level: 't2',
@@ -91,11 +91,11 @@ export const DIVISI = [
     deskripsi:
       'Menangani penelaahan regulasi daerah, konsultasi perdata/tata usaha negara, serta advokasi perlindungan profesi pengadaan.',
     anggota: [
-      { id: 'div1-k', jabatan: 'Koordinator', nama: null, foto: null },
-      { id: 'div1-a1', jabatan: 'Anggota 1',  nama: null, foto: null },
-      { id: 'div1-a2', jabatan: 'Anggota 2',  nama: null, foto: null },
-      { id: 'div1-a3', jabatan: 'Anggota 3',  nama: null, foto: null },
-      { id: 'div1-a4', jabatan: 'Anggota 4',  nama: null, foto: null },
+      { id: 'div1-k',  jabatan: 'Koordinator', nama: 'Jaime Agustian', foto: null },
+      { id: 'div1-a1', jabatan: 'Anggota',     nama: 'Tri Handayani, ST', foto: null },
+      { id: 'div1-a2', jabatan: 'Anggota',     nama: 'Nelda Hefni, SE', foto: null },
+      { id: 'div1-a3', jabatan: 'Anggota',     nama: 'Fitri yuniar Handayani, ST', foto: null },
+      { id: 'div1-a4', jabatan: 'Anggota',     nama: 'Lussy Febrianita', foto: null },
     ],
   },
   {
@@ -106,12 +106,12 @@ export const DIVISI = [
     deskripsi:
       'Fasilitasi kesejahteraan, pendampingan moril, serta penguatan solidaritas antar-aparatur pengadaan di wilayah Riau.',
     anggota: [
-      { id: 'div2-k', jabatan: 'Koordinator', nama: null, foto: null },
-      { id: 'div2-a1', jabatan: 'Anggota 1',  nama: null, foto: null },
-      { id: 'div2-a2', jabatan: 'Anggota 2',  nama: null, foto: null },
-      { id: 'div2-a3', jabatan: 'Anggota 3',  nama: null, foto: null },
-      { id: 'div2-a4', jabatan: 'Anggota 4',  nama: null, foto: null },
-      { id: 'div2-a5', jabatan: 'Anggota 5',  nama: null, foto: null },
+      { id: 'div2-k',  jabatan: 'Koordinator', nama: 'Andy Fuad, ST', foto: null },
+      { id: 'div2-a1', jabatan: 'Anggota',     nama: 'Fakhrurozi Afriyansyah., M. IP', foto: null },
+      { id: 'div2-a2', jabatan: 'Anggota',     nama: 'Hijra Nelvita, ST', foto: null },
+      { id: 'div2-a3', jabatan: 'Anggota',     nama: 'Susi Deswita, S. Sos', foto: null },
+      { id: 'div2-a4', jabatan: 'Anggota',     nama: 'Elfina, S. Sos', foto: null },
+      { id: 'div2-a5', jabatan: 'Anggota',     nama: 'Romi Harjo, ST', foto: null },
     ],
   },
   {
@@ -122,11 +122,11 @@ export const DIVISI = [
     deskripsi:
       'Membangun komunikasi publik, jejaring kemitraan dengan kementerian/lembaga/pemda, dan publikasi media organisasi.',
     anggota: [
-      { id: 'div3-k', jabatan: 'Koordinator', nama: null, foto: null },
-      { id: 'div3-a1', jabatan: 'Anggota 1',  nama: null, foto: null },
-      { id: 'div3-a2', jabatan: 'Anggota 2',  nama: null, foto: null },
-      { id: 'div3-a3', jabatan: 'Anggota 3',  nama: null, foto: null },
-      { id: 'div3-a4', jabatan: 'Anggota 4',  nama: null, foto: null },
+      { id: 'div3-k',  jabatan: 'Koordinator', nama: 'Sawali, SP', foto: null },
+      { id: 'div3-a1', jabatan: 'Anggota',     nama: 'Leni Surya, S. Ak', foto: null },
+      { id: 'div3-a2', jabatan: 'Anggota',     nama: 'Eka Firmanedi', foto: null },
+      { id: 'div3-a3', jabatan: 'Anggota',     nama: 'Yessi Nazrial, ST', foto: null },
+      { id: 'div3-a4', jabatan: 'Anggota',     nama: 'Bulkeri Gultom, SE., M. Si', foto: null },
     ],
   },
   {
@@ -137,11 +137,11 @@ export const DIVISI = [
     deskripsi:
       'Peningkatan standar kompetensi, sertifikasi keahlian, pembinaan angka kredit jabatan fungsional pengadaan barang/jasa.',
     anggota: [
-      { id: 'div4-k', jabatan: 'Koordinator', nama: null, foto: null },
-      { id: 'div4-a1', jabatan: 'Anggota 1',  nama: null, foto: null },
-      { id: 'div4-a2', jabatan: 'Anggota 2',  nama: null, foto: null },
-      { id: 'div4-a3', jabatan: 'Anggota 3',  nama: null, foto: null },
-      { id: 'div4-a4', jabatan: 'Anggota 4',  nama: null, foto: null },
+      { id: 'div4-k',  jabatan: 'Koordinator', nama: 'Andrian Kurniawan, S. Kom., M. Kom', foto: null },
+      { id: 'div4-a1', jabatan: 'Anggota',     nama: 'Aisyah S Baranyanan, M.T., M.Si', foto: null },
+      { id: 'div4-a2', jabatan: 'Anggota',     nama: 'Aliyas Mandri, ST., MM', foto: null },
+      { id: 'div4-a3', jabatan: 'Anggota',     nama: 'Joni Eka Putra, ST', foto: null },
+      { id: 'div4-a4', jabatan: 'Anggota',     nama: 'Zulfikar, S. Kom', foto: null },
     ],
   },
   {
@@ -152,11 +152,11 @@ export const DIVISI = [
     deskripsi:
       'Penyelenggaraan bimbingan teknis (bimtek), workshop regulasi baru pengadaan, serta fasilitasi narasumber resmi.',
     anggota: [
-      { id: 'div5-k', jabatan: 'Koordinator', nama: null, foto: null },
-      { id: 'div5-a1', jabatan: 'Anggota 1',  nama: null, foto: null },
-      { id: 'div5-a2', jabatan: 'Anggota 2',  nama: null, foto: null },
-      { id: 'div5-a3', jabatan: 'Anggota 3',  nama: null, foto: null },
-      { id: 'div5-a4', jabatan: 'Anggota 4',  nama: null, foto: null },
+      { id: 'div5-k',  jabatan: 'Koordinator', nama: 'Cihe Aprilia Bintang, ST., MT', foto: null },
+      { id: 'div5-a1', jabatan: 'Anggota',     nama: 'Mohammad. Ridha', foto: null },
+      { id: 'div5-a2', jabatan: 'Anggota',     nama: 'Radhian Rapani', foto: null },
+      { id: 'div5-a3', jabatan: 'Anggota',     nama: 'Heriyanis, ST', foto: null },
+      { id: 'div5-a4', jabatan: 'Anggota',     nama: 'Ibnu Hajar, S. Pt', foto: null },
     ],
   },
 ];
@@ -184,8 +184,14 @@ export function getMemberById(id) {
         return {
           ...mem,
           divisionName: `${div.kode} (${div.nama})`,
+          jabatanLengkap: `${mem.jabatan} ${div.namaLengkap}`,
           divisionInfo: div,
           level: 'divisi',
+          biodata: mem.biodata || {
+            instansi: 'DPW IFPI Provinsi Riau',
+            periode: '2027–2032',
+            deskripsi: `${mem.nama} bertugas sebagai ${mem.jabatan} pada ${div.namaLengkap} di Dewan Pengurus Wilayah (DPW) Ikatan Fungsional Pengadaan Indonesia (IFPI) Provinsi Riau Masa Bakti 2027–2032.\n\n${div.deskripsi}`,
+          },
         };
       }
     }
@@ -208,6 +214,7 @@ export function getAllMembers() {
       list.push({
         ...mem,
         divisionName: `${div.kode} (${div.nama})`,
+        jabatanLengkap: `${mem.jabatan} ${div.namaLengkap}`,
         divisionInfo: div,
         level: 'divisi',
       });
