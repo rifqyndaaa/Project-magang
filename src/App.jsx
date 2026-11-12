@@ -11,6 +11,7 @@ import Track from './pages/Track';
 import Services from './pages/Services';
 import Information from './pages/Information';
 import Contact from './pages/Contact';
+import Organization from './pages/Organization';
 import NotFound from './pages/NotFound';
 import Products from './pages/Products';
 import ProductDetail from './pages/Products/Detail';
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/track" element={<Track />} />
           <Route path="/produk" element={<Products />} />
           <Route path="/produk/:id" element={<ProductDetail />} />
+          <Route path="/struktur" element={<Organization />} />
           <Route path="*" element={<NotFound />} />
         </Route>
 

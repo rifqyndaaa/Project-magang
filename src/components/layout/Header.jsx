@@ -7,9 +7,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 0);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 0);
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -23,15 +21,15 @@ export default function Header() {
         {/* SISI KIRI: Brand Pemerintah */}
         <Link to="/" className="gov-official-brand" onClick={closeMenu} aria-label="Beranda Layanan Pengaduan Pemprov Riau">
           <img
-            src="/logo-riau.svg"
+            src="/images/logo.jpeg"
             alt="Lambang Resmi Pemerintah Provinsi Riau"
             className="gov-official-logo"
-            width="35"
-            height="52"
+            width="44"
+            height="44"
           />
           <div className="gov-official-brand-text">
             <span className="gov-brand-instansi">PEMERINTAH PROVINSI RIAU</span>
-            <span className="gov-brand-layanan">Layanan Pengaduan Masyarakat</span>
+            <span className="gov-brand-layanan">Ikatan Fungsional Pengadaan Indonesia</span>
           </div>
         </Link>
 
@@ -46,7 +44,7 @@ export default function Header() {
           <Icon name={mobileMenuOpen ? 'x' : 'menu'} size={22} color="var(--neutral-800)" />
         </button>
 
-        {/* SISI KANAN: Menu Navigasi & Akses Admin */}
+        {/* Menu Navigasi & Akses Admin */}
         <nav
           className={`gov-official-nav ${mobileMenuOpen ? 'is-open' : ''}`}
           aria-label="Navigasi Utama"
@@ -68,6 +66,11 @@ export default function Header() {
               </NavLink>
             </li>
             <li>
+              <NavLink to="/struktur" onClick={closeMenu}>
+                Struktur Organisasi
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="/informasi" onClick={closeMenu}>
                 Informasi
               </NavLink>
@@ -84,7 +87,7 @@ export default function Header() {
             </li>
           </ul>
 
-          {/* Akses Admin (Ukuran lebih kecil dan subtle) */}
+          {/* Akses Admin */}
           <div className="gov-nav-admin-subtle">
             <Link
               to="/admin/login"

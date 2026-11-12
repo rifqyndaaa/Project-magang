@@ -51,7 +51,7 @@ export default function Home() {
   return (
     <div className="gov-guest-page">
       {/* ==================================================
-          2. HERO SECTION (MODEL JABARPROV DENGAN LANDMARK RIAU)
+          2. HERO SECTION (PORTAL RESMI PEMERINTAH PROVINSI RIAU)
           ================================================== */}
       <section
         className={`gov-hero-jabar-section ${activeLandmark === 'annur' ? 'is-landmark-annur' : 'is-landmark-siak'}`}
@@ -59,29 +59,34 @@ export default function Home() {
       >
         <div className="gov-container">
           <div className="gov-hero-jabar-grid">
-            {/* Kolom Kiri: Teks & Form Pencarian */}
+            {/* Kolom Kiri: Informasi Utama, Judul & Pencarian */}
             <div className="gov-hero-jabar-left">
+              <div className="gov-hero-tag-civic">
+                <span className="gov-hero-tag-gold-bar" aria-hidden="true" />
+                <span>PEMERINTAH PROVINSI RIAU</span>
+              </div>
+
               <h1 id="hero-heading" className="gov-hero-jabar-title">
-                Menjawab Kebutuhan Layanan &amp; Pengaduan Masyarakat Riau
+                 Ikatan Fungsional Pengadaan Indonesia
               </h1>
 
               <p className="gov-hero-jabar-desc">
-                Temukan informasi pelayanan publik terkini dan sampaikan laporan atau aspirasi secara transparan, mudah, dan terarah kepada Pemerintah Daerah Provinsi Riau.
+                Kanal resmi Pemerintah Daerah Provinsi Riau untuk menyampaikan permohonan konsultasi hukum, pengelolaan pengaduan pelayanan publik, serta koordinasi narasumber dan undangan kedinasan.
               </p>
 
-              {/* Form Pencarian Terpadu (Sesuai Referensi Jabarprov) */}
+              {/* Form Pencarian Resmi */}
               <form onSubmit={handleHeroSearchSubmit} className="gov-hero-search-box">
                 <div className="gov-hero-search-inner">
                   <span className="gov-hero-search-icon-wrap" aria-hidden="true">
-                    <Icon name="search" size={20} color="#94A3B8" />
+                    <Icon name="search" size={18} color="var(--neutral-500)" />
                   </span>
                   <input
                     type="text"
                     className="gov-hero-search-input"
-                    placeholder="Cari layanan, informasi, atau nomor tiket..."
+                    placeholder="Cari layanan, panduan informasi, atau masukkan nomor tiket..."
                     value={heroSearch}
                     onChange={(e) => setHeroSearch(e.target.value)}
-                    aria-label="Cari layanan atau informasi"
+                    aria-label="Cari layanan atau informasi publik"
                   />
                   <button type="submit" className="gov-hero-search-btn" id="btn-hero-cari">
                     Cari
@@ -89,106 +94,94 @@ export default function Home() {
                 </div>
               </form>
 
-              {/* Pencarian Populer (Chips) */}
+              {/* Akses Cepat Layanan */}
               <div className="gov-hero-popular-chips">
-                <span className="gov-popular-label">Pencarian populer di Riau:</span>
+                <span className="gov-popular-label">Akses cepat layanan resmi:</span>
                 <div className="gov-chips-list">
                   <Link to="/report?category=pengaduan" className="gov-chip-item">
-                    <span>Aduan Warga</span>
-                    <Icon name="external-link" size={13} />
+                    <span>Konsultasi Pengaduan</span>
+                    <Icon name="arrow-right" size={12} />
                   </Link>
                   <Link to="/report?category=hukum" className="gov-chip-item">
                     <span>Konsultasi Hukum</span>
-                    <Icon name="external-link" size={13} />
+                    <Icon name="arrow-right" size={12} />
                   </Link>
                   <Link to="/report?category=narasumber" className="gov-chip-item">
-                    <span>Permintaan Narasumber</span>
-                    <Icon name="external-link" size={13} />
+                    <span>Narasumber &amp; Undangan</span>
+                    <Icon name="arrow-right" size={12} />
                   </Link>
                   <Link to="/track" className="gov-chip-item">
                     <span>Lacak Tiket</span>
-                    <Icon name="external-link" size={13} />
+                    <Icon name="arrow-right" size={12} />
                   </Link>
                 </div>
               </div>
             </div>
 
-            {/* Kolom Kanan: Kartu Cuaca, Waktu & Status Layanan (Model Jabarprov) */}
+            {/* Kolom Kanan: Panel Informasi Resmi Pelayanan Publik */}
             <div className="gov-hero-jabar-right">
-              <div className="gov-hero-weather-card">
-                <div className="gov-weather-card-header">
-                  <span className="gov-weather-day">Hari Ini</span>
-                  <span className="gov-weather-date">
-                    <LiveClock variant="simple-date" />
-                  </span>
-                </div>
-
-                <div className="gov-weather-main-row">
-                  <div className="gov-weather-temp-wrap">
-                    <span className="gov-weather-temp">30</span>
-                    <span className="gov-weather-deg">°C</span>
+              <div className="gov-hero-official-panel">
+                <div className="gov-panel-header">
+                  <div className="gov-panel-header-icon" aria-hidden="true">
+                    <Icon name="shield" size={18} color="var(--gov-blue)" />
                   </div>
-                  <div className="gov-weather-icon-wrap" aria-label="Kondisi cuaca berawan">
-                    <Icon name="cloud" size={54} color="#E2E8F0" />
+                  <div>
+                    <h2 className="gov-panel-title">Pusat Layanan Terpadu</h2>
+                    <span className="gov-panel-subtitle">Provinsi Riau</span>
                   </div>
                 </div>
 
-                <div className="gov-weather-condition-row">
-                  <span className="gov-weather-condition">Cerah Berawan</span>
-                  <span className="gov-weather-location">
-                    <Icon name="map-pin" size={14} color="#38BDF8" />
-                    Pekanbaru, Riau
-                  </span>
-                </div>
+                <div className="gov-panel-body">
+                  <div className="gov-panel-info-row">
+                    <span className="gov-panel-info-label">Jam Pelayanan Verifikator:</span>
+                    <span className="gov-panel-info-val">Senin – Jumat, 08.00 – 16.00 WIB</span>
+                  </div>
 
-                <div className="gov-weather-stats-grid">
-                  <div className="gov-weather-stat-col">
-                    <span className="gov-wstat-label">Kelembapan</span>
-                    <span className="gov-wstat-val">68%</span>
-                  </div>
-                  <div className="gov-weather-stat-col">
-                    <span className="gov-wstat-label">Angin</span>
-                    <span className="gov-wstat-val">6 km/jam</span>
-                  </div>
-                  <div className="gov-weather-stat-col">
-                    <span className="gov-wstat-label">Status</span>
-                    <span className="gov-wstat-val gov-wstat-active">
+                  <div className="gov-panel-info-row">
+                    <span className="gov-panel-info-label">Penerimaan Formulir Online:</span>
+                    <span className="gov-panel-info-val">
                       <span className="gov-live-pulse-dot" aria-hidden="true" />
-                      Aktif 24 Jam
+                      Aktif 24 Jam Setiap Hari
                     </span>
                   </div>
+
+                  <div className="gov-panel-info-row">
+                    <span className="gov-panel-info-label">Kanal Pengaduan Cepat:</span>
+                    <span className="gov-panel-info-val">Call Center 112 / (0761) 31256</span>
+                  </div>
                 </div>
 
-                <div className="gov-weather-card-actions">
-                  <Link to="/report" className="gov-weather-action-btn">
-                    Mulai Sampaikan Laporan
+                <div className="gov-panel-actions">
+                  <Link to="/report" className="gov-btn-panel-primary">
+                    Mulai Sampaikan Permohonan
+                  </Link>
+                  <Link to="/track" className="gov-btn-panel-secondary">
+                    Lacak Status Laporan
                   </Link>
                 </div>
-              </div>
 
-              {/* Tombol Pilihan Landmark Bersejarah Riau */}
-              <div className="gov-landmark-switcher">
-                <span className="gov-landmark-switch-label">
-                  <Icon name="map-pin" size={13} color="#F59E0B" />
-                  Landmark Riau:
-                </span>
-                <div className="gov-landmark-pills">
-                  <button
-                    type="button"
-                    className={`gov-landmark-pill ${activeLandmark === 'siak' ? 'is-active' : ''}`}
-                    onClick={() => setActiveLandmark('siak')}
-                    title="Tampilkan Istana Siak Sri Indrapura"
-                  >
-                    Istana Siak
-                  </button>
-                  <button
-                    type="button"
-                    className={`gov-landmark-pill ${activeLandmark === 'annur' ? 'is-active' : ''}`}
-                    onClick={() => setActiveLandmark('annur')}
-                    title="Tampilkan Masjid Agung An-Nur Pekanbaru"
-                  >
-                    Masjid Raya An-Nur
-                  </button>
+                {/* Pemilih Landmark Resmi */}
+                <div className="gov-panel-landmark-footer">
+                  <span className="gov-landmark-caption">
+                    <Icon name="map-pin" size={12} color="#D97706" />
+                    Latar Daerah:
+                  </span>
+                  <div className="gov-landmark-buttons">
+                    <button
+                      type="button"
+                      className={`gov-landmark-btn ${activeLandmark === 'siak' ? 'is-active' : ''}`}
+                      onClick={() => setActiveLandmark('siak')}
+                    >
+                      Istana Siak
+                    </button>
+                    <button
+                      type="button"
+                      className={`gov-landmark-btn ${activeLandmark === 'annur' ? 'is-active' : ''}`}
+                      onClick={() => setActiveLandmark('annur')}
+                    >
+                      Masjid Raya An-Nur
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -442,54 +435,23 @@ export default function Home() {
       </section>
 
       {/* ==================================================
-          8. STATISTIK
-          ================================================== */}
-      <section className="gov-stats-section" aria-labelledby="stats-heading">
-        <div className="gov-container">
-          <h2 id="stats-heading" className="gov-visually-hidden">
-            Ringkasan Statistik Laporan
-          </h2>
-
-          {/* 
-            Catatan Pengembang:
-            Data di bawah ini merupakan data ringkasan prototype / placeholder resmi.
-            Ketika backend dan database API sudah terhubung, ganti nilai statis ini 
-            dengan nilai riil dari endpoint API statistik (misal: GET /api/stats).
-          */}
-          <div className="gov-stats-grid">
-            <div className="gov-stat-item">
-              <div className="gov-stat-value">1.250+</div>
-              <div className="gov-stat-label">Laporan Diterima</div>
-            </div>
-
-            <div className="gov-stat-item">
-              <div className="gov-stat-value">270+</div>
-              <div className="gov-stat-label">Sedang Diproses</div>
-            </div>
-
-            <div className="gov-stat-item">
-              <div className="gov-stat-value">980+</div>
-              <div className="gov-stat-label">Telah Diselesaikan</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================================================
-          9. CTA TERAKHIR
+          8. KANAL BANTUAN & LAYANAN TERPADU
           ================================================== */}
       <section className="gov-final-cta-section" aria-labelledby="final-cta-heading">
         <div className="gov-container">
           <div className="gov-final-cta-inner">
             <h2 id="final-cta-heading" className="gov-final-cta-title">
-              Temukan Permasalahan, Sampaikan Laporan
+              Pemerintah Provinsi Riau Siap Mendengar &amp; Melayani
             </h2>
             <p className="gov-final-cta-desc">
-              Partisipasi masyarakat membantu meningkatkan kualitas pelayanan publik.
+              Sampaikan aspirasi dan konsultasi Anda melalui kanal pengaduan resmi atau hubungi Call Center 112 untuk bantuan cepat.
             </p>
             <div className="gov-final-cta-action">
-              <Link to="/report" className="gov-btn-primary gov-btn-large">
-                Mulai Sampaikan Laporan
+              <Link to="/report" className="gov-btn gov-btn-primary">
+                Ajukan Permohonan Sekarang
+              </Link>
+              <Link to="/kontak" className="gov-btn gov-btn-secondary" style={{ marginLeft: '0.75rem' }}>
+                Hubungi Sekretariat
               </Link>
             </div>
           </div>
