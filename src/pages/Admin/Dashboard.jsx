@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Icon from '../../components/common/Icon';
 import StatusBadge from '../../components/common/StatusBadge';
 import { CATEGORIES, RIAU_REGIONS, REPORT_STATUSES, getCategoryDetails } from '../../data/categories';
-import { getAllReports, getReportStats, filterReports, exportReportsToCSV } from '../../utils/storage';
+import { getReportStats, filterReports, exportReportsToCSV } from '../../services/storage';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -59,12 +59,12 @@ export default function AdminDashboard() {
       {/* Header Dashboard */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
         <div>
-          <span className="gov-section-tag" style={{ color: 'var(--gov-blue)' }}>PANEL KENDALI UTAMA</span>
+          <span className="gov-section-tag" style={{ color: 'var(--ifpi-red)' }}>PANEL KENDALI IFPI</span>
           <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--neutral-900)', margin: '0.15rem 0' }}>
-            Rekapitulasi Pengaduan Masyarakat
+            Rekapitulasi Layanan &amp; Pengaduan IFPI
           </h1>
           <p style={{ fontSize: '0.8125rem', color: 'var(--neutral-600)', margin: 0 }}>
-            Pengelolaan, verifikasi, disposisi ke OPD terkait, dan penetapan status tindak lanjut pengaduan masyarakat se-Provinsi Riau.
+            Pengelolaan permohonan konsultasi hukum pengadaan, penanganan aduan profesi, dan koordinasi narasumber resmi IFPI.
           </p>
         </div>
 

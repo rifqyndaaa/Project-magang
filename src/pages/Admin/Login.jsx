@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Icon from '../../components/common/Icon';
-import { loginAdmin, getAdminSession } from '../../utils/storage';
+import { loginAdmin, getAdminSession } from '../../services/storage';
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -43,13 +43,13 @@ export default function AdminLogin() {
       <header style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--neutral-200)', padding: '0.875rem 0' }}>
         <div className="gov-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
-            <img src="/logo-riau.svg" alt="Riau" style={{ width: '32px', height: '40px' }} />
+            <img src="/images/logo.jpeg" alt="IFPI" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} />
             <div>
-              <div style={{ fontSize: '0.9375rem', fontWeight: 800, color: 'var(--gov-blue-dark)', lineHeight: 1.2 }}>
-                Pemerintah Provinsi Riau
+              <div style={{ fontSize: '0.9375rem', fontWeight: 800, color: 'var(--ifpi-red-dark)', lineHeight: 1.2 }}>
+                IKATAN FUNGSIONAL PENGADAAN INDONESIA
               </div>
               <div style={{ fontSize: '0.75rem', color: 'var(--neutral-500)' }}>
-                Portal Pengaduan & Aspirasi Masyarakat
+                Panel Administrasi &amp; Verifikasi Resmi
               </div>
             </div>
           </Link>
@@ -62,16 +62,16 @@ export default function AdminLogin() {
 
       {/* Main Login Card */}
       <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
-        <div className="gov-card" style={{ width: '100%', maxWidth: '440px', padding: '2rem', boxShadow: 'var(--shadow-md)' }}>
+        <div className="gov-card" style={{ width: '100%', maxWidth: '440px', padding: '2rem', boxShadow: 'var(--shadow-md)', borderTop: '4px solid var(--ifpi-red)' }}>
           <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-            <div style={{ width: '48px', height: '48px', backgroundColor: 'var(--gov-blue-soft)', color: 'var(--gov-blue)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.75rem auto' }}>
+            <div style={{ width: '48px', height: '48px', backgroundColor: 'var(--ifpi-red-soft)', color: 'var(--ifpi-red)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.75rem auto' }}>
               <Icon name="lock" size={24} />
             </div>
             <h1 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--neutral-900)', margin: 0 }}>
-              Masuk Panel Petugas & Admin
+              Masuk Panel Petugas IFPI
             </h1>
             <p style={{ fontSize: '0.8125rem', color: 'var(--neutral-500)', marginTop: '0.25rem' }}>
-              Khusus pengelola pengaduan dan verifikator OPD Pemerintah Provinsi Riau
+              Khusus pengurus dan verifikator Ikatan Fungsional Pengadaan Indonesia
             </p>
           </div>
 

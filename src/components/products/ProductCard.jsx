@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Icon from '../common/Icon';
-import { formatRupiah } from '../../utils/productStorage';
+import { formatRupiah } from '../../services/productStorage';
 
 export default function ProductCard({ product, onSelect }) {
   if (!product) return null;

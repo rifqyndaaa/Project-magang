@@ -3,23 +3,23 @@ import PublicLayout from './layouts/PublicLayout';
 import AdminLayout from './layouts/AdminLayout';
 
 // Public Pages
-import Home from './pages/Home';
-import Categories from './pages/Categories';
-import Report from './pages/Report';
-import Success from './pages/Success';
-import Track from './pages/Track';
-import Services from './pages/Services';
-import Information from './pages/Information';
-import Contact from './pages/Contact';
-import Organization from './pages/Organization';
-import NotFound from './pages/NotFound';
-import Products from './pages/Products';
-import ProductDetail from './pages/Products/Detail';
+import Home from './pages/guest/Home';
+import Categories from './pages/guest/Categories';
+import Report from './pages/guest/Report';
+import Success from './pages/guest/Success';
+import Track from './pages/guest/Track';
+import Services from './pages/guest/Services';
+import Information from './pages/guest/Information';
+import Contact from './pages/guest/Contact';
+import Organization from './pages/guest/Organization';
+import NotFound from './pages/guest/NotFound';
+import Products from './pages/guest/Products';
+import ProductDetail from './pages/guest/Products/Detail';
 
 // Admin Pages
-import AdminLogin from './pages/Admin/Login';
-import AdminDashboard from './pages/Admin/Dashboard';
-import AdminDetail from './pages/Admin/Detail';
+import AdminLogin from './pages/admin/Login';
+import AdminDashboard from './pages/admin/Dashboard';
+import AdminDetail from './pages/admin/Detail';
 
 import './App.css';
 

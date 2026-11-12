@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import Icon from '../../components/common/Icon';
-import { getProductCategories, saveProduct } from '../../utils/productStorage';
+import { getProductCategories, saveProduct } from '../../services/productStorage';
 import { RIAU_REGIONS } from '../../data/categories';
 
 // Pilihan Gambar Cepat Khas Daerah Riau

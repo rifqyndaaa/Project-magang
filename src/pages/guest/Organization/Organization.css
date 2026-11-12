@@ -1,0 +1,400 @@
+/* ================================================================
+   ORGANIZATION.CSS — Bagan Struktur Organisasi DPW IFPI Riau
+   Desain: Kotak merah-putih formal + garis penghubung hierarkis
+   ================================================================ */
+
+/* ---------- Root Variables ---------- */
+:root {
+  --org-red:        #B8202D;
+  --org-dark-red:   #8F1723;
+  --org-line:       #555;
+  --org-line-width: 2px;
+  --org-box-w:      160px;
+  --org-box-radius: 4px;
+}
+
+/* ---------- Halaman ---------- */
+.org-page {
+  padding: 3.5rem 0 5rem;
+  background-color: #f9f9f9;
+  min-height: 70vh;
+}
+
+/* ---------- Header Halaman ---------- */
+.org-page-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.org-page-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 0.4rem;
+}
+
+.org-title-accent {
+  color: var(--org-red);
+}
+
+.org-page-subtitle {
+  font-size: 0.9375rem;
+  color: #555;
+  margin: 0 0 0.25rem;
+}
+
+.org-page-desc {
+  font-size: 0.875rem;
+  color: #777;
+  max-width: 600px;
+  margin: 0.5rem auto 0;
+  line-height: 1.65;
+}
+
+/* ---------- Scroll Wrapper (mobile horizontal scroll) ---------- */
+.org-chart-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 1.5rem 2rem;
+}
+
+/* ---------- Bagan Utama ---------- */
+.org-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 900px;
+  width: max-content;
+  margin: 0 auto;
+  padding: 1rem 2rem 2rem;
+}
+
+/* ---------- Judul Bagan di dalam bagan ---------- */
+.org-chart-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.org-chart-title p {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #1a1a1a;
+  line-height: 1.6;
+}
+
+.org-chart-title .title-main {
+  font-size: 0.9375rem;
+  font-weight: 800;
+}
+
+/* ================================================================
+   KOTAK JABATAN (Position Box)
+   ================================================================ */
+.org-box {
+  display: inline-flex;
+  flex-direction: column;
+  border: 2px solid var(--org-red);
+  border-radius: var(--org-box-radius);
+  overflow: hidden;
+  min-width: var(--org-box-w);
+  max-width: 200px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  background: #fff;
+}
+
+/* Bagian atas: merah, tulisan jabatan putih */
+.org-box__top {
+  background-color: var(--org-red);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.3rem 0.5rem;
+  line-height: 1.3;
+}
+
+/* Bagian bawah: putih, nama gelap */
+.org-box__bot {
+  background-color: #fff;
+  color: #1a1a1a;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 0.3rem 0.5rem;
+  line-height: 1.4;
+  min-height: 2rem;
+}
+
+/* Nama belum tersedia */
+.org-box__bot--empty {
+  color: #bbb;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Varian ukuran: ketua lebih besar */
+.org-box--ketua {
+  min-width: 200px;
+  --org-box-radius: 5px;
+}
+
+.org-box--ketua .org-box__top {
+  font-size: 0.8125rem;
+  padding: 0.4rem 0.75rem;
+}
+
+.org-box--ketua .org-box__bot {
+  font-size: 0.8125rem;
+  padding: 0.4rem 0.75rem;
+}
+
+/* Varian: tingkat 2 (bendahara & sekretaris) */
+.org-box--t2 {
+  min-width: 170px;
+}
+
+.org-box--t2 .org-box__top {
+  font-size: 0.6875rem;
+}
+
+/* Varian: divisi (kotak header divisi) */
+.org-box--divisi {
+  min-width: 150px;
+  background-color: #fff;
+}
+
+.org-box--divisi .org-box__top {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+}
+
+.org-box--divisi .org-box__bot {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  white-space: pre-line;
+  min-height: 2.5rem;
+}
+
+/* Varian: anggota (kotak kecil) */
+.org-box--anggota {
+  min-width: 136px;
+  max-width: 150px;
+  box-shadow: none;
+  border-width: 1px;
+}
+
+.org-box--anggota .org-box__top {
+  font-size: 0.625rem;
+  padding: 0.25rem 0.4rem;
+  font-weight: 700;
+}
+
+.org-box--anggota .org-box__bot {
+  font-size: 0.6rem;
+  padding: 0.2rem 0.4rem;
+  min-height: 1.5rem;
+}
+
+/* ================================================================
+   LEVEL 1 — KETUA
+   ================================================================ */
+.org-level-ketua {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Garis turun dari Ketua ke T2 */
+.org-line-down {
+  width: var(--org-line-width);
+  height: 32px;
+  background-color: var(--org-line);
+  flex-shrink: 0;
+}
+
+/* ================================================================
+   LEVEL 2 — BENDAHARA & SEKRETARIS
+   ================================================================ */
+.org-level-t2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.org-t2-row {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  gap: 0;
+}
+
+/* Masing-masing kolom t2 */
+.org-t2-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Garis horizontal di atas baris T2 */
+.org-t2-hline {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
+
+/* Connector wrapper untuk T2 */
+.org-t2-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Horizontal bar penghubung T2 */
+.org-hbar-t2 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.org-hbar-t2__line {
+  height: var(--org-line-width);
+  background-color: var(--org-line);
+  width: 110px; /* jarak antara tengah ke masing-masing kotak */
+}
+
+.org-hbar-t2__dot {
+  width: var(--org-line-width);
+  height: 32px; /* drop dari tengah ke kotak */
+  background-color: var(--org-line);
+}
+
+/* ================================================================
+   LEVEL 3 — DIVISI
+   ================================================================ */
+.org-level-divisi-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Garis turun dari T2 ke connector divisi */
+.org-line-down-long {
+  width: var(--org-line-width);
+  height: 40px;
+  background-color: var(--org-line);
+}
+
+/* Horizontal bar panjang di atas 5 divisi */
+.org-divisi-hbar {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.org-divisi-hbar__track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--org-line-width);
+  background-color: var(--org-line);
+}
+
+/* Setiap kolom divisi */
+.org-divisi-cols {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.org-divisi-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 12px;
+  position: relative;
+}
+
+/* Garis turun dari bar ke kotak divisi */
+.org-divisi-col__vline {
+  width: var(--org-line-width);
+  height: 32px;
+  background-color: var(--org-line);
+  flex-shrink: 0;
+}
+
+/* Daftar anggota di bawah header divisi */
+.org-divisi-members {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  gap: 0;
+}
+
+.org-divisi-members .org-line-down {
+  height: 20px;
+}
+
+/* ================================================================
+   SVG CONNECTOR — Garis penghubung T2 & Divisi
+   ================================================================ */
+.org-connector-svg {
+  display: block;
+  overflow: visible;
+}
+
+/* ================================================================
+   Wrapper seluruh bagan lengkap
+   ================================================================ */
+.org-full-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 1024px) {
+  .org-chart {
+    min-width: 820px;
+  }
+  :root {
+    --org-box-w: 140px;
+  }
+}
+
+@media (max-width: 768px) {
+  .org-chart-wrapper {
+    padding: 0.5rem 0.5rem 2rem;
+  }
+
+  .org-chart {
+    min-width: 780px;
+  }
+}
+
+/* ================================================================
+   PRINT STYLE
+   ================================================================ */
+@media print {
+  .org-page {
+    padding: 1rem 0;
+    background: #fff;
+  }
+  .org-chart-wrapper {
+    overflow: visible;
+  }
+}

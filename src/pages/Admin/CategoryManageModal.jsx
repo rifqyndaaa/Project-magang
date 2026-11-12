@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Icon from '../../components/common/Icon';
-import { getProductCategories, saveProductCategory, deleteProductCategory } from '../../utils/productStorage';
+import { getProductCategories, saveProductCategory, deleteProductCategory } from '../../services/productStorage';
 
 export default function CategoryManageModal({ onClose, onCategoriesUpdated }) {
   const [categories, setCategories] = useState(getProductCategories());

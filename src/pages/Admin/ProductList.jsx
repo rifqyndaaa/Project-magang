@@ -11,7 +11,7 @@ import {
   resetProductsToDefault,
   getProductCategories,
   formatRupiah
-} from '../../utils/productStorage';
+} from '../../services/productStorage';
 
 export default function AdminProductList() {
   const [products, setProducts] = useState([]);

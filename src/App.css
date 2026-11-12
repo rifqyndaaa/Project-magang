@@ -712,15 +712,15 @@
 }
 
 .gov-official-logo {
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   object-fit: cover;
   flex-shrink: 0;
   border-radius: 50%;
   padding: 2px;
-  background: linear-gradient(135deg, #f0f4ff, #e8edfb);
-  border: 1.5px solid rgba(26, 86, 219, 0.15);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  background: #FFFFFF;
+  border: 1.5px solid rgba(184, 32, 45, 0.25);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 .gov-official-brand-text {
@@ -731,16 +731,16 @@
 
 .gov-brand-instansi {
   font-size: 0.6875rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--gov-blue);
+  color: var(--ifpi-red);
   line-height: 1.2;
 }
 
 .gov-brand-layanan {
-  font-size: 1rem;
-  font-weight: 800;
+  font-size: 0.9375rem;
+  font-weight: 700;
   color: var(--neutral-900);
   line-height: 1.3;
   letter-spacing: -0.01em;
@@ -799,6 +799,128 @@
   font-weight: 700;
   border-bottom-color: var(--gov-blue);
   background-color: transparent;
+}
+
+/* ==========================================================================
+   DROPDOWN MENU NAVIGASI (LAYANAN & INFORMASI)
+   ========================================================================== */
+.gov-nav-has-dropdown {
+  position: relative;
+}
+
+.gov-nav-parent-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.gov-nav-parent-link {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.gov-nav-arrow-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+  color: var(--neutral-500);
+}
+
+.gov-nav-has-dropdown:hover .gov-nav-arrow-icon,
+.gov-nav-has-dropdown.is-dropdown-open .gov-nav-arrow-icon {
+  color: var(--gov-blue);
+}
+
+.gov-mobile-submenu-btn {
+  display: none;
+}
+
+/* Menu Dropdown Desktop */
+.gov-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 320px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--neutral-200);
+  border-top: 3px solid var(--gov-blue);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  padding: 0.4rem 0;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+}
+
+/* Tampilkan saat hover atau saat dibuka */
+.gov-nav-has-dropdown:hover .gov-dropdown-menu,
+.gov-nav-has-dropdown.is-dropdown-open .gov-dropdown-menu,
+.gov-nav-has-dropdown:focus-within .gov-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.gov-dropdown-item {
+  display: block;
+  padding: 0.65rem 1rem !important;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+  border-bottom: none !important;
+  white-space: normal !important;
+  border-radius: 0 !important;
+}
+
+.gov-dropdown-item:hover {
+  background-color: var(--gov-blue-soft) !important;
+}
+
+.gov-dropdown-item-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.gov-dropdown-item-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--neutral-900);
+  line-height: 1.35;
+  transition: color 0.15s ease;
+}
+
+.gov-dropdown-item:hover .gov-dropdown-item-title {
+  color: var(--gov-blue-dark);
+}
+
+.gov-dropdown-item-desc {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--neutral-500);
+  margin-top: 0.2rem;
+  line-height: 1.4;
+}
+
+.gov-dropdown-divider {
+  height: 1px;
+  background-color: var(--neutral-200);
+  margin: 0.35rem 0;
+}
+
+.gov-dropdown-item-highlight {
+  background-color: var(--neutral-50);
+}
+
+.gov-dropdown-item-icon {
+  color: var(--gov-blue);
+  flex-shrink: 0;
 }
 
 .gov-nav-admin-subtle {
@@ -869,6 +991,64 @@
     background-color: var(--neutral-50);
   }
 
+  /* Submenu Mobile Support */
+  .gov-nav-has-dropdown {
+    position: static;
+  }
+
+  .gov-nav-parent-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid var(--neutral-100);
+  }
+
+  .gov-nav-parent-link {
+    flex-grow: 1;
+    border-bottom: none !important;
+  }
+
+  .gov-mobile-submenu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0.65rem 0.75rem;
+    cursor: pointer;
+    color: var(--neutral-600);
+  }
+
+  .gov-mobile-submenu-btn:hover {
+    color: var(--gov-blue);
+  }
+
+  .gov-dropdown-menu {
+    position: static;
+    display: none;
+    box-shadow: none;
+    border: none;
+    border-left: 3px solid var(--gov-blue);
+    border-radius: 0;
+    background-color: var(--neutral-50);
+    margin: 0.25rem 0 0.5rem 0.5rem;
+    padding: 0.25rem 0;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    min-width: unset;
+  }
+
+  .gov-nav-has-dropdown.is-mobile-submenu-open .gov-dropdown-menu {
+    display: block;
+  }
+
+  .gov-dropdown-item {
+    padding: 0.6rem 0.85rem !important;
+  }
+
   .gov-nav-admin-subtle {
     padding-left: 0;
     border-left: none;
@@ -888,46 +1068,45 @@
   background-color: #FFFFFF;
 }
 
-/* 2. HERO SECTION (PORTAL RESMI PEMERINTAH PROVINSI RIAU) */
+/* 2. HERO SECTION (PORTAL RESMI IFPI) */
 .gov-hero-jabar-section {
   position: relative;
-  background-color: #061124;
+  background-color: #1A0709;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   padding: 4.5rem 0 4rem 0;
   color: #FFFFFF;
   overflow: hidden;
-  border-bottom: 3px solid #D97706; /* Garis Aksen Emas Riau */
+  border-bottom: 3px solid var(--ifpi-red);
   transition: background-image 0.3s ease-in-out;
 }
 
-/* Background Landmark: Istana Siak Sri Indrapura */
+/* Background Landmark: Pelayanan & Pengadaan Resmi */
 .gov-hero-jabar-section.is-landmark-siak {
   background-image: 
-    linear-gradient(to right, rgba(6, 17, 36, 0.94) 0%, rgba(6, 17, 36, 0.88) 50%, rgba(6, 17, 36, 0.75) 100%),
-    url('/images/istana-siak.jpg');
+    linear-gradient(to right, rgba(26, 8, 10, 0.95) 0%, rgba(35, 10, 13, 0.90) 50%, rgba(20, 6, 8, 0.82) 100%),
+    url('/images/pelayanan-publik-riau.jpg');
 }
 
-/* Background Landmark: Masjid Raya An-Nur Pekanbaru */
 .gov-hero-jabar-section.is-landmark-annur {
   background-image: 
-    linear-gradient(to right, rgba(6, 17, 36, 0.94) 0%, rgba(6, 17, 36, 0.88) 50%, rgba(6, 17, 36, 0.75) 100%),
-    url('/images/masjid-an-nur.jpg');
+    linear-gradient(to right, rgba(26, 8, 10, 0.95) 0%, rgba(35, 10, 13, 0.90) 50%, rgba(20, 6, 8, 0.82) 100%),
+    url('/images/istana-siak.jpg');
 }
 
 @media (max-width: 900px) {
   .gov-hero-jabar-section.is-landmark-siak {
     background-image: 
-      linear-gradient(to bottom, rgba(6, 17, 36, 0.96) 0%, rgba(6, 17, 36, 0.92) 100%),
-      url('/images/istana-siak.jpg');
+      linear-gradient(to bottom, rgba(26, 8, 10, 0.96) 0%, rgba(35, 10, 13, 0.92) 100%),
+      url('/images/pelayanan-publik-riau.jpg');
     padding: 3rem 0 2.5rem 0;
   }
 
   .gov-hero-jabar-section.is-landmark-annur {
     background-image: 
-      linear-gradient(to bottom, rgba(6, 17, 36, 0.96) 0%, rgba(6, 17, 36, 0.92) 100%),
-      url('/images/masjid-an-nur.jpg');
+      linear-gradient(to bottom, rgba(26, 8, 10, 0.96) 0%, rgba(35, 10, 13, 0.92) 100%),
+      url('/images/istana-siak.jpg');
     padding: 3rem 0 2.5rem 0;
   }
 }
@@ -969,7 +1148,7 @@
   display: inline-block;
   width: 24px;
   height: 3px;
-  background-color: #D97706; /* Emas Riau */
+  background-color: var(--ifpi-red);
   border-radius: 1px;
 }
 
@@ -1753,12 +1932,28 @@
   justify-content: center;
 }
 
-/* 10. FOOTER RESMI INSTANSI */
+/* 10. FOOTER RESMI INSTANSI IFPI */
 .gov-footer-official {
-  background-color: var(--neutral-900);
-  color: var(--neutral-300);
+  background-color: var(--ifpi-red-dark);
+  color: #F7E9EA;
   padding: 3.5rem 0 1.5rem 0;
   font-size: 0.875rem;
+  border-top: 3px solid var(--ifpi-red);
+}
+
+.gov-footer-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.85rem;
+}
+
+.gov-footer-logo {
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  padding: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .gov-footer-official-grid {
@@ -1779,21 +1974,21 @@
   font-weight: 800;
   letter-spacing: 0.05em;
   color: #FFFFFF;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
 }
 
 .gov-footer-official-subtitle {
-  font-size: 1.0625rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0;
 }
 
 .gov-footer-official-desc {
   font-size: 0.8125rem;
   line-height: 1.6;
-  color: var(--neutral-400);
-  max-width: 380px;
+  color: #E2CCD0;
+  max-width: 420px;
   margin: 0;
 }
 
@@ -1805,7 +2000,7 @@
   margin-bottom: 1rem;
   text-transform: uppercase;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--neutral-700);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .gov-footer-nav-list {
@@ -1818,7 +2013,7 @@
 }
 
 .gov-footer-nav-list a {
-  color: var(--neutral-400);
+  color: #E2CCD0;
   text-decoration: none;
   transition: color 0.15s ease;
 }
@@ -1836,12 +2031,12 @@
   padding: 0;
   margin: 0;
   font-size: 0.8125rem;
-  color: var(--neutral-400);
+  color: #E2CCD0;
   line-height: 1.5;
 }
 
 .gov-footer-contact-list strong {
-  color: var(--neutral-200);
+  color: #FFFFFF;
 }
 
 .gov-footer-bottom-bar {
@@ -1851,24 +2046,30 @@
   flex-wrap: wrap;
   gap: 1rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--neutral-800);
-  font-size: 0.75rem;
-  color: var(--neutral-500);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.775rem;
+  color: #D6BAC0;
+}
+
+.gov-footer-admin-link {
+  color: #F7E9EA;
+  font-size: 0.775rem;
+  font-weight: 600;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-sm);
+  background-color: rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.gov-footer-admin-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
 }
 
 .gov-footer-copyright {
   margin: 0;
-}
-
-.gov-footer-admin-link {
-  color: var(--neutral-400);
-  text-decoration: none;
-  font-size: 0.75rem;
-}
-
-.gov-footer-admin-link:hover {
-  color: #FFFFFF;
-  text-decoration: underline;
 }
 
 /* Helper visually hidden */

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useNavigate, Link } from 'react-router-dom';
-import { getAdminSession, logoutAdmin } from '../utils/storage';
+import { getAdminSession, logoutAdmin } from '../services/storage';
 import Icon from '../components/common/Icon';
 
 export default function AdminLayout() {
@@ -38,14 +38,14 @@ export default function AdminLayout() {
       {/* Topbar Administrator */}
       <header className="gov-admin-topbar">
         <div className="gov-admin-brand">
-          <img src="/logo-riau.svg" alt="Riau" style={{ width: '28px', height: '34px' }} />
+          <img src="/images/logo.jpeg" alt="Logo IFPI" style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }} />
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span className="gov-admin-title">Panel Petugas & Verifikator Pengaduan</span>
-              <span className="gov-admin-badge">PROTOTYPE</span>
+              <span className="gov-admin-title">Panel Petugas &amp; Verifikator IFPI</span>
+              <span className="gov-admin-badge" style={{ backgroundColor: 'var(--ifpi-red)' }}>IFPI PANEL</span>
             </div>
             <div style={{ fontSize: '0.725rem', color: '#94A3B8' }}>
-              Pemerintah Provinsi Riau &bull; Diskominfotik & OPD Teknis
+              Ikatan Fungsional Pengadaan Indonesia &bull; Pengelolaan Layanan Terpadu
             </div>
           </div>
         </div>

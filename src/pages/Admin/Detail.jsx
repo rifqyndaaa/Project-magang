@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import Icon from '../../components/common/Icon';
 import StatusBadge from '../../components/common/StatusBadge';
 import { CATEGORIES, REPORT_STATUSES, getCategoryDetails } from '../../data/categories';
-import { getReportById, updateReportStatus, saveAdminResponse, getAdminSession } from '../../utils/storage';
+import { getReportById, updateReportStatus, saveAdminResponse, getAdminSession } from '../../services/storage';
 
 export default function AdminDetail() {
   const { id } = useParams();
@@ -36,7 +36,7 @@ export default function AdminDetail() {
         setOpdName(data.adminResponse.opd || '');
       } else {
         const catObj = getCategoryDetails(data.category);
-        setOpdName(catObj ? catObj.opd : 'Pemerintah Provinsi Riau');
+        setOpdName(catObj ? catObj.opd : 'Dewan Pengurus IFPI');
       }
     }
   };
@@ -80,7 +80,7 @@ export default function AdminDetail() {
       report.id,
       newStatus,
       statusNote.trim() || `Status pengaduan disesuaikan menjadi ${newStatus}.`,
-      statusActor.trim() || (adminUser ? adminUser.name : 'Petugas Pemprov Riau')
+      statusActor.trim() || (adminUser ? adminUser.name : 'Tim Verifikator IFPI')
     );
 
     if (updated) {

@@ -1,64 +1,64 @@
-// Data Kategori Layanan Pengaduan Pemerintah Provinsi Riau
+// Data Kategori Layanan Pengaduan Resmi Ikatan Fungsional Pengadaan Indonesia (IFPI)
 
 export const CATEGORIES = [
   {
     id: 'hukum',
     name: 'Permasalahan dan Konsultasi Hukum',
     shortName: 'Konsultasi Hukum',
-    description: 'Digunakan untuk menyampaikan permasalahan hukum atau mengajukan konsultasi terkait persoalan hukum.',
-    opd: 'Biro Hukum Sekretariat Daerah Provinsi Riau',
+    description: 'Digunakan untuk menyampaikan permasalahan hukum atau mengajukan konsultasi terkait regulasi pengadaan barang dan jasa.',
+    opd: 'Bidang Advokasi & Konsultasi Hukum Pengadaan IFPI',
     icon: 'shield',
     services: [
-      'Konsultasi Regulasi & Produk Hukum Daerah (Perda/Pergub)',
-      'Konsultasi Sengketa Tata Usaha Negara & Aset Daerah',
-      'Penelaahan Rancangan Dokumen Kerja Sama & Perjanjian Hukum',
-      'Permohonan Fasilitasi & Bantuan Konsultasi Hukum Perdata'
+      'Konsultasi Regulasi & Produk Hukum Pengadaan Pemerintah',
+      'Konsultasi Sengketa Kontrak & Risiko Hukum Pengadaan',
+      'Penelaahan Rancangan Dokumen Kerja Sama & Kontrak PBJ',
+      'Permohonan Fasilitasi & Pendampingan Hukum Profesi Pengadaan'
     ],
     examples: [
-      'Permohonan penjelasan dan kepastian isi Peraturan Gubernur Riau',
-      'Konsultasi penanganan permasalahan sengketa aset pemerintah daerah',
-      'Permintaan telaah yuridis rancangan kerja sama kemitraan daerah',
-      'Konsultasi kepatuhan hukum atas pelaksanaan program kemasyarakatan'
+      'Permohonan penjelasan dan telaah klausul Perpres Pengadaan Barang/Jasa',
+      'Konsultasi penanganan permasalahan sengketa pelaksanaan kontrak pengadaan',
+      'Permintaan telaah yuridis rancangan adendum kontrak pekerjaan konstruksi/jasa',
+      'Konsultasi kepatuhan hukum atas mitigasi risiko hukum aparatur pengadaan'
     ]
   },
   {
     id: 'pengaduan',
     name: 'Konsultasi Terkait Pengaduan',
     shortName: 'Konsultasi Pengaduan',
-    description: 'Digunakan untuk berkonsultasi mengenai pengaduan, meminta informasi, atau menanyakan tindak lanjut pengaduan.',
-    opd: 'Inspektorat Daerah & Diskominfotik Provinsi Riau',
+    description: 'Digunakan untuk berkonsultasi mengenai pengaduan proses pengadaan, meminta klarifikasi, atau menanyakan tindak lanjut laporan.',
+    opd: 'Bidang Penegakan Kode Etik & Pengaduan Profesi IFPI',
     icon: 'message',
     services: [
-      'Konsultasi Tata Cara & Prosedur Penyampaian Aduan',
-      'Konfirmasi & Klarifikasi Progres Penanganan Aduan',
-      'Konsultasi Pencegahan Maladministrasi Pelayanan Publik',
-      'Fasilitasi Mediasi & Klarifikasi Aduan Masyarakat'
+      'Konsultasi Tata Cara & Prosedur Penyampaian Aduan Pengadaan',
+      'Konfirmasi & Klarifikasi Progres Penanganan Laporan Pengadaan',
+      'Konsultasi Pencegahan Penyimpangan & Maladministrasi PBJ',
+      'Fasilitasi Mediasi & Klarifikasi Etik Pelaksanaan Tugas Pengadaan'
     ],
     examples: [
-      'Konsultasi tata cara dan kelengkapan bukti pengaduan pelayanan publik',
-      'Klarifikasi status tindak lanjut aduan yang belum selesai diproses',
-      'Konsultasi kendala dalam penanganan keluhan di unit pelayanan daerah',
-      'Konsultasi mekanisme pengaduan dugaan pelanggaran kode etik aparatur'
+      'Konsultasi tata cara dan kelengkapan bukti pengaduan pemilihan penyedia',
+      'Klarifikasi status tindak lanjut aduan proses pengadaan yang belum selesai',
+      'Konsultasi pencegahan benturan kepentingan dan maladministrasi di unit kerja',
+      'Konsultasi mekanisme pengaduan dugaan pelanggaran kode etik pengadaan'
     ]
   },
   {
     id: 'narasumber',
     name: 'Permintaan Narasumber dan Undangan',
     shortName: 'Narasumber & Undangan',
-    description: 'Digunakan untuk mengajukan permintaan narasumber atau menyampaikan undangan kegiatan kepada Pemerintah Provinsi Riau.',
-    opd: 'Biro Administrasi Pimpinan / BPSDM Provinsi Riau',
+    description: 'Digunakan untuk mengajukan permintaan narasumber ahli atau menyampaikan undangan kegiatan pelatihan dan workshop pengadaan.',
+    opd: 'Bidang Pengembangan Kompetensi & Narasumber IFPI',
     icon: 'briefcase',
     services: [
-      'Permohonan Narasumber Sosialisasi / Workshop / Seminar',
-      'Undangan Menghadiri Acara Resmi / Audiensi / Rapat Koordinasi',
-      'Permintaan Fasilitator / Tim Ahli Pelatihan Daerah',
-      'Permohonan Sambutan / Keynote Speaker Pimpinan Daerah'
+      'Permohonan Narasumber Sosialisasi / Workshop / Seminar PBJ',
+      'Undangan Menghadiri Acara Resmi / Rapat Koordinasi Nasional IFPI',
+      'Permintaan Fasilitator / Tim Ahli Pelatihan Kompetensi Pengadaan',
+      'Permohonan Sambutan / Keynote Speaker Pimpinan IFPI'
     ],
     examples: [
-      'Permohonan narasumber ahli untuk seminar/workshop tingkat provinsi',
-      'Penyampaian surat undangan menghadiri rapat koordinasi / forum kemitraan',
-      'Permintaan fasilitator pelatihan peningkatan kompetensi aparatur/organisasi',
-      'Permohonan audiensi dan kehadiran pimpinan daerah pada kegiatan resmi'
+      'Permohonan narasumber ahli pengadaan untuk bimbingan teknis / seminar instansi',
+      'Penyampaian surat undangan menghadiri forum koordinasi pengadaan barang/jasa',
+      'Permintaan instruktur/fasilitator pelatihan sertifikasi kompetensi pengadaan',
+      'Permohonan audiensi dan kehadiran pimpinan organisasi pada agenda resmi'
     ]
   }
 ];

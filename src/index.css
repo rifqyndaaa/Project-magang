@@ -1,68 +1,80 @@
-/* Design System: Portal Pengaduan Pemerintah Provinsi Riau */
+/* ==========================================================================
+   DESIGN SYSTEM RESMI IFPI (IKATAN FUNGSIONAL PENGADAAN INDONESIA)
+   Palet Identitas: Merah & Putih (Red & White Institutional Palette)
+   ========================================================================== */
 :root {
-  /* Warna Resmi */
-  --gov-blue-dark: #0A326E;
-  --gov-blue: #0D47A1;
-  --gov-blue-light: #1565C0;
-  --gov-blue-soft: #EEF4FC;
-  --gov-blue-border: #BCD5F5;
+  /* Warna Identitas Utama IFPI */
+  --ifpi-red: #B8202D;
+  --ifpi-red-dark: #8F1723;
+  --ifpi-red-light: #D32F2F;
+  --ifpi-red-soft: #F9EDEF;
+  --ifpi-red-border: #F0C4C8;
 
-  --gov-green: #2E7D32;
-  --gov-green-dark: #1B5E20;
-  --gov-green-soft: #E8F5E9;
-  --gov-green-border: #C8E6C9;
+  /* Pemetaan Variabel Global (Seamless Backward Compatibility) */
+  --gov-blue-dark: #8F1723;
+  --gov-blue: #B8202D;
+  --gov-blue-light: #D32F2F;
+  --gov-blue-soft: #F9EDEF;
+  --gov-blue-border: #F0C4C8;
+
+  --gov-green: #1B7A43;
+  --gov-green-dark: #145E33;
+  --gov-green-soft: #EDF7F1;
+  --gov-green-border: #C2E7D1;
 
   --gov-yellow: #B78103;
   --gov-yellow-soft: #FFF9E6;
 
-  /* Abu-abu Netral */
-  --neutral-50: #F8FAFC;
-  --neutral-100: #F1F5F9;
-  --neutral-200: #E2E8F0;
+  /* Abu-abu Netral & Background Resmi */
+  --neutral-offwhite: #F7F7F7;
+  --neutral-50: #F7F7F7;
+  --neutral-100: #F1F3F5;
+  --neutral-200: #E8E8E8;
   --neutral-300: #CBD5E1;
-  --neutral-400: #94A3B8;
-  --neutral-500: #64748B;
-  --neutral-600: #475569;
-  --neutral-700: #334155;
-  --neutral-800: #1E293B;
-  --neutral-900: #0F172A;
+  --neutral-400: #A0A0A0;
+  --neutral-500: #686868;
+  --neutral-600: #4A4A4A;
+  --neutral-700: #333333;
+  --neutral-800: #252525;
+  --neutral-900: #1A1A1A;
 
   /* Status Colors */
-  --status-baru-bg: #EFF6FF;
-  --status-baru-text: #1D4ED8;
-  --status-baru-border: #BFDBFE;
+  --status-baru-bg: #FFF5F5;
+  --status-baru-text: #B8202D;
+  --status-baru-border: #FED7D7;
 
-  --status-verif-bg: #F5F3FF;
-  --status-verif-text: #6D28D9;
-  --status-verif-border: #DDD6FE;
+  --status-verif-bg: #F8F4FF;
+  --status-verif-text: #6B21A8;
+  --status-verif-border: #E9D5FF;
 
   --status-proses-bg: #FFFBEB;
   --status-proses-text: #B45309;
   --status-proses-border: #FDE68A;
 
-  --status-tindak-bg: #EEF2FF;
-  --status-tindak-text: #4338CA;
-  --status-tindak-border: #C7D2FE;
+  --status-tindak-bg: #F0FDF4;
+  --status-tindak-text: #15803D;
+  --status-tindak-border: #BBF7D0;
 
   --status-selesai-bg: #F0FDF4;
-  --status-selesai-text: #15803D;
-  --status-selesai-border: #BBF7D0;
+  --status-selesai-text: #166534;
+  --status-selesai-border: #86EFAC;
 
   --status-tolak-bg: #FEF2F2;
-  --status-tolak-text: #B91C1C;
+  --status-tolak-text: #991B1B;
   --status-tolak-border: #FECACA;
 
   /* Tipografi & Ukuran */
-  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --radius-xs: 3px;
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --radius-xs: 2px;
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
 
-  /* Shadow Minimal & Halus */
+  /* Shadow Halus & Terukur (Bukan Shadow Tebal) */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
 
   --max-width: 1200px;
 }
