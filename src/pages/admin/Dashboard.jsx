@@ -1,180 +1,164 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from "../../components/Icon";
 import StatusBadge from "../../components/StatusBadge";
-import { CATEGORIES, RIAU_REGIONS, REPORT_STATUSES, getCategoryDetails } from '../../data/categories';
+import {
+  CATEGORIES,
+  RIAU_REGIONS,
+  ADMIN_STATUSES,
+  getCategoryDetails
+} from '../../data/categories';
 import { getReportStats, filterReports, exportReportsToCSV } from "../../services/storage";
 
+const EMPTY_FILTER = { query: '', status: '', category: '', region: '' };
+
 export default function AdminDashboard() {
-  const [stats, setStats] = useState({
-    total: 0,
-    baru: 0,
-    diverifikasi: 0,
-    diproses: 0,
-    tindakLanjut: 0,
-    selesai: 0,
-    ditolak: 0,
-    dalamProses: 0
-  });
+  const [filterState, setFilterState] = useState(EMPTY_FILTER);
+  // Data dibaca langsung dari penyimpanan pada setiap render. State hanya
+  // menyimpan filter dan penghitung penyegaran, sehingga tidak ada salinan
+  // yang bisa basi terhadap data yang ditulis halaman publik.
+  const [, setRefreshKey] = useState(0);
+  const reports = filterReports(filterState);
+  const stats = getReportStats();
+  const lastSynced = new Date();
 
-  const [filterState, setFilterState] = useState({
-    query: '',
-    status: '',
-    category: '',
-    region: ''
-  });
-
-  const [reports, setReports] = useState([]);
-
-  const loadData = () => {
-    setStats(getReportStats());
-    const filtered = filterReports(filterState);
-    setReports(filtered);
-  };
-
-  useEffect(() => {
-    loadData();
-  }, [filterState]);
+  const loadData = () => setRefreshKey(k => k + 1);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilterState(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleResetFilter = () => {
-    setFilterState({
-      query: '',
-      status: '',
-      category: '',
-      region: ''
-    });
-  };
+  const handleResetFilter = () => setFilterState(EMPTY_FILTER);
 
-  const handleExport = () => {
-    exportReportsToCSV(reports);
-  };
+  const handleExport = () => exportReportsToCSV(reports);
+
+  const hasFilter = Boolean(
+    filterState.query || filterState.status || filterState.category || filterState.region
+  );
+
+  const kpis = [
+    {
+      key: '',
+      tone: 'total',
+      label: 'Total Pengajuan',
+      value: stats.total,
+      note: 'Seluruh kategori layanan'
+    },
+    {
+      key: 'Baru',
+      tone: 'baru',
+      label: 'Baru Diterima',
+      value: stats.baru,
+      note: 'Menunggu verifikasi petugas'
+    },
+    {
+      key: 'Diproses',
+      tone: 'proses',
+      label: 'Sedang Diproses',
+      value: stats.diproses,
+      note: 'Sedang ditelaah atau ditindaklanjuti'
+    },
+    {
+      key: 'Selesai',
+      tone: 'selesai',
+      label: 'Selesai Ditangani',
+      value: stats.selesai,
+      note: `${stats.ditanggapi} pengajuan bertanggapan resmi`
+    }
+  ];
 
   return (
-    <div className="gov-container adm-dash">
-      {/* Header Dashboard */}
-      <header className="adm-dash__head">
-        <div className="adm-dash__head-main">
-          <span className="adm-dash__eyebrow">Panel Kendali IFPI</span>
-          <h1 className="adm-dash__title">Rekapitulasi Layanan &amp; Pengaduan</h1>
-          <p className="adm-dash__lede">
-            Pengelolaan permohonan konsultasi pengadaan, penanganan aduan profesi, dan
-            koordinasi narasumber resmi DPW IFPI Provinsi Riau.
+    <div>
+      <header className="adx-page-head">
+        <div className="adx-page-head__main">
+          <span className="adx-page-head__eyebrow">Panel Kendali IFPI</span>
+          <h1 className="adx-page-head__title">Rekapitulasi Layanan &amp; Pengaduan</h1>
+          <p className="adx-page-head__desc">
+            Daftar pengajuan yang masuk dari portal publik beserta status penanganannya.
+            Seluruh angka di bawah dihitung langsung dari data pengajuan yang tersimpan.
           </p>
         </div>
 
-        <div className="adm-dash__head-actions">
-          <button
-            type="button"
-            onClick={handleExport}
-            className="gov-btn gov-btn-outline-neutral gov-btn-sm"
-            id="btn-admin-export-csv"
-            title="Unduh data yang tersaring ke berkas spreadsheet CSV"
-          >
-            <Icon name="download" size={14} />
-            <span>Ekspor CSV ({reports.length})</span>
+        <div className="adx-page-head__actions">
+          <button type="button" onClick={handleExport} className="adx-btn" id="btn-admin-export-csv">
+            <Icon name="download" size={14} color="currentColor" />
+            <span>Ekspor Data ({reports.length})</span>
           </button>
-          <button
-            type="button"
-            onClick={loadData}
-            className="gov-btn gov-btn-primary gov-btn-sm"
-            title="Muat ulang data terbaru"
-          >
+          <button type="button" onClick={loadData} className="adx-btn adx-btn--primary">
+            <Icon name="refresh" size={14} color="currentColor" />
             <span>Segarkan Data</span>
           </button>
         </div>
       </header>
 
-      {/* Ringkasan Statistik */}
-      <div className="adm-stats">
-        <button
-          type="button"
-          className={`adm-stat${filterState.status === '' ? ' is-active' : ''}`}
-          onClick={() => setFilterState(prev => ({ ...prev, status: '' }))}
-        >
-          <span className="adm-stat__label">Total Pengaduan</span>
-          <span className="adm-stat__value">{stats.total}</span>
-          <span className="adm-stat__meta">Semua kategori &amp; wilayah</span>
-        </button>
-
-        <button
-          type="button"
-          className={`adm-stat adm-stat--new${filterState.status === 'Baru' ? ' is-active' : ''}`}
-          onClick={() => setFilterState(prev => ({ ...prev, status: 'Baru' }))}
-        >
-          <span className="adm-stat__label">Baru Diterima</span>
-          <span className="adm-stat__value">{stats.baru}</span>
-          <span className="adm-stat__meta">Menunggu verifikasi admin</span>
-        </button>
-
-        <button
-          type="button"
-          className={`adm-stat adm-stat--progress${filterState.status === 'Diproses' ? ' is-active' : ''}`}
-          onClick={() => setFilterState(prev => ({ ...prev, status: 'Diproses' }))}
-        >
-          <span className="adm-stat__label">Sedang Diproses</span>
-          <span className="adm-stat__value">{stats.dalamProses}</span>
-          <span className="adm-stat__meta">Verifikasi, telaah &amp; tindak lanjut</span>
-        </button>
-
-        <button
-          type="button"
-          className={`adm-stat adm-stat--done${filterState.status === 'Selesai' ? ' is-active' : ''}`}
-          onClick={() => setFilterState(prev => ({ ...prev, status: 'Selesai' }))}
-        >
-          <span className="adm-stat__label">Selesai Ditangani</span>
-          <span className="adm-stat__value">{stats.selesai}</span>
-          <span className="adm-stat__meta">Diberi tanggapan resmi</span>
-        </button>
+      {/* Pita indikator: satu blok terbagi garis, bukan empat kartu mengambang */}
+      <div className="adx-kpis">
+        {kpis.map((kpi) => (
+          <button
+            key={kpi.key}
+            type="button"
+            className={`adx-kpi adx-kpi--${kpi.tone}${filterState.status === kpi.key ? ' is-active' : ''}`}
+            onClick={() => setFilterState(prev => ({ ...prev, status: kpi.key }))}
+            aria-pressed={filterState.status === kpi.key}
+          >
+            <span className="adx-kpi__label">{kpi.label}</span>
+            <span className="adx-kpi__value">{kpi.value}</span>
+            <span className="adx-kpi__note">{kpi.note}</span>
+          </button>
+        ))}
       </div>
 
+      <section className="adx-panel">
+        <div className="adx-panel__head">
+          <h2 className="adx-panel__title">Daftar Pengajuan</h2>
+          <span className="adx-panel__meta">
+            {lastSynced
+              ? `Diperbarui ${lastSynced.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB`
+              : ''}
+          </span>
+        </div>
 
-      {/* Panel Filter dan Pencarian */}
-      <section className="adm-filters">
-        <h2 className="adm-filters__title">Filter &amp; Pencarian Laporan</h2>
-
-        <div className="adm-filters__grid">
-          <div className="gov-form-group adm-filters__field">
-            <label htmlFor="filter-query" className="gov-label">
-              Cari teks / tiket / pelapor
-            </label>
-            <input
-              type="text"
-              id="filter-query"
-              name="query"
-              className="gov-input"
-              placeholder="Nomor tiket, nama, lokasi…"
-              value={filterState.query}
-              onChange={handleFilterChange}
-            />
+        {/* Pencarian & penyaringan */}
+        <div className="adx-toolbar">
+          <div className="adx-field">
+            <label htmlFor="filter-query" className="adx-field__label">Pencarian</label>
+            <div className="adx-search-wrap">
+              <Icon name="search" size={14} color="currentColor" />
+              <input
+                type="text"
+                id="filter-query"
+                name="query"
+                className="adx-input"
+                placeholder="Nomor tiket, nama pelapor, atau lokasi"
+                value={filterState.query}
+                onChange={handleFilterChange}
+              />
+            </div>
           </div>
 
-          <div className="gov-form-group adm-filters__field">
-            <label htmlFor="filter-status" className="gov-label">Status penanganan</label>
+          <div className="adx-field">
+            <label htmlFor="filter-status" className="adx-field__label">Status</label>
             <select
               id="filter-status"
               name="status"
-              className="gov-select"
+              className="adx-select"
               value={filterState.status}
               onChange={handleFilterChange}
             >
               <option value="">Semua status</option>
-              {REPORT_STATUSES.map(s => (
-                <option key={s.id} value={s.id}>{s.id} ({s.label})</option>
+              {ADMIN_STATUSES.map(s => (
+                <option key={s.id} value={s.id}>{s.label}</option>
               ))}
             </select>
           </div>
 
-          <div className="gov-form-group adm-filters__field">
-            <label htmlFor="filter-category" className="gov-label">Kategori layanan</label>
+          <div className="adx-field">
+            <label htmlFor="filter-category" className="adx-field__label">Kategori layanan</label>
             <select
               id="filter-category"
               name="category"
-              className="gov-select"
+              className="adx-select"
               value={filterState.category}
               onChange={handleFilterChange}
             >
@@ -185,12 +169,12 @@ export default function AdminDashboard() {
             </select>
           </div>
 
-          <div className="gov-form-group adm-filters__field">
-            <label htmlFor="filter-region" className="gov-label">Kabupaten / kota</label>
+          <div className="adx-field">
+            <label htmlFor="filter-region" className="adx-field__label">Kabupaten / kota</label>
             <select
               id="filter-region"
               name="region"
-              className="gov-select"
+              className="adx-select"
               value={filterState.region}
               onChange={handleFilterChange}
             >
@@ -202,117 +186,120 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {(filterState.query || filterState.status || filterState.category || filterState.region) && (
-          <div className="adm-filters__footer">
+        {hasFilter && (
+          <div className="adx-filterbar">
             <span>
-              Menemukan <strong>{reports.length}</strong> pengaduan sesuai kriteria penyaringan.
+              Menampilkan <strong>{reports.length}</strong> dari <strong>{stats.total}</strong> pengajuan
             </span>
-            <button
-              type="button"
-              onClick={handleResetFilter}
-              className="adm-filters__reset"
-            >
-              Reset filter
+            <button type="button" className="adx-filterbar__reset" onClick={handleResetFilter}>
+              Bersihkan filter
             </button>
           </div>
         )}
-      </section>
 
-      {/* Tabel Data Laporan */}
-      <div className="adm-table">
-        <div className="gov-table-wrapper">
-          <table className="gov-table">
+        <div className="adx-table-scroll">
+          <table className="adx-table">
             <thead>
               <tr>
-                <th>No. Tiket</th>
+                <th>Nomor Tiket</th>
                 <th>Tanggal Masuk</th>
                 <th>Status</th>
-                <th>Kategori &amp; Layanan</th>
+                <th>Kategori Layanan</th>
                 <th>Judul Permohonan / Aduan</th>
-                <th>Pelapor &amp; Kontak</th>
+                <th>Nama Pelapor</th>
+                <th>Kontak</th>
                 <th>Tanggapan</th>
-                <th className="adm-table__th-action">Tindakan</th>
+                <th data-align="center">Aksi</th>
               </tr>
             </thead>
             <tbody>
               {reports.map((report) => {
                 const catObj = getCategoryDetails(report.category);
+                const created = new Date(report.createdAt);
                 return (
                   <tr key={report.id}>
                     <td>
-                      <Link to={`/admin/report/${report.id}`} className="adm-table__ticket">
+                      <Link to={`/admin/report/${report.id}`} className="adx-ticket">
                         {report.ticketNumber}
                       </Link>
                     </td>
-                    <td className="adm-table__date">
-                      {new Date(report.createdAt).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}
-                      <span>
-                        {new Date(report.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB
+                    <td>
+                      <span className="adx-date">
+                        {created.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}
+                        <span className="adx-date__time">
+                          {created.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB
+                        </span>
                       </span>
                     </td>
                     <td>
                       <StatusBadge status={report.status} size="sm" />
                     </td>
                     <td>
-                      <div className="adm-table__cat">
-                        {catObj ? catObj.shortName || catObj.name : report.category}
-                        {catObj?.isLegacy && (
-                          <span className="adm-table__chip">Arsip</span>
-                        )}
-                      </div>
-                      {report.serviceType && (
-                        <div className="adm-table__service">{report.serviceType}</div>
-                      )}
-                      <div className="adm-table__region">{report.region}</div>
-                    </td>
-                    <td className="adm-table__subject">
-                      <div className="adm-table__subject-title">{report.title}</div>
-                      <div className="adm-table__subject-desc">{report.message}</div>
-                    </td>
-                    <td className="adm-table__reporter">
-                      <div>{report.name}</div>
-                      <div className="adm-table__reporter-contact">{report.contact}</div>
+                      <span className="adx-cat">
+                        <span className="adx-cat__name">
+                          {catObj ? catObj.name : report.category}
+                          {catObj?.isLegacy && <span className="adx-chip">Arsip</span>}
+                        </span>
+                        <span className="adx-cat__sub">{report.region || 'Provinsi Riau'}</span>
+                      </span>
                     </td>
                     <td>
-                      {report.adminResponse ? (
-                        <span className="adm-table__answered">Sudah ditanggapi</span>
+                      <span className="adx-subject">
+                        <span className="adx-subject__title">{report.title}</span>
+                        <span className="adx-subject__desc">{report.serviceType || report.message}</span>
+                      </span>
+                    </td>
+                    <td>
+                      <span className="adx-person">
+                        <span className="adx-person__name">{report.name}</span>
+                      </span>
+                    </td>
+                    <td>
+                      <span className="adx-person__contact">{report.contact}</span>
+                    </td>
+                    <td>
+                      {report.adminResponse?.message ? (
+                        <span className="adx-flag adx-flag--yes">
+                          <span className="adx-flag__dot" />
+                          Sudah
+                        </span>
                       ) : (
-                        <span className="adm-table__unanswered">Belum dijawab</span>
+                        <span className="adx-flag adx-flag--no">
+                          <span className="adx-flag__dot" />
+                          Belum
+                        </span>
                       )}
                     </td>
-                    <td className="adm-table__td-action">
-                      <Link
-                        to={`/admin/report/${report.id}`}
-                        className="gov-btn gov-btn-outline-neutral gov-btn-xs"
-                        id={`btn-manage-${report.id}`}
-                      >
-                        <span>Kelola</span>
-                        <Icon name="arrow-right" size={12} />
+                    <td data-align="center">
+                      <Link to={`/admin/report/${report.id}`} className="adx-btn adx-btn--xs">
+                        Detail
                       </Link>
                     </td>
                   </tr>
                 );
               })}
-
-              {reports.length === 0 && (
-                <tr>
-                  <td colSpan={8} className="adm-table__empty">
-                    <p>Tidak ada laporan yang sesuai dengan kriteria pencarian.</p>
-                    <button
-                      type="button"
-                      onClick={handleResetFilter}
-                      className="gov-btn gov-btn-outline-neutral gov-btn-sm"
-                    >
-                      Bersihkan filter
-                    </button>
-                  </td>
-                </tr>
-              )}
             </tbody>
           </table>
-        </div>
-      </div>
-    </div>
 
+          {reports.length === 0 && (
+            <div className="adx-empty">
+              <p className="adx-empty__title">
+                {stats.total === 0 ? 'Belum ada pengajuan masuk' : 'Tidak ada pengajuan yang cocok'}
+              </p>
+              <p className="adx-empty__desc">
+                {stats.total === 0
+                  ? 'Pengajuan yang dikirim masyarakat melalui portal publik akan otomatis muncul di sini.'
+                  : 'Ubah kata kunci pencarian atau bersihkan filter untuk melihat seluruh pengajuan.'}
+              </p>
+              {hasFilter && (
+                <button type="button" onClick={handleResetFilter} className="adx-btn">
+                  Bersihkan filter
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
   );
 }

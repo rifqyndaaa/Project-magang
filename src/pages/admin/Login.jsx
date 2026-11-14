@@ -5,13 +5,12 @@ import { loginAdmin, getAdminSession } from "../../services/storage";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('admin123');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    // Jika sudah login, langsung ke dashboard admin
     if (getAdminSession()) {
       navigate('/admin', { replace: true });
     }
@@ -38,118 +37,106 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="admin-login">
-      <header className="admin-login__topbar">
-        <div className="gov-container admin-login__topbar-inner">
-          <Link to="/" className="admin-login__brand">
-            <img src="/images/logo.jpeg" alt="Logo IFPI" width="36" height="36" />
-            <span className="admin-login__brand-text">
-              <strong>IKATAN FUNGSIONAL PENGADAAN INDONESIA</strong>
-              <span>Panel Administrasi &amp; Verifikasi Resmi</span>
-            </span>
-          </Link>
-          <Link to="/" className="gov-btn gov-btn-outline-neutral gov-btn-sm">
-            <Icon name="arrow-left" size={14} />
-            <span>Kembali ke Portal Publik</span>
-          </Link>
-        </div>
+    <div className="adx-login">
+      <header className="adx-login__bar">
+        <Link to="/" className="adx-login__brand">
+          <img src="/images/logo.jpeg" alt="Logo IFPI" />
+          <span>
+            <strong>IKATAN FUNGSIONAL PENGADAAN INDONESIA</strong>
+            <span>Panel Administrasi &amp; Verifikasi Resmi</span>
+          </span>
+        </Link>
+        <Link to="/" className="adx-portal-link">
+          <Icon name="arrow-left" size={13} color="currentColor" />
+          <span>Portal Publik</span>
+        </Link>
       </header>
 
-      <main className="admin-login__main">
-        <div className="admin-login__card">
-          <div className="admin-login__head">
-            <span className="admin-login__eyebrow">Akses Terbatas</span>
-            <h1 className="admin-login__title">Masuk Panel Petugas IFPI</h1>
-            <p className="admin-login__lede">
-              Khusus pengurus dan verifikator DPW Ikatan Fungsional Pengadaan Indonesia Provinsi Riau.
+      <main className="adx-login__main">
+        <div className="adx-login__wrap">
+          <div className="adx-login__form">
+            <span className="adx-login__eyebrow">Akses terbatas</span>
+            <h1 className="adx-login__title">Masuk Panel Petugas IFPI</h1>
+            <p className="adx-login__lede">
+              Khusus pengurus dan verifikator DPW Ikatan Fungsional Pengadaan Indonesia
+              Provinsi Riau.
+            </p>
+
+            {error && (
+              <div className="adx-notice adx-notice--err" role="alert" style={{ marginBottom: '1.25rem' }}>
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit}>
+              <div className="adx-field-stack">
+                <div className="adx-field">
+                  <label htmlFor="admin-username" className="adx-field__label">Nama pengguna</label>
+                  <input
+                    type="text"
+                    id="admin-username"
+                    className="adx-input"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Masukkan username"
+                    autoComplete="username"
+                    required
+                  />
+                </div>
+
+                <div className="adx-field">
+                  <label htmlFor="admin-password" className="adx-field__label">Kata sandi</label>
+                  <input
+                    type="password"
+                    id="admin-password"
+                    className="adx-input"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Masukkan kata sandi"
+                    autoComplete="current-password"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="adx-btn adx-btn--primary adx-login__submit"
+                  id="btn-admin-login-submit"
+                >
+                  <Icon name="lock" size={15} color="currentColor" />
+                  <span>{isSubmitting ? 'Memverifikasi…' : 'Masuk ke Panel'}</span>
+                </button>
+              </div>
+            </form>
+
+            <p className="adx-login__note">
+              <strong>Catatan purwarupa.</strong> Autentikasi berjalan lokal di peramban ini
+              untuk keperluan demonstrasi. Sistem operasional memerlukan backend, token
+              terenkripsi, dan kendali akses berbasis peran.
             </p>
           </div>
 
-          <p className="admin-login__disclaimer">
-            <strong>Catatan prototype.</strong> Autentikasi berjalan lokal di peramban (localStorage)
-            untuk demonstrasi fungsional. Sistem operasional riil akan memakai backend, token
-            terenkripsi, RBAC, dan basis data terenkripsi.
-          </p>
+          <aside className="adx-login__aside">
+            <h2 className="adx-login__aside-title">Akun evaluasi</h2>
 
-          {error && (
-            <div className="gov-alert gov-alert-danger admin-login__alert" role="alert">
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit}>
-            <div className="gov-form-group">
-              <label htmlFor="admin-username" className="gov-label">
-                Nama Pengguna
-              </label>
-              <input
-                type="text"
-                id="admin-username"
-                className="gov-input"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Masukkan username"
-                autoComplete="username"
-                required
-              />
-            </div>
-
-            <div className="gov-form-group">
-              <label htmlFor="admin-password" className="gov-label">
-                Kata Sandi
-              </label>
-              <input
-                type="password"
-                id="admin-password"
-                className="gov-input"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Masukkan kata sandi"
-                autoComplete="current-password"
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="gov-btn gov-btn-primary admin-login__submit"
-              id="btn-admin-login-submit"
-            >
-              <Icon name="lock" size={16} />
-              <span>{isSubmitting ? 'Memverifikasi...' : 'Masuk ke Dashboard'}</span>
-            </button>
-          </form>
-
-          <div className="admin-login__accounts">
-            <span className="admin-login__accounts-label">Akun prototype untuk evaluasi</span>
-
-            <button
-              type="button"
-              className="admin-login__account"
-              onClick={() => handleQuickFill('admin', 'admin123')}
-            >
-              <span className="admin-login__account-cred">
-                <strong>admin</strong>
-                <span> / admin123</span>
-              </span>
-              <span className="admin-login__account-role">Super Admin Diskominfotik</span>
-              <span className="admin-login__account-action">Isi otomatis</span>
+            <button type="button" className="adx-login__cred" onClick={() => handleQuickFill('admin', 'admin123')}>
+              <strong>Super Admin</strong>
+              <code>admin / admin123</code>
+              <span>Isi otomatis</span>
             </button>
 
-            <button
-              type="button"
-              className="admin-login__account"
-              onClick={() => handleQuickFill('petugas', 'riau2026')}
-            >
-              <span className="admin-login__account-cred">
-                <strong>petugas</strong>
-                <span> / riau2026</span>
-              </span>
-              <span className="admin-login__account-role">Petugas Verifikator OPD</span>
-              <span className="admin-login__account-action">Isi otomatis</span>
+            <button type="button" className="adx-login__cred" onClick={() => handleQuickFill('petugas', 'riau2026')}>
+              <strong>Petugas Verifikator</strong>
+              <code>petugas / riau2026</code>
+              <span>Isi otomatis</span>
             </button>
-          </div>
+
+            <p className="adx-login__note" style={{ marginTop: '1rem' }}>
+              Kedua peran memiliki akses yang sama pada purwarupa ini. Nama petugas yang masuk
+              otomatis dipakai sebagai pencatat pada riwayat penanganan.
+            </p>
+          </aside>
         </div>
       </main>
     </div>

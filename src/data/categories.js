@@ -130,11 +130,55 @@ export const RIAU_REGIONS = [
   'Kabupaten Kepulauan Meranti'
 ];
 
+// ---------------------------------------------------------------------------
+// ALUR STATUS KERJA ADMIN — tepat tiga tahap resmi.
+// Tiga entri di bawah ini adalah satu-satunya status yang dapat dipilih petugas.
+// Status lama (Diverifikasi, Tindak Lanjut, Ditolak) tetap dibaca demi
+// kompatibilitas data arsip, tetapi dipetakan ke salah satu dari tiga tahap.
+// ---------------------------------------------------------------------------
+export const ADMIN_STATUSES = [
+  {
+    id: 'Baru',
+    label: 'Baru Diterima',
+    desc: 'Pengajuan masuk dari portal publik dan belum ditangani petugas.'
+  },
+  {
+    id: 'Diproses',
+    label: 'Sedang Diproses',
+    desc: 'Pengajuan sedang ditelaah, diverifikasi, atau ditindaklanjuti petugas.'
+  },
+  {
+    id: 'Selesai',
+    label: 'Selesai Ditangani',
+    desc: 'Pengajuan telah selesai ditangani dan tanggapan resmi telah dipublikasikan.'
+  }
+];
+
+/**
+ * Memetakan status apa pun (termasuk status arsip lama) ke salah satu dari
+ * tiga tahap kerja resmi. Tidak pernah mengubah data tersimpan.
+ */
+export function normalizeWorkflowStatus(status) {
+  if (status === 'Selesai' || status === 'Ditolak') return 'Selesai';
+  if (status === 'Diverifikasi' || status === 'Diproses' || status === 'Tindak Lanjut') return 'Diproses';
+  return 'Baru';
+}
+
+/**
+ * Label panjang untuk sebuah status (dipakai badge & ringkasan).
+ */
+export function getStatusLabel(status) {
+  const found = ADMIN_STATUSES.find(s => s.id === normalizeWorkflowStatus(status));
+  return found ? found.label : 'Baru Diterima';
+}
+
+// Daftar status historis lengkap. Dipertahankan agar data arsip lama tetap
+// dapat dirender tanpa kehilangan makna.
 export const REPORT_STATUSES = [
   { id: 'Baru', label: 'Baru Diterima', color: 'blue', desc: 'Laporan telah masuk ke sistem dan menunggu verifikasi petugas pengaduan.' },
   { id: 'Diverifikasi', label: 'Terverifikasi', color: 'purple', desc: 'Laporan telah divalidasi keabsahannya dan diteruskan ke OPD penanggung jawab.' },
   { id: 'Diproses', label: 'Sedang Diproses', color: 'orange', desc: 'OPD terkait sedang melakukan telaah teknis atau peninjauan lapangan.' },
   { id: 'Tindak Lanjut', label: 'Tindak Lanjut', color: 'indigo', desc: 'Tindakan konkret penanganan pengaduan sedang dilaksanakan di lokasi.' },
-  { id: 'Selesai', label: 'Selesai', color: 'green', desc: 'Pengaduan telah selesai ditangani dengan tanggapan resmi dan dokumentasi tindak lanjut.' },
+  { id: 'Selesai', label: 'Selesai Ditangani', color: 'green', desc: 'Pengaduan telah selesai ditangani dengan tanggapan resmi dan dokumentasi tindak lanjut.' },
   { id: 'Ditolak', label: 'Tidak Dapat Diproses', color: 'red', desc: 'Laporan berada di luar kewenangan Pemprov Riau atau tidak memenuhi syarat verifikasi.' }
 ];

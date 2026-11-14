@@ -33,6 +33,13 @@ import NotFound           from './pages/guest/NotFound';
 import AdminLogin     from './pages/admin/Login';
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminDetail    from './pages/admin/Detail';
+import AdminPengajuan from './pages/admin/Pengajuan';
+import AdminPenanganan from './pages/admin/Penanganan';
+import AdminOrganisasi from './pages/admin/Organisasi';
+import AdminWilayah   from './pages/admin/Wilayah';
+import AdminKegiatan  from './pages/admin/Kegiatan';
+import AdminMerchandise from './pages/admin/Merchandise';
+import AdminPengaturan from './pages/admin/Pengaturan';
 
 import './App.css';
 
@@ -72,8 +79,15 @@ export default function App() {
 
         {/* Rute Admin Panel Berproteksi */}
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index             element={<AdminDashboard />} />
-          <Route path="report/:id" element={<AdminDetail />} />
+          <Route index                element={<AdminDashboard />} />
+          <Route path="pengajuan"     element={<AdminPengajuan />} />
+          <Route path="penanganan"    element={<AdminPenanganan />} />
+          <Route path="organisasi"    element={<AdminOrganisasi />} />
+          <Route path="wilayah"       element={<AdminWilayah />} />
+          <Route path="kegiatan"      element={<AdminKegiatan />} />
+          <Route path="merchandise"   element={<AdminMerchandise />} />
+          <Route path="pengaturan"    element={<AdminPengaturan />} />
+          <Route path="report/:id"    element={<AdminDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

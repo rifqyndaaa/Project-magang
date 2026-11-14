@@ -1,95 +1,156 @@
-import { useEffect, useState } from 'react';
-import { Outlet, useNavigate, Link } from 'react-router-dom';
-import { getAdminSession, logoutAdmin } from '../services/storage';
+import { useEffect, useMemo, useState } from 'react';
+import { Outlet, useNavigate, Link, NavLink, useLocation } from 'react-router-dom';
+import { getAdminSession, logoutAdmin, getReportStats } from '../services/storage';
 import Icon from '../components/Icon';
+
+/**
+ * Rangka Panel Admin IFPI.
+ *
+ * Struktur: header institusional (gelap, garis aksen merah) + sidebar
+ * pengelompokan menu + area konten.
+ *
+ * Setiap item navigasi di sini memiliki halaman nyata. Tidak ada tautan mati.
+ */
+const NAV_GROUPS = [
+  {
+    label: 'Pengelolaan Layanan',
+    items: [
+      { to: '/admin', label: 'Panel Kendali', icon: 'shield', end: true },
+      { to: '/admin/pengajuan', label: 'Data Pengajuan', icon: 'file-check', countKey: 'total' },
+      { to: '/admin/penanganan', label: 'Verifikasi & Penanganan', icon: 'clock', countKey: 'baru' }
+    ]
+  },
+  {
+    label: 'Data Organisasi',
+    items: [
+      { to: '/admin/organisasi', label: 'Struktur Organisasi', icon: 'users' },
+      { to: '/admin/wilayah', label: 'Wilayah', icon: 'map-pin' },
+      { to: '/admin/kegiatan', label: 'Kegiatan', icon: 'star' }
+    ]
+  },
+  {
+    label: 'Etalase',
+    items: [
+      { to: '/admin/merchandise', label: 'Merchandise', icon: 'shopping-bag' }
+    ]
+  },
+  {
+    label: 'Sistem',
+    items: [
+      { to: '/admin/pengaturan', label: 'Pengaturan', icon: 'lock' }
+    ]
+  }
+];
 
 export default function AdminLayout() {
   const navigate = useNavigate();
-  const [adminUser, setAdminUser] = useState(null);
-  const [isChecking, setIsChecking] = useState(true);
+  const location = useLocation();
+
+  // Sesi dibaca sekali saat mount — tidak memerlukan effect.
+  const [adminUser] = useState(() => getAdminSession());
 
   useEffect(() => {
-    const session = getAdminSession();
-    if (!session) {
-      navigate('/admin/login', { replace: true });
-    } else {
-      setAdminUser(session);
-    }
-    setIsChecking(false);
-  }, [navigate]);
+    if (!adminUser) navigate('/admin/login', { replace: true });
+  }, [adminUser, navigate]);
+
+  // Hitungan menu diturunkan dari data nyata dan dihitung ulang setiap
+  // perpindahan halaman, tanpa menyimpan salinan di state.
+  const counts = useMemo(
+    () => {
+      if (!adminUser) return { total: 0, baru: 0 };
+      const stats = getReportStats();
+      return { total: stats.total, baru: stats.baru };
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [adminUser, location.pathname]
+  );
+
+  const accessLabel = adminUser
+    ? (adminUser.role === 'Super Admin' ? 'Akses penuh' : 'Akses verifikator')
+    : '';
 
   const handleLogout = () => {
     logoutAdmin();
     navigate('/admin/login');
   };
 
-  if (isChecking) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: 'var(--neutral-50)' }}>
-        <p style={{ color: 'var(--neutral-600)', fontSize: '0.9375rem' }}>Memuat modul verifikasi petugas...</p>
-      </div>
-    );
-  }
-
   if (!adminUser) return null;
 
   return (
-    <div className="gov-admin-shell">
-      {/* Topbar Administrator */}
-      <header className="gov-admin-topbar">
-        <div className="gov-admin-brand">
-          <img src="/images/logo.jpeg" alt="Logo IFPI" style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: "cover" }} />
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span className="gov-admin-title">Panel Petugas &amp; Verifikator IFPI</span>
-              <span className="gov-admin-badge" style={{ backgroundColor: "var(--ifpi-red)" }}>IFPI PANEL</span>
-            </div>
-            <div style={{ fontSize: '0.725rem', color: '#94A3B8' }}>
-              Ikatan Fungsional Pengadaan Indonesia &bull; Pengelolaan Layanan Terpadu
-            </div>
-          </div>
-        </div>
+    <div className="adx-shell">
+      <header className="adx-header">
+        <Link to="/admin" className="adx-header__brand">
+          <img src="/images/logo.jpeg" alt="Logo IFPI" className="adx-header__logo" />
+          <span className="adx-header__titles">
+            <span className="adx-header__title">Panel Petugas &amp; Verifikator IFPI</span>
+            <span className="adx-header__subtitle">Ikatan Fungsional Pengadaan Indonesia</span>
+          </span>
+        </Link>
 
-        <div className="gov-admin-user">
+        <div className="adx-header__right">
           <Link
             to="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="gov-btn gov-btn-outline-neutral gov-btn-sm"
-            style={{ color: '#E2E8F0', borderColor: '#475569', backgroundColor: 'transparent' }}
-            title="Buka Halaman Publik di Tab Baru"
+            className="adx-portal-link"
+            title="Buka portal publik di tab baru"
           >
-            <Icon name="search" size={14} color="#CBD5E1" />
+            <Icon name="external-link" size={13} color="currentColor" />
             <span>Lihat Portal Publik</span>
           </Link>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', borderLeft: '1px solid #334155', paddingLeft: '1rem' }}>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontWeight: 700, color: '#F8FAFC', fontSize: '0.8125rem' }}>{adminUser.name}</div>
-              <div style={{ fontSize: '0.7rem', color: '#94A3B8' }}>{adminUser.role} - {adminUser.opd}</div>
+          <div className="adx-account">
+            <div className="adx-account__text">
+              <span className="adx-account__name">{adminUser.name}</span>
+              <span className="adx-account__meta">
+                {adminUser.role} &middot; {accessLabel}
+              </span>
             </div>
-            <button
-              onClick={handleLogout}
-              className="gov-btn gov-btn-outline-neutral gov-btn-sm"
-              style={{ color: '#FECACA', borderColor: '#7F1D1D', backgroundColor: '#450A0A' }}
-              title="Keluar dari Panel Admin"
-            >
-              <Icon name="log-out" size={14} color="#FCA5A5" />
+            <button type="button" onClick={handleLogout} className="adx-logout" title="Keluar dari panel">
+              <Icon name="log-out" size={13} color="currentColor" />
               <span>Keluar</span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="gov-admin-container">
-        <Outlet />
-      </main>
+      <div className="adx-frame">
+        <aside className="adx-sidebar" aria-label="Navigasi panel admin">
+          {NAV_GROUPS.map((group) => (
+            <div className="adx-sidebar__group" key={group.label}>
+              <span className="adx-sidebar__label">{group.label}</span>
+              <nav className="adx-nav">
+                {group.items.map((item) => (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    end={item.end}
+                    className={({ isActive }) => `adx-nav__item${isActive ? ' is-active' : ''}`}
+                  >
+                    <Icon name={item.icon} size={15} color="currentColor" />
+                    <span className="adx-nav__text">{item.label}</span>
+                    {item.countKey && counts[item.countKey] > 0 && (
+                      <span className="adx-nav__count">{counts[item.countKey]}</span>
+                    )}
+                  </NavLink>
+                ))}
+              </nav>
+            </div>
+          ))}
 
-      {/* Footer Admin Sederhana */}
-      <footer style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid var(--neutral-200)', padding: '0.75rem 0', fontSize: '0.75rem', color: 'var(--neutral-500)', textAlign: 'center' }}>
-        Panel Prototype Pengaduan Pemprov Riau &bull; Penyimpanan Data Browser (localStorage) &bull; Sistem Nyata Memerlukan Server Backend & Autentikasi RBAC Terverifikasi
-      </footer>
+          <p className="adx-sidebar__foot">
+            DPW IFPI Provinsi Riau
+            <br />
+            Data tersimpan di peramban ini
+          </p>
+        </aside>
+
+        <main className="adx-main">
+          <div className="adx-main__inner">
+            <Outlet />
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

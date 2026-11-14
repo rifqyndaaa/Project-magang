@@ -2,7 +2,7 @@
 // Portal Pengaduan Masyarakat Pemerintah Provinsi Riau
 
 import { generateTicketNumber } from '../lib/ticket';
-import { getCategoryDetails } from '../data/categories';
+import { getCategoryDetails, normalizeWorkflowStatus } from '../data/categories';
 
 const STORAGE_KEY = 'riau_pengaduan_reports_v1';
 const ADMIN_AUTH_KEY = 'riau_pengaduan_admin_session_v1';
@@ -430,22 +430,30 @@ export function saveAdminResponse(id, responseText, responderName, opdName) {
 export function getReportStats() {
   const reports = getAllReports();
   const total = reports.length;
-  const baru = reports.filter(r => r.status === 'Baru').length;
+
+  // Angka tahap kerja dihitung lewat pemetaan status resmi, sehingga data
+  // arsip lama (Diverifikasi / Tindak Lanjut / Ditolak) tetap terhitung pada
+  // tahap yang benar dan tidak pernah hilang dari rekapitulasi.
+  const baru = reports.filter(r => normalizeWorkflowStatus(r.status) === 'Baru').length;
+  const diproses = reports.filter(r => normalizeWorkflowStatus(r.status) === 'Diproses').length;
+  const selesai = reports.filter(r => normalizeWorkflowStatus(r.status) === 'Selesai').length;
+
+  // Rincian historis dipertahankan untuk laporan/arsip.
   const diverifikasi = reports.filter(r => r.status === 'Diverifikasi').length;
-  const diproses = reports.filter(r => r.status === 'Diproses').length;
   const tindakLanjut = reports.filter(r => r.status === 'Tindak Lanjut').length;
-  const selesai = reports.filter(r => r.status === 'Selesai').length;
   const ditolak = reports.filter(r => r.status === 'Ditolak').length;
 
   return {
     total,
     baru,
-    diverifikasi,
     diproses,
-    tindakLanjut,
     selesai,
+    diverifikasi,
+    tindakLanjut,
     ditolak,
-    dalamProses: diverifikasi + diproses + tindakLanjut
+    dalamProses: diproses,
+    // Jumlah pengajuan yang sudah memiliki tanggapan resmi.
+    ditanggapi: reports.filter(r => r.adminResponse && r.adminResponse.message).length
   };
 }
 
@@ -457,8 +465,10 @@ export function filterReports({ query = '', status = '', category = '', region =
   const q = query.trim().toLowerCase();
 
   return reports.filter(report => {
-    // Filter status
-    if (status && report.status !== status) return false;
+    // Filter status — dibandingkan lewat pemetaan tahap kerja agar data arsip
+    // lama (Diverifikasi / Tindak Lanjut / Ditolak) tetap muncul pada tahap
+    // yang benar ketika petugas menyaring tiga status resmi.
+    if (status && normalizeWorkflowStatus(report.status) !== normalizeWorkflowStatus(status)) return false;
     // Filter kategori
     if (category && report.category !== category) return false;
     // Filter wilayah
