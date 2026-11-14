@@ -635,8 +635,11 @@ code, kbd, samp, pre {
 }
 
 .gov-nav-arrow-icon {
+  display: inline-flex;
+  align-items: center;
   color: #A8A8A8;
-  margin-left: 1px;
+  margin-left: 0;
+  transition: color 0.15s ease, transform 0.15s ease;
 }
 
 .gov-nav-has-dropdown:hover .gov-nav-arrow-icon,
@@ -644,39 +647,75 @@ code, kbd, samp, pre {
   color: var(--ifpi-red);
 }
 
-/* Dropdown: panel putih bersih dengan header tipis, bukan kartu melayang */
+.gov-nav-has-dropdown.is-dropdown-open .gov-nav-arrow-icon {
+  transform: rotate(180deg);
+}
+
+/* ============================================================
+   DROPDOWN NAVIGASI
+   Panel siku bersudut 0, garis 1px, tanpa kartu melayang.
+   Semua properti kritis memakai !important untuk menimpa
+   aturan lama di App.css yang juga memakai !important.
+   ============================================================ */
 .gov-dropdown-menu {
-  min-width: 310px;
-  max-width: 360px;
+  min-width: 324px;
+  max-width: 380px;
   border: 1px solid var(--ifpi-rule-strong);
   border-top: 2px solid var(--ifpi-red);
-  border-radius: 0 0 var(--radius-md) var(--radius-md);
-  box-shadow: 0 12px 28px -12px rgba(37, 37, 37, 0.18);
-  padding: 0.35rem 0;
+  border-radius: 0;
+  box-shadow: 0 14px 30px -22px rgba(37, 37, 37, 0.35);
+  padding: 0.45rem 0;
   top: calc(100% - 2px);
 }
 
-/* Cegah dropdown terpotong di tepi kanan viewport */
-.gov-official-nav-links > li:nth-last-child(1) .gov-dropdown-menu,
-.gov-official-nav-links > li:nth-last-child(2) .gov-dropdown-menu {
-  left: auto;
-  right: 0;
+/* Hanya satu dropdown yang boleh terbuka.
+   Aturan :hover / :focus-within lama di App.css membuat panel
+   yang sebelumnya aktif tetap terlihat saat kursor pindah menu,
+   sehingga dua panel tampil bertumpuk. */
+.gov-nav-has-dropdown:not(.is-dropdown-open):not(.is-mobile-submenu-open) .gov-dropdown-menu {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(6px) !important;
+}
+
+/* Panel selalu rata kiri mengikuti menu induknya. App.css masih
+   meratakan panel menu kedua dari kanan ke kanan, sehingga panel
+   "Kegiatan" melompat jauh dari labelnya. Aturan ini mengembalikannya. */
+.gov-official-nav-links > li:not(:last-child) > .gov-dropdown-menu {
+  left: 0 !important;
+  right: auto !important;
+}
+
+/* Hanya menu paling kanan yang diratakan ke kanan agar panelnya tidak
+   melewati tepi viewport. */
+.gov-official-nav-links > li:last-child > .gov-dropdown-menu {
+  left: auto !important;
+  right: 0 !important;
 }
 
 .gov-dropdown-item {
-  padding: 0.6rem 1.1rem;
+  padding: 0.72rem 1.25rem 0.72rem 1.1rem !important;
+  border-left: 2px solid transparent;
+  background-color: transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.gov-dropdown-item:hover {
-  background-color: #FCF7F8;
+.gov-dropdown-item:hover,
+.gov-dropdown-item:focus-visible {
+  background-color: #FCFCFC !important;
+  border-left-color: var(--ifpi-red);
+  outline: none;
 }
 
 .gov-dropdown-item-title {
   font-family: var(--font-ui);
-  font-size: var(--fs-sm);
+  font-size: 0.84375rem;
   font-weight: 600;
   color: var(--ifpi-ink);
-  gap: 0.45rem;
+  letter-spacing: -0.005em;
+  gap: 0.4rem;
+  transition: color 0.15s ease;
 }
 
 .gov-dropdown-item:hover .gov-dropdown-item-title {
@@ -684,24 +723,43 @@ code, kbd, samp, pre {
 }
 
 .gov-dropdown-item-desc {
-  font-size: 0.78125rem;
+  font-size: 0.75rem;
   color: #8A8A8A;
-  line-height: 1.45;
-  margin-top: 0.15rem;
+  line-height: 1.5;
+  margin-top: 0.18rem;
+  max-width: 36ch;
 }
 
 .gov-dropdown-item-icon {
   color: var(--ifpi-red);
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
-.gov-dropdown-divider {
-  background-color: #F0F0F0;
-  margin: 0.3rem 0;
-}
-
+/* Lacak Laporan: baris pelengkap yang tenang, bukan kartu menonjol */
 .gov-dropdown-item-highlight {
-  background-color: #FAF7F7;
+  background-color: #FBFBFB !important;
+  border-top: 1px solid var(--ifpi-rule);
+  margin-top: 0.45rem;
+  padding-top: 0.8rem !important;
+}
+
+.gov-dropdown-item-highlight .gov-dropdown-item-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #4A4A4A;
+}
+
+.gov-dropdown-item-highlight:hover {
+  background-color: #FCFCFC !important;
+}
+
+.gov-dropdown-item-highlight:hover .gov-dropdown-item-title {
+  color: var(--ifpi-red-dark);
+}
+
+.gov-dropdown-item-highlight .gov-dropdown-item-desc {
+  font-size: 0.71875rem;
+  color: #8F8F8F;
 }
 
 .gov-admin-link {
@@ -2096,6 +2154,8 @@ code, kbd, samp, pre {
   border-bottom: 1px solid var(--ifpi-rule);
   gap: 0.25rem;
   margin-bottom: 2rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .act-nav-tab-btn {
@@ -2103,22 +2163,27 @@ code, kbd, samp, pre {
   font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--ifpi-ink-soft);
-  border-bottom: 2px solid transparent;
+  border: 0 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  border-bottom: 2px solid transparent !important;
   margin-bottom: -1px;
   padding: 0.65rem 1rem;
-  border-radius: 0;
+  border-radius: 0 !important;
   min-height: 40px;
 }
 
 .act-nav-tab-btn:hover {
-  color: var(--ifpi-red);
-  background-color: transparent;
+  color: var(--ifpi-red) !important;
+  background-color: transparent !important;
+  transform: none !important;
 }
 
 .act-nav-tab-btn.is-active {
-  color: var(--ifpi-red);
-  border-bottom-color: var(--ifpi-red);
-  background-color: transparent;
+  color: var(--ifpi-red) !important;
+  border-bottom-color: var(--ifpi-red) !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 .act-filter-btn {
@@ -2142,32 +2207,36 @@ code, kbd, samp, pre {
   border-bottom: 1px solid var(--ifpi-rule);
   gap: 0.25rem;
   margin-bottom: 2rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .merch-nav-tab-btn {
   font-family: var(--font-ui);
   font-size: var(--fs-sm);
   font-weight: 600;
-  color: var(--ifpi-ink-soft);
-  border: none;
-  border-bottom: 2px solid transparent;
+  color: var(--ifpi-ink-soft) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid transparent !important;
   margin-bottom: -1px;
   padding: 0.65rem 1rem;
-  border-radius: 0;
-  background-color: transparent;
+  border-radius: 0 !important;
+  background-color: transparent !important;
   min-height: 40px;
 }
 
 .merch-nav-tab-btn:hover {
-  color: var(--ifpi-red);
-  background-color: transparent;
+  color: var(--ifpi-red) !important;
+  background-color: transparent !important;
+  transform: none !important;
 }
 
 .merch-nav-tab-btn.is-active {
-  color: var(--ifpi-red);
-  border-bottom-color: var(--ifpi-red);
-  background-color: transparent;
-  box-shadow: none;
+  color: var(--ifpi-red) !important;
+  border-bottom-color: var(--ifpi-red) !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 .merch-filter-btn {
@@ -2894,10 +2963,38 @@ code, kbd, samp, pre {
   .gov-dropdown-menu {
     min-width: 0;
     max-width: none;
+    box-shadow: none;
+    border: none;
+    border-left: 1px solid var(--ifpi-rule-strong);
+    border-radius: 0;
+    padding: 0.2rem 0;
+    margin: 0.35rem 0 0.6rem 0.75rem;
+    background-color: transparent;
   }
 
   .gov-dropdown-item {
-    padding: 0.7rem 0.9rem;
+    padding: 0.7rem 0.9rem !important;
+    border-left: 2px solid transparent;
+  }
+
+  .gov-dropdown-item:hover {
+    border-left-color: transparent;
+    background-color: transparent !important;
+  }
+
+  .gov-dropdown-item:hover .gov-dropdown-item-title {
+    color: var(--ifpi-ink);
+  }
+
+  .gov-dropdown-item-desc {
+    max-width: none;
+  }
+
+  .gov-dropdown-item-highlight {
+    background-color: transparent !important;
+    border-top: 1px solid var(--ifpi-rule);
+    margin-top: 0.3rem;
+    padding-top: 0.75rem !important;
   }
 
   .home-hero {
@@ -3062,21 +3159,27 @@ code, kbd, samp, pre {
   }
 
   .act-nav-tabs,
+  .merch-nav-tabs,
   .pg-tabs {
     overflow-x: auto;
     flex-wrap: nowrap;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    justify-content: flex-start;
   }
 
   .act-nav-tabs::-webkit-scrollbar,
+  .merch-nav-tabs::-webkit-scrollbar,
   .pg-tabs::-webkit-scrollbar {
     display: none;
   }
 
   .act-nav-tab-btn,
+  .merch-nav-tab-btn,
   .pg-tabs__link {
     white-space: nowrap;
+    width: auto !important;
+    justify-content: flex-start !important;
   }
 }
 
@@ -3532,7 +3635,7 @@ code, kbd, samp, pre {
   }
 
   .receipt-page__back {
-    margin-left: 0;
+    margin-left: 0.3rem;
     justify-content: center;
     padding-top: 0.5rem;
   }

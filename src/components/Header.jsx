@@ -45,6 +45,17 @@ export default function Header() {
     setMobileSubmenu(prev => (prev === menu ? null : menu));
   };
 
+  // Dukungan keyboard: fokus masuk membuka dropdown, fokus keluar menutupnya
+  const handleDropdownFocus = (menu) => (e) => {
+    if (window.innerWidth <= 1024) return;
+    setActiveDropdown(menu);
+  };
+
+  const handleDropdownBlur = (e) => {
+    if (e.currentTarget.contains(e.relatedTarget)) return;
+    setActiveDropdown(null);
+  };
+
   // Navigasi dengan scroll halus ke target anchor in-page
   const handleAnchorClick = (hashId) => {
     closeMenu();
@@ -117,6 +128,8 @@ export default function Header() {
               className={`gov-nav-has-dropdown ${activeDropdown === 'layanan' ? 'is-dropdown-open' : ''} ${mobileSubmenu === 'layanan' ? 'is-mobile-submenu-open' : ''}`}
               onMouseEnter={() => setActiveDropdown('layanan')}
               onMouseLeave={() => setActiveDropdown(null)}
+              onFocus={handleDropdownFocus('layanan')}
+              onBlur={handleDropdownBlur}
             >
               <div className="gov-nav-parent-wrapper">
                 <NavLink
@@ -160,7 +173,7 @@ export default function Header() {
                 >
                   <div className="gov-dropdown-item-content">
                     <span className="gov-dropdown-item-title">Permasalahan dan Konsultasi Hukum</span>
-                    <span className="gov-dropdown-item-desc">Konsultasi regulasi, perdata, & telaah sengketa hukum daerah</span>
+                    <span className="gov-dropdown-item-desc">Konsultasi regulasi dan telaah sengketa hukum</span>
                   </div>
                 </Link>
 
@@ -172,7 +185,7 @@ export default function Header() {
                 >
                   <div className="gov-dropdown-item-content">
                     <span className="gov-dropdown-item-title">Konsultasi Terkait Pengaduan</span>
-                    <span className="gov-dropdown-item-desc">Tata cara aduan, konfirmasi tindak lanjut, & klarifikasi</span>
+                    <span className="gov-dropdown-item-desc">Tata cara aduan dan konfirmasi tindak lanjut</span>
                   </div>
                 </Link>
 
@@ -184,11 +197,9 @@ export default function Header() {
                 >
                   <div className="gov-dropdown-item-content">
                     <span className="gov-dropdown-item-title">Permintaan Narasumber dan Undangan</span>
-                    <span className="gov-dropdown-item-desc">Permohonan pemateri workshop, seminar, & undangan resmi</span>
+                    <span className="gov-dropdown-item-desc">Permohonan pemateri seminar dan undangan resmi</span>
                   </div>
                 </Link>
-
-                <div className="gov-dropdown-divider" role="separator" />
 
                 <Link
                   to="/track"
@@ -219,6 +230,8 @@ export default function Header() {
               className={`gov-nav-has-dropdown ${activeDropdown === 'wilayah' ? 'is-dropdown-open' : ''} ${mobileSubmenu === 'wilayah' ? 'is-mobile-submenu-open' : ''}`}
               onMouseEnter={() => setActiveDropdown('wilayah')}
               onMouseLeave={() => setActiveDropdown(null)}
+              onFocus={handleDropdownFocus('wilayah')}
+              onBlur={handleDropdownBlur}
             >
               <div className="gov-nav-parent-wrapper">
                 <NavLink
@@ -262,7 +275,7 @@ export default function Header() {
                 >
                   <div className="gov-dropdown-item-content">
                     <span className="gov-dropdown-item-title">Peta Interaktif Provinsi Riau</span>
-                    <span className="gov-dropdown-item-desc">Jelajahi batas geografis 10 kabupaten &amp; 2 kota</span>
+                    <span className="gov-dropdown-item-desc">Batas geografis 10 kabupaten dan 2 kota</span>
                   </div>
                 </Link>
 
@@ -274,7 +287,7 @@ export default function Header() {
                 >
                   <div className="gov-dropdown-item-content">
                     <span className="gov-dropdown-item-title">Kota Pekanbaru</span>
-                    <span className="gov-dropdown-item-desc">Ibu kota &amp; pusat koordinasi regional</span>
+                    <span className="gov-dropdown-item-desc">Ibu kota provinsi dan pusat koordinasi</span>
                   </div>
                 </Link>
 
@@ -286,7 +299,7 @@ export default function Header() {
                 >
                   <div className="gov-dropdown-item-content">
                     <span className="gov-dropdown-item-title">Kabupaten Siak</span>
-                    <span className="gov-dropdown-item-desc">Pusat peradaban &amp; kemitraan berkelanjutan</span>
+                    <span className="gov-dropdown-item-desc">Pusat peradaban Melayu dan kemitraan daerah</span>
                   </div>
                 </Link>
 
@@ -297,11 +310,8 @@ export default function Header() {
                   onClick={closeMenu}
                 >
                   <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">
-                      <Icon name="map-pin" size={14} className="gov-dropdown-item-icon" />
-                      Semua 12 Wilayah
-                    </span>
-                    <span className="gov-dropdown-item-desc">Buka peta lengkap &amp; status DPC IFPI</span>
+                    <span className="gov-dropdown-item-title">Semua 12 Wilayah</span>
+                    <span className="gov-dropdown-item-desc">Peta lengkap dan status DPC IFPI</span>
                   </div>
                 </Link>
               </div>
@@ -312,6 +322,8 @@ export default function Header() {
               className={`gov-nav-has-dropdown ${activeDropdown === 'kegiatan' ? 'is-dropdown-open' : ''} ${mobileSubmenu === 'kegiatan' ? 'is-mobile-submenu-open' : ''}`}
               onMouseEnter={() => setActiveDropdown('kegiatan')}
               onMouseLeave={() => setActiveDropdown(null)}
+              onFocus={handleDropdownFocus('kegiatan')}
+              onBlur={handleDropdownBlur}
             >
               <div className="gov-nav-parent-wrapper">
                 <NavLink
@@ -354,11 +366,8 @@ export default function Header() {
                   onClick={closeMenu}
                 >
                   <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">
-                      <Icon name="file-text" size={14} className="gov-dropdown-item-icon" />
-                      Program Kerja
-                    </span>
-                    <span className="gov-dropdown-item-desc">Rencana strategis dan program kerja 5 divisi IFPI</span>
+                    <span className="gov-dropdown-item-title">Program Kerja</span>
+                    <span className="gov-dropdown-item-desc">Rencana strategis lima divisi IFPI</span>
                   </div>
                 </Link>
 
@@ -369,11 +378,8 @@ export default function Header() {
                   onClick={closeMenu}
                 >
                   <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">
-                      <Icon name="calendar" size={14} className="gov-dropdown-item-icon" />
-                      Agenda
-                    </span>
-                    <span className="gov-dropdown-item-desc">Jadwal rakerwil, workshop, bimtek, &amp; forum PBJ</span>
+                    <span className="gov-dropdown-item-title">Agenda</span>
+                    <span className="gov-dropdown-item-desc">Jadwal rakerwil, bimtek, dan forum PBJ</span>
                   </div>
                 </Link>
 
@@ -384,10 +390,7 @@ export default function Header() {
                   onClick={closeMenu}
                 >
                   <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">
-                      <Icon name="image" size={14} className="gov-dropdown-item-icon" />
-                      Galeri Foto
-                    </span>
+                    <span className="gov-dropdown-item-title">Galeri Foto</span>
                     <span className="gov-dropdown-item-desc">Dokumentasi visual rangkaian kegiatan resmi IFPI</span>
                   </div>
                 </Link>
@@ -399,6 +402,8 @@ export default function Header() {
               className={`gov-nav-has-dropdown ${activeDropdown === 'merchandise' ? 'is-dropdown-open' : ''} ${mobileSubmenu === 'merchandise' ? 'is-mobile-submenu-open' : ''}`}
               onMouseEnter={() => setActiveDropdown('merchandise')}
               onMouseLeave={() => setActiveDropdown(null)}
+              onFocus={handleDropdownFocus('merchandise')}
+              onBlur={handleDropdownBlur}
             >
               <div className="gov-nav-parent-wrapper">
                 <NavLink
@@ -441,11 +446,8 @@ export default function Header() {
                   onClick={closeMenu}
                 >
                   <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">
-                      <Icon name="tag" size={14} className="gov-dropdown-item-icon" />
-                      Pernak-pernik
-                    </span>
-                    <span className="gov-dropdown-item-desc">Pin, badge, tumbler, kaos, &amp; atribut identitas IFPI</span>
+                    <span className="gov-dropdown-item-title">Pernak-pernik</span>
+                    <span className="gov-dropdown-item-desc">Pin, badge, kaos, dan atribut identitas IFPI</span>
                   </div>
                 </Link>
 
@@ -456,11 +458,8 @@ export default function Header() {
                   onClick={closeMenu}
                 >
                   <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">
-                      <Icon name="award" size={14} className="gov-dropdown-item-icon" />
-                      Cenderamata
-                    </span>
-                    <span className="gov-dropdown-item-desc">Plakat resmi, piagam, &amp; paket kenang-kenangan tamu</span>
+                    <span className="gov-dropdown-item-title">Cenderamata</span>
+                    <span className="gov-dropdown-item-desc">Plakat, piagam, dan paket kenang-kenangan</span>
                   </div>
                 </Link>
               </div>
