@@ -1,0 +1,5378 @@
+/* ============================================================================
+   IFPI — PREMIUM INSTITUTIONAL DESIGN LAYER
+   ----------------------------------------------------------------------------
+   Lapisan ini dimuat SETELAH index.css & App.css sehingga menimpa (override)
+   tampilan lama tanpa menghapus satu pun aturan yang sudah ada.
+
+   Prinsip:
+   - Merah IFPI sebagai identitas & aksen, bukan warna dominan.
+   - Tipografi editorial: Source Serif 4 (display) + Plus Jakarta Sans (UI).
+   - Garis pembatas tipis, radius kecil, bayangan nyaris tak terlihat.
+   - Ritme spasi konsisten 4px-based.
+   - Tanpa gradient mencolok, glassmorphism, atau blur dekoratif.
+   ========================================================================== */
+
+/* ----------------------------------------------------------------------------
+   1. TOKEN
+   -------------------------------------------------------------------------- */
+:root {
+  /* Identitas IFPI — sumber tunggal kebenaran */
+  --ifpi-red: #B8202D;
+  --ifpi-red-dark: #8F1723;
+  --ifpi-light-red: #F9EDEF;
+  --ifpi-red-soft: #F9EDEF;
+  --ifpi-red-border: #EFD3D6;
+  --ifpi-ink: #252525;
+  --ifpi-ink-soft: #686868;
+  --ifpi-paper: #FFFFFF;
+  --ifpi-paper-alt: #F7F7F7;
+  --ifpi-rule: #E8E8E8;
+  --ifpi-rule-strong: #D8D8D8;
+
+  /* Alias agar varian lama (biru) ikut menjadi merah */
+  --gov-blue: #B8202D;
+  --gov-blue-dark: #8F1723;
+  --gov-blue-light: #C63845;
+  --gov-blue-soft: #F9EDEF;
+  --gov-blue-border: #EFD3D6;
+
+  /* Tipografi */
+  --font-display: 'Source Serif 4', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-ui: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family: var(--font-ui);
+
+  --fs-micro: 0.6875rem;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-base: 0.9375rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.375rem;
+  --fs-2xl: 1.75rem;
+  --fs-3xl: 2.25rem;
+  --fs-display: clamp(2.1rem, 4.4vw, 3.25rem);
+
+  /* Ritme spasi */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 5.5rem;
+
+  /* Bentuk — kecil & tegas, bukan bubble */
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  /* Bayangan: nyaris tak terlihat */
+  --shadow-xs: 0 1px 1px rgba(37, 37, 37, 0.03);
+  --shadow-sm: 0 1px 2px rgba(37, 37, 37, 0.05);
+  --shadow-md: 0 2px 6px rgba(37, 37, 37, 0.06);
+  --shadow-lg: 0 8px 24px -8px rgba(37, 37, 37, 0.12);
+
+  --rule: 1px solid var(--ifpi-rule);
+  --max-width: 1180px;
+  --header-h: 76px;
+}
+
+/* ----------------------------------------------------------------------------
+   2. DASAR & TIPOGRAFI
+   -------------------------------------------------------------------------- */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  color: var(--ifpi-ink);
+  background-color: var(--ifpi-paper);
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--ifpi-ink);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+}
+
+p {
+  color: var(--ifpi-ink-soft);
+}
+
+strong, b {
+  color: var(--ifpi-ink);
+  font-weight: 600;
+}
+
+/* Angka & label teknis tetap sans */
+code, kbd, samp, pre {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 0.875em;
+}
+
+::selection {
+  background-color: var(--ifpi-red);
+  color: #FFFFFF;
+}
+
+/* Lebar baca nyaman */
+.gov-container {
+  max-width: var(--max-width);
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Judul section standar di seluruh portal */
+.gov-section-header {
+  margin-bottom: 2.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+  max-width: none;
+}
+
+.gov-section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  margin-bottom: 0.85rem;
+}
+
+.gov-section-tag::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background-color: var(--ifpi-red);
+  flex-shrink: 0;
+}
+
+.gov-section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  max-width: 30ch;
+}
+
+.gov-section-desc {
+  font-size: var(--fs-md);
+  color: var(--ifpi-ink-soft);
+  line-height: 1.72;
+  margin-top: 0.85rem;
+  max-width: 68ch;
+}
+
+@media (max-width: 900px) {
+  .gov-section-title {
+    font-size: clamp(1.7rem, 5vw, 2.25rem);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   3. AKSESIBILITAS — FOKUS, SKIP LINK, GERAK
+   -------------------------------------------------------------------------- */
+.public-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.public-shell__main {
+  flex-grow: 1;
+}
+
+.public-shell__main:focus {
+  outline: none;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--ifpi-red);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+/* Jangan hapus outline tanpa pengganti */
+:where(.gov-input, .gov-select, .gov-textarea):focus-visible {
+  outline: 2px solid var(--ifpi-red);
+  outline-offset: 1px;
+}
+
+.gov-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 2000;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--ifpi-red);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  text-decoration: none;
+}
+
+.gov-skip-link:focus {
+  left: 0;
+}
+
+/* Offset anchor agar tidak tertutup header sticky */
+:target,
+[id] {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   4. TOMBOL — tegas, tanpa bubble
+   -------------------------------------------------------------------------- */
+.gov-btn {
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  padding: 0.625rem 1.125rem;
+  border-radius: var(--radius-sm);
+  min-height: 40px;
+  transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.gov-btn:active {
+  transform: translateY(0.5px);
+}
+
+.gov-btn-primary {
+  background-color: var(--ifpi-red);
+  color: #FFFFFF;
+  border-color: var(--ifpi-red-dark);
+}
+
+.gov-btn-primary:hover {
+  background-color: var(--ifpi-red-dark);
+  border-color: var(--ifpi-red-dark);
+  color: #FFFFFF;
+}
+
+.gov-btn-secondary {
+  background-color: #FFFFFF;
+  color: var(--ifpi-red-dark);
+  border-color: var(--ifpi-red-border);
+}
+
+.gov-btn-secondary:hover {
+  background-color: var(--ifpi-red-soft);
+  border-color: var(--ifpi-red);
+  color: var(--ifpi-red-dark);
+}
+
+.gov-btn-accent {
+  background-color: #1B7A43;
+  border-color: #145E33;
+}
+
+.gov-btn-outline-neutral {
+  background-color: #FFFFFF;
+  color: var(--ifpi-ink);
+  border-color: var(--ifpi-rule-strong);
+}
+
+.gov-btn-outline-neutral:hover {
+  background-color: var(--ifpi-paper-alt);
+  border-color: var(--ifpi-ink-soft);
+  color: var(--ifpi-ink);
+}
+
+.gov-btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: var(--fs-sm);
+  min-height: 34px;
+}
+
+.gov-btn-xs {
+  padding: 0.3rem 0.6rem;
+  font-size: var(--fs-xs);
+  min-height: 28px;
+}
+
+.gov-btn-lg {
+  padding: 0.8rem 1.6rem;
+  font-size: var(--fs-md);
+  min-height: 46px;
+}
+
+/* ----------------------------------------------------------------------------
+   5. KARTU & PANEL — garis tipis, radius kecil
+   -------------------------------------------------------------------------- */
+.gov-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+}
+
+.gov-card-header {
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+  background-color: #FFFFFF;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: var(--fs-base);
+  color: var(--ifpi-ink);
+}
+
+.gov-card-body {
+  padding: 1.25rem;
+}
+
+.gov-card-footer {
+  padding: 0.875rem 1.25rem;
+  border-top: 1px solid var(--ifpi-rule);
+  background-color: var(--ifpi-paper-alt);
+}
+
+/* ----------------------------------------------------------------------------
+   6. FORMULIR
+   -------------------------------------------------------------------------- */
+.gov-label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0;
+}
+
+.gov-label .required {
+  color: var(--ifpi-red);
+}
+
+.gov-input,
+.gov-select,
+.gov-textarea {
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  color: var(--ifpi-ink);
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--ifpi-rule-strong);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  min-height: 42px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gov-input::placeholder,
+.gov-textarea::placeholder {
+  color: #9A9A9A;
+}
+
+.gov-input:hover,
+.gov-select:hover,
+.gov-textarea:hover {
+  border-color: #BFBFBF;
+}
+
+.gov-input:focus,
+.gov-select:focus,
+.gov-textarea:focus {
+  border-color: var(--ifpi-red);
+  box-shadow: 0 0 0 3px rgba(184, 32, 45, 0.1);
+}
+
+.gov-input.is-invalid,
+.gov-select.is-invalid,
+.gov-textarea.is-invalid {
+  border-color: #C2262C;
+  background-color: #FEF6F6;
+}
+
+.gov-error-text {
+  color: #B01B21;
+  font-size: var(--fs-xs);
+  font-weight: 500;
+}
+
+.gov-hint-text {
+  color: var(--ifpi-ink-soft);
+  font-size: var(--fs-xs);
+}
+
+/* ----------------------------------------------------------------------------
+   7. ALERT & BADGE
+   -------------------------------------------------------------------------- */
+.gov-alert {
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  padding: 0.85rem 1.05rem;
+  border-left-width: 3px;
+}
+
+.gov-alert-info {
+  background-color: var(--ifpi-red-soft);
+  border-color: var(--ifpi-red-border);
+  border-left-color: var(--ifpi-red);
+  color: var(--ifpi-ink);
+}
+
+.gov-alert-success {
+  background-color: #F2F8F4;
+  border-color: #CFE6D7;
+  border-left-color: #1B7A43;
+  color: #17532F;
+}
+
+.gov-alert-warning {
+  background-color: #FDF8EC;
+  border-color: #F0E1BE;
+  border-left-color: #A87A10;
+  color: #77540B;
+}
+
+.gov-alert-danger {
+  background-color: #FDF3F3;
+  border-color: #F0CFD0;
+  border-left-color: var(--ifpi-red);
+  color: #8E1A22;
+}
+
+.gov-badge {
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.55rem;
+  border-radius: var(--radius-xs);
+}
+
+/* ----------------------------------------------------------------------------
+   8. TABEL — untuk dashboard admin
+   -------------------------------------------------------------------------- */
+.gov-table-wrapper {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+}
+
+.gov-table {
+  font-size: var(--fs-sm);
+}
+
+.gov-table th {
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ifpi-ink-soft);
+  background-color: #FBFBFB;
+  border-bottom: 1px solid var(--ifpi-rule);
+  padding: 0.7rem 0.9rem;
+}
+
+.gov-table td {
+  padding: 0.8rem 0.9rem;
+  border-bottom: 1px solid #F1F1F1;
+  color: var(--ifpi-ink);
+  font-size: var(--fs-sm);
+}
+
+.gov-table tbody tr:hover {
+  background-color: #FCFAFA;
+}
+
+/* ----------------------------------------------------------------------------
+   9. BREADCRUMB
+   -------------------------------------------------------------------------- */
+.gov-breadcrumb {
+  background-color: transparent;
+  border-bottom: none;
+  padding: 1.5rem 0 0;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.02em;
+}
+
+.gov-breadcrumb-list {
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.gov-breadcrumb-list li {
+  color: #8A8A8A;
+  gap: 0.4rem;
+}
+
+.gov-breadcrumb-list li a {
+  color: var(--ifpi-ink-soft);
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.gov-breadcrumb-list li a:hover {
+  color: var(--ifpi-red);
+}
+
+.gov-breadcrumb-list li[aria-current],
+.gov-breadcrumb-list li:last-child {
+  color: var(--ifpi-ink);
+  font-weight: 600;
+}
+
+.gov-breadcrumb-sep,
+.pcr-breadcrumb-slash {
+  color: #C4C4C4;
+}
+
+/* ----------------------------------------------------------------------------
+   10. HEADER & NAVIGASI
+   -------------------------------------------------------------------------- */
+.gov-header-official {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--ifpi-rule);
+  box-shadow: none;
+}
+
+.gov-header-official.is-scrolled {
+  border-bottom-color: var(--ifpi-rule-strong);
+  box-shadow: 0 1px 3px rgba(37, 37, 37, 0.06);
+}
+
+.gov-header-official-inner {
+  min-height: var(--header-h);
+  gap: 2rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.gov-official-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 0;
+  border: 1px solid var(--ifpi-rule);
+  box-shadow: none;
+  object-fit: cover;
+  background-color: #FFFFFF;
+}
+
+.gov-brand-instansi {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ifpi-red);
+  line-height: 1.3;
+}
+
+.gov-brand-layanan {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.gov-official-nav {
+  gap: 1rem;
+}
+
+.gov-official-nav-links {
+  gap: 0.1rem;
+}
+
+.gov-official-nav-links a {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #3E3E3E;
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--radius-xs);
+  border-bottom: 2px solid transparent;
+  letter-spacing: -0.005em;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.gov-official-nav-links a:hover {
+  color: var(--ifpi-red);
+  background-color: transparent;
+  border-bottom-color: var(--ifpi-red-border);
+}
+
+.gov-official-nav-links a.active,
+.gov-official-nav-links a[aria-current='page'] {
+  color: var(--ifpi-red);
+  font-weight: 600;
+  border-bottom-color: var(--ifpi-red);
+  background-color: transparent;
+}
+
+.gov-nav-arrow-icon {
+  color: #A8A8A8;
+  margin-left: 1px;
+}
+
+.gov-nav-has-dropdown:hover .gov-nav-arrow-icon,
+.gov-nav-has-dropdown.is-dropdown-open .gov-nav-arrow-icon {
+  color: var(--ifpi-red);
+}
+
+/* Dropdown: panel putih bersih dengan header tipis, bukan kartu melayang */
+.gov-dropdown-menu {
+  min-width: 310px;
+  max-width: 360px;
+  border: 1px solid var(--ifpi-rule-strong);
+  border-top: 2px solid var(--ifpi-red);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: 0 12px 28px -12px rgba(37, 37, 37, 0.18);
+  padding: 0.35rem 0;
+  top: calc(100% - 2px);
+}
+
+/* Cegah dropdown terpotong di tepi kanan viewport */
+.gov-official-nav-links > li:nth-last-child(1) .gov-dropdown-menu,
+.gov-official-nav-links > li:nth-last-child(2) .gov-dropdown-menu {
+  left: auto;
+  right: 0;
+}
+
+.gov-dropdown-item {
+  padding: 0.6rem 1.1rem;
+}
+
+.gov-dropdown-item:hover {
+  background-color: #FCF7F8;
+}
+
+.gov-dropdown-item-title {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  gap: 0.45rem;
+}
+
+.gov-dropdown-item:hover .gov-dropdown-item-title {
+  color: var(--ifpi-red-dark);
+}
+
+.gov-dropdown-item-desc {
+  font-size: 0.78125rem;
+  color: #8A8A8A;
+  line-height: 1.45;
+  margin-top: 0.15rem;
+}
+
+.gov-dropdown-item-icon {
+  color: var(--ifpi-red);
+  opacity: 0.85;
+}
+
+.gov-dropdown-divider {
+  background-color: #F0F0F0;
+  margin: 0.3rem 0;
+}
+
+.gov-dropdown-item-highlight {
+  background-color: #FAF7F7;
+}
+
+.gov-admin-link {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #5A5A5A;
+  border: 1px solid var(--ifpi-rule-strong);
+  border-radius: var(--radius-xs);
+  padding: 0.4rem 0.75rem;
+  background-color: #FFFFFF;
+}
+
+.gov-admin-link:hover {
+  color: var(--ifpi-red);
+  border-color: var(--ifpi-red-border);
+  background-color: var(--ifpi-red-soft);
+}
+
+.gov-nav-admin-subtle {
+  border-left-color: var(--ifpi-rule);
+}
+
+/* ----------------------------------------------------------------------------
+   11. FOOTER
+   -------------------------------------------------------------------------- */
+.gov-footer-official {
+  background-color: #1E1E1E;
+  border-top: 3px solid var(--ifpi-red);
+  color: #B9B9B9;
+  font-size: var(--fs-sm);
+}
+
+.gov-footer-official-grid {
+  padding: 3rem 0 2.25rem;
+  gap: 2.5rem;
+}
+
+.gov-footer-official-title {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+}
+
+.gov-footer-official-subtitle {
+  font-size: var(--fs-xs);
+  color: #8E8E8E;
+  letter-spacing: 0.02em;
+}
+
+.gov-footer-official-desc {
+  color: #9C9C9C;
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  max-width: 42ch;
+  margin-top: 0.9rem;
+}
+
+.gov-footer-heading {
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin-bottom: 0.9rem;
+}
+
+.gov-footer-nav-list li a,
+.gov-footer-contact-list li {
+  font-size: var(--fs-sm);
+  color: #A8A8A8;
+}
+
+.gov-footer-nav-list li a:hover {
+  color: #FFFFFF;
+}
+
+.gov-footer-contact-list li strong {
+  color: #D6D6D6;
+  font-weight: 600;
+}
+
+.gov-footer-bottom-bar {
+  border-top: 1px solid #333333;
+  padding: 1.1rem 0;
+}
+
+.gov-footer-copyright {
+  font-size: var(--fs-xs);
+  color: #7E7E7E;
+}
+
+.gov-footer-admin-link {
+  font-size: var(--fs-xs);
+  color: #9C9C9C;
+}
+
+.gov-footer-admin-link:hover {
+  color: #FFFFFF;
+}
+
+/* ----------------------------------------------------------------------------
+   12. POLA HALAMAN DALAM (shared page header)
+   Dipakai oleh: Layanan, Kontak, Lacak, Kegiatan, Merchandise, Wilayah, dll.
+   -------------------------------------------------------------------------- */
+.pg-head {
+  padding: 2.25rem 0 2rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+  margin-bottom: 2.5rem;
+}
+
+.pg-head__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: start;
+}
+
+.pg-head__inner {
+  max-width: 74ch;
+}
+
+.pg-head__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  margin-bottom: 0.9rem;
+}
+
+.pg-head__eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background-color: var(--ifpi-red);
+}
+
+.pg-head__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--ifpi-ink);
+  margin: 0;
+}
+
+.pg-head__title em {
+  font-style: italic;
+  color: var(--ifpi-red);
+}
+
+.pg-head__lede {
+  font-size: var(--fs-md);
+  line-height: 1.72;
+  color: var(--ifpi-ink-soft);
+  margin-top: 0.9rem;
+  max-width: 66ch;
+}
+
+.pg-head__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2rem;
+  margin: 1.5rem 0 0;
+  padding-top: 1.15rem;
+  border-top: 1px solid #F1F1F1;
+}
+
+.pg-head__meta-item {
+  min-width: 96px;
+}
+
+.pg-head__meta-item dt {
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin-bottom: 0.15rem;
+}
+
+.pg-head__meta-item dd {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+}
+
+.pg-head__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  white-space: nowrap;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-red);
+  border: 1px solid var(--ifpi-red-border);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 1rem;
+  min-height: 40px;
+  background-color: #FFFFFF;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+.pg-head__action:hover {
+  background-color: var(--ifpi-red);
+  border-color: var(--ifpi-red);
+  color: #FFFFFF;
+}
+
+@media (max-width: 900px) {
+  .pg-head__grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .pg-head__meta {
+    gap: 1rem 1.5rem;
+  }
+}
+
+
+.pg-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+  margin-bottom: 2rem;
+}
+
+.pg-tabs__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1rem;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink-soft);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.pg-tabs__link:hover {
+  color: var(--ifpi-red);
+}
+
+.pg-tabs__link.is-active {
+  color: var(--ifpi-red);
+  border-bottom-color: var(--ifpi-red);
+}
+
+/* ----------------------------------------------------------------------------
+   13. BERANDA
+   -------------------------------------------------------------------------- */
+.home-hero {
+  min-height: min(88vh, 820px);
+  display: flex;
+  align-items: center;
+  padding: 6.5rem 0 4.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.home-hero__overlay {
+  background: linear-gradient(
+    100deg,
+    rgba(18, 14, 14, 0.86) 0%,
+    rgba(26, 16, 16, 0.76) 42%,
+    rgba(56, 20, 22, 0.52) 74%,
+    rgba(60, 22, 24, 0.34) 100%
+  );
+}
+
+.home-hero__bg-img {
+  filter: saturate(0.92) contrast(1.02);
+}
+
+/* Perbaikan: hapus max-width ganda & pakai kolom yang benar */
+.home-hero__container {
+  max-width: 1200px;
+  padding: 0 1.5rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.home-hero__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 1.15rem;
+}
+
+.home-hero__eyebrow-slash {
+  color: #E88A93;
+  font-weight: 700;
+}
+
+.home-hero__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #FFFFFF;
+  margin-bottom: 1.35rem;
+  max-width: 20ch;
+}
+
+.home-hero__desc {
+  font-family: var(--font-ui);
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 46ch;
+  margin-bottom: 2rem;
+}
+
+.home-hero__btn {
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  letter-spacing: -0.005em;
+}
+
+.home-hero__btn--primary {
+  background-color: var(--ifpi-red);
+  border: 1px solid var(--ifpi-red);
+  color: #FFFFFF;
+}
+
+.home-hero__btn--primary:hover {
+  background-color: #A11A26;
+  border-color: #A11A26;
+  transform: none;
+}
+
+.home-hero__btn--outline {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #FFFFFF;
+}
+
+.home-hero__btn--outline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #FFFFFF;
+}
+
+.home-hero__chip {
+  border-radius: var(--radius-xs);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  padding: 0.45rem 0.8rem;
+  backdrop-filter: none;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.home-hero__chip:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.home-hero__chip svg {
+  opacity: 0.85;
+}
+
+/* Panel sekretariat: kartu putih tegas di atas foto */
+.home-hero__panel {
+  border-radius: var(--radius-md);
+  border-top: 3px solid var(--ifpi-red);
+  box-shadow: 0 18px 48px -18px rgba(0, 0, 0, 0.5);
+  width: 350px;
+  background-color: #FFFFFF;
+}
+
+.home-hero__panel-header {
+  padding: 1.15rem 1.25rem 1rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.home-hero__panel-icon {
+  background-color: var(--ifpi-red-soft);
+  border-radius: var(--radius-xs);
+  width: 34px;
+  height: 34px;
+}
+
+.home-hero__panel-title {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  letter-spacing: -0.015em;
+}
+
+.home-hero__panel-sub {
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+}
+
+.home-hero__panel-body {
+  padding: 1rem 1.25rem;
+}
+
+.home-hero__panel-label {
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+}
+
+.home-hero__panel-val {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+}
+
+.home-hero__panel-row + .home-hero__panel-row {
+  border-top: 1px dashed #EFEFEF;
+}
+
+.home-hero__panel-actions {
+  padding: 0 1.25rem 1.15rem;
+  gap: 0.5rem;
+  display: block;
+}
+
+.home-hero__panel-btn-primary,
+.home-hero__panel-btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  padding: 0.58rem 1rem;
+  min-height: 38px;
+  text-decoration: none;
+}
+
+.home-hero__panel-btn-primary {
+  background-color: var(--ifpi-red);
+}
+
+.home-hero__panel-btn-primary:hover {
+  background-color: var(--ifpi-red-dark);
+}
+
+.home-hero__panel-btn-secondary {
+  border: 1px solid var(--ifpi-rule-strong);
+  color: var(--ifpi-ink);
+}
+
+.home-hero__panel-btn-secondary:hover {
+  background-color: var(--ifpi-paper-alt);
+  border-color: var(--ifpi-ink-soft);
+}
+
+.home-hero__panel-footer {
+  border-top: 1px solid var(--ifpi-rule);
+  background-color: #FCFCFC;
+  font-size: var(--fs-micro);
+  letter-spacing: 0.03em;
+  color: #8A8A8A;
+  padding: 0.6rem 1.25rem;
+}
+
+.home-hero__live-dot {
+  background-color: #1B9E5A;
+  box-shadow: none;
+  width: 6px;
+  height: 6px;
+}
+
+.home-hero__scroll-hint {
+  display: none;
+}
+
+/* Section umum beranda */
+.home-container {
+  max-width: var(--max-width);
+  padding: 0 1.5rem;
+}
+
+.home-section-intro {
+  text-align: left;
+  margin-bottom: 2.75rem;
+  max-width: 68ch;
+}
+
+.home-section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  margin-bottom: 0.85rem;
+}
+
+.home-section-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background-color: var(--ifpi-red);
+}
+
+.home-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, var(--fs-2xl));
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.2;
+  color: var(--ifpi-ink);
+  margin-bottom: 0.75rem;
+}
+
+.home-section-desc {
+  font-size: var(--fs-md);
+  color: var(--ifpi-ink-soft);
+  line-height: 1.72;
+  max-width: 64ch;
+  margin: 0;
+}
+
+/* Section spacing ritmis */
+.home-track,
+.home-video,
+.home-services,
+.home-steps,
+.home-commitment,
+.home-faq,
+.home-contact {
+  padding: 4.5rem 0;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.home-contact {
+  border-bottom: none;
+}
+
+.home-track,
+.home-commitment {
+  background-color: #FCFCFC;
+}
+
+/* Box lacak */
+.home-track__box {
+  background-color: #FFFFFF;
+  border: 1px solid var(--ifpi-rule);
+  border-left: 3px solid var(--ifpi-red);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem 1.75rem;
+  box-shadow: none;
+  gap: 2rem;
+}
+
+.home-track__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ifpi-ink);
+}
+
+.home-video__frame-wrap {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--ifpi-rule);
+  box-shadow: none;
+}
+
+.home-video__badge {
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ifpi-red);
+}
+
+.home-video__info-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.3;
+  color: var(--ifpi-ink);
+}
+
+.home-video__info-text {
+  font-size: var(--fs-base);
+  line-height: 1.72;
+  color: var(--ifpi-ink-soft);
+}
+
+.home-video__facts {
+  border-top: 1px solid var(--ifpi-rule);
+  padding-top: 1.25rem;
+  gap: 2rem;
+}
+
+.home-video__fact-num {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  letter-spacing: -0.02em;
+}
+
+.home-video__fact-label {
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  font-weight: 600;
+}
+
+.home-video__link {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-red);
+}
+
+/* Layanan di beranda — kartu tanpa bubble, nomor dekoratif dihilangkan */
+.home-services {
+  background-color: #FFFFFF;
+}
+
+.home-services__grid {
+  gap: 1.25rem;
+}
+
+.home-service-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--ifpi-rule);
+  border-top: 2px solid var(--ifpi-red);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  padding: 1.5rem 1.4rem;
+  gap: 0.85rem;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.home-service-card:hover {
+  box-shadow: none;
+  transform: none;
+  border-color: var(--ifpi-rule-strong);
+  border-top-color: var(--ifpi-red-dark);
+  background-color: #FFFDFD;
+}
+
+.home-service-card__num {
+  display: none;
+}
+
+.home-service-card__icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-xs);
+  background-color: var(--ifpi-red-soft);
+  border: 1px solid var(--ifpi-red-border);
+  color: var(--ifpi-red);
+}
+
+.home-service-card__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.32;
+  color: var(--ifpi-ink);
+}
+
+.home-service-card__text {
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--ifpi-ink-soft);
+}
+
+.home-service-card__link {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-red);
+  gap: 0.4rem;
+}
+
+.home-services__all-link {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  border-bottom: 1px solid var(--ifpi-red);
+  padding-bottom: 1px;
+}
+
+/* Langkah / panduan — garis tipis, angka tanpa glow */
+.home-steps {
+  background-color: #FCFCFC;
+}
+
+.home-steps__row::before {
+  height: 1px;
+  background: var(--ifpi-rule-strong);
+  top: 1.75rem;
+}
+
+.home-step__num {
+  width: 40px;
+  height: 40px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ifpi-red);
+  background-color: #FFFFFF;
+  border: 1px solid var(--ifpi-red-border);
+  box-shadow: none;
+}
+
+.home-step__title {
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+}
+
+.home-step__desc {
+  font-size: var(--fs-sm);
+  line-height: 1.68;
+  color: var(--ifpi-ink-soft);
+}
+
+/* Komitmen — pita gelap institusional, bukan blok merah penuh */
+.home-commitment {
+  background-color: #1E1E1E;
+  border-top: 3px solid var(--ifpi-red);
+}
+
+.home-commitment__inner {
+  max-width: 720px;
+  gap: 1.1rem;
+}
+
+.home-commitment__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  background-color: rgba(184, 32, 45, 0.16);
+  border: 1px solid rgba(184, 32, 45, 0.4);
+}
+
+.home-commitment__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.28;
+  color: #FFFFFF;
+}
+
+.home-commitment__text {
+  font-size: var(--fs-md);
+  line-height: 1.72;
+  color: #B9B9B9;
+}
+
+.home-commitment__btn {
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  padding: 0.7rem 1.4rem;
+  min-height: 44px;
+}
+
+.home-commitment__btn--white {
+  background-color: var(--ifpi-red);
+  color: #FFFFFF !important;
+  border: 1px solid var(--ifpi-red);
+}
+
+.home-commitment__btn--white:hover {
+  background-color: var(--ifpi-red-dark);
+  border-color: var(--ifpi-red-dark);
+}
+
+.home-commitment__btn--outline {
+  background-color: transparent;
+  color: #E8E8E8 !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.home-commitment__btn--outline:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* FAQ */
+.home-faq {
+  background-color: #FFFFFF;
+}
+
+.home-faq__list {
+  gap: 0.5rem;
+}
+
+.home-faq__item {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+.home-faq__item.is-open {
+  border-color: var(--ifpi-rule-strong);
+  background-color: #FFFCFC;
+}
+
+.home-faq__btn {
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  padding: 1rem 1.15rem;
+  text-align: left;
+  min-height: 48px;
+}
+
+.home-faq__item.is-open .home-faq__btn {
+  color: var(--ifpi-red-dark);
+}
+
+.home-faq__content {
+  font-size: var(--fs-base);
+  line-height: 1.72;
+  color: var(--ifpi-ink-soft);
+}
+
+.home-faq__help-box {
+  border: 1px solid var(--ifpi-rule);
+  border-left: 3px solid var(--ifpi-red);
+  border-radius: var(--radius-sm);
+  background-color: #FCFCFC;
+}
+
+.home-faq__help-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+}
+
+.home-faq__help-text {
+  font-size: var(--fs-sm);
+  color: var(--ifpi-ink-soft);
+  line-height: 1.66;
+}
+
+/* Kontak */
+.home-contact {
+  background-color: #FCFCFC;
+}
+
+.home-contact__grid {
+  gap: 1.25rem;
+}
+
+.home-contact__card {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-md);
+  background-color: #FFFFFF;
+  box-shadow: none;
+  padding: 1.4rem;
+}
+
+.home-contact__card--ifpi {
+  border-top: 2px solid var(--ifpi-red);
+}
+
+.home-contact__card--opd {
+  border-top: 2px solid var(--ifpi-rule-strong);
+}
+
+.home-contact__card-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ifpi-ink);
+}
+
+.home-contact__item-label {
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+}
+
+.home-contact__item-val {
+  font-size: var(--fs-sm);
+  color: var(--ifpi-ink);
+  line-height: 1.6;
+}
+
+/* ----------------------------------------------------------------------------
+   14. HALAMAN LAYANAN
+   -------------------------------------------------------------------------- */
+.gov-services-action-grid {
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Kartu pilihan kategori pada formulir pengajuan */
+.gov-category-card {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  padding: 1rem 0.95rem;
+  transition: border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.gov-category-card:hover {
+  border-color: var(--ifpi-rule-strong);
+  background-color: #FCFCFC;
+}
+
+.gov-category-card.is-selected {
+  border-color: var(--ifpi-red);
+  background-color: #FFF8F8;
+  box-shadow: inset 0 0 0 1px var(--ifpi-red);
+}
+
+.gov-category-card-icon-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-xs);
+  background-color: var(--ifpi-red-soft);
+  color: var(--ifpi-red);
+  border: 1px solid var(--ifpi-red-border);
+}
+
+.gov-category-card.is-selected .gov-category-card-icon-wrap {
+  background-color: var(--ifpi-red);
+  border-color: var(--ifpi-red);
+  color: #FFFFFF;
+}
+
+.gov-category-card-indicator {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--ifpi-rule-strong);
+}
+
+.gov-category-card.is-selected .gov-category-card-indicator {
+  border-color: var(--ifpi-red);
+  background-color: var(--ifpi-red);
+}
+
+.gov-category-card-title {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.38;
+  color: var(--ifpi-ink);
+}
+
+.gov-category-card.is-selected .gov-category-card-title {
+  color: var(--ifpi-red-dark);
+}
+
+.gov-category-card-desc {
+  font-size: var(--fs-xs);
+  line-height: 1.55;
+  color: var(--ifpi-ink-soft);
+}
+
+.gov-opd-compact-notice,
+.gov-context-box {
+  background-color: #FCFCFC;
+  border: 1px solid var(--ifpi-rule);
+  border-left: 3px solid var(--ifpi-red);
+  border-radius: var(--radius-xs);
+}
+
+.gov-opd-compact-notice-label,
+.gov-context-title {
+  font-family: var(--font-ui);
+  color: var(--ifpi-red-dark);
+  font-weight: 700;
+}
+
+.gov-service-card-interactive {
+  border: 1px solid var(--ifpi-rule);
+  border-top: 2px solid var(--ifpi-red);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: none;
+  background-color: #FFFFFF;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.gov-service-card-interactive:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--ifpi-rule-strong);
+  border-top-color: var(--ifpi-red-dark);
+  background-color: #FFFDFD;
+}
+
+.gov-service-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-xs);
+  background-color: var(--ifpi-red-soft);
+  color: var(--ifpi-red);
+  border: 1px solid var(--ifpi-red-border);
+}
+
+.gov-service-opd-badge {
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  background-color: var(--ifpi-red-soft);
+  border: 1px solid var(--ifpi-red-border);
+  border-radius: var(--radius-xs);
+  padding: 0.25rem 0.5rem;
+}
+
+.gov-service-card-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.32;
+  color: var(--ifpi-ink);
+}
+
+.gov-service-card-desc {
+  font-size: var(--fs-sm);
+  line-height: 1.68;
+  color: var(--ifpi-ink-soft);
+}
+
+.gov-service-card-footer {
+  border-top: 1px solid #F2F2F2;
+  padding-top: 1rem;
+  margin-top: 1.25rem;
+}
+
+.gov-service-btn-ajukan {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-red);
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--ifpi-red-border);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  min-height: 38px;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+.gov-service-btn-ajukan:hover {
+  background-color: var(--ifpi-red);
+  border-color: var(--ifpi-red);
+  color: #FFFFFF;
+}
+
+.gov-services-track-box {
+  background-color: #FCFCFC;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem 1.5rem;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.gov-track-box-info strong {
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+}
+
+.gov-track-box-info p {
+  font-size: var(--fs-sm);
+  color: var(--ifpi-ink-soft);
+  line-height: 1.6;
+}
+
+.gov-track-box-btn {
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  min-height: 40px;
+  padding: 0.55rem 1.1rem;
+}
+
+/* ----------------------------------------------------------------------------
+   15. HALAMAN WILAYAH
+   -------------------------------------------------------------------------- */
+.regions-page {
+  padding: 0 0 4.5rem;
+  background-color: #FFFFFF;
+}
+
+.regions-header {
+  padding: 1.75rem 0 2rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+  margin-bottom: 2rem;
+  max-width: 74ch;
+}
+
+.regions-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-bottom: 0.9rem;
+}
+
+.regions-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+  color: var(--ifpi-ink);
+}
+
+.regions-title-accent {
+  color: var(--ifpi-red);
+  font-style: italic;
+}
+
+.regions-desc {
+  font-size: var(--fs-md);
+  line-height: 1.72;
+  color: var(--ifpi-ink-soft);
+  margin-top: 0.85rem;
+  max-width: 68ch;
+}
+
+.regions-pills-bar {
+  gap: 0.4rem;
+  margin-bottom: 1.75rem;
+}
+
+.regions-pill-btn {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: #4A4A4A;
+  background-color: #FFFFFF;
+  border: 1px solid var(--ifpi-rule-strong);
+  border-radius: var(--radius-xs);
+  padding: 0.45rem 0.75rem;
+  min-height: 34px;
+  box-shadow: none;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.regions-pill-btn:hover {
+  border-color: var(--ifpi-red);
+  color: var(--ifpi-red);
+  transform: none;
+  background-color: #FFFAFA;
+}
+
+.regions-pill-btn.is-active {
+  background-color: var(--ifpi-red);
+  border-color: var(--ifpi-red);
+  color: #FFFFFF;
+  box-shadow: none;
+}
+
+.regions-main-grid {
+  grid-template-columns: minmax(0, 1fr) 370px;
+  gap: 1.75rem;
+}
+
+.riau-map-card {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-md);
+  background-color: #FCFCFC;
+  box-shadow: none;
+  padding: 0.75rem;
+}
+
+.riau-map-controls {
+  border-bottom: 1px solid var(--ifpi-rule);
+  padding-bottom: 0.65rem;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+.riau-map-filter-group {
+  background-color: #F1F1F1;
+  border-radius: var(--radius-xs);
+  padding: 2px;
+}
+
+.riau-map-filter-btn {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  border-radius: var(--radius-xs);
+  min-height: 30px;
+  padding: 0.3rem 0.7rem;
+}
+
+.riau-region-path {
+  stroke: #FFFFFF;
+  stroke-width: 1.1;
+  transition: fill 0.14s ease;
+}
+
+.region-info-panel {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-md);
+  background-color: #FFFFFF;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.region-panel-banner {
+  background-color: var(--ifpi-ink);
+  padding: 1.15rem 1.35rem;
+}
+
+.region-panel-type-tag {
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #E9A7AD;
+}
+
+.region-panel-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #FFFFFF;
+  margin-top: 0.25rem;
+}
+
+.region-panel-body {
+  padding: 1.25rem 1.35rem 1.5rem;
+}
+
+.region-panel-stats {
+  border-top: 1px solid var(--ifpi-rule);
+  border-bottom: 1px solid var(--ifpi-rule);
+  padding: 0.9rem 0;
+  margin-bottom: 1.15rem;
+  gap: 0.75rem;
+}
+
+.region-stat-label {
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+}
+
+.region-stat-val {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+}
+
+.region-panel-desc {
+  font-size: var(--fs-sm);
+  line-height: 1.72;
+  color: var(--ifpi-ink-soft);
+}
+
+.region-panel-visual-box {
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.region-panel-visual-caption {
+  font-size: var(--fs-micro);
+  letter-spacing: 0.03em;
+  color: #8A8A8A;
+  background-color: #FCFCFC;
+}
+
+/* ----------------------------------------------------------------------------
+   16. KEGIATAN, MERCHANDISE, ORGANISASI — sinkronisasi header halaman
+   -------------------------------------------------------------------------- */
+.act-page,
+.merch-page {
+  padding: 0 0 4.5rem;
+  background-color: #FFFFFF;
+}
+
+.act-header,
+.merch-header {
+  padding: 1.75rem 0 2rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+  margin-bottom: 2rem;
+  max-width: 74ch;
+}
+
+.act-badge,
+.merch-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-bottom: 0.9rem;
+}
+
+.act-title,
+.merch-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+  color: var(--ifpi-ink);
+}
+
+.act-title-accent,
+.merch-title-accent {
+  color: var(--ifpi-red);
+  font-style: italic;
+}
+
+.act-desc,
+.merch-desc {
+  font-size: var(--fs-md);
+  line-height: 1.72;
+  color: var(--ifpi-ink-soft);
+  margin-top: 0.85rem;
+  max-width: 68ch;
+}
+
+.act-nav-tabs {
+  border-bottom: 1px solid var(--ifpi-rule);
+  gap: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+.act-nav-tab-btn {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink-soft);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 0.65rem 1rem;
+  border-radius: 0;
+  min-height: 40px;
+}
+
+.act-nav-tab-btn:hover {
+  color: var(--ifpi-red);
+  background-color: transparent;
+}
+
+.act-nav-tab-btn.is-active {
+  color: var(--ifpi-red);
+  border-bottom-color: var(--ifpi-red);
+  background-color: transparent;
+}
+
+.act-filter-btn {
+  border-radius: var(--radius-xs);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  min-height: 32px;
+  border: 1px solid var(--ifpi-rule-strong);
+  color: #4A4A4A;
+  background-color: #FFFFFF;
+}
+
+.act-filter-btn.is-active {
+  background-color: var(--ifpi-red);
+  border-color: var(--ifpi-red);
+  color: #FFFFFF;
+}
+
+/* Tab bagian Merchandise — disamakan dengan tab Kegiatan */
+.merch-nav-tabs {
+  border-bottom: 1px solid var(--ifpi-rule);
+  gap: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+.merch-nav-tab-btn {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink-soft);
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 0.65rem 1rem;
+  border-radius: 0;
+  background-color: transparent;
+  min-height: 40px;
+}
+
+.merch-nav-tab-btn:hover {
+  color: var(--ifpi-red);
+  background-color: transparent;
+}
+
+.merch-nav-tab-btn.is-active {
+  color: var(--ifpi-red);
+  border-bottom-color: var(--ifpi-red);
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.merch-filter-btn {
+  border-radius: var(--radius-xs);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  min-height: 32px;
+  border: 1px solid var(--ifpi-rule-strong);
+  color: #4A4A4A;
+  background-color: #FFFFFF;
+  box-shadow: none;
+}
+
+.merch-filter-btn:hover {
+  border-color: var(--ifpi-ink-soft);
+  color: var(--ifpi-ink);
+  background-color: #FCFCFC;
+}
+
+.merch-filter-btn.is-active {
+  background-color: var(--ifpi-red);
+  border-color: var(--ifpi-red);
+  color: #FFFFFF;
+}
+
+.act-prog-card,
+.act-agenda-card,
+.merch-card {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-md);
+  background-color: #FFFFFF;
+  box-shadow: none;
+  transition: border-color 0.16s ease;
+}
+
+.act-prog-card:hover,
+.act-agenda-card:hover,
+.merch-card:hover {
+  border-color: var(--ifpi-rule-strong);
+  box-shadow: none;
+  transform: none;
+}
+
+.act-card-title,
+.merch-card-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.32;
+  color: var(--ifpi-ink);
+}
+
+/* ----------------------------------------------------------------------------
+   17. STRUKTUR ORGANISASI
+   -------------------------------------------------------------------------- */
+.org-page {
+  background-color: #FFFFFF;
+  padding: 0 0 4.5rem;
+}
+
+.org-page-header {
+  padding: 1.75rem 0 2rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+  margin-bottom: 2rem;
+}
+
+.org-page-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+  color: var(--ifpi-ink);
+}
+
+.org-title-accent {
+  color: var(--ifpi-red);
+  font-style: italic;
+}
+
+.org-page-subtitle {
+  font-family: var(--font-ui);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  margin-top: 0.9rem;
+}
+
+.org-page-desc {
+  font-size: var(--fs-base);
+  line-height: 1.7;
+  color: var(--ifpi-ink-soft);
+  max-width: 72ch;
+  margin-top: 0.4rem;
+}
+
+.org-view-toggle-group {
+  border: 1px solid var(--ifpi-rule-strong);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  background-color: #FAFAFA;
+}
+
+.org-view-toggle-btn {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  border-radius: var(--radius-xs);
+  min-height: 34px;
+  color: #4A4A4A;
+}
+
+.org-view-toggle-btn.is-active {
+  background-color: #FFFFFF;
+  color: var(--ifpi-red);
+  box-shadow: 0 1px 2px rgba(37, 37, 37, 0.08);
+}
+
+.org-hint-bar {
+  font-size: var(--fs-xs);
+  color: var(--ifpi-ink-soft);
+  background-color: #FCFCFC;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-xs);
+  padding: 0.6rem 0.9rem;
+}
+
+.org-profile-card {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  box-shadow: none;
+  transition: border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.org-profile-card:hover {
+  border-color: var(--ifpi-red-border);
+  background-color: #FFFCFC;
+  box-shadow: none;
+  transform: none;
+}
+
+.org-avatar-ring {
+  box-shadow: none;
+}
+
+.org-avatar-placeholder {
+  background-color: var(--ifpi-red-soft);
+}
+
+.org-avatar-initials {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ifpi-red-dark);
+}
+
+.org-card-name {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  line-height: 1.4;
+}
+
+.org-card-jabatan-badge {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ifpi-ink-soft);
+  background-color: #F7F7F7;
+  border: 1px solid #EFEFEF;
+  border-radius: var(--radius-xs);
+}
+
+.org-divisi-header-badge {
+  background-color: #FFFFFF;
+  border: 1px solid var(--ifpi-rule-strong);
+  border-top: 2px solid var(--ifpi-red);
+  border-radius: var(--radius-xs);
+}
+
+.org-divisi-code {
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ifpi-red);
+}
+
+.org-divisi-name {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--ifpi-ink);
+}
+
+.org-vline,
+.org-divisi-horizontal-bus {
+  background-color: #DDDDDD;
+}
+
+.org-mob-card {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+}
+
+.org-mob-card.is-leader {
+  border-left: 3px solid var(--ifpi-red);
+}
+
+.org-mob-card__role {
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+}
+
+.org-mob-card__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+}
+
+/* Halaman detail profil pengurus */
+.pcr-profile-hero__prefix {
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #E9A7AD;
+}
+
+.pcr-profile-hero__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: #FFFFFF;
+}
+
+.pcr-profile-hero__underline {
+  background-color: var(--ifpi-red);
+  width: 64px;
+  height: 2px;
+}
+
+.pcr-photo-card {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+}
+
+.pcr-section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  color: var(--ifpi-ink);
+  border-bottom: 2px solid var(--ifpi-red);
+  padding-bottom: 0.5rem;
+}
+
+.pcr-editorial-lead {
+  font-family: var(--font-ui);
+  font-size: var(--fs-md);
+  line-height: 1.78;
+  color: #3E3E3E;
+}
+
+.pcr-fact-card {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-xs);
+  background-color: #FCFCFC;
+}
+
+.pcr-fact-label {
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+}
+
+.pcr-fact-val {
+  font-size: var(--fs-sm);
+  color: var(--ifpi-ink);
+  line-height: 1.65;
+}
+
+.pcr-profile-hero__breadcrumb a {
+  font-size: var(--fs-micro);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.pcr-profile-hero__breadcrumb a:hover {
+  color: #FFFFFF;
+}
+
+.pcr-breadcrumb-active {
+  color: #FFFFFF;
+}
+
+/* ----------------------------------------------------------------------------
+   18. ADMIN
+   -------------------------------------------------------------------------- */
+.gov-admin-shell {
+  background-color: #F5F5F5;
+  min-height: 100vh;
+}
+
+.gov-admin-topbar {
+  background-color: #1E1E1E;
+  border-bottom: 2px solid var(--ifpi-red);
+  padding: 0.7rem 0;
+}
+
+.gov-admin-title {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+}
+
+.gov-admin-badge {
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius-xs);
+  padding: 0.15rem 0.4rem;
+}
+
+.gov-admin-container {
+  padding: 1.75rem 1.5rem 3rem;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.gov-admin-subnav {
+  border-bottom: 1px solid var(--ifpi-rule);
+  gap: 0.25rem;
+}
+
+.gov-admin-nav-item {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink-soft);
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 0.6rem 0.9rem;
+}
+
+.gov-admin-nav-item:hover {
+  color: var(--ifpi-red);
+  background-color: transparent;
+}
+
+.gov-admin-nav-item.is-active {
+  color: var(--ifpi-red);
+  border-bottom-color: var(--ifpi-red);
+  background-color: transparent;
+}
+
+.gov-timeline-dot {
+  border: 2px solid var(--ifpi-red);
+  background-color: #FFFFFF;
+}
+
+.gov-timeline-item.completed .gov-timeline-dot {
+  background-color: var(--ifpi-red);
+  border-color: var(--ifpi-red);
+}
+
+.gov-timeline-date {
+  font-size: var(--fs-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  font-weight: 600;
+}
+
+/* Tipografi panel admin: judul serif, label tabel rapat */
+.gov-admin-container h1 {
+  font-family: var(--font-display);
+  font-weight: 600 !important;
+  letter-spacing: -0.022em;
+  line-height: 1.22;
+}
+
+.gov-admin-container h2,
+.gov-admin-container h3 {
+  letter-spacing: -0.012em;
+}
+
+.gov-admin-container .gov-section-tag {
+  font-size: var(--fs-micro);
+  letter-spacing: 0.12em;
+  color: var(--ifpi-red);
+  font-weight: 700;
+}
+
+.gov-admin-container table {
+  font-size: var(--fs-sm);
+}
+
+.gov-admin-container table th {
+  background-color: #FBFBFB;
+  color: #6E6E6E;
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid var(--ifpi-rule-strong);
+}
+
+.gov-admin-container table td {
+  border-bottom: 1px solid #F1F1F1;
+  color: var(--ifpi-ink);
+}
+
+.gov-admin-container table tbody tr:hover {
+  background-color: #FCFCFC;
+}
+
+.gov-timeline-actor {
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  font-size: var(--fs-sm);
+}
+
+.gov-timeline-note {
+  font-size: var(--fs-sm);
+  color: var(--ifpi-ink-soft);
+  line-height: 1.65;
+}
+
+/* Halaman login admin */
+.admin-login {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F5F5;
+}
+
+.admin-login__topbar {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.admin-login__topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+
+.admin-login__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+}
+
+.admin-login__brand img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.admin-login__brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.admin-login__brand-text strong {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+  color: var(--ifpi-red-dark);
+}
+
+.admin-login__brand-text span {
+  font-size: 0.7rem;
+  color: #7A7A7A;
+}
+
+.admin-login__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.25rem;
+}
+
+.admin-login__card {
+  width: 100%;
+  max-width: 448px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--ifpi-rule);
+  border-top: 2px solid var(--ifpi-red);
+  border-radius: var(--radius-sm);
+  padding: 2.25rem 2rem 2rem;
+}
+
+.admin-login__head {
+  margin-bottom: 1.35rem;
+}
+
+.admin-login__eyebrow {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  margin-bottom: 0.55rem;
+}
+
+.admin-login__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.25;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.5rem;
+}
+
+.admin-login__lede {
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: var(--ifpi-ink-soft);
+  margin: 0;
+}
+
+.admin-login__disclaimer {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: #7A7A7A;
+  margin: 0 0 1.35rem;
+  padding-top: 1rem;
+  border-top: 1px solid #F1F1F1;
+}
+
+.admin-login__disclaimer strong {
+  color: var(--ifpi-ink-soft);
+  font-weight: 700;
+}
+
+.admin-login__alert {
+  font-size: var(--fs-sm);
+  margin-bottom: 1rem;
+}
+
+.admin-login__submit {
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.admin-login__accounts {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #F1F1F1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.admin-login__accounts-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin-bottom: 0.35rem;
+}
+
+.admin-login__account {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "cred action"
+    "role action";
+  align-items: center;
+  gap: 0.15rem 0.75rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  background-color: #FCFCFC;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.admin-login__account:hover {
+  border-color: var(--ifpi-red);
+  background-color: #FFFFFF;
+}
+
+.admin-login__account-cred {
+  grid-area: cred;
+  font-size: 0.8125rem;
+  color: var(--ifpi-ink);
+}
+
+.admin-login__account-cred strong {
+  font-weight: 700;
+}
+
+.admin-login__account-role {
+  grid-area: role;
+  font-size: 0.6875rem;
+  color: #7A7A7A;
+}
+
+.admin-login__account-action {
+  grid-area: action;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--ifpi-red);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .admin-login__topbar-inner {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .admin-login__brand-text strong {
+    font-size: 0.6875rem;
+  }
+
+  .admin-login__main {
+    padding: 1.75rem 1rem;
+    align-items: flex-start;
+  }
+
+  .admin-login__card {
+    padding: 1.75rem 1.25rem 1.5rem;
+  }
+
+  .admin-login__title {
+    font-size: 1.3rem;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   19. RESPONSIF
+   -------------------------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .home-hero__panel {
+    width: 320px;
+    right: 1.5rem;
+  }
+
+  .regions-main-grid {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --header-h: 68px;
+  }
+
+  .gov-official-brand-text {
+    max-width: 60vw;
+  }
+
+  .gov-brand-layanan {
+    font-size: 0.9375rem;
+  }
+
+  .gov-brand-instansi {
+    font-size: 0.625rem;
+    letter-spacing: 0.07em;
+  }
+
+  .gov-official-nav {
+    padding: 1rem 1.25rem 1.25rem;
+    max-height: calc(100dvh - var(--header-h));
+    gap: 0.5rem;
+  }
+
+  .gov-official-nav-links a {
+    font-size: var(--fs-base);
+    padding: 0.85rem 0.5rem;
+    border-bottom: 1px solid #F2F2F2;
+  }
+
+  .gov-official-nav-links a.active {
+    background-color: transparent;
+    border-bottom-color: var(--ifpi-red);
+  }
+
+  .gov-mobile-submenu-btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+  }
+
+  .gov-dropdown-menu {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .gov-dropdown-item {
+    padding: 0.7rem 0.9rem;
+  }
+
+  .home-hero {
+    min-height: auto;
+  }
+
+  .home-hero__title {
+    max-width: 24ch;
+  }
+
+  .regions-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .region-info-panel {
+    position: static;
+  }
+
+  .pg-head__title,
+  .regions-title,
+  .act-title,
+  .merch-title,
+  .org-page-title {
+    font-size: clamp(1.7rem, 5vw, 2.25rem);
+  }
+}
+
+@media (max-width: 900px) {
+  /* PENTING: panel sekretariat tidak lagi disembunyikan — ditumpuk di bawah CTA */
+  .home-hero {
+    display: block;
+    padding: 5.75rem 0 3rem;
+  }
+
+  .home-hero__container {
+    max-width: 100%;
+  }
+
+  .home-hero__panel {
+    position: static;
+    transform: none;
+    width: auto;
+    max-width: 100%;
+    margin: 2rem 1.5rem 0;
+  }
+
+  .home-hero__panel-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .home-hero__title {
+    font-size: clamp(1.85rem, 7vw, 2.5rem);
+  }
+
+  .home-hero__desc {
+    font-size: var(--fs-md);
+  }
+
+  .home-track__box {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .home-track,
+  .home-video,
+  .home-services,
+  .home-steps,
+  .home-commitment,
+  .home-faq,
+  .home-contact {
+    padding: 3rem 0;
+  }
+
+  .home-section-intro {
+    margin-bottom: 2rem;
+  }
+
+  .gov-services-action-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gov-services-track-box {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .gov-track-box-btn {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .gov-container,
+  .home-container {
+    padding-left: 1.125rem;
+    padding-right: 1.125rem;
+  }
+
+  .pg-head,
+  .regions-header,
+  .act-header,
+  .merch-header,
+  .org-page-header {
+    padding: 1.25rem 0 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .home-hero {
+    padding: 4.75rem 0 2.5rem;
+  }
+
+  .home-hero__panel {
+    margin: 1.75rem 1.125rem 0;
+  }
+
+  .home-hero__panel-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .home-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .home-hero__btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .home-hero__chips {
+    gap: 0.4rem;
+  }
+
+  .home-hero__chip {
+    font-size: 0.75rem;
+    padding: 0.45rem 0.7rem;
+  }
+
+  .gov-footer-official-grid {
+    gap: 2rem;
+    padding: 2.25rem 0 1.75rem;
+  }
+
+  .gov-table-wrapper {
+    border-radius: var(--radius-xs);
+  }
+
+  .gov-btn,
+  .gov-service-btn-ajukan,
+  .home-hero__panel-btn-primary,
+  .home-hero__panel-btn-secondary {
+    min-height: 44px;
+  }
+
+  .regions-pill-btn,
+  .act-filter-btn,
+  .riau-map-filter-btn {
+    min-height: 40px;
+  }
+
+  .act-nav-tabs,
+  .pg-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .act-nav-tabs::-webkit-scrollbar,
+  .pg-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .act-nav-tab-btn,
+  .pg-tabs__link {
+    white-space: nowrap;
+  }
+}
+
+/* Tablet: hero dua kolom dengan panel lebih kecil */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .home-hero__panel {
+    width: 300px;
+    right: 1.25rem;
+  }
+
+  .home-hero__container {
+    padding-right: 330px;
+  }
+
+  .home-hero__title {
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   20. POLA EDITORIAL HALAMAN DALAM
+   Dipakai oleh: Kontak, Lacak, Informasi, Kegiatan, Merchandise, Wilayah.
+   Alih-alih deretan kartu, halaman dalam memakai blok berspasi + garis pemisah.
+   -------------------------------------------------------------------------- */
+.pg {
+  padding-bottom: 4rem;
+}
+
+.pg-body {
+  max-width: 100%;
+}
+
+.pg-section {
+  padding-bottom: 2.75rem;
+  margin-bottom: 2.75rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.pg-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 2rem;
+}
+
+.pg-section__head {
+  max-width: 62ch;
+  margin-bottom: 1.75rem;
+}
+
+.pg-section__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.9vw, var(--fs-xl));
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.28;
+  color: var(--ifpi-ink);
+  margin-bottom: 0.5rem;
+}
+
+.pg-section__desc {
+  font-size: var(--fs-base);
+  line-height: 1.68;
+  color: var(--ifpi-ink-soft);
+  margin: 0;
+}
+
+/* Daftar kontak — baris label/nilai dengan garis pemisah tipis */
+.contact-list {
+  margin: 0;
+  border-top: 1px solid var(--ifpi-rule);
+}
+
+.contact-list__row {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.contact-list__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-xs);
+  background-color: var(--ifpi-red-soft);
+  border: 1px solid var(--ifpi-red-border);
+  color: var(--ifpi-red);
+}
+
+.contact-list__label {
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin-bottom: 0.3rem;
+}
+
+.contact-list__value {
+  margin: 0;
+  font-size: var(--fs-base);
+  line-height: 1.68;
+  color: var(--ifpi-ink);
+}
+
+/* Daftar OPD pembina — bernomor, tanpa kartu */
+.opd-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: opd;
+}
+
+.opd-list__item {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 1.25rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.opd-list__item:first-child {
+  border-top: 1px solid var(--ifpi-rule);
+}
+
+.opd-list__num {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ifpi-red);
+  letter-spacing: -0.01em;
+  padding-top: 0.1rem;
+}
+
+.opd-list__name {
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.2rem;
+  line-height: 1.4;
+}
+
+.opd-list__role {
+  display: block;
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  margin-bottom: 0.5rem;
+}
+
+.opd-list__detail {
+  font-size: var(--fs-sm);
+  line-height: 1.66;
+  color: var(--ifpi-ink-soft);
+  margin: 0;
+}
+
+/* Ajakan tindakan penutup halaman */
+.pg-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.6rem 1.75rem;
+  border: 1px solid var(--ifpi-rule);
+  border-left: 3px solid var(--ifpi-red);
+  border-radius: var(--radius-sm);
+  background-color: #FCFCFC;
+}
+
+.pg-callout__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.3rem;
+}
+
+.pg-callout__text {
+  font-size: var(--fs-sm);
+  line-height: 1.66;
+  color: var(--ifpi-ink-soft);
+  margin: 0;
+  max-width: 62ch;
+}
+
+/* Catatan kecil (disclaimer) pada halaman katalog */
+.pg-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  max-width: 78ch;
+  margin: 0 0 2.25rem;
+  padding: 0.9rem 0 0.9rem 1rem;
+  border-left: 2px solid var(--ifpi-red);
+  background-color: #FCFCFC;
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+}
+
+.pg-notice svg {
+  flex-shrink: 0;
+  margin-top: 0.18rem;
+  color: var(--ifpi-red);
+}
+
+.pg-notice p {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.68;
+  color: var(--ifpi-ink-soft);
+}
+
+.pg-notice strong {
+  color: var(--ifpi-ink);
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .contact-list__row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .opd-list__item {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .pg-callout {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pg-callout .gov-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Tanda terima pengajuan */
+.receipt-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.8vw, var(--fs-xl));
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.24;
+  color: var(--ifpi-ink);
+  margin: 0.35rem 0 0.6rem;
+}
+
+/* Tanda terima pengajuan */
+.receipt-page {
+  background-color: var(--ifpi-paper, #FBFBFB);
+  padding-bottom: 4rem;
+}
+
+.receipt-page__inner {
+  max-width: 760px;
+}
+
+.receipt-page__head {
+  padding: 2.5rem 0 1.75rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+  margin-bottom: 2rem;
+}
+
+.receipt-page__seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--gov-green);
+  color: var(--gov-green);
+  margin-bottom: 0.85rem;
+}
+
+.receipt-page__eyebrow {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  margin-bottom: 0.5rem;
+}
+
+.receipt-page__lede {
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--ifpi-ink-soft);
+  margin: 0;
+  max-width: 60ch;
+}
+
+.receipt-ticket {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid var(--ifpi-rule);
+  border-left: 3px solid var(--ifpi-red);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  margin-bottom: 2.25rem;
+}
+
+.receipt-ticket__label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+}
+
+.receipt-ticket__number {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: clamp(1.4rem, 3.4vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ifpi-ink);
+  word-break: break-all;
+}
+
+.receipt-ticket__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.receipt-section {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ifpi-rule);
+  margin-bottom: 2.25rem;
+}
+
+.receipt-section__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ifpi-ink);
+  margin: 0 0 1.1rem;
+}
+
+.receipt-list {
+  margin: 0;
+  padding: 0;
+}
+
+.receipt-list__row {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #F1F1F1;
+}
+
+.receipt-list__row:last-child {
+  border-bottom: 0;
+}
+
+.receipt-list__row dt {
+  font-size: var(--fs-sm);
+  color: #7A7A7A;
+}
+
+.receipt-list__row dd {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  line-height: 1.6;
+}
+
+.receipt-list__mono {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-weight: 500 !important;
+}
+
+.receipt-steps {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--ifpi-ink-soft);
+}
+
+.receipt-steps strong {
+  color: var(--ifpi-ink);
+  font-weight: 700;
+}
+
+.receipt-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--ifpi-rule);
+}
+
+.receipt-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.receipt-page__back:hover {
+  color: var(--ifpi-red);
+  border-bottom-color: var(--ifpi-red);
+}
+
+@media (max-width: 640px) {
+  .receipt-page__head {
+    padding-top: 1.75rem;
+  }
+
+  .receipt-list__row {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .receipt-page__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .receipt-page__actions .gov-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .receipt-page__back {
+    margin-left: 0;
+    justify-content: center;
+    padding-top: 0.5rem;
+  }
+}
+
+/* SLA — daftar tahapan bernomor */
+.sla-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ifpi-rule);
+}
+
+.sla-list__item {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.sla-list__num {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ifpi-red);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.sla-list__tahap {
+  display: block;
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin-bottom: 0.25rem;
+}
+
+.sla-list__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.35rem;
+}
+
+.sla-list__durasi {
+  display: inline-block;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--ifpi-red-dark);
+  background-color: var(--ifpi-red-soft);
+  border: 1px solid var(--ifpi-red-border);
+  border-radius: var(--radius-xs);
+  padding: 0.2rem 0.55rem;
+  margin-bottom: 0.6rem;
+}
+
+.sla-list__desc {
+  font-size: var(--fs-sm);
+  line-height: 1.68;
+  color: var(--ifpi-ink-soft);
+  margin: 0;
+}
+
+/* Kriteria laporan — dua kolom berlawanan arah, tanpa kartu */
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--ifpi-rule);
+}
+
+.criteria-block {
+  padding: 1.5rem 1.75rem 1.5rem 0;
+}
+
+.criteria-block + .criteria-block {
+  padding-left: 1.75rem;
+  padding-right: 0;
+  border-left: 1px solid var(--ifpi-rule);
+}
+
+.criteria-block__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  margin: 0 0 0.85rem;
+  letter-spacing: -0.005em;
+}
+
+.criteria-block--accepted .criteria-block__title {
+  color: var(--gov-green-dark);
+}
+
+.criteria-block--rejected .criteria-block__title {
+  color: var(--ifpi-red-dark);
+}
+
+.criteria-block__list {
+  margin: 0;
+  padding-left: 1.15rem;
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--ifpi-ink-soft);
+}
+
+.criteria-block__list li + li {
+  margin-top: 0.45rem;
+}
+
+/* Dasar hukum */
+.legal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: legal;
+  border-top: 1px solid var(--ifpi-rule);
+}
+
+.legal-list__item {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.5rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #F1F1F1;
+  font-size: var(--fs-sm);
+  line-height: 1.66;
+  color: var(--ifpi-ink-soft);
+}
+
+.legal-list__num {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--ifpi-red);
+}
+
+/* Kutipan maklumat pelayanan */
+.pg-quote {
+  margin: 0;
+  padding: 0 0 0 1.5rem;
+  border-left: 3px solid var(--ifpi-red);
+}
+
+.pg-quote__text {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.9rem;
+  max-width: 70ch;
+}
+
+.pg-quote__source {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+}
+
+@media (max-width: 900px) {
+  .criteria-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .criteria-block {
+    padding: 1.35rem 0;
+  }
+
+  .criteria-block + .criteria-block {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--ifpi-rule);
+  }
+}
+
+@media (max-width: 640px) {
+  .sla-list__item {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .sla-list__num {
+    font-size: 1.1rem;
+  }
+
+  .pg-quote {
+    padding-left: 1rem;
+  }
+
+  .pg-quote__text {
+    font-size: var(--fs-base);
+  }
+}
+
+/* Halaman 404 */
+.nf {
+  max-width: 620px;
+  padding: 4.5rem 0 5rem;
+}
+
+/* Toggle tampilan bagan organisasi — rata kiri di bawah PageHeader */
+.org-view-toggle-bar {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 0 1.75rem;
+}
+
+.org-view-toggle-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background-color: #FAFAFA;
+  border: 1px solid var(--ifpi-rule);
+  padding: 2px;
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+}
+
+.nf__code {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 8vw, 5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--ifpi-rule-strong);
+  margin-bottom: 1.5rem;
+}
+
+.nf__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, var(--fs-2xl));
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.24;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.9rem;
+}
+
+.nf__desc {
+  font-size: var(--fs-md);
+  line-height: 1.7;
+  color: var(--ifpi-ink-soft);
+  margin: 0 0 2rem;
+  max-width: 58ch;
+}
+
+.nf__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .nf {
+    padding: 3rem 0 3.5rem;
+  }
+
+  .nf__actions .gov-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   21. ETALASE PRODUK — detail
+   -------------------------------------------------------------------------- */
+.pg-placeholder {
+  padding: 5rem 0;
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: #7A7A7A;
+}
+
+.pg-empty {
+  max-width: 46ch;
+  margin: 0 auto;
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.pg-empty__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.6rem;
+}
+
+.pg-empty__desc {
+  font-size: var(--fs-sm);
+  line-height: 1.68;
+  color: var(--ifpi-ink-soft);
+  margin: 0 0 1.5rem;
+}
+
+.prod-detail__toolbar {
+  padding: 1.25rem 0 1.5rem;
+}
+
+.prod-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink-soft);
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.prod-detail__back:hover {
+  color: var(--ifpi-red);
+  border-bottom-color: var(--ifpi-red);
+}
+
+.prod-detail__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.prod-detail__figure {
+  position: relative;
+  margin: 0;
+  background-color: #F4F4F4;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+}
+
+.prod-detail__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.prod-detail__demo-tag {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ifpi-red-dark);
+  background-color: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--ifpi-red-soft);
+  border-radius: var(--radius-xs);
+}
+
+.prod-detail__origin-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: 1rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: #7A7A7A;
+}
+
+.prod-detail__origin-note svg {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  color: var(--ifpi-red);
+}
+
+.prod-detail__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.prod-detail__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6E6E6E;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-xs);
+  background-color: #FCFCFC;
+}
+
+.prod-detail__tag--type {
+  color: var(--ifpi-red-dark);
+  border-color: var(--ifpi-red-soft);
+  background-color: var(--ifpi-red-soft);
+}
+
+.prod-detail__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.026em;
+  line-height: 1.18;
+  color: var(--ifpi-ink);
+  margin: 0 0 1.5rem;
+}
+
+.prod-detail__price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1.15rem 0 1.35rem;
+  border-top: 1px solid #F1F1F1;
+  border-bottom: 1px solid #F1F1F1;
+  margin-bottom: 1.75rem;
+}
+
+.prod-detail__price-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+}
+
+.prod-detail__price-value {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ifpi-red-dark);
+}
+
+.prod-detail__price-note {
+  font-size: 0.6875rem;
+  color: #8A8A8A;
+  line-height: 1.55;
+}
+
+.prod-detail__exhibit {
+  padding: 1.15rem 0 1.35rem;
+  border-top: 1px solid #F1F1F1;
+  border-bottom: 1px solid #F1F1F1;
+  margin-bottom: 1.75rem;
+}
+
+.prod-detail__exhibit-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--ifpi-ink);
+  margin-bottom: 0.35rem;
+}
+
+.prod-detail__exhibit-label svg {
+  color: var(--ifpi-red);
+}
+
+.prod-detail__exhibit-text {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.68;
+  color: var(--ifpi-ink-soft);
+}
+
+.prod-detail__section {
+  padding-bottom: 1.75rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid #F1F1F1;
+}
+
+.prod-detail__section:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.prod-detail__section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.9rem;
+}
+
+.prod-detail__facts {
+  margin: 0;
+}
+
+.prod-detail__fact {
+  display: grid;
+  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid #F5F5F5;
+}
+
+.prod-detail__fact:last-child {
+  border-bottom: 0;
+}
+
+.prod-detail__fact dt {
+  font-size: var(--fs-sm);
+  color: #7A7A7A;
+}
+
+.prod-detail__fact dd {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  line-height: 1.6;
+}
+
+.prod-detail__mono {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-weight: 500 !important;
+  font-size: 0.8125rem !important;
+}
+
+.prod-detail__verified {
+  color: var(--gov-green-dark) !important;
+}
+
+.prod-detail__contact-btn {
+  margin-top: 1rem;
+}
+
+.prod-detail__description {
+  margin: 0;
+  font-size: var(--fs-base);
+  line-height: 1.78;
+  color: var(--ifpi-ink-soft);
+  white-space: pre-line;
+  max-width: 68ch;
+}
+
+.prod-detail__related {
+  padding-top: 2.5rem;
+}
+
+.prod-detail__related-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 1rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.prod-detail__related-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ifpi-ink);
+  margin: 0;
+}
+
+.prod-detail__related-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-red);
+  text-decoration: none;
+}
+
+.prod-detail__related-link:hover {
+  color: var(--ifpi-red-dark);
+}
+
+@media (max-width: 900px) {
+  .prod-detail__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .prod-detail__figure {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 640px) {
+  .prod-detail__toolbar {
+    padding: 1rem 0 1.25rem;
+  }
+
+  .prod-detail__price-value {
+    font-size: 1.6rem;
+  }
+
+  .prod-detail__fact {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .prod-detail__contact-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   22. ADMIN — ringkasan statistik berbentuk pita angka
+   -------------------------------------------------------------------------- */
+.adm-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  margin-bottom: 1.75rem;
+  overflow: hidden;
+}
+
+.adm-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 1rem 1.15rem 1.1rem;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-left: 1px solid #F1F1F1;
+  border-top: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-top-color 0.15s ease;
+}
+
+.adm-stat:first-child {
+  border-left: 0;
+}
+
+.adm-stat:hover {
+  background-color: #FCFCFC;
+}
+
+.adm-stat.is-active {
+  background-color: #FCFCFC;
+  border-top-color: var(--ifpi-ink);
+}
+
+.adm-stat--new.is-active {
+  border-top-color: var(--ifpi-red);
+}
+
+.adm-stat--progress.is-active {
+  border-top-color: #B45309;
+}
+
+.adm-stat--done.is-active {
+  border-top-color: #15803D;
+}
+
+.adm-stat__label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #7A7A7A;
+}
+
+.adm-stat__value {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ifpi-ink);
+}
+
+.adm-stat--new .adm-stat__value {
+  color: var(--ifpi-red);
+}
+
+.adm-stat--progress .adm-stat__value {
+  color: #B45309;
+}
+
+.adm-stat--done .adm-stat__value {
+  color: #15803D;
+}
+
+.adm-stat__meta {
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: #9A9A9A;
+}
+
+@media (max-width: 900px) {
+  .adm-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .adm-stat:nth-child(3) {
+    border-left: 0;
+  }
+
+  .adm-stat:nth-child(n + 3) {
+    border-top: 1px solid #F1F1F1;
+  }
+}
+
+@media (max-width: 480px) {
+  .adm-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .adm-stat {
+    border-left: 0;
+    border-top: 1px solid #F1F1F1;
+  }
+
+  .adm-stat:first-child {
+    border-top: 2px solid transparent;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   23. LACAK LAPORAN
+   -------------------------------------------------------------------------- */
+.trk-search {
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.trk-search__form .gov-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #7A7A7A;
+  margin-bottom: 0.5rem;
+}
+
+.trk-search__row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.trk-search__input {
+  flex: 1 1 280px;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.trk-search__samples {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+  font-size: 0.75rem;
+  color: #8A8A8A;
+}
+
+.trk-search__sample {
+  padding: 0;
+  background: none;
+  border: 0;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ifpi-red);
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+}
+
+.trk-search__sample:hover {
+  border-bottom-color: var(--ifpi-red);
+}
+
+.trk-notfound {
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--ifpi-red-soft);
+  border-left: 3px solid var(--ifpi-red);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background-color: #FDF7F7;
+}
+
+.trk-notfound__label {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  margin-bottom: 0.4rem;
+}
+
+.trk-notfound__title {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+}
+
+.trk-notfound__desc {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.66;
+  color: var(--ifpi-ink-soft);
+}
+
+.trk-notfound__desc code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.8125em;
+  color: var(--ifpi-ink);
+  background-color: #FFFFFF;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-xs);
+  padding: 0.05rem 0.3rem;
+}
+
+.trk-result__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid var(--ifpi-ink);
+}
+
+.trk-result__label {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin-bottom: 0.3rem;
+}
+
+.trk-result__ticket {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--ifpi-ink);
+  word-break: break-all;
+}
+
+.trk-result__head-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.trk-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0 2rem;
+  margin: 0 0 2rem;
+  padding: 0;
+}
+
+.trk-facts__item {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #F1F1F1;
+}
+
+.trk-facts__item dt {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin-bottom: 0.15rem;
+}
+
+.trk-facts__item dd {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  line-height: 1.6;
+}
+
+.trk-facts__mono {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-weight: 500 !important;
+}
+
+.trk-facts__chip {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.05rem 0.35rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7A7A7A;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-xs);
+}
+
+.trk-block {
+  padding-bottom: 1.75rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid #F1F1F1;
+}
+
+.trk-block__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.35;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.4rem;
+}
+
+.trk-block__title--sm {
+  font-size: var(--fs-md);
+  margin-bottom: 0.9rem;
+}
+
+.trk-block__sub {
+  margin: 0 0 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+}
+
+.trk-block__text {
+  margin: 0;
+  font-size: var(--fs-base);
+  line-height: 1.75;
+  color: var(--ifpi-ink-soft);
+  white-space: pre-line;
+  max-width: 74ch;
+}
+
+.trk-attachment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-xs);
+  background-color: #FCFCFC;
+  margin-bottom: 1rem;
+}
+
+.trk-attachment__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--fs-sm);
+  color: var(--ifpi-ink);
+}
+
+.trk-attachment__name svg {
+  color: var(--ifpi-red);
+  flex-shrink: 0;
+}
+
+.trk-attachment__size {
+  font-size: 0.6875rem;
+  color: #9A9A9A;
+}
+
+.trk-figure {
+  margin: 0;
+}
+
+.trk-figure img {
+  max-width: 100%;
+  max-height: 340px;
+  display: block;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+}
+
+.trk-figure figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.6875rem;
+  color: #9A9A9A;
+}
+
+.trk-privacy {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin: 0 0 2rem;
+  font-size: 0.75rem;
+  line-height: 1.65;
+  color: #8A8A8A;
+}
+
+.trk-privacy svg {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  color: var(--ifpi-red);
+}
+
+.trk-response {
+  padding: 1.4rem 1.5rem;
+  border: 1px solid var(--ifpi-rule);
+  border-left: 3px solid var(--gov-green);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background-color: #FCFCFC;
+  margin-bottom: 2rem;
+}
+
+.trk-response__label {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gov-green-dark);
+  margin-bottom: 0.35rem;
+}
+
+.trk-response__opd {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.25rem;
+}
+
+.trk-response__date {
+  font-size: 0.6875rem;
+  color: #9A9A9A;
+}
+
+.trk-response__quote {
+  margin: 1rem 0 0;
+  padding-left: 1rem;
+  border-left: 2px solid #E2E2E2;
+  font-size: var(--fs-base);
+  line-height: 1.75;
+  color: var(--ifpi-ink);
+  white-space: pre-line;
+}
+
+.trk-response__by {
+  margin: 0.9rem 0 0;
+  font-size: 0.75rem;
+  color: #8A8A8A;
+}
+
+.trk-response__by strong {
+  color: var(--ifpi-ink-soft);
+}
+
+.trk-pending {
+  margin: 0 0 2rem;
+  padding: 1rem 1.2rem;
+  border: 1px dashed var(--ifpi-rule-strong);
+  border-radius: var(--radius-xs);
+  font-size: var(--fs-sm);
+  line-height: 1.68;
+  color: var(--ifpi-ink-soft);
+  background-color: #FCFCFC;
+}
+
+.trk-pending strong {
+  color: var(--ifpi-ink);
+}
+
+.trk-timeline {
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--ifpi-rule);
+  margin-bottom: 2.25rem;
+}
+
+.trk-timeline__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.trk-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--ifpi-rule);
+}
+
+.trk-actions__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.trk-actions__back:hover {
+  color: var(--ifpi-red);
+  border-bottom-color: var(--ifpi-red);
+}
+
+.trk-actions__buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .trk-search__row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .trk-search__row .gov-btn {
+    justify-content: center;
+  }
+
+  .trk-result__head {
+    align-items: flex-start;
+  }
+
+  .trk-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .trk-actions__back {
+    justify-content: center;
+  }
+
+  .trk-actions__buttons {
+    flex-direction: column;
+  }
+
+  .trk-actions__buttons .gov-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .trk-response {
+    padding: 1.15rem 1.1rem;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   24. ADMIN — detail pengaduan
+   -------------------------------------------------------------------------- */
+.adm-detail__notfound {
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.adm-detail__notfound h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.5rem;
+}
+
+.adm-detail__notfound p {
+  font-size: var(--fs-sm);
+  color: #7A7A7A;
+  margin: 0 0 1.5rem;
+}
+
+.adm-detail {
+  max-width: 1080px;
+}
+
+.adm-detail__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.adm-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ifpi-ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.adm-detail__back:hover {
+  color: var(--ifpi-red);
+  border-bottom-color: var(--ifpi-red);
+}
+
+.adm-detail__alert {
+  margin-bottom: 1.25rem;
+}
+
+.adm-detail__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 2px solid var(--ifpi-ink);
+}
+
+.adm-detail__label {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin-bottom: 0.3rem;
+}
+
+.adm-detail__label--tight {
+  margin: 0 0 0.4rem;
+}
+
+.adm-detail__ticket {
+  display: block;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--ifpi-ink);
+  word-break: break-all;
+}
+
+.adm-detail__date {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+  color: #8A8A8A;
+}
+
+.adm-detail__status {
+  flex-shrink: 0;
+}
+
+.adm-detail__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.adm-detail__section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.35;
+  color: var(--ifpi-ink);
+  margin: 0 0 1rem;
+}
+
+.adm-detail__section-title--rule {
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+  margin-bottom: 1.25rem;
+}
+
+.adm-detail__body-text {
+  margin: 0;
+  font-size: var(--fs-base);
+  line-height: 1.78;
+  color: var(--ifpi-ink-soft);
+  white-space: pre-line;
+}
+
+.adm-detail__figure {
+  margin: 1.25rem 0 0;
+}
+
+.adm-detail__figure img {
+  max-width: 100%;
+  max-height: 260px;
+  display: block;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-xs);
+}
+
+.adm-detail__figure figcaption {
+  margin-top: 0.4rem;
+  font-size: 0.6875rem;
+  color: #9A9A9A;
+}
+
+.adm-detail__aside {
+  padding: 1.35rem 1.4rem;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+  background-color: #FCFCFC;
+  align-self: start;
+}
+
+.adm-detail__aside-title {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  margin: 0 0 0.9rem;
+}
+
+.adm-detail__facts {
+  margin: 0;
+}
+
+.adm-detail__fact {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid #F1F1F1;
+}
+
+.adm-detail__fact:last-child {
+  border-bottom: 0;
+}
+
+.adm-detail__fact dt {
+  font-size: 0.6875rem;
+  color: #8A8A8A;
+  margin-bottom: 0.1rem;
+}
+
+.adm-detail__fact dd {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ifpi-ink);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.adm-detail__fact-note {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 400;
+  color: #A5A5A5;
+  margin-top: 0.1rem;
+}
+
+.adm-detail__chip {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.05rem 0.35rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #7A7A7A;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-xs);
+}
+
+.adm-detail__mono {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-weight: 500 !important;
+}
+
+.adm-detail__attachment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #F1F1F1;
+}
+
+.adm-detail__attachment-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--ifpi-ink);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adm-detail__attachment-name svg {
+  color: var(--ifpi-red);
+  flex-shrink: 0;
+}
+
+.adm-detail__forms {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.25rem;
+}
+
+.adm-detail__form-panel {
+  padding: 1.5rem 1.4rem;
+  border: 1px solid var(--ifpi-rule);
+  border-top: 2px solid var(--ifpi-red);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+}
+
+.adm-detail__form-title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.35rem;
+}
+
+.adm-detail__form-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background-color: var(--ifpi-red);
+  border-radius: var(--radius-xs);
+}
+
+.adm-detail__form-step--alt {
+  background-color: #1E1E1E;
+}
+
+.adm-detail__form-desc {
+  margin: 0 0 1.35rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid #F1F1F1;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: #8A8A8A;
+}
+
+.adm-detail__submit {
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.4rem;
+}
+
+.adm-detail__history {
+  padding-top: 0.5rem;
+}
+
+.adm-detail__timeline-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .adm-detail__split {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .adm-detail__forms {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .adm-detail__toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .adm-detail__toolbar .gov-btn {
+    justify-content: center;
+  }
+
+  .adm-detail__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .adm-detail__aside {
+    padding: 1.15rem 1.1rem;
+  }
+
+  .adm-detail__form-panel {
+    padding: 1.25rem 1.1rem;
+  }
+
+  .adm-detail__form-title {
+    font-size: 1rem;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   25. ADMIN — dashboard (kepala, filter, tabel)
+   -------------------------------------------------------------------------- */
+.adm-dash__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding-bottom: 1.35rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.adm-dash__head-main {
+  max-width: 62ch;
+}
+
+.adm-dash__eyebrow {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  margin-bottom: 0.45rem;
+}
+
+.adm-dash__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.25;
+  color: var(--ifpi-ink);
+  margin: 0 0 0.45rem;
+}
+
+.adm-dash__lede {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: var(--ifpi-ink-soft);
+}
+
+.adm-dash__head-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+/* Filter */
+.adm-filters {
+  padding: 1.25rem 1.35rem;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  margin-bottom: 1.5rem;
+}
+
+.adm-filters__title {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin: 0 0 1rem;
+}
+
+.adm-filters__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.adm-filters__field {
+  margin-bottom: 0;
+}
+
+.adm-filters__field .gov-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #7A7A7A;
+  margin-bottom: 0.3rem;
+}
+
+.adm-filters__field .gov-input,
+.adm-filters__field .gov-select {
+  font-size: 0.8125rem;
+  padding: 0.45rem 0.6rem;
+}
+
+.adm-filters__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid #F1F1F1;
+  font-size: 0.75rem;
+  color: #7A7A7A;
+}
+
+.adm-filters__footer strong {
+  color: var(--ifpi-ink);
+}
+
+.adm-filters__reset {
+  padding: 0;
+  background: none;
+  border: 0;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ifpi-red);
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+}
+
+.adm-filters__reset:hover {
+  border-bottom-color: var(--ifpi-red);
+}
+
+/* Tabel */
+.adm-table {
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+.adm-table .gov-table {
+  margin: 0;
+}
+
+.adm-table__th-action {
+  text-align: center;
+}
+
+.adm-table__ticket {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ifpi-red);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.adm-table__ticket:hover {
+  color: var(--ifpi-red-dark);
+  text-decoration: underline;
+}
+
+.adm-table__date {
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  color: var(--ifpi-ink);
+}
+
+.adm-table__date span {
+  display: block;
+  font-size: 0.6875rem;
+  color: #A5A5A5;
+}
+
+.adm-table__cat {
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--ifpi-ink);
+}
+
+.adm-table__chip {
+  display: inline-block;
+  margin-left: 0.3rem;
+  padding: 0.02rem 0.3rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #7A7A7A;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-xs);
+}
+
+.adm-table__service {
+  font-size: 0.6875rem;
+  color: var(--ifpi-red-dark);
+}
+
+.adm-table__region {
+  font-size: 0.6875rem;
+  color: #9A9A9A;
+}
+
+.adm-table__subject {
+  max-width: 280px;
+}
+
+.adm-table__subject-title {
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--ifpi-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.adm-table__subject-desc {
+  font-size: 0.6875rem;
+  color: #9A9A9A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.adm-table__reporter {
+  font-size: 0.8125rem;
+}
+
+.adm-table__reporter div:first-child {
+  font-weight: 600;
+  color: var(--ifpi-ink);
+}
+
+.adm-table__reporter-contact {
+  font-size: 0.6875rem;
+  color: #9A9A9A;
+}
+
+.adm-table__answered {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--gov-green-dark);
+}
+
+.adm-table__unanswered {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #B45309;
+}
+
+.adm-table__td-action {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.adm-table__empty {
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.adm-table__empty p {
+  margin: 0 0 0.75rem;
+  font-size: var(--fs-sm);
+  color: #7A7A7A;
+}
+
+@media (max-width: 1180px) {
+  .adm-filters__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .adm-dash__head {
+    flex-direction: column;
+  }
+
+  .adm-dash__head-actions {
+    width: 100%;
+  }
+
+  .adm-dash__head-actions .gov-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .adm-filters {
+    padding: 1rem 1rem;
+  }
+
+  .adm-filters__grid {
+    grid-template-columns: 1fr;
+  }
+}

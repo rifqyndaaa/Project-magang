@@ -55,11 +55,11 @@ export default function AdminDetail() {
 
   if (!report) {
     return (
-      <div className="gov-container" style={{ padding: '3rem 0', textAlign: "center" }}>
-        <Icon name="alert-circle" size={40} color="#DC2626" />
-        <h2 style={{ marginTop: '1rem', color: 'var(--neutral-800)' }}>Pengaduan Tidak Ditemukan</h2>
-        <p style={{ color: 'var(--neutral-600)', marginBottom: '1.5rem' }}>
-          Data pengaduan dengan identitas internal "{id}" tidak tersedia atau telah dihapus.
+      <div className="gov-container adm-detail__notfound">
+        <h2>Pengaduan Tidak Ditemukan</h2>
+        <p>
+          Data pengaduan dengan identitas internal &ldquo;{id}&rdquo; tidak tersedia atau
+          telah dihapus.
         </p>
         <Link to="/admin" className="gov-btn gov-btn-primary">
           <Icon name="arrow-left" size={14} />
@@ -120,228 +120,178 @@ export default function AdminDetail() {
   };
 
   return (
-    <div className="gov-container" style={{ maxWidth: "1060px" }}>
-      {/* Top Navigation */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
-        <Link to="/admin" className="gov-btn gov-btn-outline-neutral gov-btn-sm">
+    <div className="gov-container adm-detail">
+      <div className="adm-detail__toolbar">
+        <Link to="/admin" className="adm-detail__back">
           <Icon name="arrow-left" size={14} />
           <span>Kembali ke Daftar Pengaduan</span>
         </Link>
 
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <a
-            href={`/track?ticket=${report.ticketNumber}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="gov-btn gov-btn-secondary gov-btn-sm"
-            title="Buka tampilan yang dilihat oleh masyarakat di halaman tracking"
-          >
-            <Icon name="search" size={14} />
-            <span>Lihat Tampilan Publik &rarr;</span>
-          </a>
-        </div>
+        <a
+          href={`/track?ticket=${report.ticketNumber}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="gov-btn gov-btn-outline-neutral gov-btn-sm"
+          title="Buka tampilan yang dilihat masyarakat di halaman pelacakan"
+        >
+          <Icon name="search" size={14} />
+          <span>Lihat Tampilan Publik</span>
+        </a>
       </div>
 
       {notification && (
-        <div className={`gov-alert gov-alert-${notification.type}`} style={{ marginBottom: '1.25rem' }}>
+        <div className={`gov-alert gov-alert-${notification.type} adm-detail__alert`}>
           {notification.message}
         </div>
       )}
 
-      {/* Header Pengaduan */}
-      <div className="gov-card" style={{ marginBottom: '1.5rem', overflow: "hidden" }}>
-        <div className="gov-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', backgroundColor: "var(--neutral-100)" }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--neutral-500)', textTransform: 'uppercase' }}>
-                Nomor Tiket:
-              </span>
-              <span style={{ fontFamily: 'monospace', fontWeight: 800, fontSize: '1.25rem', color: 'var(--gov-blue-dark)' }}>
-                {report.ticketNumber}
-              </span>
-            </div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--neutral-500)', marginTop: '0.2rem' }}>
-              Diajukan pada: {new Date(report.createdAt).toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'short' })} WIB
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <span style={{ fontSize: '0.8125rem', color: 'var(--neutral-600)' }}>Status Saat Ini:</span>
-            <StatusBadge status={report.status} />
-          </div>
+      {/* Identitas laporan */}
+      <header className="adm-detail__head">
+        <div>
+          <span className="adm-detail__label">Nomor tiket</span>
+          <span className="adm-detail__ticket">{report.ticketNumber}</span>
+          <span className="adm-detail__date">
+            Diajukan {new Date(report.createdAt).toLocaleString('id-ID', {
+              dateStyle: 'full',
+              timeStyle: 'short',
+            })}{' '}
+            WIB
+          </span>
         </div>
+        <div className="adm-detail__status">
+          <span className="adm-detail__label">Status saat ini</span>
+          <StatusBadge status={report.status} />
+        </div>
+      </header>
 
-        <div className="gov-card-body">
-          <div className="gov-grid gov-grid-2" style={{ marginBottom: "1.5rem" }}>
-            {/* Rincian Masalah */}
-            <div>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--neutral-500)', textTransform: 'uppercase', display: 'block', marginBottom: '0.25rem' }}>
-                Judul Pengaduan
-              </span>
-              <h2 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--neutral-900)', marginBottom: '0.75rem' }}>
-                {report.title}
-              </h2>
+      {/* Isi laporan + informasi pelapor */}
+      <div className="adm-detail__split">
+        <section className="adm-detail__block">
+          <h2 className="adm-detail__section-title">{report.title}</h2>
+          <p className="adm-detail__label adm-detail__label--tight">Uraian isi pengaduan</p>
+          <p className="adm-detail__body-text">{report.message}</p>
 
-              <div style={{ backgroundColor: 'var(--neutral-50)', padding: '1rem', borderRadius: '4px', border: '1px solid var(--neutral-200)', marginBottom: '1rem' }}>
-                <span style={{ fontSize: '0.725rem', fontWeight: 700, color: 'var(--neutral-500)', textTransform: 'uppercase', display: 'block', marginBottom: '0.25rem' }}>
-                  Uraian Isi Pengaduan Masyarakat:
-                </span>
-                <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--neutral-800)', whiteSpace: 'pre-line', lineHeight: 1.6 }}>
-                  {report.message}
-                </p>
+          {report.image && (
+            <figure className="adm-detail__figure">
+              <img src={report.image} alt="Lampiran foto lapangan" />
+              <figcaption>Lampiran foto lapangan</figcaption>
+            </figure>
+          )}
+        </section>
+
+        <aside className="adm-detail__aside">
+          <h2 className="adm-detail__aside-title">Informasi Pelapor &amp; Wilayah</h2>
+
+          <dl className="adm-detail__facts">
+            <div className="adm-detail__fact">
+              <dt>Nama pelapor</dt>
+              <dd>{report.name}</dd>
+            </div>
+            <div className="adm-detail__fact">
+              <dt>Kontak / WhatsApp</dt>
+              <dd>
+                {report.contact}
+                <span className="adm-detail__fact-note">Hanya terlihat oleh petugas</span>
+              </dd>
+            </div>
+            <div className="adm-detail__fact">
+              <dt>Kategori layanan</dt>
+              <dd>
+                {categoryObj ? categoryObj.name : report.category}
+                {categoryObj?.isLegacy && (
+                  <span className="adm-detail__chip">Arsip lama</span>
+                )}
+              </dd>
+            </div>
+            {report.serviceType && (
+              <div className="adm-detail__fact">
+                <dt>Jenis layanan</dt>
+                <dd>{report.serviceType}</dd>
               </div>
+            )}
+            {report.applicantAgency && (
+              <div className="adm-detail__fact">
+                <dt>Instansi pemohon</dt>
+                <dd>{report.applicantAgency}</dd>
+              </div>
+            )}
+            {report.eventPurpose && (
+              <div className="adm-detail__fact">
+                <dt>Tujuan / tema agenda</dt>
+                <dd>{report.eventPurpose}</dd>
+              </div>
+            )}
+            {report.eventDate && (
+              <div className="adm-detail__fact">
+                <dt>Tanggal rencana kegiatan</dt>
+                <dd>
+                  {new Date(report.eventDate).toLocaleDateString('id-ID', { dateStyle: 'long' })}
+                </dd>
+              </div>
+            )}
+            {report.previousTicketNumber && (
+              <div className="adm-detail__fact">
+                <dt>Tiket sebelumnya</dt>
+                <dd className="adm-detail__mono">{report.previousTicketNumber}</dd>
+              </div>
+            )}
+            {report.relatedAgency && (
+              <div className="adm-detail__fact">
+                <dt>Instansi / unit terkait</dt>
+                <dd>{report.relatedAgency}</dd>
+              </div>
+            )}
+            <div className="adm-detail__fact">
+              <dt>OPD pembina teknis</dt>
+              <dd>{categoryObj ? categoryObj.opd : 'Pemprov Riau'}</dd>
+            </div>
+            <div className="adm-detail__fact">
+              <dt>Kabupaten / kota</dt>
+              <dd>{report.region || 'Provinsi Riau'}</dd>
+            </div>
+            {report.locationDetail && (
+              <div className="adm-detail__fact">
+                <dt>Detail lokasi kejadian</dt>
+                <dd>{report.locationDetail}</dd>
+              </div>
+            )}
+          </dl>
 
-              {report.image && (
-                <div style={{ marginTop: '0.75rem' }}>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--neutral-600)', display: 'block', marginBottom: '0.35rem' }}>
-                    Lampiran Foto Lapangan:
-                  </span>
-                  <img
-                    src={report.image}
-                    alt="Lampiran"
-                    style={{ maxWidth: '100%', maxHeight: '220px', borderRadius: '4px', border: '1px solid var(--neutral-300)' }}
-                  />
-                </div>
+          {report.letterAttachment && (
+            <div className="adm-detail__attachment">
+              <span className="adm-detail__attachment-name">
+                <Icon name="file-check" size={14} />
+                {report.letterAttachment.fileName}
+              </span>
+              {report.letterAttachment.data && (
+                <a
+                  href={report.letterAttachment.data}
+                  download={report.letterAttachment.fileName}
+                  className="gov-btn gov-btn-outline-neutral gov-btn-xs"
+                >
+                  <Icon name="download" size={12} />
+                  <span>Unduh</span>
+                </a>
               )}
             </div>
-
-            {/* Identitas Pelapor & Lokasi */}
-            <div style={{ backgroundColor: '#F8FAFC', padding: '1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--neutral-200)' }}>
-              <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--gov-blue-dark)', borderBottom: '1px solid var(--neutral-200)', paddingBottom: '0.4rem', marginBottom: '0.75rem' }}>
-                Informasi Pelapor & Wilayah
-              </h3>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem', fontSize: '0.8125rem' }}>
-                <div>
-                  <span style={{ color: 'var(--neutral-500)', display: 'block' }}>Nama Lengkap Pelapor:</span>
-                  <strong style={{ color: 'var(--neutral-900)', fontSize: '0.875rem' }}>{report.name}</strong>
-                </div>
-
-                <div>
-                  <span style={{ color: 'var(--neutral-500)', display: 'block' }}>Kontak / WhatsApp Pelapor:</span>
-                  <strong style={{ color: 'var(--neutral-900)', fontSize: '0.875rem' }}>{report.contact}</strong>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--neutral-400)', display: 'block' }}>
-                    (Hanya terlihat oleh petugas untuk verifikasi)
-                  </span>
-                </div>
-
-                <div>
-                  <span style={{ color: 'var(--neutral-500)', display: 'block' }}>Kategori Layanan Resmi:</span>
-                  <strong style={{ color: 'var(--gov-blue-dark)' }}>
-                    {categoryObj ? categoryObj.name : report.category}
-                  </strong>
-                  {categoryObj?.isLegacy && (
-                    <span style={{ fontSize: '0.7rem', padding: '0.1rem 0.35rem', backgroundColor: '#F1F5F9', color: '#64748B', borderRadius: '4px', marginLeft: '0.35rem' }}>
-                      Arsip Lama
-                    </span>
-                  )}
-                </div>
-
-                {report.serviceType && (
-                  <div>
-                    <span style={{ color: 'var(--neutral-500)', display: 'block' }}>Pilihan Jenis Layanan:</span>
-                    <strong style={{ color: 'var(--neutral-900)' }}>{report.serviceType}</strong>
-                  </div>
-                )}
-
-                {report.applicantAgency && (
-                  <div>
-                    <span style={{ color: 'var(--neutral-500)', display: 'block' }}>Instansi Pemohon:</span>
-                    <strong style={{ color: 'var(--neutral-900)' }}>{report.applicantAgency}</strong>
-                  </div>
-                )}
-
-                {report.eventPurpose && (
-                  <div>
-                    <span style={{ color: 'var(--neutral-500)', display: 'block' }}>Tujuan / Tema Agenda:</span>
-                    <strong style={{ color: 'var(--neutral-900)' }}>{report.eventPurpose}</strong>
-                  </div>
-                )}
-
-                {report.eventDate && (
-                  <div>
-                    <span style={{ color: 'var(--neutral-500)', display: 'block' }}>Tanggal Rencana Kegiatan:</span>
-                    <strong style={{ color: 'var(--neutral-900)' }}>
-                      {new Date(report.eventDate).toLocaleDateString('id-ID', { dateStyle: 'long' })}
-                    </strong>
-                  </div>
-                )}
-
-                {report.previousTicketNumber && (
-                  <div>
-                    <span style={{ color: 'var(--neutral-500)', display: 'block' }}>Tiket Pengaduan Sebelumnya:</span>
-                    <strong style={{ color: 'var(--gov-blue-dark)', fontFamily: 'monospace' }}>{report.previousTicketNumber}</strong>
-                  </div>
-                )}
-
-                {report.relatedAgency && (
-                  <div>
-                    <span style={{ color: 'var(--neutral-500)', display: 'block' }}>Instansi / Unit Terkait:</span>
-                    <strong style={{ color: 'var(--neutral-900)' }}>{report.relatedAgency}</strong>
-                  </div>
-                )}
-
-                {report.letterAttachment && (
-                  <div style={{ backgroundColor: '#EEF4FC', padding: '0.5rem 0.75rem', borderRadius: '4px', border: '1px solid var(--gov-blue-border)' }}>
-                    <span style={{ color: 'var(--gov-blue-dark)', fontWeight: 700, display: 'block', fontSize: '0.75rem' }}>
-                      Surat Permohonan / Undangan:
-                    </span>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginTop: '0.25rem' }}>
-                      <span style={{ fontSize: '0.75rem', color: 'var(--neutral-800)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                        📄 {report.letterAttachment.fileName}
-                      </span>
-                      {report.letterAttachment.data && (
-                        <a
-                          href={report.letterAttachment.data}
-                          download={report.letterAttachment.fileName}
-                          className="gov-btn gov-btn-outline-neutral gov-btn-xs"
-                          style={{ fontSize: '0.7rem', padding: '0.2rem 0.4rem' }}
-                        >
-                          Unduh
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                <div>
-                  <span style={{ color: 'var(--neutral-500)', display: 'block' }}>OPD Pembina Teknis:</span>
-                  <span style={{ color: 'var(--gov-blue-dark)', fontWeight: 600 }}>{categoryObj ? categoryObj.opd : 'Pemprov Riau'}</span>
-                </div>
-
-                <div>
-                  <span style={{ color: 'var(--neutral-500)', display: 'block' }}>Kabupaten / Kota:</span>
-                  <strong style={{ color: 'var(--neutral-900)' }}>{report.region || 'Provinsi Riau'}</strong>
-                </div>
-
-                {report.locationDetail && (
-                  <div>
-                    <span style={{ color: 'var(--neutral-500)', display: 'block' }}>Detail Lokasi Kejadian:</span>
-                    <span style={{ color: 'var(--neutral-800)' }}>{report.locationDetail}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+          )}
+        </aside>
       </div>
 
-      {/* FORM TINDAK LANJUT PETUGAS: STATUS & TANGGAPAN */}
-      <div className="gov-grid gov-grid-2" style={{ marginBottom: "2rem" }}>
-        {/* Kolom 1: Perbarui Status Laporan */}
-        <div className="gov-card" style={{ padding: '1.5rem', borderTop: "3px solid var(--gov-blue)" }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--gov-blue-dark)', marginBottom: '0.5rem' }}>
-            1. Perbarui Tahapan Status Laporan
-          </h3>
-          <p style={{ fontSize: '0.775rem', color: 'var(--neutral-500)', marginBottom: '1.25rem' }}>
+      {/* Form tindak lanjut */}
+      <div className="adm-detail__forms">
+        <section className="adm-detail__form-panel">
+          <h2 className="adm-detail__form-title">
+            <span className="adm-detail__form-step">1</span>
+            Perbarui Tahapan Status
+          </h2>
+          <p className="adm-detail__form-desc">
             Ubah status dan berikan catatan resmi agar pelapor mengetahui progres di lapangan.
           </p>
 
           <form onSubmit={handleUpdateStatus}>
             <div className="gov-form-group">
-              <label htmlFor="select-new-status" className="gov-label" style={{ fontSize: "0.8125rem" }}>
-                Pilih Status Baru
-              </label>
+              <label htmlFor="select-new-status" className="gov-label">Status baru</label>
               <select
                 id="select-new-status"
                 className="gov-select"
@@ -358,14 +308,14 @@ export default function AdminDetail() {
             </div>
 
             <div className="gov-form-group">
-              <label htmlFor="input-status-note" className="gov-label" style={{ fontSize: "0.8125rem" }}>
-                Catatan Tindakan / Keterangan Status
+              <label htmlFor="input-status-note" className="gov-label">
+                Catatan tindakan
               </label>
               <textarea
                 id="input-status-note"
                 rows={3}
                 className="gov-textarea"
-                placeholder="Contoh: Berkas diteruskan ke tim UPTD Wilayah I untuk peninjauan teknis perbaikan jalan..."
+                placeholder="Contoh: Berkas diteruskan ke tim UPTD Wilayah I untuk peninjauan teknis perbaikan jalan…"
                 value={statusNote}
                 onChange={(e) => setStatusNote(e.target.value)}
                 required
@@ -374,9 +324,7 @@ export default function AdminDetail() {
             </div>
 
             <div className="gov-form-group">
-              <label htmlFor="input-status-actor" className="gov-label" style={{ fontSize: "0.8125rem" }}>
-                Nama Petugas / Instansi
-              </label>
+              <label htmlFor="input-status-actor" className="gov-label">Nama petugas / instansi</label>
               <input
                 type="text"
                 id="input-status-actor"
@@ -388,27 +336,25 @@ export default function AdminDetail() {
               />
             </div>
 
-            <button type="submit" className="gov-btn gov-btn-primary" style={{ width: "100%" }} id="btn-save-status">
-              <Icon name="check-circle" size={16} />
+            <button type="submit" className="gov-btn gov-btn-primary adm-detail__submit" id="btn-save-status">
+              <Icon name="check" size={16} />
               <span>Simpan Pembaruan Status</span>
             </button>
           </form>
-        </div>
+        </section>
 
-        {/* Kolom 2: Berikan / Perbarui Tanggapan Resmi */}
-        <div className="gov-card" style={{ padding: '1.5rem', borderTop: "3px solid var(--gov-green)" }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--gov-green-dark)', marginBottom: '0.5rem' }}>
-            2. Tanggapan Resmi Pemerintah
-          </h3>
-          <p style={{ fontSize: '0.775rem', color: 'var(--neutral-500)', marginBottom: '1.25rem' }}>
-            Pernyataan resmi dari instansi/OPD yang akan tampil di halaman pelacakan publik.
+        <section className="adm-detail__form-panel">
+          <h2 className="adm-detail__form-title">
+            <span className="adm-detail__form-step adm-detail__form-step--alt">2</span>
+            Tanggapan Resmi Pemerintah
+          </h2>
+          <p className="adm-detail__form-desc">
+            Pernyataan resmi instansi/OPD yang akan tampil di halaman pelacakan publik.
           </p>
 
           <form onSubmit={handleSaveResponse}>
             <div className="gov-form-group">
-              <label htmlFor="input-opd-name" className="gov-label" style={{ fontSize: "0.8125rem" }}>
-                Nama Instansi / OPD Penjawab
-              </label>
+              <label htmlFor="input-opd-name" className="gov-label">Nama instansi / OPD penjawab</label>
               <input
                 type="text"
                 id="input-opd-name"
@@ -421,8 +367,8 @@ export default function AdminDetail() {
             </div>
 
             <div className="gov-form-group">
-              <label htmlFor="input-responder-name" className="gov-label" style={{ fontSize: "0.8125rem" }}>
-                Pejabat / Petugas yang Menjawab
+              <label htmlFor="input-responder-name" className="gov-label">
+                Pejabat / petugas yang menjawab
               </label>
               <input
                 type="text"
@@ -436,33 +382,31 @@ export default function AdminDetail() {
             </div>
 
             <div className="gov-form-group">
-              <label htmlFor="input-response-text" className="gov-label" style={{ fontSize: "0.8125rem" }}>
-                Uraian Tanggapan Resmi Masyarakat
-              </label>
+              <label htmlFor="input-response-text" className="gov-label">Uraian tanggapan resmi</label>
               <textarea
                 id="input-response-text"
                 rows={4}
                 className="gov-textarea"
-                placeholder="Uraikan tindak lanjut yang telah atau akan dilakukan, jadwal pekerjaan, atau penjelasan komprehensif..."
+                placeholder="Uraikan tindak lanjut yang telah atau akan dilakukan, jadwal pekerjaan, atau penjelasan komprehensif…"
                 value={responseText}
                 onChange={(e) => setResponseText(e.target.value)}
                 required
               />
             </div>
 
-            <button type="submit" className="gov-btn gov-btn-accent" style={{ width: "100%" }} id="btn-save-response">
+            <button type="submit" className="gov-btn gov-btn-primary adm-detail__submit" id="btn-save-response">
               <Icon name="message" size={16} />
               <span>Publikasikan Tanggapan Resmi</span>
             </button>
           </form>
-        </div>
+        </section>
       </div>
 
-      {/* Riwayat Timeline Lengkap */}
-      <div className="gov-card" style={{ padding: '1.5rem', marginBottom: "2rem" }}>
-        <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--neutral-800)', borderBottom: '1px solid var(--neutral-200)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
-          Riwayat Perjalanan Penanganan Laporan
-        </h3>
+      {/* Riwayat */}
+      <section className="adm-detail__history">
+        <h2 className="adm-detail__section-title adm-detail__section-title--rule">
+          Riwayat Perjalanan Penanganan
+        </h2>
 
         <div className="gov-timeline">
           {report.statusHistory && report.statusHistory.map((item, idx) => (
@@ -470,22 +414,24 @@ export default function AdminDetail() {
               <div className="gov-timeline-dot" />
               <div className="gov-timeline-content">
                 <div className="gov-timeline-header">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <div className="adm-detail__timeline-meta">
                     <StatusBadge status={item.status} size="sm" />
-                    <span className="gov-timeline-actor">&bull; Oleh: {item.actor}</span>
+                    <span className="gov-timeline-actor">{item.actor}</span>
                   </div>
                   <span className="gov-timeline-date">
-                    {new Date(item.timestamp).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })} WIB
+                    {new Date(item.timestamp).toLocaleString('id-ID', {
+                      dateStyle: 'medium',
+                      timeStyle: 'short',
+                    })}{' '}
+                    WIB
                   </span>
                 </div>
-                <div className="gov-timeline-note">
-                  {item.note}
-                </div>
+                <div className="gov-timeline-note">{item.note}</div>
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // Layouts
 import PublicLayout from './layouts/PublicLayout';
 import AdminLayout from './layouts/AdminLayout';
+import DocumentTitle from './components/DocumentTitle';
 
 // Guest Pages
 import Home               from './pages/guest/Home';
@@ -38,6 +39,7 @@ import './App.css';
 export default function App() {
   return (
     <BrowserRouter>
+      <DocumentTitle />
       <Routes>
         {/* Rute Publik */}
         <Route element={<PublicLayout />}>

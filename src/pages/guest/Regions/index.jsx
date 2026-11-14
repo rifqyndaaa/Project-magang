@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import RiauMap from '../../../components/RiauMap';
 import Icon from "../../../components/Icon";
 import Breadcrumbs from "../../../components/Breadcrumbs";
+import PageHeader from "../../../components/PageHeader";
 import { RIAU_REGIONS_DATA, getRegionById } from '../../../data/regionsData';
 import './Regions.css';
 
@@ -23,20 +24,16 @@ export default function RegionsPage() {
         />
 
         {/* Header Halaman Utama */}
-        <header className="regions-header">
-          <div className="regions-badge">
-            <Icon name="map-pin" size={14} />
-            <span>Peta Geografis Administratif</span>
-          </div>
-
-          <h1 className="regions-title">
-            Wilayah Kepengurusan <span className="regions-title-accent">IFPI Provinsi Riau</span>
-          </h1>
-
-          <p className="regions-desc">
-            Jelajahi wilayah kabupaten dan kota di Provinsi Riau untuk mengetahui informasi serta kepengurusan IFPI di masing-masing wilayah.
-          </p>
-        </header>
+        <PageHeader
+          eyebrow="Peta Geografis Administratif"
+          title={<>Wilayah Kepengurusan <em>IFPI Provinsi Riau</em></>}
+          lede="Jelajahi kabupaten dan kota di Provinsi Riau untuk mengetahui informasi serta kepengurusan IFPI di masing-masing wilayah."
+          meta={[
+            { label: 'Kabupaten', value: '10 Wilayah' },
+            { label: 'Kota', value: '2 Wilayah' },
+            { label: 'Total', value: '12 Wilayah' },
+          ]}
+        />
 
         {/* Quick Pills Selector: Akses Cepat 12 Kabupaten & Kota */}
         <div className="regions-pills-bar" role="toolbar" aria-label="Pilih Kabupaten atau Kota">

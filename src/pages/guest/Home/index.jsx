@@ -82,6 +82,8 @@ export default function Home() {
             src="/images/jembatan-siak.jpg"
             alt="Landmark Ikonik Jembatan Siak (Tengku Agung Sultanah Latifah) Provinsi Riau"
             className="home-hero__bg-img"
+            width="1600"
+            height="900"
             loading="eager"
             onError={(e) => {
               // Fallback cadangan landmark Riau
@@ -154,33 +156,25 @@ export default function Home() {
 
           <div className="home-hero__panel-body">
             <div className="home-hero__panel-row">
-              <span className="home-hero__panel-label">Jam Pelayanan Verifikator:</span>
+              <span className="home-hero__panel-label">Pelayanan Petugas:</span>
               <span className="home-hero__panel-val">Senin – Jumat, 08.00 – 16.00 WIB</span>
             </div>
             <div className="home-hero__panel-row">
-              <span className="home-hero__panel-label">Penerimaan Formulir Online:</span>
+              <span className="home-hero__panel-label">Penerimaan Formulir:</span>
               <span className="home-hero__panel-val">
                 <span className="home-hero__live-dot" aria-hidden="true" />
-                Aktif 24 Jam Setiap Hari
+                Daring 24 Jam
               </span>
-            </div>
-            <div className="home-hero__panel-row">
-              <span className="home-hero__panel-label">Kanal Pengaduan Cepat:</span>
-              <span className="home-hero__panel-val">Call Center 112 / (0761) 31256</span>
             </div>
           </div>
 
           <div className="home-hero__panel-actions">
-            <Link to="/report" className="home-hero__panel-btn-primary">
-              Mulai Sampaikan Permohonan
-            </Link>
             <Link to="/track" className="home-hero__panel-btn-secondary">
               Lacak Status Laporan
             </Link>
           </div>
 
           <div className="home-hero__panel-footer">
-            <Icon name="map-pin" size={12} color="#D97706" />
             <span>Provinsi Riau, Indonesia</span>
           </div>
         </div>
@@ -285,16 +279,16 @@ export default function Home() {
               </p>
               <ul className="home-video__facts">
                 <li>
-                  <span className="home-video__fact-num">12</span>
-                  <span className="home-video__fact-label">Kabupaten/Kota</span>
+                  <span className="home-video__fact-num">10</span>
+                  <span className="home-video__fact-label">Kabupaten</span>
                 </li>
                 <li>
-                  <span className="home-video__fact-num">9,2 Jt</span>
-                  <span className="home-video__fact-label">Penduduk</span>
+                  <span className="home-video__fact-num">2</span>
+                  <span className="home-video__fact-label">Kota</span>
                 </li>
                 <li>
-                  <span className="home-video__fact-num">87.844</span>
-                  <span className="home-video__fact-label">km² Luas Wilayah</span>
+                  <span className="home-video__fact-num">5</span>
+                  <span className="home-video__fact-label">Divisi Bidang</span>
                 </li>
               </ul>
               <a href="#faq" className="home-video__link">
@@ -453,12 +447,9 @@ export default function Home() {
               serta memfasilitasi perlindungan hukum bagi aparatur pengadaan yang berintegritas.
             </p>
             <div className="home-commitment__actions">
-              <Link to="/report" className="home-commitment__btn home-commitment__btn--white">
-                Ajukan Permohonan Sekarang
+              <Link to="/layanan" className="home-commitment__btn home-commitment__btn--outline">
+                Lihat Rincian Layanan
               </Link>
-              <a href="#kontak" className="home-commitment__btn home-commitment__btn--outline">
-                Hubungi Sekretariat Kami
-              </a>
             </div>
           </div>
         </div>
@@ -516,11 +507,11 @@ export default function Home() {
               Tim pengelola sekretariat dan verifikator pengaduan siap membantu Anda melalui kanal kontak resmi Pemerintah Provinsi Riau.
             </p>
             <div className="home-faq__help-actions">
-              <a href="#kontak" className="home-hero__btn home-hero__btn--primary" style={{ padding: '0.65rem 1.5rem', fontSize: '0.875rem' }}>
+              <a href="#kontak" className="gov-btn gov-btn-primary gov-btn-sm">
                 <Icon name="phone" size={14} />
                 Lihat Kontak Resmi
               </a>
-              <Link to="/report" className="home-hero__btn home-hero__btn--outline" style={{ padding: '0.65rem 1.5rem', fontSize: '0.875rem', color: '#1E293B', borderColor: '#CBD5E1' }}>
+              <Link to="/report" className="gov-btn gov-btn-outline-neutral gov-btn-sm">
                 <Icon name="message-circle" size={14} />
                 Sampaikan Aduan
               </Link>

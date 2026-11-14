@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import Icon from '../../../components/Icon';
+import PageHeader from '../../../components/PageHeader';
 import { CENDERAMATA_DATA } from '../../../data/merchandiseData';
 import './Merchandise.css';
 
@@ -33,20 +34,11 @@ export default function Cenderamata() {
         />
 
         {/* Header Halaman */}
-        <header className="merch-header">
-          <div className="merch-badge">
-            <Icon name="award" size={14} />
-            <span>Kenang-kenangan &amp; Hadiah Resmi</span>
-          </div>
-
-          <h1 className="merch-title">
-            Cenderamata Resmi <span className="merch-title-accent">IFPI Riau</span>
-          </h1>
-
-          <p className="merch-desc">
-            Koleksi plakat penghargaan, piagam kedinasan, paket souvenir tamu kehormatan, dan cenderamata khas Riau beridentitas resmi IFPI.
-          </p>
-        </header>
+        <PageHeader
+          eyebrow="Kenang-kenangan & Hadiah Resmi"
+          title={<>Cenderamata Resmi <em>IFPI Riau</em></>}
+          lede="Koleksi plakat penghargaan, piagam kedinasan, paket souvenir tamu kehormatan, dan cenderamata khas Riau beridentitas resmi IFPI."
+        />
 
         {/* Tab Navigasi 2 Submenu Merchandise */}
         <nav className="merch-nav-tabs" aria-label="Navigasi Bagian Merchandise">

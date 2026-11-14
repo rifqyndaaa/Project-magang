@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Organization.css';
 import { ORG_METADATA, KETUA, PENGURUS_INTI, DIVISI } from '../../../data/orgData';
 import Icon from "../../../components/Icon";
+import PageHeader from "../../../components/PageHeader";
 
 /**
  * Ekstraksi inisial nama atau singkatan jabatan untuk avatar fallback
@@ -189,28 +190,21 @@ export default function Organization() {
   const currentDivisi = DIVISI.find((d) => d.id === activeDivisionTab) || DIVISI[0];
 
   return (
-    <section className="org-page" aria-labelledby="org-heading">
-      <div className="org-container">
+    <div className="pg">
+      <div className="gov-container">
         {/* Header Halaman Publik */}
-        <div className="org-page-header">
-          <div className="org-page-badge">
-            <Icon name="shield" size={14} />
-            <span>Tata Kelola Organisasi Resmi</span>
-          </div>
+        <PageHeader
+          eyebrow="Tata Kelola Organisasi Resmi"
+          title={<>Struktur <em>Organisasi</em></>}
+          lede="Bagan hierarki kepengurusan resmi DPW IFPI Provinsi Riau masa bakti 2027–2032. Klik pada setiap kartu profil untuk membuka halaman rincian biodata dan tugas pokok."
+          meta={[
+            { label: 'Masa Bakti', value: '2027–2032' },
+            { label: 'Pengurus Inti', value: '3 Jabatan' },
+            { label: 'Divisi Bidang', value: '5 Divisi' },
+          ]}
+        />
 
-          <h1 id="org-heading" className="org-page-title">
-            Struktur <span className="org-title-accent">Organisasi</span>
-          </h1>
-
-          <p className="org-page-subtitle">
-            Dewan Pengurus Wilayah Ikatan Fungsional Pengadaan Indonesia (DPW IFPI) Provinsi Riau
-          </p>
-
-          <p className="org-page-desc">
-            Bagan hierarki kepengurusan resmi DPW IFPI Provinsi Riau Masa Bakti 2027–2032.
-            Klik pada setiap kartu profil pengurus untuk membuka halaman rincian biodata dan tugas pokok organisasi.
-          </p>
-
+        <div className="pg-body">
           {/* Toggle Pilihan Tampilan: Bagan Pohon vs Mode Daftar Vertikal */}
           <div className="org-view-toggle-bar">
             <div className="org-view-toggle-group" role="tablist" aria-label="Pilihan Model Tampilan Organisasi">
@@ -222,7 +216,7 @@ export default function Organization() {
                 onClick={() => setViewMode('chart')}
               >
                 <Icon name="git-branch" size={15} />
-                <span>Bagan Pohon (Hirarki)</span>
+                <span>Bagan Hierarki</span>
               </button>
 
               <button
@@ -233,8 +227,7 @@ export default function Organization() {
                 onClick={() => setViewMode('list')}
               >
                 <Icon name="list" size={15} />
-                <span>Mode Daftar Vertikal</span>
-                <span className="org-view-toggle-badge">Mobile</span>
+                <span>Daftar Vertikal</span>
               </button>
             </div>
           </div>
@@ -531,6 +524,6 @@ export default function Organization() {
         )}
 
       </div>
-    </section>
+    </div>
   );
 }

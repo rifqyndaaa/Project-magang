@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import Icon from "../../../components/Icon";
+import PageHeader from "../../../components/PageHeader";
 import ProductCard from "../../../components/ProductCard";
 import ProductDetailModal from "../../../components/ProductDetailModal";
 import { getPublicProducts, getProductCategories, getProductById } from "../../../services/productStorage";
@@ -141,38 +142,27 @@ export default function ProductsPage() {
       {/* Breadcrumbs Navigasi */}
       <Breadcrumbs items={[{ label: 'Etalase Produk' }]} />
 
-      {/* Hero Section Banner Pemerintahan */}
-      <section className="gov-products-hero-section">
-        <div className="gov-container">
-          <div className="gov-products-hero-card">
-            <div className="gov-products-hero-text">
-              <div className="gov-section-tag-gold">
-                <Icon name="sparkles" size={14} color="#B78103" />
-                <span>POTENSI BUDAYA, KERAJINAN & UMKM DAERAH</span>
-              </div>
-              <h1 className="gov-products-hero-title">
-                Etalase Produk Unggulan Provinsi Riau
-              </h1>
-              <p className="gov-products-hero-desc">
-                Katalog digital resmi yang mempromosikan produk kerajinan khas, warisan budaya Melayu, kuliner tradisional, dan karya binaan UMKM dari 12 Kabupaten/Kota se-Bumi Lancang Kuning.
-              </p>
-            </div>
+      {/* Header Halaman */}
+      <div className="gov-container">
+        <PageHeader
+          eyebrow="Kerajinan, Kuliner & UMKM Daerah"
+          title={<>Etalase Produk Unggulan <em>Provinsi Riau</em></>}
+          lede="Katalog digital yang mempromosikan kerajinan khas, warisan budaya Melayu, kuliner tradisional, dan karya binaan UMKM dari kabupaten/kota se-Bumi Lancang Kuning."
+          meta={[
+            { label: 'Total Katalog', value: `${countStats.all} Produk` },
+            { label: 'Dijual', value: `${countStats.forSale}` },
+            { label: 'Dipamerkan', value: `${countStats.exhibit}` },
+          ]}
+        />
 
-            {/* Kotak Transparansi Prototipe */}
-            <div className="gov-products-proto-notice">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                <Icon name="info" size={15} color="#1E3A8A" />
-                <span style={{ fontWeight: 700, fontSize: '0.8125rem', color: '#1E3A8A' }}>
-                  Katalog Prototipe Daerah
-                </span>
-              </div>
-              <p style={{ fontSize: '0.75rem', color: '#334155', margin: 0, lineHeight: 1.5 }}>
-                Seluruh produk di bawah ini berstatus simulasi demo terkurasi. Transaksi pemesanan dilakukan mandiri ke kontak UMKM binaan.
-              </p>
-            </div>
-          </div>
+        <div className="pg-notice">
+          <Icon name="info" size={15} />
+          <p>
+            <strong>Katalog prototipe daerah.</strong> Seluruh produk berstatus simulasi demo terkurasi;
+            transaksi pemesanan dilakukan mandiri ke kontak UMKM binaan.
+          </p>
         </div>
-      </section>
+      </div>
 
       {/* Main Katalog Section */}
       <section style={{ padding: '2rem 0 4rem 0', backgroundColor: 'var(--neutral-50)' }}>

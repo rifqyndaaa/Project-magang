@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+﻿import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from './Icon';
 import { formatRupiah } from '../services/productStorage';
@@ -120,7 +120,7 @@ export default function ProductDetailModal({ product, onClose }) {
                   <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--neutral-500)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                     Harga Referensi Penjual
                   </span>
-                  <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--gov-blue-dark)', lineHeight: 1.2 }}>
+                  <div style={{ fontSize: '1.75rem', fontWeight: 600, color: 'var(--gov-blue-dark)', lineHeight: 1.2 }}>
                     {formatRupiah(product.price)}
                   </div>
                   <span style={{ fontSize: '0.7rem', color: 'var(--neutral-500)' }}>

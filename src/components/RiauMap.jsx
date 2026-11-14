@@ -274,6 +274,14 @@ export default function RiauMap({ selectedRegionId, onSelectRegion }) {
                   d={region.path}
                   className={`riau-region-path ${isSelected ? 'is-selected' : ''} ${isHovered ? 'is-hovered' : ''} ${isDimmed ? 'is-dimmed' : ''}`}
                   onClick={() => onSelectRegion(region.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                      e.preventDefault();
+                      onSelectRegion(region.id);
+                    }
+                  }}
+                  onFocus={() => setHoveredRegion(region)}
+                  onBlur={() => setHoveredRegion(null)}
                   onMouseEnter={() => setHoveredRegion(region)}
                   onMouseLeave={() => setHoveredRegion(null)}
                   role="button"

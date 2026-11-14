@@ -48,6 +48,9 @@ export default function Footer() {
                 <Link to="/merchandise">Merchandise &amp; Cenderamata</Link>
               </li>
               <li>
+                <Link to="/produk">Etalase Produk</Link>
+              </li>
+              <li>
                 <a href="/#faq">Pusat Informasi &amp; FAQ</a>
               </li>
               <li>

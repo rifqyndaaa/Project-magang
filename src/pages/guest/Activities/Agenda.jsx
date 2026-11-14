@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import Icon from '../../../components/Icon';
+import PageHeader from '../../../components/PageHeader';
 import { AGENDA_DATA } from '../../../data/activitiesData';
 import './Activities.css';
 
@@ -32,20 +33,15 @@ export default function Agenda() {
         />
 
         {/* Header Halaman */}
-        <header className="act-header">
-          <div className="act-badge">
-            <Icon name="calendar" size={14} />
-            <span>Jadwal &amp; Forum Resmi</span>
-          </div>
-
-          <h1 className="act-title">
-            Agenda Kegiatan <span className="act-title-accent">IFPI Riau</span>
-          </h1>
-
-          <p className="act-desc">
-            Jadwal kegiatan rapat kerja, bimbingan teknis, forum koordinasi, dan seminar pengadaan barang/jasa di lingkungan Provinsi Riau.
-          </p>
-        </header>
+        <PageHeader
+          eyebrow="Jadwal & Forum Resmi"
+          title={<>Agenda Kegiatan <em>IFPI Riau</em></>}
+          lede="Jadwal rapat kerja, bimbingan teknis, forum koordinasi, dan seminar pengadaan barang/jasa di lingkungan Provinsi Riau."
+          meta={[
+            { label: 'Jenis Kegiatan', value: 'Rapat · Bimtek · Seminar' },
+            { label: 'Wilayah', value: 'Provinsi Riau' },
+          ]}
+        />
 
         {/* Tab Navigasi 3 Submenu Kegiatan */}
         <nav className="act-nav-tabs" aria-label="Navigasi Bagian Kegiatan">

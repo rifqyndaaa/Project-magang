@@ -38,20 +38,15 @@ export default function AdminLogin() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--neutral-100)' }}>
-      {/* Mini Header */}
-      <header style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--neutral-200)', padding: '0.875rem 0' }}>
-        <div className="gov-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: "center" }}>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: "none" }}>
-            <img src="/images/logo.jpeg" alt="IFPI" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: "cover" }} />
-            <div>
-              <div style={{ fontSize: '0.9375rem', fontWeight: 800, color: 'var(--ifpi-red-dark)', lineHeight: 1.2 }}>
-                IKATAN FUNGSIONAL PENGADAAN INDONESIA
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--neutral-500)' }}>
-                Panel Administrasi &amp; Verifikasi Resmi
-              </div>
-            </div>
+    <div className="admin-login">
+      <header className="admin-login__topbar">
+        <div className="gov-container admin-login__topbar-inner">
+          <Link to="/" className="admin-login__brand">
+            <img src="/images/logo.jpeg" alt="Logo IFPI" width="36" height="36" />
+            <span className="admin-login__brand-text">
+              <strong>IKATAN FUNGSIONAL PENGADAAN INDONESIA</strong>
+              <span>Panel Administrasi &amp; Verifikasi Resmi</span>
+            </span>
           </Link>
           <Link to="/" className="gov-btn gov-btn-outline-neutral gov-btn-sm">
             <Icon name="arrow-left" size={14} />
@@ -60,36 +55,32 @@ export default function AdminLogin() {
         </div>
       </header>
 
-      {/* Main Login Card */}
-      <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
-        <div className="gov-card" style={{ width: '100%', maxWidth: '440px', padding: '2rem', boxShadow: 'var(--shadow-md)', borderTop: "4px solid var(--ifpi-red)" }}>
-          <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-            <div style={{ width: '48px', height: '48px', backgroundColor: 'var(--ifpi-red-soft)', color: 'var(--ifpi-red)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.75rem auto' }}>
-              <Icon name="lock" size={24} />
-            </div>
-            <h1 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--neutral-900)', margin: 0 }}>
-              Masuk Panel Petugas IFPI
-            </h1>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--neutral-500)', marginTop: '0.25rem' }}>
-              Khusus pengurus dan verifikator Ikatan Fungsional Pengadaan Indonesia
+      <main className="admin-login__main">
+        <div className="admin-login__card">
+          <div className="admin-login__head">
+            <span className="admin-login__eyebrow">Akses Terbatas</span>
+            <h1 className="admin-login__title">Masuk Panel Petugas IFPI</h1>
+            <p className="admin-login__lede">
+              Khusus pengurus dan verifikator DPW Ikatan Fungsional Pengadaan Indonesia Provinsi Riau.
             </p>
           </div>
 
-          {/* Prototype Security Disclaimer */}
-          <div className="gov-alert gov-alert-warning" style={{ fontSize: '0.75rem', lineHeight: 1.5, marginBottom: "1.25rem" }}>
-            <strong>Catatan Keamanan Prototype:</strong> Autentikasi sesi ini dijalankan secara lokal di peramban (localStorage) untuk keperluan demonstrasi fungsional prototype. Sistem operasional riil nantinya menggunakan server backend, enkripsi token, kontrol hak akses (RBAC), dan basis data terenkripsi.
-          </div>
+          <p className="admin-login__disclaimer">
+            <strong>Catatan prototype.</strong> Autentikasi berjalan lokal di peramban (localStorage)
+            untuk demonstrasi fungsional. Sistem operasional riil akan memakai backend, token
+            terenkripsi, RBAC, dan basis data terenkripsi.
+          </p>
 
           {error && (
-            <div className="gov-alert gov-alert-danger" style={{ fontSize: '0.8125rem', marginBottom: "1rem" }}>
+            <div className="gov-alert gov-alert-danger admin-login__alert" role="alert">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit}>
             <div className="gov-form-group">
-              <label htmlFor="admin-username" className="gov-label" style={{ fontSize: "0.8125rem" }}>
-                Nama Pengguna (Username)
+              <label htmlFor="admin-username" className="gov-label">
+                Nama Pengguna
               </label>
               <input
                 type="text"
@@ -98,13 +89,14 @@ export default function AdminLogin() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Masukkan username"
+                autoComplete="username"
                 required
               />
             </div>
 
             <div className="gov-form-group">
-              <label htmlFor="admin-password" className="gov-label" style={{ fontSize: "0.8125rem" }}>
-                Kata Sandi (Password)
+              <label htmlFor="admin-password" className="gov-label">
+                Kata Sandi
               </label>
               <input
                 type="password"
@@ -113,6 +105,7 @@ export default function AdminLogin() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Masukkan kata sandi"
+                autoComplete="current-password"
                 required
               />
             </div>
@@ -120,8 +113,7 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="gov-btn gov-btn-primary"
-              style={{ width: '100%', marginTop: '0.5rem' }}
+              className="gov-btn gov-btn-primary admin-login__submit"
               id="btn-admin-login-submit"
             >
               <Icon name="lock" size={16} />
@@ -129,33 +121,37 @@ export default function AdminLogin() {
             </button>
           </form>
 
-          {/* Quick Login Helper untuk Memudahkan Evaluasi / Penguji */}
-          <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid var(--neutral-200)' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--neutral-600)', display: 'block', marginBottom: '0.5rem' }}>
-              Akun Prototype untuk Evaluasi:
-            </span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <button
-                type="button"
-                onClick={() => handleQuickFill('admin', 'admin123')}
-                style={{ textAlign: 'left', padding: '0.5rem 0.75rem', fontSize: '0.75rem', backgroundColor: 'var(--neutral-50)', border: '1px solid var(--neutral-300)', borderRadius: '4px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between' }}
-              >
-                <span><strong>admin</strong> / admin123 (Super Admin Diskominfotik)</span>
-                <span style={{ color: 'var(--gov-blue)', fontWeight: 600 }}>Pilih</span>
-              </button>
+          <div className="admin-login__accounts">
+            <span className="admin-login__accounts-label">Akun prototype untuk evaluasi</span>
 
-              <button
-                type="button"
-                onClick={() => handleQuickFill('petugas', 'riau2026')}
-                style={{ textAlign: 'left', padding: '0.5rem 0.75rem', fontSize: '0.75rem', backgroundColor: 'var(--neutral-50)', border: '1px solid var(--neutral-300)', borderRadius: '4px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between' }}
-              >
-                <span><strong>petugas</strong> / riau2026 (Petugas Verifikator OPD)</span>
-                <span style={{ color: 'var(--gov-blue)', fontWeight: 600 }}>Pilih</span>
-              </button>
-            </div>
+            <button
+              type="button"
+              className="admin-login__account"
+              onClick={() => handleQuickFill('admin', 'admin123')}
+            >
+              <span className="admin-login__account-cred">
+                <strong>admin</strong>
+                <span> / admin123</span>
+              </span>
+              <span className="admin-login__account-role">Super Admin Diskominfotik</span>
+              <span className="admin-login__account-action">Isi otomatis</span>
+            </button>
+
+            <button
+              type="button"
+              className="admin-login__account"
+              onClick={() => handleQuickFill('petugas', 'riau2026')}
+            >
+              <span className="admin-login__account-cred">
+                <strong>petugas</strong>
+                <span> / riau2026</span>
+              </span>
+              <span className="admin-login__account-role">Petugas Verifikator OPD</span>
+              <span className="admin-login__account-action">Isi otomatis</span>
+            </button>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

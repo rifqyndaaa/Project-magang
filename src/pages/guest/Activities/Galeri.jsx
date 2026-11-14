@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import Icon from '../../../components/Icon';
+import PageHeader from '../../../components/PageHeader';
 import { GALERI_DATA } from '../../../data/activitiesData';
 import './Activities.css';
 
@@ -40,20 +41,11 @@ export default function GaleriFoto() {
         />
 
         {/* Header Halaman */}
-        <header className="act-header">
-          <div className="act-badge">
-            <Icon name="image" size={14} />
-            <span>Dokumentasi Visual Kegiatan</span>
-          </div>
-
-          <h1 className="act-title">
-            Galeri Foto <span className="act-title-accent">IFPI Riau</span>
-          </h1>
-
-          <p className="act-desc">
-            Dokumentasi visual rangkaian kegiatan, forum pengadaan, rapat kerja, dan kemitraan organisasi DPW IFPI Provinsi Riau.
-          </p>
-        </header>
+        <PageHeader
+          eyebrow="Dokumentasi Visual Kegiatan"
+          title={<>Galeri Foto <em>IFPI Riau</em></>}
+          lede="Dokumentasi visual rangkaian kegiatan, forum pengadaan, rapat kerja, dan kemitraan organisasi DPW IFPI Provinsi Riau."
+        />
 
         {/* Tab Navigasi 3 Submenu Kegiatan */}
         <nav className="act-nav-tabs" aria-label="Navigasi Bagian Kegiatan">

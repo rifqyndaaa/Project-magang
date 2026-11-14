@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import Icon from '../../../components/Icon';
+import PageHeader from '../../../components/PageHeader';
 import { PERNAK_PERNIK_DATA } from '../../../data/merchandiseData';
 import './Merchandise.css';
 
@@ -33,20 +34,11 @@ export default function PernakPernik() {
         />
 
         {/* Header Halaman */}
-        <header className="merch-header">
-          <div className="merch-badge">
-            <Icon name="tag" size={14} />
-            <span>Atribut &amp; Identitas Organisasi</span>
-          </div>
-
-          <h1 className="merch-title">
-            Pernak-pernik <span className="merch-title-accent">IFPI Riau</span>
-          </h1>
-
-          <p className="merch-desc">
-            Koleksi resmi atribut identitas, pin logam, lencana, kaos, tumbler, dan perlengkapan profesi Ikatan Fungsional Pengadaan Indonesia.
-          </p>
-        </header>
+        <PageHeader
+          eyebrow="Atribut & Identitas Organisasi"
+          title={<>Pernak-pernik <em>IFPI Riau</em></>}
+          lede="Koleksi resmi atribut identitas, pin logam, lencana, kaos, tumbler, dan perlengkapan profesi Ikatan Fungsional Pengadaan Indonesia."
+        />
 
         {/* Tab Navigasi 2 Submenu Merchandise */}
         <nav className="merch-nav-tabs" aria-label="Navigasi Bagian Merchandise">

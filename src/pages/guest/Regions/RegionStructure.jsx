@@ -21,7 +21,7 @@ export default function RegionStructure() {
             <div className="reg-struct-unfilled-icon">
               <Icon name="alert-circle" size={36} />
             </div>
-            <h1 className="reg-struct-unfilled-title">Wilayah Tidak Ditemukan</h1>
+            <h2 className="reg-struct-unfilled-title">Wilayah Tidak Ditemukan</h2>
             <p className="reg-struct-unfilled-text">
               Wilayah kabupaten atau kota yang Anda tuju tidak tercatat dalam daftar administratif Provinsi Riau.
             </p>

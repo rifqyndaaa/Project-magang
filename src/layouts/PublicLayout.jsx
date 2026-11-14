@@ -4,11 +4,17 @@ import Footer from '../components/Footer';
 
 export default function PublicLayout() {
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div className="public-shell">
+      <a href="#main-content" className="gov-skip-link">
+        Langsung ke konten utama
+      </a>
+
       <Header />
-      <main style={{ flexGrow: 1 }}>
+
+      <main id="main-content" className="public-shell__main">
         <Outlet />
       </main>
+
       <Footer />
     </div>
   );

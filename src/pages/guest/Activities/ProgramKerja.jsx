@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import Icon from '../../../components/Icon';
+import PageHeader from '../../../components/PageHeader';
 import { PROGRAM_KERJA_DATA } from '../../../data/activitiesData';
 import './Activities.css';
 
@@ -34,20 +35,15 @@ export default function ProgramKerja() {
         />
 
         {/* Header Halaman */}
-        <header className="act-header">
-          <div className="act-badge">
-            <Icon name="briefcase" size={14} />
-            <span>Rencana Strategis Organisasi</span>
-          </div>
-
-          <h1 className="act-title">
-            Program Kerja <span className="act-title-accent">DPW IFPI Riau</span>
-          </h1>
-
-          <p className="act-desc">
-            Rencana program strategis dan agenda kerja kepengurusan Ikatan Fungsional Pengadaan Indonesia Provinsi Riau Masa Bakti 2027–2032.
-          </p>
-        </header>
+        <PageHeader
+          eyebrow="Rencana Strategis Organisasi"
+          title={<>Program Kerja <em>DPW IFPI Riau</em></>}
+          lede="Rencana program strategis dan agenda kerja kepengurusan Ikatan Fungsional Pengadaan Indonesia Provinsi Riau masa bakti 2027–2032."
+          meta={[
+            { label: 'Divisi Pelaksana', value: '5 Divisi' },
+            { label: 'Masa Bakti', value: '2027–2032' },
+          ]}
+        />
 
         {/* Tab Navigasi 3 Submenu Kegiatan */}
         <nav className="act-nav-tabs" aria-label="Navigasi Bagian Kegiatan">

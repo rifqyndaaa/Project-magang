@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import Icon from "../../../components/Icon";
+import PageHeader from "../../../components/PageHeader";
 import { CATEGORIES, RIAU_REGIONS } from '../../../data/categories';
 import { validateReportForm } from "../../../lib/validation";
 import { saveReport } from "../../../services/storage";
@@ -200,22 +201,21 @@ export default function Report() {
   };
 
   return (
-    <div>
-      <Breadcrumbs items={[{ label: 'Beranda', href: '/' }, { label: 'Formulir Pelayanan' }]} />
+    <div className="pg">
+      <div className="gov-container">
+        <Breadcrumbs items={[{ label: 'Beranda', to: '/' }, { label: 'Formulir Pelayanan' }]} />
 
-      <section style={{ padding: '2.5rem 0', backgroundColor: 'var(--neutral-50)' }}>
-        <div className="gov-container" style={{ maxWidth: "800px" }}>
-          
           {/* Header Formulir */}
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <span className="gov-section-tag">PORTAL LAYANAN RESMI IFPI</span>
-            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--neutral-900)', marginTop: '0.35rem', marginBottom: '0.5rem' }}>
-              Formulir Permohonan Layanan &amp; Konsultasi
-            </h1>
-            <p style={{ color: 'var(--neutral-600)', fontSize: '0.9375rem', maxWidth: '620px', margin: '0 auto' }}>
-              Silakan pilih salah satu dari 3 pilar kategori layanan di bawah ini, kemudian lengkapi informasi permohonan Anda secara jelas.
-            </p>
-          </div>
+          <PageHeader
+            eyebrow="Portal Layanan Resmi IFPI"
+            title={<>Formulir Permohonan <em>Layanan</em> &amp; Konsultasi</>}
+            lede="Pilih salah satu dari tiga pilar kategori layanan, kemudian lengkapi informasi permohonan Anda secara jelas dan faktual."
+            meta={[
+              { label: 'Kategori Layanan', value: '3 Pilar' },
+              { label: 'Nomor Tiket', value: 'Otomatis' },
+              { label: 'Biaya', value: 'Bebas Biaya' },
+            ]}
+          />
 
           {errors.form && (
             <div className="gov-alert gov-alert-danger" style={{ marginBottom: "1.5rem" }}>
@@ -716,7 +716,6 @@ export default function Report() {
           )}
 
         </div>
-      </section>
     </div>
   );
 }

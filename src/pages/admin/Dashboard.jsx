@@ -55,26 +55,25 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="gov-container">
+    <div className="gov-container adm-dash">
       {/* Header Dashboard */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-        <div>
-          <span className="gov-section-tag" style={{ color: "var(--ifpi-red)" }}>PANEL KENDALI IFPI</span>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--neutral-900)', margin: '0.15rem 0' }}>
-            Rekapitulasi Layanan &amp; Pengaduan IFPI
-          </h1>
-          <p style={{ fontSize: '0.8125rem', color: 'var(--neutral-600)', margin: 0 }}>
-            Pengelolaan permohonan konsultasi hukum pengadaan, penanganan aduan profesi, dan koordinasi narasumber resmi IFPI.
+      <header className="adm-dash__head">
+        <div className="adm-dash__head-main">
+          <span className="adm-dash__eyebrow">Panel Kendali IFPI</span>
+          <h1 className="adm-dash__title">Rekapitulasi Layanan &amp; Pengaduan</h1>
+          <p className="adm-dash__lede">
+            Pengelolaan permohonan konsultasi pengadaan, penanganan aduan profesi, dan
+            koordinasi narasumber resmi DPW IFPI Provinsi Riau.
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div className="adm-dash__head-actions">
           <button
             type="button"
             onClick={handleExport}
             className="gov-btn gov-btn-outline-neutral gov-btn-sm"
             id="btn-admin-export-csv"
-            title="Unduh seluruh data yang tersaring ke berkas spreadsheet CSV"
+            title="Unduh data yang tersaring ke berkas spreadsheet CSV"
           >
             <Icon name="download" size={14} />
             <span>Ekspor CSV ({reports.length})</span>
@@ -88,128 +87,114 @@ export default function AdminDashboard() {
             <span>Segarkan Data</span>
           </button>
         </div>
-      </div>
+      </header>
 
-      {/* Ringkasan Statistik Kartu */}
-      <div className="gov-grid gov-grid-4" style={{ marginBottom: "1.75rem" }}>
-        <div
-          className="gov-card"
-          style={{ padding: '1rem', cursor: 'pointer', borderLeft: filterState.status === '' ? '3px solid var(--neutral-800)' : '1px solid var(--neutral-200)' }}
+      {/* Ringkasan Statistik */}
+      <div className="adm-stats">
+        <button
+          type="button"
+          className={`adm-stat${filterState.status === '' ? ' is-active' : ''}`}
           onClick={() => setFilterState(prev => ({ ...prev, status: '' }))}
         >
-          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--neutral-500)' }}>Total Pengaduan</span>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--neutral-900)' }}>{stats.total}</div>
-          <span style={{ fontSize: '0.7rem', color: 'var(--neutral-400)' }}>Semua kategori & wilayah</span>
-        </div>
+          <span className="adm-stat__label">Total Pengaduan</span>
+          <span className="adm-stat__value">{stats.total}</span>
+          <span className="adm-stat__meta">Semua kategori &amp; wilayah</span>
+        </button>
 
-        <div
-          className="gov-card"
-          style={{ padding: '1rem', cursor: 'pointer', borderLeft: filterState.status === 'Baru' ? '3px solid #1D4ED8' : '1px solid var(--neutral-200)' }}
+        <button
+          type="button"
+          className={`adm-stat adm-stat--new${filterState.status === 'Baru' ? ' is-active' : ''}`}
           onClick={() => setFilterState(prev => ({ ...prev, status: 'Baru' }))}
         >
-          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#1D4ED8' }}>Baru Diterima</span>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#1D4ED8' }}>{stats.baru}</div>
-          <span style={{ fontSize: '0.7rem', color: 'var(--neutral-500)' }}>Menunggu verifikasi admin</span>
-        </div>
+          <span className="adm-stat__label">Baru Diterima</span>
+          <span className="adm-stat__value">{stats.baru}</span>
+          <span className="adm-stat__meta">Menunggu verifikasi admin</span>
+        </button>
 
-        <div
-          className="gov-card"
-          style={{ padding: '1rem', cursor: 'pointer', borderLeft: filterState.status === 'Diproses' ? '3px solid #B45309' : '1px solid var(--neutral-200)' }}
+        <button
+          type="button"
+          className={`adm-stat adm-stat--progress${filterState.status === 'Diproses' ? ' is-active' : ''}`}
           onClick={() => setFilterState(prev => ({ ...prev, status: 'Diproses' }))}
         >
-          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#B45309' }}>Sedang Diproses</span>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#B45309' }}>{stats.dalamProses}</div>
-          <span style={{ fontSize: '0.7rem', color: 'var(--neutral-500)' }}>Verif, Telaah & Tindak Lanjut</span>
-        </div>
+          <span className="adm-stat__label">Sedang Diproses</span>
+          <span className="adm-stat__value">{stats.dalamProses}</span>
+          <span className="adm-stat__meta">Verifikasi, telaah &amp; tindak lanjut</span>
+        </button>
 
-        <div
-          className="gov-card"
-          style={{ padding: '1rem', cursor: 'pointer', borderLeft: filterState.status === 'Selesai' ? '3px solid #15803D' : '1px solid var(--neutral-200)' }}
+        <button
+          type="button"
+          className={`adm-stat adm-stat--done${filterState.status === 'Selesai' ? ' is-active' : ''}`}
           onClick={() => setFilterState(prev => ({ ...prev, status: 'Selesai' }))}
         >
-          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#15803D' }}>Selesai Ditangani</span>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#15803D' }}>{stats.selesai}</div>
-          <span style={{ fontSize: '0.7rem', color: 'var(--neutral-500)' }}>Diberi tanggapan resmi</span>
-        </div>
+          <span className="adm-stat__label">Selesai Ditangani</span>
+          <span className="adm-stat__value">{stats.selesai}</span>
+          <span className="adm-stat__meta">Diberi tanggapan resmi</span>
+        </button>
       </div>
 
-      {/* Panel Filter dan Pencarian */}
-      <div className="gov-card" style={{ padding: '1.25rem', marginBottom: "1.5rem" }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-          <Icon name="filter" size={16} color="var(--neutral-600)" />
-          <h2 style={{ fontSize: '0.9375rem', fontWeight: 700, margin: 0, color: 'var(--neutral-800)' }}>
-            Filter & Pencarian Laporan
-          </h2>
-        </div>
 
-        <div className="gov-grid gov-grid-4">
-          <div className="gov-form-group" style={{ marginBottom: 0 }}>
-            <label htmlFor="filter-query" className="gov-label" style={{ fontSize: "0.775rem" }}>
-              Cari Teks / Tiket / Pelapor
+      {/* Panel Filter dan Pencarian */}
+      <section className="adm-filters">
+        <h2 className="adm-filters__title">Filter &amp; Pencarian Laporan</h2>
+
+        <div className="adm-filters__grid">
+          <div className="gov-form-group adm-filters__field">
+            <label htmlFor="filter-query" className="gov-label">
+              Cari teks / tiket / pelapor
             </label>
             <input
               type="text"
               id="filter-query"
               name="query"
               className="gov-input"
-              placeholder="Nomor tiket, nama, lokasi..."
+              placeholder="Nomor tiket, nama, lokasi…"
               value={filterState.query}
               onChange={handleFilterChange}
-              style={{ fontSize: '0.8125rem', padding: '0.45rem 0.65rem' }}
             />
           </div>
 
-          <div className="gov-form-group" style={{ marginBottom: 0 }}>
-            <label htmlFor="filter-status" className="gov-label" style={{ fontSize: "0.775rem" }}>
-              Status Penanganan
-            </label>
+          <div className="gov-form-group adm-filters__field">
+            <label htmlFor="filter-status" className="gov-label">Status penanganan</label>
             <select
               id="filter-status"
               name="status"
               className="gov-select"
               value={filterState.status}
               onChange={handleFilterChange}
-              style={{ fontSize: '0.8125rem', padding: '0.45rem 0.65rem' }}
             >
-              <option value="">-- Semua Status --</option>
+              <option value="">Semua status</option>
               {REPORT_STATUSES.map(s => (
                 <option key={s.id} value={s.id}>{s.id} ({s.label})</option>
               ))}
             </select>
           </div>
 
-          <div className="gov-form-group" style={{ marginBottom: 0 }}>
-            <label htmlFor="filter-category" className="gov-label" style={{ fontSize: "0.775rem" }}>
-              Kategori Layanan Resmi
-            </label>
+          <div className="gov-form-group adm-filters__field">
+            <label htmlFor="filter-category" className="gov-label">Kategori layanan</label>
             <select
               id="filter-category"
               name="category"
               className="gov-select"
               value={filterState.category}
               onChange={handleFilterChange}
-              style={{ fontSize: '0.8125rem', padding: '0.45rem 0.65rem' }}
             >
-              <option value="">-- Semua Kategori (3 Layanan Utama) --</option>
+              <option value="">Semua kategori</option>
               {CATEGORIES.map(c => (
                 <option key={c.id} value={c.id}>{c.name}</option>
               ))}
             </select>
           </div>
 
-          <div className="gov-form-group" style={{ marginBottom: 0 }}>
-            <label htmlFor="filter-region" className="gov-label" style={{ fontSize: "0.775rem" }}>
-              Kabupaten / Kota
-            </label>
+          <div className="gov-form-group adm-filters__field">
+            <label htmlFor="filter-region" className="gov-label">Kabupaten / kota</label>
             <select
               id="filter-region"
               name="region"
               className="gov-select"
               value={filterState.region}
               onChange={handleFilterChange}
-              style={{ fontSize: '0.8125rem', padding: '0.45rem 0.65rem' }}
             >
-              <option value="">-- Semua Wilayah --</option>
+              <option value="">Semua wilayah</option>
               {RIAU_REGIONS.map(r => (
                 <option key={r} value={r}>{r}</option>
               ))}
@@ -218,24 +203,23 @@ export default function AdminDashboard() {
         </div>
 
         {(filterState.query || filterState.status || filterState.category || filterState.region) && (
-          <div style={{ marginTop: '0.875rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid var(--neutral-200)', fontSize: '0.775rem' }}>
-            <span style={{ color: 'var(--neutral-600)' }}>
+          <div className="adm-filters__footer">
+            <span>
               Menemukan <strong>{reports.length}</strong> pengaduan sesuai kriteria penyaringan.
             </span>
             <button
               type="button"
               onClick={handleResetFilter}
-              className="gov-btn gov-btn-outline-neutral gov-btn-sm"
-              style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem' }}
+              className="adm-filters__reset"
             >
-              Reset Filter
+              Reset filter
             </button>
           </div>
         )}
-      </div>
+      </section>
 
       {/* Tabel Data Laporan */}
-      <div className="gov-card" style={{ overflow: "hidden" }}>
+      <div className="adm-table">
         <div className="gov-table-wrapper">
           <table className="gov-table">
             <thead>
@@ -243,11 +227,11 @@ export default function AdminDashboard() {
                 <th>No. Tiket</th>
                 <th>Tanggal Masuk</th>
                 <th>Status</th>
-                <th>Kategori & Layanan</th>
+                <th>Kategori &amp; Layanan</th>
                 <th>Judul Permohonan / Aduan</th>
-                <th>Pelapor & Kontak</th>
+                <th>Pelapor &amp; Kontak</th>
                 <th>Tanggapan</th>
-                <th style={{ textAlign: 'center' }}>Tindakan</th>
+                <th className="adm-table__th-action">Tindakan</th>
               </tr>
             </thead>
             <tbody>
@@ -256,16 +240,13 @@ export default function AdminDashboard() {
                 return (
                   <tr key={report.id}>
                     <td>
-                      <Link
-                        to={`/admin/report/${report.id}`}
-                        style={{ fontFamily: 'monospace', fontWeight: 700, color: 'var(--gov-blue)' }}
-                      >
+                      <Link to={`/admin/report/${report.id}`} className="adm-table__ticket">
                         {report.ticketNumber}
                       </Link>
                     </td>
-                    <td style={{ fontSize: '0.8125rem', whiteSpace: 'nowrap' }}>
-                      {new Date(report.createdAt).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}<br />
-                      <span style={{ fontSize: '0.7rem', color: 'var(--neutral-400)' }}>
+                    <td className="adm-table__date">
+                      {new Date(report.createdAt).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}
+                      <span>
                         {new Date(report.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB
                       </span>
                     </td>
@@ -273,50 +254,36 @@ export default function AdminDashboard() {
                       <StatusBadge status={report.status} size="sm" />
                     </td>
                     <td>
-                      <div style={{ fontWeight: 600, color: 'var(--neutral-800)' }}>
+                      <div className="adm-table__cat">
                         {catObj ? catObj.shortName || catObj.name : report.category}
                         {catObj?.isLegacy && (
-                          <span style={{ fontSize: '0.65rem', marginLeft: '0.35rem', padding: '0.1rem 0.35rem', backgroundColor: '#F1F5F9', color: '#64748B', borderRadius: '4px', border: '1px solid #CBD5E1' }}>
-                            Arsip
-                          </span>
+                          <span className="adm-table__chip">Arsip</span>
                         )}
                       </div>
                       {report.serviceType && (
-                        <div style={{ fontSize: '0.725rem', color: 'var(--gov-blue-dark)', fontWeight: 500 }}>
-                          {report.serviceType}
-                        </div>
+                        <div className="adm-table__service">{report.serviceType}</div>
                       )}
-                      <div style={{ fontSize: '0.75rem', color: 'var(--neutral-500)' }}>
-                        {report.region}
-                      </div>
+                      <div className="adm-table__region">{report.region}</div>
                     </td>
-                    <td style={{ maxWidth: '280px' }}>
-                      <div style={{ fontWeight: 600, color: 'var(--neutral-900)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        {report.title}
-                      </div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--neutral-500)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        {report.message}
-                      </div>
+                    <td className="adm-table__subject">
+                      <div className="adm-table__subject-title">{report.title}</div>
+                      <div className="adm-table__subject-desc">{report.message}</div>
                     </td>
-                    <td style={{ fontSize: '0.8125rem' }}>
-                      <div style={{ fontWeight: 600, color: 'var(--neutral-800)' }}>{report.name}</div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--neutral-500)' }}>{report.contact}</div>
+                    <td className="adm-table__reporter">
+                      <div>{report.name}</div>
+                      <div className="adm-table__reporter-contact">{report.contact}</div>
                     </td>
                     <td>
                       {report.adminResponse ? (
-                        <span style={{ color: 'var(--gov-green-dark)', fontWeight: 600, fontSize: '0.75rem' }}>
-                          Sudah Ditanggapi
-                        </span>
+                        <span className="adm-table__answered">Sudah ditanggapi</span>
                       ) : (
-                        <span style={{ color: '#D97706', fontSize: '0.75rem' }}>
-                          Belum Dijawab
-                        </span>
+                        <span className="adm-table__unanswered">Belum dijawab</span>
                       )}
                     </td>
-                    <td style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>
+                    <td className="adm-table__td-action">
                       <Link
                         to={`/admin/report/${report.id}`}
-                        className="gov-btn gov-btn-secondary gov-btn-sm"
+                        className="gov-btn gov-btn-outline-neutral gov-btn-xs"
                         id={`btn-manage-${report.id}`}
                       >
                         <span>Kelola</span>
@@ -329,18 +296,14 @@ export default function AdminDashboard() {
 
               {reports.length === 0 && (
                 <tr>
-                  <td colSpan={8} style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-                    <Icon name="alert-circle" size={32} color="var(--neutral-400)" />
-                    <p style={{ marginTop: '0.5rem', color: 'var(--neutral-600)', fontWeight: 600 }}>
-                      Tidak ada laporan yang sesuai dengan kriteria pencarian.
-                    </p>
+                  <td colSpan={8} className="adm-table__empty">
+                    <p>Tidak ada laporan yang sesuai dengan kriteria pencarian.</p>
                     <button
                       type="button"
                       onClick={handleResetFilter}
                       className="gov-btn gov-btn-outline-neutral gov-btn-sm"
-                      style={{ marginTop: '0.5rem' }}
                     >
-                      Bersihkan Filter
+                      Bersihkan filter
                     </button>
                   </td>
                 </tr>
@@ -350,5 +313,6 @@ export default function AdminDashboard() {
         </div>
       </div>
     </div>
+
   );
 }

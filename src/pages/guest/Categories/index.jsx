@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import Icon from "../../../components/Icon";
+import PageHeader from "../../../components/PageHeader";
 import { CATEGORIES } from '../../../data/categories';
 
 export default function Categories() {
@@ -18,19 +19,21 @@ export default function Categories() {
   });
 
   return (
-    <div>
-      <Breadcrumbs items={[{ label: 'Kategori Layanan' }]} />
+    <div className="pg">
+      <div className="gov-container">
+        <Breadcrumbs items={[{ label: 'Kategori Layanan' }]} />
 
-      <section style={{ padding: '2.5rem 0', backgroundColor: '#FFFFFF' }}>
-        <div className="gov-container">
-          <div className="gov-section-header">
-            <span className="gov-section-tag">Klasifikasi Layanan Publik</span>
-            <h1 className="gov-section-title">Katalog 3 Kategori Layanan Resmi Pemprov Riau</h1>
-            <p className="gov-section-desc">
-              Pemerintah Provinsi Riau menyediakan 3 kategori layanan utama untuk memfasilitasi kebutuhan konsultasi hukum, pengelolaan pengaduan masyarakat, serta koordinasi narasumber dan undangan kedinasan.
-            </p>
-          </div>
+        <PageHeader
+          eyebrow="Klasifikasi Layanan Publik"
+          title={<>Katalog 3 Kategori <em>Layanan Resmi</em></>}
+          lede="Tiga kategori layanan utama untuk konsultasi hukum, pengelolaan pengaduan masyarakat, serta koordinasi narasumber dan undangan kedinasan di lingkungan Pemerintah Provinsi Riau."
+          meta={[
+            { label: 'Jumlah Kategori', value: '3 Layanan' },
+            { label: 'OPD Pembina', value: 'Biro Hukum · Inspektorat · Adpim' },
+          ]}
+        />
 
+        <div className="pg-body">
           {/* Kotak Catatan Kewenangan Pemprov */}
           <div className="gov-alert gov-alert-info" style={{ display: 'flex', gap: '0.75rem', alignItems: "flex-start" }}>
             <div style={{ marginTop: '0.1rem' }}>
@@ -117,10 +120,10 @@ export default function Categories() {
                             style={{
                               fontSize: '0.775rem',
                               padding: '0.35rem 0.6rem',
-                              backgroundColor: '#EFF6FF',
-                              color: 'var(--gov-blue-dark)',
+                              backgroundColor: 'var(--ifpi-red-soft)',
+                              color: 'var(--ifpi-red-dark)',
                               borderRadius: '4px',
-                              border: '1px solid #BFDBFE',
+                              border: '1px solid var(--ifpi-red-border)',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'space-between',
@@ -177,7 +180,7 @@ export default function Categories() {
             </div>
           )}
         </div>
-      </section>
+      </div>
     </div>
   );
 }

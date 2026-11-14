@@ -30,192 +30,152 @@ export default function Success() {
   };
 
   return (
-    <div>
+    <div className="receipt-page">
       <Breadcrumbs items={[{ label: 'Laporan Berhasil' }]} />
 
-      <section style={{ padding: '3rem 0', backgroundColor: 'var(--neutral-50)' }}>
-        <div className="gov-container" style={{ maxWidth: "780px" }}>
-          {/* Card Sukses */}
-          <div className="gov-card" style={{ padding: '2.5rem', textAlign: "center" }}>
-            <div
-              style={{
-                width: '64px',
-                height: '64px',
-                backgroundColor: 'var(--gov-green-soft)',
-                color: 'var(--gov-green)',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto 1.25rem auto',
-                border: '2px solid var(--gov-green)'
-              }}
+      <div className="gov-container receipt-page__inner">
+        <header className="receipt-page__head">
+          <span className="receipt-page__seal">
+            <Icon name="check" size={20} />
+          </span>
+          <span className="receipt-page__eyebrow">Tanda Terima Pendaftaran</span>
+          <h1 className="receipt-title">Laporan Berhasil Diterima</h1>
+          <p className="receipt-page__lede">
+            Laporan permohonan telah tercatat resmi di sistem Ikatan Fungsional Pengadaan
+            Indonesia Provinsi Riau dan akan diverifikasi oleh tim terkait.
+          </p>
+        </header>
+
+        <section className="receipt-ticket">
+          <span className="receipt-ticket__label">Nomor Tiket Resmi Anda</span>
+          <span className="receipt-ticket__number">{report.ticketNumber}</span>
+          <div className="receipt-ticket__actions">
+            <button
+              type="button"
+              onClick={handleCopyTicket}
+              className="gov-btn gov-btn-primary gov-btn-sm"
+              id="btn-copy-ticket"
             >
-              <Icon name="check" size={36} color="var(--gov-green)" />
-            </div>
-
-            <span className="gov-section-tag" style={{ color: "var(--gov-green)" }}>TANDA TERIMA PENDAFTARAN</span>
-            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--neutral-900)', marginBottom: '0.5rem' }}>
-              Pengaduan Anda Berhasil Diterima
-            </h1>
-            <p style={{ color: 'var(--neutral-600)', fontSize: '0.9375rem', maxWidth: '580px', margin: '0 auto 1.75rem auto' }}>
-              Terima kasih atas pengajuan Anda. Laporan permohonan telah tercatat resmi di dalam sistem Ikatan Fungsional Pengadaan Indonesia (IFPI) dan akan segera diproses oleh tim verifikator terkait.
-            </p>
-
-            {/* Kotak Nomor Tiket */}
-            <div
-              style={{
-                backgroundColor: 'var(--gov-blue-soft)',
-                border: '2px dashed var(--gov-blue)',
-                borderRadius: 'var(--radius-md)',
-                padding: '1.5rem',
-                margin: '0 auto 2rem auto',
-                maxWidth: '520px'
-              }}
+              <Icon name={copied ? 'check' : 'file-check'} size={14} />
+              <span>{copied ? 'Nomor Tiket Disalin' : 'Salin Nomor Tiket'}</span>
+            </button>
+            <button
+              type="button"
+              onClick={handlePrint}
+              className="gov-btn gov-btn-outline-neutral gov-btn-sm"
             >
-              <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--gov-blue-dark)', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
-                NOMOR TIKET RESMI ANDA
-              </div>
-              <div
-                style={{
-                  fontFamily: 'monospace',
-                  fontSize: '1.875rem',
-                  fontWeight: 800,
-                  color: 'var(--gov-blue-dark)',
-                  letterSpacing: '1px',
-                  marginBottom: '0.75rem'
-                }}
-              >
-                {report.ticketNumber}
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem' }}>
-                <button
-                  type="button"
-                  onClick={handleCopyTicket}
-                  className="gov-btn gov-btn-primary gov-btn-sm"
-                  id="btn-copy-ticket"
-                >
-                  <Icon name={copied ? 'check' : 'file-check'} size={14} />
-                  <span>{copied ? 'Nomor Tiket Disalin!' : 'Salin Nomor Tiket'}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={handlePrint}
-                  className="gov-btn gov-btn-outline-neutral gov-btn-sm"
-                >
-                  <Icon name="download" size={14} />
-                  <span>Cetak Tanda Terima</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Rincian Ringkas Bukti Laporan */}
-            <div style={{ textAlign: 'left', backgroundColor: '#FFFFFF', border: '1px solid var(--neutral-200)', borderRadius: 'var(--radius-sm)', padding: '1.25rem', marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--neutral-800)', borderBottom: '1px solid var(--neutral-200)', paddingBottom: '0.5rem', marginBottom: '0.75rem' }}>
-                Ringkasan Pengaduan
-              </h3>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.5rem', fontSize: '0.875rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--neutral-200)', paddingBottom: '0.4rem' }}>
-                  <span style={{ color: 'var(--neutral-500)' }}>Status Saat Ini:</span>
-                  <StatusBadge status={report.status} size="sm" />
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--neutral-200)', paddingBottom: '0.4rem' }}>
-                  <span style={{ color: 'var(--neutral-500)' }}>Judul Laporan:</span>
-                  <span style={{ fontWeight: 600, color: 'var(--neutral-900)', textAlign: 'right', maxWidth: '60%' }}>{report.title}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--neutral-200)', paddingBottom: '0.4rem' }}>
-                  <span style={{ color: 'var(--neutral-500)' }}>Kategori Layanan:</span>
-                  <span style={{ fontWeight: 600, color: 'var(--gov-blue-dark)' }}>
-                    {categoryObj ? categoryObj.name : report.category}
-                    {categoryObj?.isLegacy && ' (Data Arsip)'}
-                  </span>
-                </div>
-                {report.serviceType && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--neutral-200)', paddingBottom: '0.4rem' }}>
-                    <span style={{ color: 'var(--neutral-500)' }}>Jenis Layanan:</span>
-                    <span style={{ fontWeight: 600, color: 'var(--neutral-900)', textAlign: 'right', maxWidth: '65%' }}>
-                      {report.serviceType}
-                    </span>
-                  </div>
-                )}
-                {categoryObj?.opd && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--neutral-200)', paddingBottom: '0.4rem' }}>
-                    <span style={{ color: 'var(--neutral-500)' }}>OPD Penanggung Jawab:</span>
-                    <span style={{ fontWeight: 600, color: 'var(--neutral-800)', textAlign: 'right', maxWidth: '65%' }}>
-                      {categoryObj.opd}
-                    </span>
-                  </div>
-                )}
-                {report.applicantAgency && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--neutral-200)', paddingBottom: '0.4rem' }}>
-                    <span style={{ color: 'var(--neutral-500)' }}>Instansi Pemohon:</span>
-                    <span style={{ fontWeight: 600, color: 'var(--neutral-900)' }}>{report.applicantAgency}</span>
-                  </div>
-                )}
-                {report.eventPurpose && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--neutral-200)', paddingBottom: '0.4rem' }}>
-                    <span style={{ color: 'var(--neutral-500)' }}>Agenda Kegiatan:</span>
-                    <span style={{ fontWeight: 600, color: 'var(--neutral-900)', textAlign: 'right', maxWidth: '65%' }}>{report.eventPurpose}</span>
-                  </div>
-                )}
-                {report.previousTicketNumber && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--neutral-200)', paddingBottom: '0.4rem' }}>
-                    <span style={{ color: 'var(--neutral-500)' }}>Tiket Sebelumnya:</span>
-                    <span style={{ fontWeight: 600, color: 'var(--gov-blue-dark)', fontFamily: 'monospace' }}>{report.previousTicketNumber}</span>
-                  </div>
-                )}
-                {report.relatedAgency && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--neutral-200)', paddingBottom: '0.4rem' }}>
-                    <span style={{ color: 'var(--neutral-500)' }}>Instansi Terkait:</span>
-                    <span style={{ fontWeight: 600, color: 'var(--neutral-900)', textAlign: 'right', maxWidth: '65%' }}>{report.relatedAgency}</span>
-                  </div>
-                )}
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--neutral-200)', paddingBottom: '0.4rem' }}>
-                  <span style={{ color: 'var(--neutral-500)' }}>Wilayah / Lokasi:</span>
-                  <span style={{ fontWeight: 600, color: 'var(--neutral-900)' }}>{report.region || 'Provinsi Riau'}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.2rem' }}>
-                  <span style={{ color: 'var(--neutral-500)' }}>Waktu Pendaftaran:</span>
-                  <span style={{ color: 'var(--neutral-700)' }}>
-                    {new Date(report.createdAt).toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'short' })} WIB
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Petunjuk Langkah Selanjutnya */}
-            <div className="gov-alert gov-alert-warning" style={{ textAlign: 'left', fontSize: "0.8125rem" }}>
-              <strong>Langkah Selanjutnya:</strong>
-              <ol style={{ paddingLeft: '1.25rem', marginTop: '0.25rem', lineHeight: 1.5 }}>
-                <li>Catat atau simpan nomor tiket Anda di tempat yang aman.</li>
-                <li>Petugas verifikator Diskominfotik Prov. Riau akan memvalidasi laporan maksimal 1x24 jam kerja.</li>
-                <li>Gunakan menu <strong>Lacak Status Tiket</strong> kapan saja untuk melihat telaah teknis dan dokumentasi tindak lanjut OPD di lokasi.</li>
-              </ol>
-            </div>
-
-            {/* Tombol Aksi */}
-            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0.75rem', marginTop: '1.5rem' }}>
-              <Link
-                to={`/track?ticket=${report.ticketNumber}`}
-                className="gov-btn gov-btn-accent"
-                id="btn-success-goto-track"
-              >
-                <Icon name="search" size={16} />
-                <span>Pantau Pengaduan Ini Sekarang</span>
-              </Link>
-              <Link to="/report" className="gov-btn gov-btn-outline-neutral">
-                <Icon name="message" size={16} />
-                <span>Buat Pengaduan Lain</span>
-              </Link>
-              <Link to="/" className="gov-btn gov-btn-outline-neutral">
-                <span>Kembali ke Beranda</span>
-              </Link>
-            </div>
+              <Icon name="download" size={14} />
+              <span>Cetak Tanda Terima</span>
+            </button>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section className="receipt-section">
+          <h2 className="receipt-section__title">Ringkasan Permohonan</h2>
+
+          <dl className="receipt-list">
+            <div className="receipt-list__row">
+              <dt>Status saat ini</dt>
+              <dd><StatusBadge status={report.status} size="sm" /></dd>
+            </div>
+            <div className="receipt-list__row">
+              <dt>Judul laporan</dt>
+              <dd>{report.title}</dd>
+            </div>
+            <div className="receipt-list__row">
+              <dt>Kategori layanan</dt>
+              <dd>
+                {categoryObj ? categoryObj.name : report.category}
+                {categoryObj?.isLegacy && ' (Data Arsip)'}
+              </dd>
+            </div>
+            {report.serviceType && (
+              <div className="receipt-list__row">
+                <dt>Jenis layanan</dt>
+                <dd>{report.serviceType}</dd>
+              </div>
+            )}
+            {categoryObj?.opd && (
+              <div className="receipt-list__row">
+                <dt>OPD penanggung jawab</dt>
+                <dd>{categoryObj.opd}</dd>
+              </div>
+            )}
+            {report.applicantAgency && (
+              <div className="receipt-list__row">
+                <dt>Instansi pemohon</dt>
+                <dd>{report.applicantAgency}</dd>
+              </div>
+            )}
+            {report.eventPurpose && (
+              <div className="receipt-list__row">
+                <dt>Agenda kegiatan</dt>
+                <dd>{report.eventPurpose}</dd>
+              </div>
+            )}
+            {report.previousTicketNumber && (
+              <div className="receipt-list__row">
+                <dt>Tiket sebelumnya</dt>
+                <dd className="receipt-list__mono">{report.previousTicketNumber}</dd>
+              </div>
+            )}
+            {report.relatedAgency && (
+              <div className="receipt-list__row">
+                <dt>Instansi terkait</dt>
+                <dd>{report.relatedAgency}</dd>
+              </div>
+            )}
+            <div className="receipt-list__row">
+              <dt>Wilayah / lokasi</dt>
+              <dd>{report.region || 'Provinsi Riau'}</dd>
+            </div>
+            <div className="receipt-list__row">
+              <dt>Waktu pendaftaran</dt>
+              <dd>
+                {new Date(report.createdAt).toLocaleString('id-ID', {
+                  dateStyle: 'full',
+                  timeStyle: 'short',
+                })}{' '}
+                WIB
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <section className="receipt-section receipt-section--steps">
+          <h2 className="receipt-section__title">Langkah Selanjutnya</h2>
+          <ol className="receipt-steps">
+            <li>Catat atau simpan nomor tiket Anda di tempat yang aman.</li>
+            <li>
+              Petugas verifikator Diskominfotik Provinsi Riau akan memvalidasi laporan maksimal
+              1×24 jam kerja.
+            </li>
+            <li>
+              Gunakan menu <strong>Lacak Status Laporan</strong> kapan saja untuk melihat telaah
+              teknis dan dokumentasi tindak lanjut OPD di lapangan.
+            </li>
+          </ol>
+        </section>
+
+        <footer className="receipt-page__actions">
+          <Link
+            to={`/track?ticket=${report.ticketNumber}`}
+            className="gov-btn gov-btn-primary"
+            id="btn-success-goto-track"
+          >
+            <Icon name="search" size={16} />
+            <span>Lacak Laporan Ini</span>
+          </Link>
+          <Link to="/report" className="gov-btn gov-btn-outline-neutral">
+            <Icon name="message" size={16} />
+            <span>Ajukan Laporan Lain</span>
+          </Link>
+          <Link to="/" className="receipt-page__back">
+            <Icon name="arrow-left" size={14} />
+            <span>Kembali ke Beranda</span>
+          </Link>
+        </footer>
+      </div>
     </div>
   );
 }
