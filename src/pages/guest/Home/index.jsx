@@ -3,6 +3,79 @@ import { Link, useNavigate } from 'react-router-dom';
 import Icon from "../../../components/Icon";
 import './Home.css';
 
+/* ============================================================================
+   VIDEO PROFIL PROVINSI RIAU
+   ----------------------------------------------------------------------------
+   Isi RIAU_VIDEO_ID dengan 11 karakter ID YouTube, contoh:
+       https://www.youtube.com/watch?v=XXXXXXXXXXX
+                                     ^^^^^^^^^^^ <- bagian ini saja
+   Selama masih kosong, panel menampilkan sampul foto + tombol yang membuka
+   pencarian kanal resmi di YouTube. Jadi halaman TIDAK PERNAH menampilkan
+   kotak hitam "Video unavailable" seperti sebelumnya.
+   ========================================================================== */
+const RIAU_VIDEO_ID = 'zpgJUBtcej0';
+const RIAU_VIDEO_CHANNEL_URL =
+  'https://www.youtube.com/results?search_query=profil+provinsi+riau+diskominfotik';
+
+const RIAU_VIDEO_POSTER = '/images/tugu-zapin.jpg';
+
+/* Ikon budaya yang dipakai khusus pada bagian "Mengenal Provinsi Riau". */
+const RIAU_LANDMARK = {
+  src: '/images/tugu-zapin.jpg',
+  eyebrow: 'Ikon Kota Pekanbaru',
+  title: 'Tugu Zapin',
+  caption:
+    'Monumen seni tari Melayu di jantung Kota Pekanbaru. Zapin lahir dari tradisi Melayu pesisir, dan hingga kini menjadi penanda bahwa pengadaan di Riau bekerja di dalam ruang budaya yang hidup — bukan di ruang hampa.',
+};
+
+/* Foto latar hero — empat gambar berbeda diputar bergantian agar tidak monoton. */
+const HERO_SLIDES = [
+  {
+    src: '/images/jembatan-siak.jpg',
+    caption: 'Jembatan Siak IV, Pekanbaru',
+  },
+  {
+    src: '/images/istana-siak.jpg',
+    caption: 'Istana Siak Sri Indrapura',
+  },
+  {
+    src: '/images/masjid-an-nur-web.jpg',
+    caption: 'Masjid Raya An-Nur, Pekanbaru',
+  },
+  {
+    src: '/images/pelayanan-publik-riau.jpg',
+    caption: 'Pelayanan publik Pemerintah Provinsi Riau',
+  },
+];
+
+/* Galeri ringkas — satu foto utama, dua pendamping. Foto utama memakai Tugu
+   Zapin supaya bagian ini tidak lagi menampilkan tiga foto yang sama. */
+const RIAU_GALLERY = [
+  {
+    src: '/images/tugu-zapin.jpg',
+    title: 'Tugu Zapin Pekanbaru',
+    caption: 'Monumen seni budaya Melayu di jantung ibu kota provinsi.',
+  },
+  {
+    src: '/images/jembatan-siak.jpg',
+    title: 'Jembatan Tengku Agung Sultanah Latifah',
+    caption: 'Ikon infrastruktur Pekanbaru di atas Sungai Siak.',
+  },
+  {
+    src: '/images/istana-siak.jpg',
+    title: 'Istana Siak Sri Indrapura',
+    caption: 'Peninggalan Kesultanan Siak, jejak peradaban Melayu Riau.',
+  },
+];
+
+
+const RIAU_FACTS = [
+  { num: '10', label: 'Kabupaten' },
+  { num: '2', label: 'Kota' },
+  { num: '13', label: 'Wilayah Kerja' },
+  { num: '192', label: 'JF Terdata' },
+];
+
 const FAQ_ITEMS = [
   {
     q: 'Bagaimana cara menyampaikan pengaduan melalui portal ini?',
@@ -40,6 +113,17 @@ export default function Home() {
   const [ticketError, setTicketError] = useState('');
   const [showTicketHelp, setShowTicketHelp] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
+  const [heroSlide, setHeroSlide] = useState(0);
+
+  // Pergantian latar hero. Dihentikan bila pengguna meminta gerak minimal.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const timer = window.setInterval(() => {
+      setHeroSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 7000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   // Penanganan scroll otomatis saat membuka URL dengan anchor hash (#faq, #kontak, #panduan)
   useEffect(() => {
@@ -76,20 +160,15 @@ export default function Home() {
           1. HERO SECTION — FULLSCREEN IDENTITAS RESMI IFPI RIAU
           ============================================================ */}
       <section className="home-hero" aria-labelledby="hero-heading">
-        {/* Background Landmark Asli Provinsi Riau: Jembatan Siak (Tengku Agung Sultanah Latifah) */}
+        {/* Background Landmark Provinsi Riau — slideshow lambat */}
         <div className="home-hero__bg" aria-hidden="true">
-          <img
-            src="/images/jembatan-siak.jpg"
-            alt="Landmark Ikonik Jembatan Siak (Tengku Agung Sultanah Latifah) Provinsi Riau"
-            className="home-hero__bg-img"
-            width="1600"
-            height="900"
-            loading="eager"
-            onError={(e) => {
-              // Fallback cadangan landmark Riau
-              e.target.src = '/images/istana-siak.jpg';
-            }}
-          />
+          {HERO_SLIDES.map((slide, index) => (
+            <div
+              key={slide.src}
+              className={`home-hero__slide${index === heroSlide ? ' is-active' : ''}`}
+              style={{ backgroundImage: `url('${slide.src}')` }}
+            />
+          ))}
           <div className="home-hero__overlay" />
         </div>
 
@@ -107,7 +186,7 @@ export default function Home() {
           </h1>
 
           <p className="home-hero__desc">
-            Wadah resmi organisasi profesi pengadaan barang/jasa pemerintah
+            Wadah resmi organisasi profesi pengadaan barang/jasa pemerintah di Provinsi Riau
             untuk konsultasi regulasi hukum, penanganan aduan, dan permohonan narasumber kedinasan.
           </p>
 
@@ -242,27 +321,83 @@ export default function Home() {
           ============================================================ */}
       <section className="home-video" aria-labelledby="video-heading">
         <div className="home-container">
-          <div className="home-section-intro">
-            <span className="home-section-eyebrow">Tentang Kami</span>
-            <h2 id="video-heading" className="home-section-title">
-              Mengenal Provinsi Riau &amp; Komitmen IFPI
-            </h2>
-            <p className="home-section-desc">
-              Provinsi Riau — tanah yang kaya budaya, sumber daya, dan semangat pembangunan.
-              IFPI berkomitmen mengawal pengadaan barang/jasa pemerintah secara profesional, transparan, dan akuntabel di Bumi Lancang Kuning.
-            </p>
+          <div className="home-section-intro home-section-intro--media">
+            <div className="home-section-intro__text">
+              <span className="home-section-eyebrow">Tentang Kami</span>
+              <h2 id="video-heading" className="home-section-title">
+                Mengenal Provinsi Riau &amp; Komitmen IFPI
+              </h2>
+              <p className="home-section-desc">
+                Provinsi Riau terletak di pesisir timur Pulau Sumatra dengan ibu kota Pekanbaru.
+                Wilayahnya membentang dari daratan rendah hingga kepulauan di Selat Malaka, dan
+                dikenal sebagai Bumi Lancang Kuning — tanah Melayu dengan kekayaan budaya,
+                sumber daya alam, serta semangat pembangunan yang kuat.
+              </p>
+              <p className="home-section-desc">
+                Bagi IFPI, Riau bukan sekadar wilayah kerja. Provinsi ini menaungi 12
+                kabupaten/kota yang masing-masing memiliki karakter pengadaan berbeda — dari
+                daerah pesisir dengan proyek infrastruktur besar hingga kabupaten pedalaman
+                dengan volume belanja yang lebih kecil. Perbedaan itu menuntut pendampingan
+                yang tidak seragam, dan di situlah peran organisasi profesi menjadi penting.
+              </p>
+            </div>
+
+            <figure className="home-landmark">
+              <div className="home-landmark__frame">
+                <img
+                  className="home-landmark__img"
+                  src={RIAU_LANDMARK.src}
+                  alt={`${RIAU_LANDMARK.title}, ${RIAU_LANDMARK.eyebrow}`}
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className="home-landmark__caption">
+                <span className="home-landmark__eyebrow">{RIAU_LANDMARK.eyebrow}</span>
+                <strong className="home-landmark__title">{RIAU_LANDMARK.title}</strong>
+                <span className="home-landmark__text">{RIAU_LANDMARK.caption}</span>
+              </figcaption>
+            </figure>
           </div>
 
           <div className="home-video__wrapper">
             <div className="home-video__frame-wrap">
-              <iframe
-                className="home-video__iframe"
-                src="https://www.youtube.com/embed/5SdXKrAKFYA?rel=0&modestbranding=1&showinfo=0"
-                title="Profil Provinsi Riau"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              />
+              {RIAU_VIDEO_ID ? (
+                <iframe
+                  className="home-video__iframe"
+                  src={`https://www.youtube-nocookie.com/embed/${RIAU_VIDEO_ID}?rel=0&modestbranding=1`}
+                  title="Profil Provinsi Riau"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              ) : (
+                <div className="home-video__fallback">
+                  <img
+                    className="home-video__fallback-img"
+                    src={RIAU_VIDEO_POSTER}
+                    alt="Tugu Zapin, monumen seni budaya Melayu di Kota Pekanbaru"
+                    loading="lazy"
+                  />
+                  <div className="home-video__fallback-scrim" aria-hidden="true" />
+                  <div className="home-video__fallback-body">
+                    <span className="home-video__fallback-eyebrow">Tayangan Profil Daerah</span>
+                    <p className="home-video__fallback-text">
+                      Saksikan dokumentasi resmi tentang Provinsi Riau melalui kanal YouTube
+                      pemerintah daerah.
+                    </p>
+                    <a
+                      className="home-video__fallback-btn"
+                      href={RIAU_VIDEO_CHANNEL_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Icon name="external-link" size={14} color="currentColor" />
+                      <span>Buka di YouTube</span>
+                    </a>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="home-video__info">
@@ -274,22 +409,26 @@ export default function Home() {
                 Bumi Lancang Kuning — Pengadaan Bersih &amp; Berintegritas
               </h3>
               <p className="home-video__info-text">
-                Riau adalah provinsi strategis dengan kekayaan alam luar biasa di pesisir timur Sumatera.
-                Sebagai organisasi profesi fungsional pengadaan, DPW IFPI Riau membina aparatur pengadaan di 10 kabupaten dan 2 kota guna mewujudkan belanja pemerintah yang efisien dan bebas korupsi.
+                Secara geografis Riau berbatasan dengan Selat Malaka di timur, Sumatra Utara
+                di utara, dan Sumatra Barat di barat. Posisi itu menjadikannya jalur
+                perdagangan yang sudah ramai sejak masa Kesultanan Siak, dan kini menjadi
+                salah satu penyumbang terbesar penerimaan negara dari sektor migas serta
+                perkebunan kelapa sawit. Di Pekanbaru sendiri, Tugu Zapin berdiri sebagai
+                penanda tradisi Melayu yang masih dirawat hingga hari ini.
+              </p>
+              <p className="home-video__info-text">
+                Konsekuensinya, nilai belanja pemerintah di Riau tergolong besar — dan besar
+                pula risikonya. DPW IFPI Riau hadir mendampingi aparatur pengadaan di 12
+                kabupaten/kota agar setiap proses berjalan sesuai regulasi, terdokumentasi
+                rapi, dan tidak membuka celah penyimpangan.
               </p>
               <ul className="home-video__facts">
-                <li>
-                  <span className="home-video__fact-num">10</span>
-                  <span className="home-video__fact-label">Kabupaten</span>
-                </li>
-                <li>
-                  <span className="home-video__fact-num">2</span>
-                  <span className="home-video__fact-label">Kota</span>
-                </li>
-                <li>
-                  <span className="home-video__fact-num">5</span>
-                  <span className="home-video__fact-label">Divisi Bidang</span>
-                </li>
+                {RIAU_FACTS.map((fact) => (
+                  <li key={fact.label}>
+                    <span className="home-video__fact-num">{fact.num}</span>
+                    <span className="home-video__fact-label">{fact.label}</span>
+                  </li>
+                ))}
               </ul>
               <a href="#faq" className="home-video__link">
                 Pelajari Jawaban &amp; FAQ Layanan →
@@ -373,6 +512,44 @@ export default function Home() {
       </section>
 
       {/* ============================================================
+          4b. POTRET RIAU — galeri foto sebagai jeda visual antar bagian
+          ============================================================ */}
+      <section className="home-gallery" aria-labelledby="gallery-heading">
+        <div className="home-container">
+          <div className="home-gallery__head">
+            <div>
+              <span className="home-section-eyebrow">Potret Riau</span>
+              <h2 id="gallery-heading" className="home-section-title">
+                Wilayah yang Kami Dampingi
+              </h2>
+            </div>
+            <p className="home-gallery__lede">
+              Pengadaan di Riau berlangsung di tengah lanskap yang luas — dari monumen
+              budaya di pusat kota, sungai yang membelah Pekanbaru, hingga jejak
+              kesultanan Melayu di pesisir.
+            </p>
+          </div>
+
+          <div className="home-gallery__grid">
+            {RIAU_GALLERY.map((item) => (
+              <figure className="home-gallery__card" key={item.src}>
+                <img
+                  src={item.src}
+                  alt={item.title}
+                  className="home-gallery__img"
+                  loading="lazy"
+                />
+                <figcaption className="home-gallery__caption">
+                  <strong>{item.title}</strong>
+                  <span>{item.caption}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
           5. PANDUAN PENGGUNAAN LAYANAN & TIPS EFEKTIF
           ============================================================ */}
       <section id="panduan" className="home-steps" aria-labelledby="steps-heading">
@@ -434,6 +611,7 @@ export default function Home() {
           6. KOMITMEN INTEGRITAS PENGADAAN
           ============================================================ */}
       <section className="home-commitment" aria-labelledby="commitment-heading">
+        <div className="home-commitment__bg" aria-hidden="true" />
         <div className="home-container">
           <div className="home-commitment__inner">
             <div className="home-commitment__icon">

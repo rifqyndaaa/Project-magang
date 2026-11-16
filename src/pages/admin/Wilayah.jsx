@@ -1,63 +1,125 @@
 import { Link } from 'react-router-dom';
 import Icon from "../../components/Icon";
-import { RIAU_REGIONS_DATA } from '../../data/regionsData';
+import { REKAPITULASI_JF_RIAU, TOTAL_JF_RIAU } from '../../data/regionsData';
 
 /**
- * Wilayah — table pandangan data 12 kabupaten/kota beserta status DPC.
+ * Wilayah — Tabel pandangan data 12 kabupaten/kota + Pemprov Riau.
+ * Menampilkan data rekonsiliasi Jabatan Fungsional (JF) & status DPC.
  * Read-only: sumber data tetap src/data/regionsData.js.
  */
 export default function AdminWilayah() {
-  const totalDpc = RIAU_REGIONS_DATA.filter(r => r.isAvailable).length;
+  const totalDpc = REKAPITULASI_JF_RIAU.filter(r => r.isAvailable).length;
 
   return (
     <div>
       <header className="adx-page-head">
         <div className="adx-page-head__main">
-          <span className="adx-page-head__eyebrow">Data Organisasi</span>
-          <h1 className="adx-page-head__title">Wilayah &amp; DPC</h1>
+          <span className="adx-page-head__eyebrow">Data Organisasi &amp; Wilayah</span>
+          <h1 className="adx-page-head__title">Wilayah &amp; Keanggotaan JF</h1>
           <p className="adx-page-head__desc">
-            Sepuluh kabupaten dan dua kota di Provinsi Riau. Dari {RIAU_REGIONS_DATA.length} wilayah,
-            {' '}{totalDpc} telah memiliki kepengurusan DPC resmi.
+            Sepuluh kabupaten, dua kota, dan unit kerja Pemerintah Provinsi Riau.
+            Rekapitulasi resmi personel Jabatan Fungsional (JF PBJ) dan status konsolidasi kepengurusan DPC IFPI.
           </p>
         </div>
         <div className="adx-page-head__actions">
           <Link to="/wilayah" target="_blank" rel="noopener noreferrer" className="adx-btn">
             <Icon name="external-link" size={14} color="currentColor" />
-            <span>Lihat di Portal</span>
+            <span>Lihat di Portal Publik</span>
           </Link>
         </div>
       </header>
+
+      {/* KPI Ribbon Personel & Keanggotaan */}
+      <section className="adx-kpis" style={{ marginBottom: '1.5rem' }}>
+        <div className="adx-kpi">
+          <span className="adx-kpi__num">{TOTAL_JF_RIAU.totalJf}</span>
+          <span className="adx-kpi__lbl">Total Personel JF PBJ</span>
+          <span className="adx-kpi__note">13 entitas se-Provinsi Riau</span>
+        </div>
+        <div className="adx-kpi">
+          <span className="adx-kpi__num" style={{ color: 'var(--adx-primary, #B8202D)' }}>
+            {TOTAL_JF_RIAU.totalMembersByLetter}
+          </span>
+          <span className="adx-kpi__lbl">Anggota (Surat Masuk)</span>
+          <span className="adx-kpi__note">{TOTAL_JF_RIAU.percentageByLetter} rasio terdata</span>
+        </div>
+        <div className="adx-kpi">
+          <span className="adx-kpi__num">{TOTAL_JF_RIAU.totalMembersBySystem}</span>
+          <span className="adx-kpi__lbl">Anggota (By Sistem)</span>
+          <span className="adx-kpi__note">{TOTAL_JF_RIAU.percentageBySystem} akun portal aktif</span>
+        </div>
+        <div className="adx-kpi">
+          <span className="adx-kpi__num">{TOTAL_JF_RIAU.totalNotYetMembers}</span>
+          <span className="adx-kpi__lbl">Belum Terdaftar</span>
+          <span className="adx-kpi__note">{totalDpc} wilayah telah ber-SK</span>
+        </div>
+      </section>
 
       <section className="adx-panel">
         <div className="adx-table-scroll">
           <table className="adx-table">
             <thead>
               <tr>
-                <th>Wilayah</th>
+                <th>No</th>
+                <th>Wilayah / Instansi</th>
                 <th>Jenis</th>
-                <th>Ibu Kota</th>
-                <th>Kecamatan / Desa</th>
-                <th>Status DPC</th>
+                <th style={{ textAlign: 'right' }}>Total JF</th>
+                <th style={{ textAlign: 'right', color: '#8F1723' }}>Surat Masuk</th>
+                <th style={{ textAlign: 'right' }}>By Sistem</th>
+                <th style={{ textAlign: 'right' }}>Belum Anggota</th>
+                <th style={{ textAlign: 'right' }}>Rasio</th>
+                <th style={{ textAlign: 'center' }}>Status DPC</th>
               </tr>
             </thead>
             <tbody>
-              {RIAU_REGIONS_DATA.map((region) => (
-                <tr key={region.id}>
-                  <td>
-                    <span className="adx-person__name">{region.name}</span>
-                  </td>
-                  <td style={{ textTransform: 'capitalize' }}>{region.type}</td>
-                  <td>{region.capital}</td>
-                  <td className="adx-person__contact" style={{ fontFamily: 'inherit' }}>{region.districts}</td>
-                  <td>
-                    {region.isAvailable ? (
-                      <span className="adx-tag adx-tag--on">Aktif</span>
-                    ) : (
-                      <span className="adx-tag adx-tag--off">Konsolidasi</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
+              {REKAPITULASI_JF_RIAU.map((region, index) => {
+                const ratio = region.jfCount
+                  ? Math.round(((region.membersByLetter || 0) / region.jfCount) * 100)
+                  : 0;
+
+                return (
+                  <tr key={region.id}>
+                    <td style={{ textAlign: 'center', color: '#686868' }}>{index + 1}</td>
+                    <td>
+                      <span className="adx-person__name">{region.name}</span>
+                      {region.capital && (
+                        <span className="adx-person__contact">Ibu Kota: {region.capital}</span>
+                      )}
+                    </td>
+                    <td style={{ textTransform: 'capitalize' }}>{region.type}</td>
+                    <td style={{ textAlign: 'right', fontWeight: 700 }}>{region.jfCount}</td>
+                    <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--adx-primary, #B8202D)' }}>
+                      {region.membersByLetter}
+                    </td>
+                    <td style={{ textAlign: 'right' }}>{region.membersBySystem}</td>
+                    <td style={{ textAlign: 'right', color: '#686868' }}>{region.notYetMembers}</td>
+                    <td style={{ textAlign: 'right', fontWeight: 600 }}>{ratio}%</td>
+                    <td style={{ textAlign: 'center' }}>
+                      {region.isAvailable ? (
+                        <span className="adx-tag adx-tag--on">Aktif</span>
+                      ) : (
+                        <span className="adx-tag adx-tag--off">Konsolidasi</span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+              {/* Baris Total */}
+              <tr style={{ backgroundColor: '#F8FAFC', fontWeight: 800, borderTop: '2px solid #E2E8F0' }}>
+                <td colSpan={3} style={{ textAlign: 'left', padding: '0.85rem 1rem' }}>
+                  JUMLAH TOTAL SE-PROVINSI RIAU
+                </td>
+                <td style={{ textAlign: 'right', padding: '0.85rem 1rem' }}>{TOTAL_JF_RIAU.totalJf}</td>
+                <td style={{ textAlign: 'right', padding: '0.85rem 1rem', color: 'var(--adx-primary, #B8202D)' }}>
+                  {TOTAL_JF_RIAU.totalMembersByLetter}
+                </td>
+                <td style={{ textAlign: 'right', padding: '0.85rem 1rem' }}>{TOTAL_JF_RIAU.totalMembersBySystem}</td>
+                <td style={{ textAlign: 'right', padding: '0.85rem 1rem' }}>{TOTAL_JF_RIAU.totalNotYetMembers}</td>
+                <td style={{ textAlign: 'right', padding: '0.85rem 1rem' }}>{TOTAL_JF_RIAU.percentageByLetter}</td>
+                <td style={{ textAlign: 'center', color: '#686868', fontSize: '0.8125rem' }}>
+                  13 Entitas
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

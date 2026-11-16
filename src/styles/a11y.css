@@ -1,0 +1,164 @@
+/* ============================================================================
+   IFPI — LAPISAN AKSESIBILITAS & KUALITAS INTERAKSI
+   Dimuat PALING AKHIR (lihat src/main.jsx) sehingga menimpa lapisan sebelumnya.
+
+   Diterapkan berdasarkan audit ui-ux-pro-max:
+   - kategori style terverifikasi: "Accessible & Ethical" (Government/Public)
+   - aturan wajib: contrast-text-4.5, keyboard, visible-focus, reduced-motion
+   - ukuran target sentuh minimum 44px pada perangkat sentuh
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1. FOKUS TERLIHAT — jangan pernah hapus outline tanpa pengganti
+   ------------------------------------------------------------------------ */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--ifpi-red, #B8202D);
+  outline-offset: 2px;
+}
+
+/* Di atas permukaan gelap, merah kurang kontras — pakai putih */
+.adx-header :where(a, button, [tabindex]):focus-visible,
+.adx-login__scene :where(a, button, [tabindex]):focus-visible,
+.gov-footer :where(a, button, [tabindex]):focus-visible {
+  outline-color: #FFFFFF;
+  outline-offset: 2px;
+}
+
+/* premium.css mematikan outline item dropdown; kembalikan versi terlihat */
+.gov-dropdown-item:focus-visible {
+  outline: 2px solid var(--ifpi-red, #B8202D);
+  outline-offset: -2px;
+}
+
+/* Panel admin: input memakai box-shadow, jangan hilangkan jejak fokusnya */
+.adx-input:focus-visible,
+.adx-select:focus-visible,
+.adx-textarea:focus-visible {
+  outline: 2px solid var(--adx-red, #B8202D);
+  outline-offset: 1px;
+  box-shadow: 0 0 0 3px rgba(184, 32, 45, 0.16);
+}
+
+/* ---------------------------------------------------------------------------
+   2. TARGET SENTUH — minimum 44px pada perangkat sentuh
+   ------------------------------------------------------------------------ */
+@media (pointer: coarse) {
+  .adx-nav__item,
+  .adx-btn,
+  .adx-logout,
+  .adx-portal-link,
+  .adx-kpi,
+  .adx-filterbar__reset,
+  .regions-pill-btn,
+  .regions-btn-select,
+  .gov-btn {
+    min-height: 44px;
+  }
+
+  .adx-nav__item,
+  .gov-btn {
+    align-items: center;
+  }
+
+  /* Beri jarak vertikal agar target tidak berdempetan */
+  .adx-nav {
+    gap: 2px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   3. KONTRAS TEKS — minimum 4.5:1 untuk teks normal
+   ------------------------------------------------------------------------ */
+/* Label sekunder admin dinaikkan dari #8C8C8C (3.5:1) ke #6B6B6B (5.2:1) */
+.adx-sidebar__label,
+.adx-kpi__note,
+.adx-hint {
+  color: var(--adx-ink-mute, #6B6B6B);
+}
+
+/* Placeholder tidak boleh jadi satu-satunya label, tapi tetap harus terbaca */
+::placeholder {
+  color: #6E6E6E;
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   4. SKIP LINK ADMIN — lompat langsung ke konten utama
+   ------------------------------------------------------------------------ */
+.gov-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.adx-skip-link {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 999;
+  padding: 0.6rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  background-color: var(--adx-red, #B8202D);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.adx-skip-link:focus,
+.adx-skip-link:focus-visible {
+  top: 8px;
+}
+
+/* ---------------------------------------------------------------------------
+   5. TABEL — judul kolom tetap terbaca saat digulir
+   ------------------------------------------------------------------------ */
+.adx-table thead th,
+.regions-recap-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #F8FAFC;
+}
+
+/* ---------------------------------------------------------------------------
+   6. REDUCED MOTION — matikan gerak non-esensial
+   ------------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .adx-skip-link,
+  .regions-membership-bar-fill,
+  .adx-nav__item,
+  .adx-btn {
+    transition: none !important;
+  }
+
+  .region-btn-structure:hover,
+  .adx-btn:hover {
+    transform: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   7. CETAK — panel admin & tabel baca tetap rapi
+   ------------------------------------------------------------------------ */
+@media print {
+  .adx-header,
+  .adx-sidebar,
+  .adx-skip-link,
+  .regions-pills-bar,
+  .regions-recap-toolbar {
+    display: none !important;
+  }
+
+  .adx-main,
+  .regions-recap-section {
+    padding: 0 !important;
+  }
+}

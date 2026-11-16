@@ -2513,9 +2513,9 @@
 }
 
 .gov-badge-sale {
-  background-color: #EFF6FF;
-  color: #1D4ED8;
-  border: 1px solid #BFDBFE;
+  background-color: var(--neutral-100, #F1F3F5);
+  color: var(--neutral-600, #4A4A4A);
+  border: 1px solid var(--neutral-200, #E8E8E8);
 }
 
 .gov-badge-exhibit {
@@ -2835,7 +2835,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid #BFDBFE;
+  border: 1px solid var(--neutral-200, #E8E8E8);
 }
 
 .gov-service-opd-badge {
@@ -2846,7 +2846,7 @@
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
   letter-spacing: 0.02em;
-  border: 1px solid #BFDBFE;
+  border: 1px solid var(--neutral-200, #E8E8E8);
 }
 
 .gov-service-card-content {

@@ -213,9 +213,9 @@
 }
 
 .merch-status-kedinasan {
-  background-color: #EFF6FF;
-  color: #1D4ED8;
-  border: 1px solid #BFDBFE;
+  background-color: var(--neutral-100, #F1F3F5);
+  color: var(--neutral-600, #4A4A4A);
+  border: 1px solid var(--neutral-200, #E8E8E8);
 }
 
 /* Konten Deskripsi Kartu */

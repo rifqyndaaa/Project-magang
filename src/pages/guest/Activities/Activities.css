@@ -180,9 +180,9 @@
 }
 
 .act-prog-status.status-direncanakan {
-  background-color: #EFF6FF;
-  color: #1D4ED8;
-  border: 1px solid #BFDBFE;
+  background-color: var(--neutral-100, #F1F3F5);
+  color: var(--neutral-600, #4A4A4A);
+  border: 1px solid var(--neutral-200, #E8E8E8);
 }
 
 .act-prog-status.status-berjalan {
@@ -361,9 +361,9 @@
   font-weight: 700;
   padding: 0.15rem 0.55rem;
   border-radius: 20px;
-  background-color: #EFF6FF;
-  color: #1D4ED8;
-  border: 1px solid #BFDBFE;
+  background-color: var(--neutral-100, #F1F3F5);
+  color: var(--neutral-600, #4A4A4A);
+  border: 1px solid var(--neutral-200, #E8E8E8);
 }
 
 .act-agenda-title {

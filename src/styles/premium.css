@@ -772,6 +772,10 @@ code, kbd, samp, pre {
   border-radius: var(--radius-xs);
   padding: 0.4rem 0.75rem;
   background-color: #FFFFFF;
+  /* Jangan biarkan label terpotong jadi dua baris saat nav menyempit */
+  white-space: nowrap;
+  flex: 0 0 auto;
+  line-height: 1.35;
 }
 
 .gov-admin-link:hover {
@@ -782,6 +786,8 @@ code, kbd, samp, pre {
 
 .gov-nav-admin-subtle {
   border-left-color: var(--ifpi-rule);
+  /* Jangan menyusut: label "Akses Admin" harus tetap satu baris */
+  flex: 0 0 auto;
 }
 
 /* ----------------------------------------------------------------------------
@@ -1049,6 +1055,23 @@ code, kbd, samp, pre {
   filter: saturate(0.92) contrast(1.02);
 }
 
+/* Slideshow latar hero — crossfade lambat, tanpa gerak saat reduced-motion */
+.home-hero__slide {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  filter: saturate(0.92) contrast(1.02);
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1600ms ease, transform 9000ms ease-out;
+}
+
+.home-hero__slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
 /* Perbaikan: hapus max-width ganda & pakai kolom yang benar */
 .home-hero__container {
   max-width: 1200px;
@@ -1312,6 +1335,100 @@ code, kbd, samp, pre {
   margin: 0;
 }
 
+/* ---------------------------------------------------------------------------
+   Intro dua kolom: teks penjelas Provinsi Riau + ikon budaya Tugu Zapin.
+   Dipakai khusus agar bagian "Mengenal Provinsi Riau" tidak lagi hanya teks.
+   ------------------------------------------------------------------------ */
+.home-section-intro--media {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.85fr);
+  align-items: start;
+  gap: 2.75rem;
+  max-width: none;
+  text-align: left;
+}
+
+.home-section-intro__text .home-section-desc + .home-section-desc {
+  margin-top: 1rem;
+}
+
+.home-landmark {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.home-landmark__frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background-color: #EFEFEF;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+}
+
+.home-landmark__frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+  pointer-events: none;
+}
+
+.home-landmark__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.home-landmark__caption {
+  display: block;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--ifpi-red);
+}
+
+.home-landmark__eyebrow {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ifpi-red);
+  margin-bottom: 0.3rem;
+}
+
+.home-landmark__title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--ifpi-ink);
+}
+
+.home-landmark__text {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--ifpi-ink-soft);
+}
+
+@media (max-width: 900px) {
+  .home-section-intro--media {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .home-landmark__frame {
+    aspect-ratio: 16 / 10;
+  }
+}
+
 /* Section spacing ritmis */
 .home-track,
 .home-video,
@@ -1357,6 +1474,82 @@ code, kbd, samp, pre {
   overflow: hidden;
   border: 1px solid var(--ifpi-rule);
   box-shadow: none;
+}
+
+/* Pengganti iframe saat ID video belum diisi.
+   Sengaja tampil sebagai sampul berfoto, bukan kotak hitam kosong. */
+.home-video__fallback {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.home-video__fallback-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.home-video__fallback-scrim {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(20, 10, 12, 0.58);
+  background-image: linear-gradient(
+    to top,
+    rgba(18, 8, 10, 0.92) 0%,
+    rgba(20, 12, 14, 0.55) 55%,
+    rgba(24, 20, 20, 0.25) 100%
+  );
+}
+
+.home-video__fallback-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.4rem 1.5rem 1.5rem;
+  color: #FFFFFF;
+}
+
+.home-video__fallback-eyebrow {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #F2B8BE;
+}
+
+.home-video__fallback-text {
+  margin: 0 0 0.9rem;
+  max-width: 34ch;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.home-video__fallback-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  color: #FFFFFF;
+  background-color: var(--ifpi-red);
+  border: 1px solid var(--ifpi-red);
+  border-radius: var(--radius-xs, 2px);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.home-video__fallback-btn:hover {
+  background-color: var(--ifpi-red-dark, #8F1723);
+  border-color: var(--ifpi-red-dark, #8F1723);
+  color: #FFFFFF;
 }
 
 .home-video__badge {
@@ -1519,11 +1712,41 @@ code, kbd, samp, pre {
 
 /* Komitmen — pita gelap institusional, bukan blok merah penuh */
 .home-commitment {
+  position: relative;
   background-color: #1E1E1E;
   border-top: 3px solid var(--ifpi-red);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Foto latar samar: memberi tekstur, tetap terbaca sebagai pita gelap */
+.home-commitment__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/images/pelayanan-publik-riau.jpg');
+  background-position: center;
+  background-size: cover;
+  opacity: 0.22;
+  filter: grayscale(1) contrast(1.05);
+  pointer-events: none;
+}
+
+.home-commitment__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    100deg,
+    rgba(20, 20, 20, 0.96) 0%,
+    rgba(24, 18, 18, 0.86) 55%,
+    rgba(40, 18, 20, 0.62) 100%
+  );
 }
 
 .home-commitment__inner {
+  position: relative;
+  z-index: 1;
   max-width: 720px;
   gap: 1.1rem;
 }
@@ -1585,6 +1808,114 @@ code, kbd, samp, pre {
 /* FAQ */
 .home-faq {
   background-color: #FFFFFF;
+}
+
+/* ---------------------------------------------------------------------------
+   Galeri "Potret Riau" — satu foto lebar + dua pendamping, bukan grid seragam
+   ------------------------------------------------------------------------ */
+.home-gallery {
+  padding: 4.5rem 0;
+  background-color: #FCFCFC;
+  border-bottom: 1px solid var(--ifpi-rule);
+}
+
+.home-gallery__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.home-gallery__lede {
+  margin: 0;
+  font-size: var(--fs-base);
+  line-height: 1.72;
+  color: var(--ifpi-ink-soft);
+}
+
+.home-gallery__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  height: clamp(320px, 42vw, 460px);
+}
+
+.home-gallery__card {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--ifpi-rule);
+  border-radius: var(--radius-sm);
+  background-color: #1A1A1A;
+}
+
+.home-gallery__card:first-child {
+  grid-row: 1 / span 2;
+}
+
+.home-gallery__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 700ms ease;
+}
+
+.home-gallery__card:hover .home-gallery__img {
+  transform: scale(1.04);
+}
+
+.home-gallery__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.6rem 1.1rem 0.95rem;
+  background-image: linear-gradient(
+    to top,
+    rgba(12, 8, 9, 0.9) 0%,
+    rgba(16, 12, 13, 0.6) 55%,
+    rgba(20, 16, 16, 0) 100%
+  );
+}
+
+.home-gallery__caption strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: #FFFFFF;
+}
+
+.home-gallery__caption span {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.71875rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+@media (max-width: 900px) {
+  .home-gallery__head {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .home-gallery__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    height: auto;
+  }
+
+  .home-gallery__card,
+  .home-gallery__card:first-child {
+    grid-row: auto;
+    aspect-ratio: 16 / 10;
+  }
 }
 
 .home-faq__list {
@@ -3062,6 +3393,7 @@ code, kbd, samp, pre {
   .home-track,
   .home-video,
   .home-services,
+  .home-gallery,
   .home-steps,
   .home-commitment,
   .home-faq,

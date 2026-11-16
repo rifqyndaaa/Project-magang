@@ -6,6 +6,8 @@ import App from './App.jsx'
 import './styles/premium.css'
 // Lapisan panel admin dimuat SETELAH premium.css agar aturannya pasti menang.
 import './styles/admin.css'
+// Lapisan aksesibilitas dimuat PALING AKHIR: fokus, kontras, target sentuh.
+import './styles/a11y.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

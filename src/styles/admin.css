@@ -1,5 +1,5 @@
 /* ============================================================================
-   IFPI — LAPISAN DESAIN PANEL ADMIN
+   IFPI â€” LAPISAN DESAIN PANEL ADMIN
    Dimuat SETELAH premium.css (lihat src/main.jsx) sehingga aturan di sini
    menimpa gaya lama secara pasti.
 
@@ -7,20 +7,26 @@
    gradien, tanpa glassmorphism, tanpa bayangan tebal.
    ========================================================================== */
 
-.adx-shell {
+/* Token panel admin.
+   Dulu dideklarasikan hanya di .adx-shell, sehingga halaman login (yang tidak
+   memakai .adx-shell) menerima nilai invalid: tombol jadi transparan dan semua
+   border hilang. Sekarang di :root agar berlaku di seluruh panel. */
+:root {
   --adx-bg: #F5F5F5;
   --adx-surface: #FFFFFF;
   --adx-line: #E5E5E5;
   --adx-line-soft: #EFEFEF;
   --adx-ink: #252525;
   --adx-ink-soft: #686868;
-  --adx-ink-mute: #8C8C8C;
+  --adx-ink-mute: #6B6B6B;
   --adx-red: #B8202D;
   --adx-red-dark: #8F1723;
   --adx-red-tint: #F9EDEF;
   --adx-sidebar-w: 248px;
   --adx-header-h: 64px;
+}
 
+.adx-shell {
   min-height: 100vh;
   background-color: var(--adx-bg);
   color: var(--adx-ink);
@@ -363,7 +369,7 @@
   flex-shrink: 0;
 }
 
-/* Tombol admin — netral & tegas, bukan gaya SaaS */
+/* Tombol admin â€” netral & tegas, bukan gaya SaaS */
 .adx-btn {
   display: inline-flex;
   align-items: center;
@@ -570,7 +576,7 @@
 }
 
 .adx-input::placeholder {
-  color: #A8A8A8;
+  color: #6E6E6E;
 }
 
 .adx-input:focus,
@@ -937,131 +943,415 @@
 }
 
 /* ---------------------------------------------------------------------------
-   9. LOGIN
+   9. LOGIN — panggung sinematik (slideshow lambat) + panel formulir
    ------------------------------------------------------------------------ */
 .adx-login {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
-  background-color: #F5F5F5;
+  background-color: #FFFFFF;
 }
 
-.adx-login__bar {
+.adx-login__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  min-height: 100vh;
+}
+
+/* ---------- Sisi kiri: panggung foto ---------- */
+.adx-login__scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #191919;
+  isolation: isolate;
+}
+
+.adx-login__slides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.adx-login__slide {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1400ms ease, transform 9000ms ease-out;
+}
+
+.adx-login__slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.adx-login__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: rgba(18, 18, 18, 0.72);
+  background-image: linear-gradient(
+    to top,
+    rgba(20, 6, 8, 0.94) 0%,
+    rgba(20, 8, 10, 0.78) 42%,
+    rgba(24, 24, 24, 0.55) 100%
+  );
+}
+
+.adx-login__scene-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+  padding: clamp(1.75rem, 3.4vw, 3rem);
+  color: #FFFFFF;
+}
+
+.adx-login__scene-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  color: inherit;
+  width: fit-content;
+}
+
+.adx-login__scene-brand img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.adx-login__scene-brand strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.005em;
+  color: #FFFFFF;
+}
+
+.adx-login__scene-brand em {
+  display: block;
+  margin-top: 0.2rem;
+  font-style: normal;
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.adx-login__scene-copy {
+  margin-top: auto;
+  max-width: 30rem;
+}
+
+.adx-login__scene-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #F2B8BE;
+  border-bottom: 1px solid rgba(184, 32, 45, 0.9);
+}
+
+.adx-login__scene-title {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.5vw, 2.15rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.022em;
+  color: #FFFFFF;
+  max-width: 22ch;
+}
+
+.adx-login__scene-lede {
+  margin: 0 0 1.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 44ch;
+}
+
+.adx-login__scene-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  padding-top: 1.25rem;
+}
+
+.adx-login__scene-list li {
+  position: relative;
+  padding-left: 1.15rem;
+  font-size: 0.78125rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.adx-login__scene-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 5px;
+  height: 5px;
+  background-color: var(--adx-red);
+  border-radius: 1px;
+}
+
+.adx-login__scene-foot {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.7rem clamp(1rem, 3vw, 2rem);
-  background-color: #1E1E1E;
-  border-bottom: 2px solid var(--adx-red);
+  margin: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.62);
 }
 
-.adx-login__brand {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  text-decoration: none;
-  color: inherit;
-  min-width: 0;
-}
-
-.adx-login__brand img {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: #FFFFFF;
-  border: 1px solid #3A3A3A;
+.adx-login__scene-dots {
+  display: inline-flex;
+  gap: 0.3rem;
   flex-shrink: 0;
 }
 
-.adx-login__brand strong {
+.adx-login__scene-dots i {
   display: block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  color: #FFFFFF;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 16px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.28);
+  transition: background-color 0.4s ease;
 }
 
-.adx-login__brand span {
-  display: block;
-  margin-top: 0.1rem;
-  font-size: 0.65625rem;
-  color: #9C9C9C;
+.adx-login__scene-dots i.is-active {
+  background-color: var(--adx-red);
 }
 
-.adx-login__main {
+/* ---------- Sisi kanan: panel formulir ---------- */
+.adx-login__panel {
+  position: relative;
   display: flex;
-  flex: 1 1 auto;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: clamp(2rem, 6vh, 4.5rem) 1.25rem 3rem;
+  padding: clamp(1.5rem, 4vh, 3.25rem) clamp(1.25rem, 3vw, 2.5rem);
+  background-color: #F5F5F5;
+  /* Garis pembatas vertikal yang tegas antara foto dan formulir */
+  border-left: 1px solid #E0E0E0;
+  box-shadow: inset 6px 0 12px -12px rgba(0, 0, 0, 0.28);
 }
 
-.adx-login__wrap {
+.adx-login__panel-inner {
   width: 100%;
-  max-width: 760px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
+  max-width: 400px;
+  /* Bingkai kartu: garis 1px + pita merah di kepala */
+  padding: 1.85rem 1.85rem 1.9rem;
   background-color: #FFFFFF;
-  border: 1px solid var(--adx-line);
+  border: 1px solid #E1E1E1;
   border-top: 3px solid var(--adx-red);
   border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
-.adx-login__form {
-  padding: 2rem 2rem 2.25rem;
+.adx-login__portal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.6rem;
+  font-size: 0.71875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--adx-ink-mute);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.adx-login__portal:hover {
+  color: var(--adx-red);
+  border-bottom-color: var(--adx-red);
+}
+
+.adx-login__head {
+  margin-bottom: 1.4rem;
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid #EDEDED;
 }
 
 .adx-login__eyebrow {
   display: block;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.55rem;
   font-size: 0.625rem;
   font-weight: 700;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--adx-red);
 }
 
 .adx-login__title {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.5rem;
   font-family: var(--font-display);
-  font-size: clamp(1.4rem, 2.6vw, 1.75rem);
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
   font-weight: 600;
-  letter-spacing: -0.022em;
-  line-height: 1.25;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
   color: var(--adx-ink);
 }
 
 .adx-login__lede {
-  margin: 0 0 1.5rem;
+  margin: 0;
   font-size: 0.8125rem;
   line-height: 1.65;
   color: var(--adx-ink-soft);
 }
 
-.adx-login__aside {
-  padding: 2rem 1.5rem 2.25rem;
-  background-color: #FAFAFA;
-  border-left: 1px solid var(--adx-line);
+.adx-login__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.78125rem;
+  line-height: 1.5;
 }
 
-.adx-login__aside-title {
-  margin: 0 0 0.75rem;
+.adx-login__error svg {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  color: var(--adx-red);
+}
+
+/* Kolom input berikon */
+.adx-login__control {
+  position: relative;
+  display: block;
+}
+
+.adx-login__control-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--adx-ink-mute);
+  pointer-events: none;
+}
+
+.adx-login__input.adx-input {
+  width: 100%;
+  height: 44px;
+  padding-left: 2.4rem;
+  font-size: 0.84375rem;
+  background-color: #FCFCFC;
+  /* Bingkai kolom dibuat lebih tegas dari input admin biasa agar batasnya jelas */
+  border: 1px solid #DCDCDC;
+  border-radius: 2px;
+}
+
+.adx-login__input.adx-input:hover {
+  border-color: #C6C6C6;
+}
+
+.adx-login__input.adx-input:focus {
+  background-color: #FFFFFF;
+  border-color: var(--adx-red);
+}
+
+.adx-login__input--secret.adx-input {
+  padding-right: 2.6rem;
+}
+
+.adx-login__reveal {
+  position: absolute;
+  right: 0.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 2px;
+  color: var(--adx-ink-mute);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.adx-login__reveal:hover {
+  color: var(--adx-red);
+  background-color: #F5F0F1;
+}
+
+.adx-login__reveal:focus-visible {
+  outline: 2px solid var(--adx-red);
+  outline-offset: 1px;
+}
+
+.adx-login__hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.6875rem;
+  line-height: 1.45;
+  color: #9A5B12;
+}
+
+.adx-login__submit {
+  width: 100%;
+  justify-content: center;
+  height: 44px;
+  margin-top: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.adx-login__submit svg {
+  flex-shrink: 0;
+}
+
+/* Akun evaluasi */
+.adx-login__creds {
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid #EDEDED;
+}
+
+.adx-login__creds-title {
+  margin: 0 0 0.7rem;
   font-size: 0.625rem;
   font-weight: 700;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #8C8C8C;
+  color: var(--adx-ink-mute);
+}
+
+.adx-login__creds-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
 }
 
 .adx-login__cred {
   display: block;
   width: 100%;
-  margin-bottom: 0.5rem;
   padding: 0.6rem 0.7rem;
   text-align: left;
   font-family: var(--font-ui);
@@ -1069,52 +1359,144 @@
   border: 1px solid var(--adx-line);
   border-radius: 2px;
   cursor: pointer;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .adx-login__cred:hover {
   border-color: var(--adx-red);
+  background-color: #FDF8F9;
 }
 
 .adx-login__cred strong {
   display: block;
-  font-size: 0.78125rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--adx-ink);
 }
 
 .adx-login__cred code {
   display: block;
-  margin-top: 0.1rem;
+  margin-top: 0.15rem;
   font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  font-size: 0.6875rem;
+  font-size: 0.65625rem;
   color: var(--adx-ink-soft);
   background: none;
 }
 
 .adx-login__cred span {
   display: block;
-  margin-top: 0.2rem;
-  font-size: 0.625rem;
-  letter-spacing: 0.03em;
+  margin-top: 0.3rem;
+  font-size: 0.59375rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: #A0A0A0;
+  color: var(--adx-red);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.adx-login__cred:hover span,
+.adx-login__cred:focus-visible span {
+  opacity: 1;
 }
 
 .adx-login__note {
-  margin: 1.1rem 0 0;
-  padding-top: 1rem;
-  border-top: 1px solid var(--adx-line);
+  margin: 0.9rem 0 0;
   font-size: 0.6875rem;
   line-height: 1.6;
-  color: #8C8C8C;
+  color: var(--adx-ink-mute);
 }
 
-.adx-login__submit {
-  width: 100%;
-  justify-content: center;
-  margin-top: 0.35rem;
-  padding: 0.6rem 1rem;
+.adx-login__note--legal {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--adx-line);
+  color: var(--adx-ink-mute);
+}
+
+/* Sambil menunggu verifikasi */
+.adx-login__submit[disabled] {
+  opacity: 0.72;
+  cursor: progress;
+}
+
+/* ---------- Responsif ---------- */
+@media (max-width: 1024px) {
+  .adx-login__stage {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .adx-login__scene {
+    min-height: 42vh;
+  }
+
+  .adx-login__scene-copy {
+    margin-top: 1.5rem;
+  }
+
+  .adx-login__scene-title {
+    max-width: 26ch;
+    font-size: clamp(1.35rem, 4.2vw, 1.75rem);
+  }
+
+  .adx-login__scene-list {
+    display: none;
+  }
+
+  .adx-login__scene-foot {
+    padding-top: 1rem;
+  }
+
+  .adx-login__panel {
+    padding: 1.75rem 1rem 2.5rem;
+    border-left: 0;
+    border-top: 1px solid #E0E0E0;
+    box-shadow: inset 0 6px 12px -12px rgba(0, 0, 0, 0.28);
+  }
+
+  .adx-login__panel-inner {
+    padding: 1.5rem 1.25rem 1.6rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .adx-login__scene {
+    min-height: 34vh;
+  }
+
+  .adx-login__scene-inner {
+    gap: 1.1rem;
+    padding: 1.25rem;
+  }
+
+  .adx-login__scene-brand img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .adx-login__scene-brand strong {
+    font-size: 0.8125rem;
+  }
+
+  .adx-login__scene-lede {
+    display: none;
+  }
+
+  .adx-login__creds-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adx-login__slide {
+    transition: none;
+    transform: none;
+  }
+
+  .adx-login__scene-dots i {
+    transition: none;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -1752,15 +2134,6 @@
   .adx-queue {
     grid-template-columns: 1fr;
   }
-
-  .adx-login__wrap {
-    grid-template-columns: 1fr;
-  }
-
-  .adx-login__aside {
-    border-left: 0;
-    border-top: 1px solid var(--adx-line);
-  }
 }
 
 @media (max-width: 720px) {
@@ -1833,10 +2206,5 @@
 
   .adx-status-choice {
     grid-template-columns: 1fr;
-  }
-
-  .adx-login__form,
-  .adx-login__aside {
-    padding: 1.5rem 1.25rem;
   }
 }

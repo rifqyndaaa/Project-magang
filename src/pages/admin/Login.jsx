@@ -3,18 +3,56 @@ import { useNavigate, Link } from 'react-router-dom';
 import Icon from "../../components/Icon";
 import { loginAdmin, getAdminSession } from "../../services/storage";
 
+/* Foto latar diambil dari aset yang sudah ada di /public/images.
+   Tidak memakai video eksternal: tidak ada unduhan pihak ketiga, tidak ada
+   masalah lisensi, dan tidak menambah bobot jaringan yang tak terduga. */
+const SCENES = [
+  {
+    src: '/images/pelayanan-publik-riau.jpg',
+    caption: 'Pelayanan publik Pemerintah Provinsi Riau',
+  },
+  {
+    src: '/images/jembatan-siak.jpg',
+    caption: 'Jembatan Siak IV, Pekanbaru',
+  },
+  {
+    src: '/images/istana-siak.jpg',
+    caption: 'Istana Siak Sri Indrapura',
+  },
+];
+
+const capabilities = [
+  'Verifikasi dan penanganan pengajuan masyarakat',
+  'Rekapitulasi layanan, pengaduan, dan undangan narasumber',
+  'Pemutakhiran struktur, wilayah, kegiatan, dan literasi',
+];
+
 export default function AdminLogin() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [capsLock, setCapsLock] = useState(false);
+  const [scene, setScene] = useState(0);
 
   useEffect(() => {
     if (getAdminSession()) {
       navigate('/admin', { replace: true });
     }
   }, [navigate]);
+
+  /* Pergantian latar dihentikan bila pengguna meminta gerak minimal. */
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return undefined;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq.matches) return undefined;
+    const timer = window.setInterval(() => {
+      setScene((prev) => (prev + 1) % SCENES.length);
+    }, 8000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,66 +74,144 @@ export default function AdminLogin() {
     setError('');
   };
 
+  const handleCapsCheck = (e) => {
+    if (typeof e.getModifierState === 'function') {
+      setCapsLock(e.getModifierState('CapsLock'));
+    }
+  };
+
   return (
     <div className="adx-login">
-      <header className="adx-login__bar">
-        <Link to="/" className="adx-login__brand">
-          <img src="/images/logo.jpeg" alt="Logo IFPI" />
-          <span>
-            <strong>IKATAN FUNGSIONAL PENGADAAN INDONESIA</strong>
-            <span>Panel Administrasi &amp; Verifikasi Resmi</span>
-          </span>
-        </Link>
-        <Link to="/" className="adx-portal-link">
-          <Icon name="arrow-left" size={13} color="currentColor" />
-          <span>Portal Publik</span>
-        </Link>
-      </header>
+      <div className="adx-login__stage">
+        <aside className="adx-login__scene" aria-label="Tentang panel petugas IFPI">
+          <div className="adx-login__slides" aria-hidden="true">
+            {SCENES.map((item, index) => (
+              <div
+                key={item.src}
+                className={`adx-login__slide${index === scene ? ' is-active' : ''}`}
+                style={{ backgroundImage: `url('${item.src}')` }}
+              />
+            ))}
+          </div>
+          <div className="adx-login__scrim" aria-hidden="true" />
 
-      <main className="adx-login__main">
-        <div className="adx-login__wrap">
-          <div className="adx-login__form">
-            <span className="adx-login__eyebrow">Akses terbatas</span>
-            <h1 className="adx-login__title">Masuk Panel Petugas IFPI</h1>
-            <p className="adx-login__lede">
-              Khusus pengurus dan verifikator DPW Ikatan Fungsional Pengadaan Indonesia
-              Provinsi Riau.
+          <div className="adx-login__scene-inner">
+            <Link to="/" className="adx-login__scene-brand">
+              <img src="/images/logo.jpeg" alt="Logo IFPI" />
+              <span>
+                <strong>Ikatan Fungsional Pengadaan Indonesia</strong>
+                <em>Provinsi Riau &middot; Panel Petugas &amp; Verifikator</em>
+              </span>
+            </Link>
+
+            <div className="adx-login__scene-copy">
+              <span className="adx-login__scene-eyebrow">Ruang kerja resmi pengurus</span>
+              <h2 className="adx-login__scene-title">
+                Satu pintu penanganan layanan dan pengaduan anggota.
+              </h2>
+              <p className="adx-login__scene-lede">
+                Panel ini dipakai pengurus dan verifikator DPW IFPI Provinsi Riau untuk
+                menindaklanjuti setiap pengajuan yang masuk dari portal publik.
+              </p>
+
+              <ul className="adx-login__scene-list">
+                {capabilities.map((text) => (
+                  <li key={text}>{text}</li>
+                ))}
+              </ul>
+            </div>
+
+            <p className="adx-login__scene-foot">
+              <span>{SCENES[scene].caption}</span>
+              <span className="adx-login__scene-dots" aria-hidden="true">
+                {SCENES.map((item, index) => (
+                  <i key={item.src} className={index === scene ? 'is-active' : ''} />
+                ))}
+              </span>
             </p>
+          </div>
+        </aside>
+
+        <main className="adx-login__panel">
+          <div className="adx-login__panel-inner">
+            <Link to="/" className="adx-login__portal">
+              <Icon name="arrow-left" size={13} color="currentColor" />
+              <span>Kembali ke Portal Publik</span>
+            </Link>
+
+            <header className="adx-login__head">
+              <span className="adx-login__eyebrow">Akses terbatas</span>
+              <h1 className="adx-login__title">Masuk Panel Petugas IFPI</h1>
+              <p className="adx-login__lede">
+                Khusus pengurus dan verifikator DPW Ikatan Fungsional Pengadaan Indonesia
+                Provinsi Riau.
+              </p>
+            </header>
 
             {error && (
-              <div className="adx-notice adx-notice--err" role="alert" style={{ marginBottom: '1.25rem' }}>
-                {error}
+              <div className="adx-notice adx-notice--err adx-login__error" role="alert">
+                <Icon name="alert-circle" size={15} color="currentColor" />
+                <span>{error}</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
               <div className="adx-field-stack">
                 <div className="adx-field">
                   <label htmlFor="admin-username" className="adx-field__label">Nama pengguna</label>
-                  <input
-                    type="text"
-                    id="admin-username"
-                    className="adx-input"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Masukkan username"
-                    autoComplete="username"
-                    required
-                  />
+                  <div className="adx-login__control">
+                    <Icon name="user" size={15} color="currentColor" className="adx-login__control-icon" />
+                    <input
+                      type="text"
+                      id="admin-username"
+                      className="adx-input adx-login__input"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      placeholder="Masukkan username"
+                      autoComplete="username"
+                      autoCapitalize="none"
+                      spellCheck="false"
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="adx-field">
                   <label htmlFor="admin-password" className="adx-field__label">Kata sandi</label>
-                  <input
-                    type="password"
-                    id="admin-password"
-                    className="adx-input"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Masukkan kata sandi"
-                    autoComplete="current-password"
-                    required
-                  />
+                  <div className="adx-login__control">
+                    <Icon name="lock" size={15} color="currentColor" className="adx-login__control-icon" />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      id="admin-password"
+                      className="adx-input adx-login__input adx-login__input--secret"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      onKeyUp={handleCapsCheck}
+                      onKeyDown={handleCapsCheck}
+                      onBlur={() => setCapsLock(false)}
+                      placeholder="Masukkan kata sandi"
+                      autoComplete="current-password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="adx-login__reveal"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      aria-pressed={showPassword}
+                      aria-controls="admin-password"
+                      title={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+                    >
+                      <Icon name={showPassword ? 'eye-off' : 'eye'} size={15} color="currentColor" />
+                      <span className="gov-visually-hidden">
+                        {showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+                      </span>
+                    </button>
+                  </div>
+                  {capsLock && (
+                    <p className="adx-login__hint" role="status">
+                      Caps Lock aktif — kata sandi akan diketik dalam huruf besar.
+                    </p>
+                  )}
                 </div>
 
                 <button
@@ -104,41 +220,49 @@ export default function AdminLogin() {
                   className="adx-btn adx-btn--primary adx-login__submit"
                   id="btn-admin-login-submit"
                 >
-                  <Icon name="lock" size={15} color="currentColor" />
+                  <Icon name="arrow-right" size={15} color="currentColor" />
                   <span>{isSubmitting ? 'Memverifikasi…' : 'Masuk ke Panel'}</span>
                 </button>
               </div>
             </form>
 
-            <p className="adx-login__note">
+            <section className="adx-login__creds" aria-label="Akun evaluasi">
+              <h2 className="adx-login__creds-title">Akun evaluasi</h2>
+              <div className="adx-login__creds-grid">
+                <button
+                  type="button"
+                  className="adx-login__cred"
+                  onClick={() => handleQuickFill('admin', 'admin123')}
+                >
+                  <strong>Super Admin</strong>
+                  <code>admin / admin123</code>
+                  <span>Isi otomatis</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="adx-login__cred"
+                  onClick={() => handleQuickFill('petugas', 'riau2026')}
+                >
+                  <strong>Petugas Verifikator</strong>
+                  <code>petugas / riau2026</code>
+                  <span>Isi otomatis</span>
+                </button>
+              </div>
+              <p className="adx-login__note">
+                Kedua peran memiliki akses yang sama pada purwarupa ini. Nama petugas yang
+                masuk otomatis dipakai sebagai pencatat pada riwayat penanganan.
+              </p>
+            </section>
+
+            <p className="adx-login__note adx-login__note--legal">
               <strong>Catatan purwarupa.</strong> Autentikasi berjalan lokal di peramban ini
               untuk keperluan demonstrasi. Sistem operasional memerlukan backend, token
               terenkripsi, dan kendali akses berbasis peran.
             </p>
           </div>
-
-          <aside className="adx-login__aside">
-            <h2 className="adx-login__aside-title">Akun evaluasi</h2>
-
-            <button type="button" className="adx-login__cred" onClick={() => handleQuickFill('admin', 'admin123')}>
-              <strong>Super Admin</strong>
-              <code>admin / admin123</code>
-              <span>Isi otomatis</span>
-            </button>
-
-            <button type="button" className="adx-login__cred" onClick={() => handleQuickFill('petugas', 'riau2026')}>
-              <strong>Petugas Verifikator</strong>
-              <code>petugas / riau2026</code>
-              <span>Isi otomatis</span>
-            </button>
-
-            <p className="adx-login__note" style={{ marginTop: '1rem' }}>
-              Kedua peran memiliki akses yang sama pada purwarupa ini. Nama petugas yang masuk
-              otomatis dipakai sebagai pencatat pada riwayat penanganan.
-            </p>
-          </aside>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }

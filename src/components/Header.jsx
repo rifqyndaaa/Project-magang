@@ -94,7 +94,7 @@ export default function Header() {
           />
           <div className="gov-official-brand-text">
             <span className="gov-brand-instansi">IKATAN FUNGSIONAL PENGADAAN INDONESIA</span>
-            <span className="gov-brand-layanan">Portal Layanan & Pengaduan Resmi</span>
+            <span className="gov-brand-layanan">DPW Provinsi Riau</span>
           </div>
         </Link>
 

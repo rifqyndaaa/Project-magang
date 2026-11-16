@@ -2,8 +2,7 @@
  * regionsData.js — Data 12 Wilayah Administratif Provinsi Riau & Status Kepengurusan IFPI
  *
  * 10 Kabupaten & 2 Kota sesuai data resmi Pemerintah Provinsi Riau.
- * Data kepengurusan DPC diisi jika SK resmi sudah diterbitkan.
- * Jangan mengarang nama atau susunan pengurus kabupaten/kota tanpa data resmi.
+ * Ditambah data statistik Jabatan Fungsional (JF PBJ) & Rekonsiliasi Keanggotaan IFPI.
  */
 
 export const RIAU_REGIONS_DATA = [
@@ -23,6 +22,11 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kota Pekanbaru — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    // Statistik Personel & Keanggotaan IFPI
+    jfCount: 18,
+    membersByLetter: 11,
+    membersBySystem: 10,
+    notYetMembers: 7,
   },
   {
     id: 'dumai',
@@ -40,6 +44,10 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kota Dumai — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    jfCount: 16,
+    membersByLetter: 12,
+    membersBySystem: 11,
+    notYetMembers: 4,
   },
   {
     id: 'kampar',
@@ -57,6 +65,10 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kabupaten Kampar — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    jfCount: 5,
+    membersByLetter: 3,
+    membersBySystem: 5,
+    notYetMembers: 2,
   },
   {
     id: 'siak',
@@ -74,6 +86,10 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kabupaten Siak — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    jfCount: 30,
+    membersByLetter: 12,
+    membersBySystem: 12,
+    notYetMembers: 18,
   },
   {
     id: 'pelalawan',
@@ -91,6 +107,10 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kabupaten Pelalawan — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    jfCount: 5,
+    membersByLetter: 2,
+    membersBySystem: 4,
+    notYetMembers: 3,
   },
   {
     id: 'bengkalis',
@@ -108,6 +128,10 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kabupaten Bengkalis — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    jfCount: 12,
+    membersByLetter: 8,
+    membersBySystem: 9,
+    notYetMembers: 4,
   },
   {
     id: 'rokan-hilir',
@@ -125,6 +149,10 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kabupaten Rokan Hilir — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    jfCount: 14,
+    membersByLetter: 3,
+    membersBySystem: 4,
+    notYetMembers: 11,
   },
   {
     id: 'rokan-hulu',
@@ -142,6 +170,10 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kabupaten Rokan Hulu — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    jfCount: 20,
+    membersByLetter: 11,
+    membersBySystem: 3,
+    notYetMembers: 9,
   },
   {
     id: 'indragiri-hulu',
@@ -159,6 +191,10 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kabupaten Indragiri Hulu — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    jfCount: 14,
+    membersByLetter: 5,
+    membersBySystem: 6,
+    notYetMembers: 9,
   },
   {
     id: 'indragiri-hilir',
@@ -176,6 +212,10 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kabupaten Indragiri Hilir — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    jfCount: 10,
+    membersByLetter: 7,
+    membersBySystem: 5,
+    notYetMembers: 3,
   },
   {
     id: 'kuantan-singingi',
@@ -193,6 +233,10 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kabupaten Kuantan Singingi — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    jfCount: 7,
+    membersByLetter: 6,
+    membersBySystem: 6,
+    notYetMembers: 1,
   },
   {
     id: 'kepulauan-meranti',
@@ -210,8 +254,55 @@ export const RIAU_REGIONS_DATA = [
     ifpiStatus: 'DPC IFPI Kabupaten Kepulauan Meranti — Tahap Konsolidasi Kepengurusan',
     isAvailable: false,
     kepengurusan: null,
+    jfCount: 5,
+    membersByLetter: 2,
+    membersBySystem: 0,
+    notYetMembers: 3,
   },
 ];
+
+/**
+ * Data Khusus Pemerintah Provinsi Riau (OPD / Sekretariat Daerah Provinsi Riau)
+ */
+export const PROV_RIAU_DATA = {
+  id: 'prov-riau',
+  name: 'Pemerintah Provinsi Riau (Setda / OPD)',
+  shortName: 'Prov. Riau',
+  type: 'provinsi',
+  capital: 'Pekanbaru',
+  area: '87.023,66 km²',
+  population: '6.735.000 Jiwa',
+  districts: '10 Kabupaten, 2 Kota',
+  description:
+    'Lingkup Pemerintah Provinsi Riau menaungi seluruh Organisasi Perangkat Daerah (OPD), Biro Pengadaan Barang dan Jasa (BPBJ Setdaprov Riau), serta unit kerja fungsional pengadaan di tingkat provinsi.',
+  ifpiStatus: 'DPW IFPI Provinsi Riau — Pengurus Wilayah Aktif',
+  isAvailable: true,
+  jfCount: 36,
+  membersByLetter: 24,
+  membersBySystem: 24,
+  notYetMembers: 12,
+};
+
+/**
+ * Daftar Lengkap 13 Entitas (12 Kab/Kota + Pemprov Riau) untuk Rekapitulasi Data
+ */
+export const REKAPITULASI_JF_RIAU = [
+  ...RIAU_REGIONS_DATA,
+  PROV_RIAU_DATA,
+];
+
+/**
+ * Total Akumulasi Statistik JF & Keanggotaan Se-Provinsi Riau
+ */
+export const TOTAL_JF_RIAU = {
+  totalWilayah: 13,
+  totalJf: 192,
+  totalMembersByLetter: 106,
+  totalMembersBySystem: 99,
+  totalNotYetMembers: 86,
+  percentageByLetter: '55.2%',
+  percentageBySystem: '51.6%',
+};
 
 /**
  * Helper untuk mendapatkan data wilayah berdasarkan ID
@@ -219,11 +310,15 @@ export const RIAU_REGIONS_DATA = [
 export function getRegionById(id) {
   if (!id) return null;
   const cleanId = String(id).toLowerCase().trim();
-  return RIAU_REGIONS_DATA.find(
-    (r) =>
-      r.id.toLowerCase() === cleanId ||
-      r.name.toLowerCase().replace(/\s+/g, '-').includes(cleanId) ||
-      r.shortName.toLowerCase() === cleanId
-  ) || null;
+  if (cleanId === 'prov-riau' || cleanId === 'riau' || cleanId === 'provinsi') {
+    return PROV_RIAU_DATA;
+  }
+  return (
+    RIAU_REGIONS_DATA.find(
+      (r) =>
+        r.id.toLowerCase() === cleanId ||
+        r.name.toLowerCase().replace(/\s+/g, '-').includes(cleanId) ||
+        r.shortName.toLowerCase() === cleanId
+    ) || null
+  );
 }
-

@@ -78,6 +78,10 @@ export default function AdminLayout() {
 
   return (
     <div className="adx-shell">
+      <a href="#adx-main-content" className="adx-skip-link">
+        Lompat ke konten utama
+      </a>
+
       <header className="adx-header">
         <Link to="/admin" className="adx-header__brand">
           <img src="/images/logo.jpeg" alt="Logo IFPI" className="adx-header__logo" />
@@ -130,7 +134,14 @@ export default function AdminLayout() {
                     <Icon name={item.icon} size={15} color="currentColor" />
                     <span className="adx-nav__text">{item.label}</span>
                     {item.countKey && counts[item.countKey] > 0 && (
-                      <span className="adx-nav__count">{counts[item.countKey]}</span>
+                      <span className="adx-nav__count" aria-hidden="true">
+                        {counts[item.countKey]}
+                      </span>
+                    )}
+                    {item.countKey && counts[item.countKey] > 0 && (
+                      <span className="gov-visually-hidden">
+                        , {counts[item.countKey]} pengajuan
+                      </span>
                     )}
                   </NavLink>
                 ))}
@@ -145,7 +156,7 @@ export default function AdminLayout() {
           </p>
         </aside>
 
-        <main className="adx-main">
+        <main className="adx-main" id="adx-main-content" tabIndex={-1}>
           <div className="adx-main__inner">
             <Outlet />
           </div>

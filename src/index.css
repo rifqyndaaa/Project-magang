@@ -240,7 +240,7 @@ p {
 .gov-textarea:focus {
   outline: none;
   border-color: var(--gov-blue);
-  box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.15);
+  box-shadow: 0 0 0 3px rgba(184, 32, 45, 0.16);
 }
 
 .gov-input.is-invalid,
@@ -474,7 +474,7 @@ p {
 
 .gov-category-card.is-selected {
   border-color: var(--gov-blue);
-  background-color: #F0F7FF;
+  background-color: var(--gov-blue-soft);
   box-shadow: 0 0 0 1px var(--gov-blue);
 }
 
