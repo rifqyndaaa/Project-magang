@@ -375,6 +375,14 @@ export default function RegionsPage() {
                           <button
                             type="button"
                             className="region-members-empty__cta"
+                            onClick={() => handleSelectRegion('pekanbaru')}
+                          >
+                            <Icon name="arrow-right" size={14} />
+                            <span>Kota Pekanbaru</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="region-members-empty__cta"
                             onClick={() => handleSelectRegion('dumai')}
                           >
                             <Icon name="arrow-right" size={14} />
@@ -399,6 +407,14 @@ export default function RegionsPage() {
                           <button
                             type="button"
                             className="region-members-empty__cta"
+                            onClick={() => handleSelectRegion('kuantan-singingi')}
+                          >
+                            <Icon name="arrow-right" size={14} />
+                            <span>Kab. Kuantan Singingi</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="region-members-empty__cta"
                             onClick={() => handleSelectRegion('indragiri-hilir')}
                           >
                             <Icon name="arrow-right" size={14} />
@@ -419,6 +435,22 @@ export default function RegionsPage() {
                           >
                             <Icon name="arrow-right" size={14} />
                             <span>Kab. Pelalawan</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="region-members-empty__cta"
+                            onClick={() => handleSelectRegion('siak')}
+                          >
+                            <Icon name="arrow-right" size={14} />
+                            <span>Kab. Siak</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="region-members-empty__cta"
+                            onClick={() => handleSelectRegion('bengkalis')}
+                          >
+                            <Icon name="arrow-right" size={14} />
+                            <span>Kab. Bengkalis</span>
                           </button>
                           <button
                             type="button"
