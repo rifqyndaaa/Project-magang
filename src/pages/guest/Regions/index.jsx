@@ -13,8 +13,18 @@ import {
 import './Regions.css';
 
 export default function RegionsPage() {
-  const [selectedId, setSelectedId] = useState('pekanbaru');
+  const [selectedId, setSelectedId] = useState(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hashId = window.location.hash.replace('#', '');
+      const reg = getRegionById(hashId);
+      if (reg) return reg.id;
+    }
+    return 'pekanbaru';
+  });
   const [searchQuery, setSearchQuery] = useState('');
+  const [panelTab, setPanelTab] = useState('members');
+  const [memberSearch, setMemberSearch] = useState('');
+  const [memberAsnFilter, setMemberAsnFilter] = useState('ALL');
 
   const selectedRegion = getRegionById(selectedId) || RIAU_REGIONS_DATA[0];
 
@@ -22,6 +32,26 @@ export default function RegionsPage() {
   const selectedRatioLetter = selectedRegion.jfCount
     ? Math.round(((selectedRegion.membersByLetter || 0) / selectedRegion.jfCount) * 100)
     : 0;
+
+  // Filter daftar anggota pada panel samping
+  const filteredMembers = useMemo(() => {
+    if (!selectedRegion.members) return [];
+    let list = selectedRegion.members;
+    if (memberAsnFilter !== 'ALL') {
+      list = list.filter((m) => m.asn.toUpperCase() === memberAsnFilter);
+    }
+    if (memberSearch.trim()) {
+      const q = memberSearch.toLowerCase().trim();
+      list = list.filter(
+        (m) =>
+          m.name.toLowerCase().includes(q) ||
+          m.nip.includes(q) ||
+          (m.kta && m.kta.includes(q)) ||
+          m.position.toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }, [selectedRegion, memberSearch, memberAsnFilter]);
 
   // Filter baris rekapitulasi berdasarkan pencarian
   const filteredRecap = useMemo(() => {
@@ -37,6 +67,10 @@ export default function RegionsPage() {
 
   const handleSelectRegion = (id) => {
     setSelectedId(id);
+    const reg = getRegionById(id);
+    if (reg && reg.members && reg.members.length > 0) {
+      setPanelTab('members');
+    }
     const panelEl = document.getElementById('selected-region-heading');
     if (panelEl) {
       panelEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -183,41 +217,258 @@ export default function RegionsPage() {
                   </div>
                 </div>
 
-                {/* 2. Ringkasan Statistik Geografis */}
-                <div className="region-panel-stats">
-                  <div className="region-stat-item">
-                    <span className="region-stat-label">Pusat Pemerintahan</span>
-                    <span className="region-stat-val">{selectedRegion.capital}</span>
-                  </div>
-                  <div className="region-stat-item">
-                    <span className="region-stat-label">Luas Wilayah</span>
-                    <span className="region-stat-val">{selectedRegion.area}</span>
-                  </div>
-                  <div className="region-stat-item">
-                    <span className="region-stat-label">Jumlah Penduduk</span>
-                    <span className="region-stat-val">{selectedRegion.population}</span>
-                  </div>
-                  <div className="region-stat-item">
-                    <span className="region-stat-label">Wilayah Administrasi</span>
-                    <span className="region-stat-val">{selectedRegion.districts}</span>
-                  </div>
+                {/* Switcher Tab: Anggota JF vs Profil Wilayah */}
+                <div className="region-panel-tab-bar" role="tablist" aria-label="Pilihan Data Wilayah">
+                  <button
+                    type="button"
+                    role="tab"
+                    id="tab-members"
+                    aria-selected={panelTab === 'members'}
+                    className={`region-panel-tab-btn ${panelTab === 'members' ? 'is-active' : ''}`}
+                    onClick={() => setPanelTab('members')}
+                  >
+                    <Icon name="users" size={14} />
+                    <span>Daftar Anggota JF {selectedRegion.members?.length ? `(${selectedRegion.members.length})` : ''}</span>
+                  </button>
+                  <button
+                    type="button"
+                    role="tab"
+                    id="tab-profile"
+                    aria-selected={panelTab === 'profile'}
+                    className={`region-panel-tab-btn ${panelTab === 'profile' ? 'is-active' : ''}`}
+                    onClick={() => setPanelTab('profile')}
+                  >
+                    <Icon name="map-pin" size={14} />
+                    <span>Profil Wilayah</span>
+                  </button>
                 </div>
 
-                {/* Deskripsi Singkat */}
-                <p className="region-panel-desc">
-                  {selectedRegion.description}
-                </p>
+                {/* TAMPILAN TAB 1: DAFTAR ANGGOTA & PERSONEL JF */}
+                {panelTab === 'members' ? (
+                  <div className="region-members-panel" role="tabpanel" aria-labelledby="tab-members">
+                    {selectedRegion.members && selectedRegion.members.length > 0 ? (
+                      <>
+                        <div className="region-members-toolbar">
+                          <div className="region-members-search-box">
+                            <Icon name="search" size={14} color="#686868" />
+                            <input
+                              type="text"
+                              className="region-members-search-input"
+                              placeholder="Cari nama, NIP, atau jabatan..."
+                              value={memberSearch}
+                              onChange={(e) => setMemberSearch(e.target.value)}
+                              aria-label="Cari personel JF"
+                            />
+                            {memberSearch && (
+                              <button
+                                type="button"
+                                className="region-members-search-clear"
+                                onClick={() => setMemberSearch('')}
+                                aria-label="Hapus pencarian"
+                              >
+                                ×
+                              </button>
+                            )}
+                          </div>
 
-                {/* Status Kepengurusan IFPI */}
-                <div className="region-panel-status-card">
-                  <div className="region-status-card-icon">
-                    <Icon name="shield" size={18} color="var(--ifpi-red)" />
+                          <div className="region-members-chips" role="group" aria-label="Filter status ASN">
+                            {['ALL', 'PNS', 'PPPK', 'CPNS'].map((tag) => (
+                              <button
+                                key={tag}
+                                type="button"
+                                className={`region-member-chip ${memberAsnFilter === tag ? 'is-active' : ''}`}
+                                onClick={() => setMemberAsnFilter(tag)}
+                              >
+                                {tag === 'ALL' ? 'Semua' : tag}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="region-members-count-note">
+                          Menampilkan <strong>{filteredMembers.length}</strong> dari {selectedRegion.members.length} personel terdata
+                        </div>
+
+                        <div className="region-members-scroll" tabIndex={0} aria-label={`Daftar Personel JF ${selectedRegion.name}`}>
+                          {filteredMembers.length > 0 ? (
+                            filteredMembers.map((m) => (
+                              <article key={m.no} className="region-member-card">
+                                <div className="region-member-card__header">
+                                  <span className="region-member-card__no">#{m.no}</span>
+                                  <div className="region-member-card__identity">
+                                    <h4 className="region-member-card__name">{m.name}</h4>
+                                    <span className="region-member-card__role">{m.position}</span>
+                                  </div>
+                                  <span className={`region-asn-badge region-asn-badge--${m.asn.toLowerCase()}`}>
+                                    {m.asn}
+                                  </span>
+                                </div>
+
+                                <div className="region-member-card__body">
+                                  <div className="region-member-prop">
+                                    <span className="region-member-prop__lbl">NIP</span>
+                                    <span className="region-member-prop__val">{m.nip}</span>
+                                  </div>
+                                  <div className="region-member-prop">
+                                    <span className="region-member-prop__lbl">No. KTA</span>
+                                    <span className="region-member-prop__val">{m.kta}</span>
+                                  </div>
+                                  <div className="region-member-prop">
+                                    <span className="region-member-prop__lbl">Status</span>
+                                    <span className={`region-status-pill region-status-pill--${m.membershipStatus === 'Aktif' ? 'active' : m.membershipStatus === 'Tidak aktif' ? 'inactive' : 'unregistered'}`}>
+                                      {m.membershipStatus}
+                                    </span>
+                                  </div>
+                                </div>
+
+                                {m.note && (
+                                  <div style={{ fontSize: '0.6875rem', color: '#92400E', backgroundColor: '#FFFBEB', padding: '0.25rem 0.5rem', borderRadius: '4px', border: '1px solid #FDE68A', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                                    <Icon name="info" size={11} color="#B45309" />
+                                    <span>{m.note}</span>
+                                  </div>
+                                )}
+
+                                <div className="region-member-card__footer">
+                                  {m.phone && (
+                                    <a
+                                      href={`https://wa.me/62${m.phone.replace(/^0/, '')}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="region-member-contact-btn"
+                                      title={`WhatsApp ${m.name}`}
+                                    >
+                                      <Icon name="phone" size={12} />
+                                      <span>{m.phone}</span>
+                                    </a>
+                                  )}
+                                  {m.email && (
+                                    <a
+                                      href={`mailto:${m.email}`}
+                                      className="region-member-contact-btn"
+                                      title={`Email ke ${m.name}`}
+                                    >
+                                      <Icon name="mail" size={12} />
+                                      <span>{m.email}</span>
+                                    </a>
+                                  )}
+                                </div>
+                              </article>
+                            ))
+                          ) : (
+                            <div className="region-members-notfound">
+                              <Icon name="search" size={24} color="#999" />
+                              <p>Tidak ada personel yang sesuai kriteria pencarian.</p>
+                            </div>
+                          )}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="region-members-empty">
+                        <div className="region-members-empty__icon">
+                          <Icon name="clock" size={28} />
+                        </div>
+                        <h4 className="region-members-empty__title">Daftar Anggota Belum Tersedia</h4>
+                        <p className="region-members-empty__desc">
+                          Data nominatif personel JF untuk <strong>{selectedRegion.name}</strong> sedang dalam tahap konsolidasi dan rekonsiliasi data bersama dinas terkait. Wilayah yang telah terdata lengkap:
+                        </p>
+                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                          <button
+                            type="button"
+                            className="region-members-empty__cta"
+                            onClick={() => handleSelectRegion('dumai')}
+                          >
+                            <Icon name="arrow-right" size={14} />
+                            <span>Kota Dumai</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="region-members-empty__cta"
+                            onClick={() => handleSelectRegion('rokan-hilir')}
+                          >
+                            <Icon name="arrow-right" size={14} />
+                            <span>Kab. Rokan Hilir</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="region-members-empty__cta"
+                            onClick={() => handleSelectRegion('kepulauan-meranti')}
+                          >
+                            <Icon name="arrow-right" size={14} />
+                            <span>Kab. Kepulauan Meranti</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="region-members-empty__cta"
+                            onClick={() => handleSelectRegion('indragiri-hilir')}
+                          >
+                            <Icon name="arrow-right" size={14} />
+                            <span>Kab. Indragiri Hilir</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="region-members-empty__cta"
+                            onClick={() => handleSelectRegion('rokan-hulu')}
+                          >
+                            <Icon name="arrow-right" size={14} />
+                            <span>Kab. Rokan Hulu</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="region-members-empty__cta"
+                            onClick={() => handleSelectRegion('pelalawan')}
+                          >
+                            <Icon name="arrow-right" size={14} />
+                            <span>Kab. Pelalawan</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="region-members-empty__cta"
+                            onClick={() => handleSelectRegion('indragiri-hulu')}
+                          >
+                            <Icon name="arrow-right" size={14} />
+                            <span>Kab. Indragiri Hulu</span>
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <div>
-                    <h3 className="region-status-card-title">Status Kepengurusan IFPI</h3>
-                    <p className="region-status-card-text">{selectedRegion.ifpiStatus}</p>
+                ) : (
+                  /* TAMPILAN TAB 2: PROFIL WILAYAH GEOGRAFIS */
+                  <div className="region-profile-panel" role="tabpanel" aria-labelledby="tab-profile">
+                    <div className="region-panel-stats">
+                      <div className="region-stat-item">
+                        <span className="region-stat-label">Pusat Pemerintahan</span>
+                        <span className="region-stat-val">{selectedRegion.capital}</span>
+                      </div>
+                      <div className="region-stat-item">
+                        <span className="region-stat-label">Luas Wilayah</span>
+                        <span className="region-stat-val">{selectedRegion.area}</span>
+                      </div>
+                      <div className="region-stat-item">
+                        <span className="region-stat-label">Jumlah Penduduk</span>
+                        <span className="region-stat-val">{selectedRegion.population}</span>
+                      </div>
+                      <div className="region-stat-item">
+                        <span className="region-stat-label">Wilayah Administrasi</span>
+                        <span className="region-stat-val">{selectedRegion.districts}</span>
+                      </div>
+                    </div>
+
+                    <p className="region-panel-desc">
+                      {selectedRegion.description}
+                    </p>
+
+                    <div className="region-panel-status-card">
+                      <div className="region-status-card-icon">
+                        <Icon name="shield" size={18} color="var(--ifpi-red)" />
+                      </div>
+                      <div>
+                        <h3 className="region-status-card-title">Status Kepengurusan IFPI</h3>
+                        <p className="region-status-card-text">{selectedRegion.ifpiStatus}</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Tombol Aksi Menuju Struktur Organisasi Wilayah (jika bukan prov-riau) */}
                 {selectedRegion.id !== 'prov-riau' ? (
@@ -232,14 +483,21 @@ export default function RegionsPage() {
                     </Link>
                   </div>
                 ) : (
-                  <div className="region-panel-actions">
+                  <div className="region-panel-actions" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <Link
+                      to="/wilayah/prov-riau"
+                      className="region-btn-structure"
+                      aria-label="Lihat Daftar Nominatif JF Pemprov Riau"
+                    >
+                      <span>Lihat Tabel Nominatif Pemprov Riau</span>
+                      <Icon name="arrow-right" size={16} />
+                    </Link>
                     <Link
                       to="/struktur-organisasi"
-                      className="region-btn-structure"
+                      style={{ fontSize: '0.75rem', textAlign: 'center', color: '#B8202D', fontWeight: 600, textDecoration: 'none' }}
                       aria-label="Lihat Struktur Dewan Pengurus Wilayah IFPI Riau"
                     >
-                      <span>Lihat Struktur DPW Riau</span>
-                      <Icon name="arrow-right" size={16} />
+                      Lihat Bagan Struktur DPW Riau →
                     </Link>
                   </div>
                 )}
