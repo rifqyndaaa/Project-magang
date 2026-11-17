@@ -46,6 +46,7 @@ export default function AdminDashboard() {
     {
       key: '',
       tone: 'total',
+      icon: 'file-text',
       label: 'Total Pengajuan',
       value: stats.total,
       note: 'Seluruh kategori layanan'
@@ -53,6 +54,7 @@ export default function AdminDashboard() {
     {
       key: 'Baru',
       tone: 'baru',
+      icon: 'alert-circle',
       label: 'Baru Diterima',
       value: stats.baru,
       note: 'Menunggu verifikasi petugas'
@@ -60,6 +62,7 @@ export default function AdminDashboard() {
     {
       key: 'Diproses',
       tone: 'proses',
+      icon: 'clock',
       label: 'Sedang Diproses',
       value: stats.diproses,
       note: 'Sedang ditelaah atau ditindaklanjuti'
@@ -67,6 +70,7 @@ export default function AdminDashboard() {
     {
       key: 'Selesai',
       tone: 'selesai',
+      icon: 'check-circle',
       label: 'Selesai Ditangani',
       value: stats.selesai,
       note: `${stats.ditanggapi} pengajuan bertanggapan resmi`
@@ -81,7 +85,7 @@ export default function AdminDashboard() {
           <h1 className="adx-page-head__title">Rekapitulasi Layanan &amp; Pengaduan</h1>
           <p className="adx-page-head__desc">
             Daftar pengajuan yang masuk dari portal publik beserta status penanganannya.
-            Seluruh angka di bawah dihitung langsung dari data pengajuan yang tersimpan.
+            Seluruh angka di bawah dihitung langsung dari data pengajuan yang tersimpan di cloud database.
           </p>
         </div>
 
@@ -97,7 +101,7 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      {/* Pita indikator: satu blok terbagi garis, bukan empat kartu mengambang */}
+      {/* Kartu Statistik Proporsional */}
       <div className="adx-kpis">
         {kpis.map((kpi) => (
           <button
@@ -107,7 +111,10 @@ export default function AdminDashboard() {
             onClick={() => setFilterState(prev => ({ ...prev, status: kpi.key }))}
             aria-pressed={filterState.status === kpi.key}
           >
-            <span className="adx-kpi__label">{kpi.label}</span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginBottom: '0.2rem' }}>
+              <span className="adx-kpi__label">{kpi.label}</span>
+              <Icon name={kpi.icon} size={15} color="currentColor" />
+            </div>
             <span className="adx-kpi__value">{kpi.value}</span>
             <span className="adx-kpi__note">{kpi.note}</span>
           </button>

@@ -4,8 +4,7 @@ import { REKAPITULASI_JF_RIAU, TOTAL_JF_RIAU } from '../../data/regionsData';
 
 /**
  * Wilayah — Tabel pandangan data 12 kabupaten/kota + Pemprov Riau.
- * Menampilkan data rekonsiliasi Jabatan Fungsional (JF) & status DPC.
- * Read-only: sumber data tetap src/data/regionsData.js.
+ * Menampilkan data rekonsiliasi Jabatan Fungsional (JF) & status DPC serta SK resmi.
  */
 export default function AdminWilayah() {
   const totalDpc = REKAPITULASI_JF_RIAU.filter(r => r.isAvailable).length;
@@ -31,44 +30,47 @@ export default function AdminWilayah() {
 
       {/* KPI Ribbon Personel & Keanggotaan */}
       <section className="adx-kpis" style={{ marginBottom: '1.5rem' }}>
-        <div className="adx-kpi">
-          <span className="adx-kpi__num">{TOTAL_JF_RIAU.totalJf}</span>
-          <span className="adx-kpi__lbl">Total Personel JF PBJ</span>
+        <div className="adx-kpi adx-kpi--total">
+          <span className="adx-kpi__label">Total Personel JF PBJ</span>
+          <span className="adx-kpi__value">{TOTAL_JF_RIAU.totalJf}</span>
           <span className="adx-kpi__note">13 entitas se-Provinsi Riau</span>
         </div>
-        <div className="adx-kpi">
-          <span className="adx-kpi__num" style={{ color: 'var(--adx-primary, #B8202D)' }}>
-            {TOTAL_JF_RIAU.totalMembersByLetter}
-          </span>
-          <span className="adx-kpi__lbl">Anggota (Surat Masuk)</span>
+        <div className="adx-kpi adx-kpi--baru">
+          <span className="adx-kpi__label">Anggota (Surat Masuk)</span>
+          <span className="adx-kpi__value">{TOTAL_JF_RIAU.totalMembersByLetter}</span>
           <span className="adx-kpi__note">{TOTAL_JF_RIAU.percentageByLetter} rasio terdata</span>
         </div>
-        <div className="adx-kpi">
-          <span className="adx-kpi__num">{TOTAL_JF_RIAU.totalMembersBySystem}</span>
-          <span className="adx-kpi__lbl">Anggota (By Sistem)</span>
+        <div className="adx-kpi adx-kpi--proses">
+          <span className="adx-kpi__label">Anggota (By Sistem)</span>
+          <span className="adx-kpi__value">{TOTAL_JF_RIAU.totalMembersBySystem}</span>
           <span className="adx-kpi__note">{TOTAL_JF_RIAU.percentageBySystem} akun portal aktif</span>
         </div>
-        <div className="adx-kpi">
-          <span className="adx-kpi__num">{TOTAL_JF_RIAU.totalNotYetMembers}</span>
-          <span className="adx-kpi__lbl">Belum Terdaftar</span>
-          <span className="adx-kpi__note">{totalDpc} wilayah telah ber-SK</span>
+        <div className="adx-kpi adx-kpi--selesai">
+          <span className="adx-kpi__label">Status Wilayah</span>
+          <span className="adx-kpi__value">{totalDpc} / 13</span>
+          <span className="adx-kpi__note">Telah berkonsolidasi resmi</span>
         </div>
       </section>
 
       <section className="adx-panel">
+        <div className="adx-panel__head">
+          <h2 className="adx-panel__title">Daftar Wilayah &amp; Rekonsiliasi Keanggotaan</h2>
+          <span className="adx-panel__meta">13 Entitas Wilayah</span>
+        </div>
         <div className="adx-table-scroll">
           <table className="adx-table">
             <thead>
               <tr>
-                <th>No</th>
+                <th style={{ width: '40px', textAlign: 'center' }}>No</th>
                 <th>Wilayah / Instansi</th>
                 <th>Jenis</th>
                 <th style={{ textAlign: 'right' }}>Total JF</th>
-                <th style={{ textAlign: 'right', color: '#8F1723' }}>Surat Masuk</th>
+                <th style={{ textAlign: 'right', color: 'var(--adx-red)' }}>Surat Masuk</th>
                 <th style={{ textAlign: 'right' }}>By Sistem</th>
                 <th style={{ textAlign: 'right' }}>Belum Anggota</th>
                 <th style={{ textAlign: 'right' }}>Rasio</th>
                 <th style={{ textAlign: 'center' }}>Status DPC</th>
+                <th style={{ textAlign: 'center' }}>Dokumen SK</th>
               </tr>
             </thead>
             <tbody>
@@ -79,20 +81,22 @@ export default function AdminWilayah() {
 
                 return (
                   <tr key={region.id}>
-                    <td style={{ textAlign: 'center', color: '#686868' }}>{index + 1}</td>
+                    <td style={{ textAlign: 'center', color: '#64748B' }}>{index + 1}</td>
                     <td>
                       <span className="adx-person__name">{region.name}</span>
                       {region.capital && (
-                        <span className="adx-person__contact">Ibu Kota: {region.capital}</span>
+                        <span className="adx-person__contact" style={{ display: 'block', fontSize: '0.6875rem' }}>
+                          Ibu Kota: {region.capital}
+                        </span>
                       )}
                     </td>
                     <td style={{ textTransform: 'capitalize' }}>{region.type}</td>
                     <td style={{ textAlign: 'right', fontWeight: 700 }}>{region.jfCount}</td>
-                    <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--adx-primary, #B8202D)' }}>
+                    <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--adx-red)' }}>
                       {region.membersByLetter}
                     </td>
                     <td style={{ textAlign: 'right' }}>{region.membersBySystem}</td>
-                    <td style={{ textAlign: 'right', color: '#686868' }}>{region.notYetMembers}</td>
+                    <td style={{ textAlign: 'right', color: '#64748B' }}>{region.notYetMembers}</td>
                     <td style={{ textAlign: 'right', fontWeight: 600 }}>{ratio}%</td>
                     <td style={{ textAlign: 'center' }}>
                       {region.isAvailable ? (
@@ -101,23 +105,35 @@ export default function AdminWilayah() {
                         <span className="adx-tag adx-tag--off">Konsolidasi</span>
                       )}
                     </td>
+                    <td style={{ textAlign: 'center' }}>
+                      <Link
+                        to={`/wilayah/${region.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="adx-btn adx-btn--xs"
+                        title="Lihat profil & SK resmi wilayah"
+                      >
+                        <Icon name="file-text" size={12} color="currentColor" />
+                        <span>Lihat SK</span>
+                      </Link>
+                    </td>
                   </tr>
                 );
               })}
               {/* Baris Total */}
-              <tr style={{ backgroundColor: '#F8FAFC', fontWeight: 800, borderTop: '2px solid #E2E8F0' }}>
-                <td colSpan={3} style={{ textAlign: 'left', padding: '0.85rem 1rem' }}>
+              <tr style={{ backgroundColor: '#F8FAFC', fontWeight: 700, borderTop: '2px solid #CBD5E1' }}>
+                <td colSpan={3} style={{ textAlign: 'left', padding: '0.9rem 1rem' }}>
                   JUMLAH TOTAL SE-PROVINSI RIAU
                 </td>
-                <td style={{ textAlign: 'right', padding: '0.85rem 1rem' }}>{TOTAL_JF_RIAU.totalJf}</td>
-                <td style={{ textAlign: 'right', padding: '0.85rem 1rem', color: 'var(--adx-primary, #B8202D)' }}>
+                <td style={{ textAlign: 'right', padding: '0.9rem 1rem' }}>{TOTAL_JF_RIAU.totalJf}</td>
+                <td style={{ textAlign: 'right', padding: '0.9rem 1rem', color: 'var(--adx-red)' }}>
                   {TOTAL_JF_RIAU.totalMembersByLetter}
                 </td>
-                <td style={{ textAlign: 'right', padding: '0.85rem 1rem' }}>{TOTAL_JF_RIAU.totalMembersBySystem}</td>
-                <td style={{ textAlign: 'right', padding: '0.85rem 1rem' }}>{TOTAL_JF_RIAU.totalNotYetMembers}</td>
-                <td style={{ textAlign: 'right', padding: '0.85rem 1rem' }}>{TOTAL_JF_RIAU.percentageByLetter}</td>
-                <td style={{ textAlign: 'center', color: '#686868', fontSize: '0.8125rem' }}>
-                  13 Entitas
+                <td style={{ textAlign: 'right', padding: '0.9rem 1rem' }}>{TOTAL_JF_RIAU.totalMembersBySystem}</td>
+                <td style={{ textAlign: 'right', padding: '0.9rem 1rem' }}>{TOTAL_JF_RIAU.totalNotYetMembers}</td>
+                <td style={{ textAlign: 'right', padding: '0.9rem 1rem' }}>{TOTAL_JF_RIAU.percentageByLetter}</td>
+                <td colSpan={2} style={{ textAlign: 'center', color: '#64748B', fontSize: '0.78125rem' }}>
+                  13 Entitas Resmi
                 </td>
               </tr>
             </tbody>

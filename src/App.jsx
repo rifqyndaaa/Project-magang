@@ -88,6 +88,7 @@ export default function App() {
           <Route path="merchandise"   element={<AdminMerchandise />} />
           <Route path="pengaturan"    element={<AdminPengaturan />} />
           <Route path="report/:id"    element={<AdminDetail />} />
+          <Route path="pengajuan/:id" element={<AdminDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>
