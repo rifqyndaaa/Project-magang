@@ -657,6 +657,353 @@
 }
 
 /* ================================================================
+   KOMPONEN PROGRAM KERJA RESMI (EDITORIAL GOV DESIGN)
+   ================================================================ */
+.prog-section {
+  margin-top: 3.5rem;
+}
+
+.prog-section-header {
+  margin-bottom: 1.5rem;
+}
+
+.prog-section-badge {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ifpi-red, #B8202D);
+  background-color: var(--ifpi-light-red, #F9EDEF);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.prog-section-title {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #18181B;
+  margin: 0 0 0.5rem;
+}
+
+.prog-section-desc {
+  font-size: 0.9375rem;
+  color: #52525B;
+  line-height: 1.6;
+  max-width: 760px;
+  margin: 0;
+}
+
+/* 5 Program Unggulan Grid */
+.prog-unggulan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.prog-unggulan-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4E7;
+  border-top: 3px solid var(--ifpi-red, #B8202D);
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.prog-unggulan-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.prog-unggulan-num {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ifpi-red, #B8202D);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.prog-unggulan-title {
+  font-family: var(--font-ui);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #18181B;
+  margin: 0 0 0.65rem;
+  line-height: 1.35;
+}
+
+.prog-unggulan-desc {
+  font-size: 0.875rem;
+  color: #52525B;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Divisi Cards & Tables */
+.prog-divisi-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.prog-divisi-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4E7;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.prog-divisi-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #F4F4F5;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.prog-divisi-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--ifpi-red, #B8202D);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.35rem;
+}
+
+.prog-divisi-nama {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #18181B;
+  margin: 0;
+}
+
+.prog-divisi-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background-color: #FAFAFA;
+  border: 1px solid #E4E4E7;
+  padding: 0.5rem 0.85rem;
+  border-radius: 6px;
+}
+
+.prog-divisi-ketua-label {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  color: #71717A;
+  font-weight: 600;
+}
+
+.prog-divisi-ketua-val {
+  font-size: 0.875rem;
+  color: #18181B;
+  font-weight: 700;
+}
+
+.prog-divisi-desc {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: #3F3F46;
+  margin: 0 0 1.5rem;
+}
+
+/* Tabel Program & Output */
+.prog-table-wrap {
+  overflow-x: auto;
+  border: 1px solid #E4E4E7;
+  border-radius: 6px;
+}
+
+.prog-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.prog-table thead tr {
+  background-color: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.prog-table th {
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #475569;
+}
+
+.prog-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #F1F5F9;
+  vertical-align: top;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.prog-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.prog-table tbody tr:hover td {
+  background-color: #F8FAFC;
+}
+
+.prog-td-no {
+  font-weight: 700;
+  color: var(--ifpi-red, #B8202D);
+}
+
+.prog-td-nama {
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.prog-td-output {
+  color: #334155;
+}
+
+.prog-td-bulan {
+  color: var(--ifpi-red, #B8202D);
+}
+
+.prog-badge-target {
+  display: inline-block;
+  background-color: #ECFDF5;
+  color: #047857;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #A7F3D0;
+}
+
+/* KPI Divisi Box */
+.prog-kpi-box {
+  margin-top: 1.5rem;
+  background-color: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-left: 3px solid #D97706;
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+}
+
+.prog-kpi-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #92400E;
+  margin: 0 0 0.65rem;
+}
+
+.prog-kpi-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.84rem;
+  color: #78350F;
+  line-height: 1.5;
+}
+
+/* Dual Grid untuk Tahunan & Target */
+.prog-dual-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+
+/* Pengesahan Dokumen Resmi */
+.prog-sign-box {
+  margin-top: 4rem;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-top: 4px solid var(--ifpi-red, #B8202D);
+  border-radius: 8px;
+  padding: 2rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.prog-sign-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.prog-sign-col--right {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.prog-sign-label {
+  font-size: 0.8125rem;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.prog-sign-sub {
+  font-size: 0.75rem;
+  color: #94A3B8;
+  margin-top: 0.25rem;
+}
+
+.prog-sign-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-top: 0.25rem;
+}
+
+.prog-sign-role {
+  font-size: 0.8125rem;
+  color: #475569;
+}
+
+@media (max-width: 768px) {
+  .prog-sign-box {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+  }
+  .prog-sign-col--right {
+    text-align: left;
+    align-items: flex-start;
+  }
+  .prog-divisi-meta {
+    align-items: flex-start;
+  }
+  .prog-dual-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================================================
    RESPONSIVE
    ================================================================ */
 @media (max-width: 768px) {

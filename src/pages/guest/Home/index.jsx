@@ -76,6 +76,20 @@ const RIAU_FACTS = [
   { num: '192', label: 'JF Terdata' },
 ];
 
+const VISI_MISI = {
+  visi: 'Menjadi DPW IFPI Riau sebagai organisasi profesi yang solid, profesional, dan berintegritas dalam mengembangkan kompetensi, advokasi, dan perlindungan profesi.',
+  misi: [
+    { no: '01', text: 'Membangun solidaritas dan jejaring aktif antar anggota.' },
+    { no: '02', text: 'Mendorong pengembangan kompetensi berkelanjutan di bidang pengadaan.' },
+    { no: '03', text: 'Melaksanakan advokasi karir dan perlindungan kesejahteraan anggota.' },
+    { no: '04', text: 'Meningkatkan kapasitas digital dan inovasi teknologi pengadaan.' },
+    { no: '05', text: 'Memperkuat integritas dan penegakan kode etik profesi.' },
+    { no: '06', text: 'Menjalin kolaborasi strategis dengan LKPP, perguruan tinggi, dan dunia usaha.' },
+    { no: '07', text: 'Memberikan kontribusi nyata bagi pembangunan Provinsi Riau.' }
+  ],
+  slogan: 'Satu Profesi, Satu Integritas untuk Riau Berkualitas'
+};
+
 const FAQ_ITEMS = [
   {
     q: 'Bagaimana cara menyampaikan pengaduan melalui portal ini?',
@@ -434,6 +448,66 @@ export default function Home() {
                 Pelajari Jawaban &amp; FAQ Layanan →
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          3.5. VISI, MISI & SLOGAN ORGANISASI (RESMI 2027–2032)
+          ============================================================ */}
+      <section className="home-vision" aria-labelledby="vision-heading">
+        <div className="home-container">
+          <div className="home-section-intro">
+            <span className="home-section-eyebrow">Arah Strategis</span>
+            <h2 id="vision-heading" className="home-section-title">
+              Visi &amp; Misi DPW IFPI Riau 2027–2032
+            </h2>
+            <p className="home-section-desc">
+              Komitmen kepengurusan dalam mengembangkan kompetensi profesi, advokasi, dan tata kelola pengadaan barang/jasa yang transparan dan akuntabel.
+            </p>
+          </div>
+
+          <div className="home-vision__grid">
+            {/* Kolom Kiri: Visi Organisasi */}
+            <div className="home-vision__col home-vision__col--visi">
+              <div className="home-vision__card">
+                <div className="home-vision__card-header">
+                  <span className="home-vision__tag">Visi Organisasi</span>
+                  <span className="home-vision__subtag">Periode 2027–2032</span>
+                </div>
+                <blockquote className="home-vision__quote">
+                  &ldquo;{VISI_MISI.visi}&rdquo;
+                </blockquote>
+                <div className="home-vision__badge-box">
+                  <span className="home-vision__badge-label">Organisasi Profesi</span>
+                  <span className="home-vision__badge-val">DPW IFPI Wilayah Riau</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Kolom Kanan: 7 Misi Organisasi */}
+            <div className="home-vision__col home-vision__col--misi">
+              <div className="home-vision__card">
+                <div className="home-vision__card-header">
+                  <span className="home-vision__tag">Misi Organisasi</span>
+                  <span className="home-vision__subtag">7 Pilar Pengabdian</span>
+                </div>
+                <ol className="home-vision__list">
+                  {VISI_MISI.misi.map((item) => (
+                    <li key={item.no} className="home-vision__item">
+                      <span className="home-vision__num">{item.no}</span>
+                      <span className="home-vision__text">{item.text}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          {/* Slogan Resmi DPW IFPI Riau */}
+          <div className="home-vision__slogan-bar">
+            <span className="home-vision__slogan-eyebrow">Slogan Resmi</span>
+            <p className="home-vision__slogan-text">&ldquo;{VISI_MISI.slogan}&rdquo;</p>
           </div>
         </div>
       </section>

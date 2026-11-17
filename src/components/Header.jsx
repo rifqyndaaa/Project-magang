@@ -19,6 +19,7 @@ export default function Header() {
 
   // Tutup menu saat rute atau hash berubah
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMobileMenuOpen(false);
     setActiveDropdown(null);
     setMobileSubmenu(null);
@@ -45,8 +46,8 @@ export default function Header() {
     setMobileSubmenu(prev => (prev === menu ? null : menu));
   };
 
-  // Dukungan keyboard: fokus masuk membuka dropdown, fokus keluar menutupnya
-  const handleDropdownFocus = (menu) => (e) => {
+  // Dukungan keyboard: fokus masuk membuka dropdown
+  const handleDropdownFocus = (menu) => () => {
     if (window.innerWidth <= 1024) return;
     setActiveDropdown(menu);
   };
@@ -54,17 +55,6 @@ export default function Header() {
   const handleDropdownBlur = (e) => {
     if (e.currentTarget.contains(e.relatedTarget)) return;
     setActiveDropdown(null);
-  };
-
-  // Navigasi dengan scroll halus ke target anchor in-page
-  const handleAnchorClick = (hashId) => {
-    closeMenu();
-    setTimeout(() => {
-      const el = document.getElementById(hashId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 120);
   };
 
   // Penentuan status aktif menu utama
@@ -123,99 +113,15 @@ export default function Header() {
               </NavLink>
             </li>
 
-            {/* 2. LAYANAN (DROPDOWN) */}
-            <li
-              className={`gov-nav-has-dropdown ${activeDropdown === 'layanan' ? 'is-dropdown-open' : ''} ${mobileSubmenu === 'layanan' ? 'is-mobile-submenu-open' : ''}`}
-              onMouseEnter={() => setActiveDropdown('layanan')}
-              onMouseLeave={() => setActiveDropdown(null)}
-              onFocus={handleDropdownFocus('layanan')}
-              onBlur={handleDropdownBlur}
-            >
-              <div className="gov-nav-parent-wrapper">
-                <NavLink
-                  to="/layanan"
-                  className={`gov-nav-parent-link ${isLayananActive ? 'active' : ''}`}
-                  onClick={(e) => {
-                    if (window.innerWidth <= 1024) {
-                      e.preventDefault();
-                      toggleMobileSubmenu('layanan');
-                    } else {
-                      closeMenu();
-                    }
-                  }}
-                  aria-expanded={activeDropdown === 'layanan' || mobileSubmenu === 'layanan'}
-                  aria-haspopup="true"
-                >
-                  <span>Layanan</span>
-                  <span className="gov-nav-arrow-icon" aria-hidden="true">
-                    <Icon name={mobileSubmenu === 'layanan' ? 'chevron-up' : 'chevron-down'} size={14} />
-                  </span>
-                </NavLink>
-
-                {/* Tombol ekspansi mobile */}
-                <button
-                  type="button"
-                  className="gov-mobile-submenu-btn"
-                  aria-label="Buka submenu Layanan"
-                  onClick={() => toggleMobileSubmenu('layanan')}
-                >
-                  <Icon name={mobileSubmenu === 'layanan' ? 'chevron-up' : 'chevron-down'} size={15} />
-                </button>
-              </div>
-
-              {/* Isi Dropdown Layanan */}
-              <div className="gov-dropdown-menu" role="menu">
-                <Link
-                  to="/report?category=hukum"
-                  className="gov-dropdown-item"
-                  role="menuitem"
-                  onClick={closeMenu}
-                >
-                  <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">Permasalahan dan Konsultasi Hukum</span>
-                    <span className="gov-dropdown-item-desc">Konsultasi regulasi dan telaah sengketa hukum</span>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/report?category=pengaduan"
-                  className="gov-dropdown-item"
-                  role="menuitem"
-                  onClick={closeMenu}
-                >
-                  <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">Konsultasi Terkait Pengaduan</span>
-                    <span className="gov-dropdown-item-desc">Tata cara aduan dan konfirmasi tindak lanjut</span>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/report?category=narasumber"
-                  className="gov-dropdown-item"
-                  role="menuitem"
-                  onClick={closeMenu}
-                >
-                  <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">Permintaan Narasumber dan Undangan</span>
-                    <span className="gov-dropdown-item-desc">Permohonan pemateri seminar dan undangan resmi</span>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/track"
-                  className="gov-dropdown-item gov-dropdown-item-highlight"
-                  role="menuitem"
-                  onClick={closeMenu}
-                >
-                  <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">
-                      <Icon name="search" size={14} className="gov-dropdown-item-icon" />
-                      Lacak Laporan
-                    </span>
-                    <span className="gov-dropdown-item-desc">Pantau status tiket resmi pengajuan Anda</span>
-                  </div>
-                </Link>
-              </div>
+            {/* 2. LAYANAN (LINK LANGSUNG) */}
+            <li>
+              <NavLink
+                to="/layanan"
+                className={isLayananActive ? 'active' : ''}
+                onClick={closeMenu}
+              >
+                Layanan
+              </NavLink>
             </li>
 
             {/* 3. STRUKTUR ORGANISASI */}
