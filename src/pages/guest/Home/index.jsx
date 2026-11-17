@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Icon from "../../../components/Icon";
 import './Home.css';
@@ -17,18 +17,18 @@ const RIAU_VIDEO_ID = 'zpgJUBtcej0';
 const RIAU_VIDEO_CHANNEL_URL =
   'https://www.youtube.com/results?search_query=profil+provinsi+riau+diskominfotik';
 
-const RIAU_VIDEO_POSTER = '/images/tugu-zapin.jpg';
+const RIAU_VIDEO_POSTER = '/images/tugu-zapin-terbaru.jpg';
 
 /* Ikon budaya yang dipakai khusus pada bagian "Mengenal Provinsi Riau". */
 const RIAU_LANDMARK = {
-  src: '/images/tugu-zapin.jpg',
+  src: '/images/tugu-zapin-terbaru.jpg',
   eyebrow: 'Ikon Kota Pekanbaru',
   title: 'Tugu Zapin',
   caption:
-    'Monumen seni tari Melayu di jantung Kota Pekanbaru. Zapin lahir dari tradisi Melayu pesisir, dan hingga kini menjadi penanda bahwa pengadaan di Riau bekerja di dalam ruang budaya yang hidup — bukan di ruang hampa.',
+    'Monumen seni tari Melayu di jantung Kota Pekanbaru. Zapin lahir dari tradisi Melayu pesisir, dan hingga kini menjadi penanda bahwa pengadaan di Riau bekerja di dalam ruang budaya yang hidup â€” bukan di ruang hampa.',
 };
 
-/* Foto latar hero — empat gambar berbeda diputar bergantian agar tidak monoton. */
+/* Foto latar hero â€” empat gambar berbeda diputar bergantian agar tidak monoton. */
 const HERO_SLIDES = [
   {
     src: '/images/jembatan-siak.jpg',
@@ -48,11 +48,11 @@ const HERO_SLIDES = [
   },
 ];
 
-/* Galeri ringkas — satu foto utama, dua pendamping. Foto utama memakai Tugu
+/* Galeri ringkas â€” satu foto utama, dua pendamping. Foto utama memakai Tugu
    Zapin supaya bagian ini tidak lagi menampilkan tiga foto yang sama. */
 const RIAU_GALLERY = [
   {
-    src: '/images/tugu-zapin.jpg',
+    src: '/images/tugu-zapin-terbaru.jpg',
     title: 'Tugu Zapin Pekanbaru',
     caption: 'Monumen seni budaya Melayu di jantung ibu kota provinsi.',
   },
@@ -171,10 +171,10 @@ export default function Home() {
     <div className="home-page">
 
       {/* ============================================================
-          1. HERO SECTION — FULLSCREEN IDENTITAS RESMI IFPI RIAU
+          1. HERO SECTION â€” FULLSCREEN IDENTITAS RESMI IFPI RIAU
           ============================================================ */}
       <section className="home-hero" aria-labelledby="hero-heading">
-        {/* Background Landmark Provinsi Riau — slideshow lambat */}
+        {/* Background Landmark Provinsi Riau â€” slideshow lambat */}
         <div className="home-hero__bg" aria-hidden="true">
           {HERO_SLIDES.map((slide, index) => (
             <div
@@ -190,7 +190,7 @@ export default function Home() {
         <div className="home-hero__container">
           <div className="home-hero__eyebrow">
             <span className="home-hero__eyebrow-slash">// </span>
-            IKATAN FUNGSIONAL PENGADAAN INDONESIA — DPW RIAU
+            IKATAN FUNGSIONAL PENGADAAN INDONESIA â€” DPW RIAU
           </div>
 
           <h1 id="hero-heading" className="home-hero__title">
@@ -250,7 +250,7 @@ export default function Home() {
           <div className="home-hero__panel-body">
             <div className="home-hero__panel-row">
               <span className="home-hero__panel-label">Pelayanan Petugas:</span>
-              <span className="home-hero__panel-val">Senin – Jumat, 08.00 – 16.00 WIB</span>
+              <span className="home-hero__panel-val">Senin â€“ Jumat, 08.00 â€“ 16.00 WIB</span>
             </div>
             <div className="home-hero__panel-row">
               <span className="home-hero__panel-label">Penerimaan Formulir:</span>
@@ -316,7 +316,7 @@ export default function Home() {
               Cara menemukan nomor tiket?
             </button>
             <Link to="/track" className="home-track__full-link">
-              Halaman Pelacakan Lengkap →
+              Halaman Pelacakan Lengkap â†’
             </Link>
           </div>
           {showTicketHelp && (
@@ -344,12 +344,12 @@ export default function Home() {
               <p className="home-section-desc">
                 Provinsi Riau terletak di pesisir timur Pulau Sumatra dengan ibu kota Pekanbaru.
                 Wilayahnya membentang dari daratan rendah hingga kepulauan di Selat Malaka, dan
-                dikenal sebagai Bumi Lancang Kuning — tanah Melayu dengan kekayaan budaya,
+                dikenal sebagai Bumi Lancang Kuning â€” tanah Melayu dengan kekayaan budaya,
                 sumber daya alam, serta semangat pembangunan yang kuat.
               </p>
               <p className="home-section-desc">
                 Bagi IFPI, Riau bukan sekadar wilayah kerja. Provinsi ini menaungi 12
-                kabupaten/kota yang masing-masing memiliki karakter pengadaan berbeda — dari
+                kabupaten/kota yang masing-masing memiliki karakter pengadaan berbeda â€” dari
                 daerah pesisir dengan proyek infrastruktur besar hingga kabupaten pedalaman
                 dengan volume belanja yang lebih kecil. Perbedaan itu menuntut pendampingan
                 yang tidak seragam, dan di situlah peran organisasi profesi menjadi penting.
@@ -420,7 +420,7 @@ export default function Home() {
                 Provinsi Riau
               </div>
               <h3 className="home-video__info-title">
-                Bumi Lancang Kuning — Pengadaan Bersih &amp; Berintegritas
+                Bumi Lancang Kuning â€” Pengadaan Bersih &amp; Berintegritas
               </h3>
               <p className="home-video__info-text">
                 Secara geografis Riau berbatasan dengan Selat Malaka di timur, Sumatra Utara
@@ -431,7 +431,7 @@ export default function Home() {
                 penanda tradisi Melayu yang masih dirawat hingga hari ini.
               </p>
               <p className="home-video__info-text">
-                Konsekuensinya, nilai belanja pemerintah di Riau tergolong besar — dan besar
+                Konsekuensinya, nilai belanja pemerintah di Riau tergolong besar â€” dan besar
                 pula risikonya. DPW IFPI Riau hadir mendampingi aparatur pengadaan di 12
                 kabupaten/kota agar setiap proses berjalan sesuai regulasi, terdokumentasi
                 rapi, dan tidak membuka celah penyimpangan.
@@ -445,7 +445,7 @@ export default function Home() {
                 ))}
               </ul>
               <a href="#faq" className="home-video__link">
-                Pelajari Jawaban &amp; FAQ Layanan →
+                Pelajari Jawaban &amp; FAQ Layanan â†’
               </a>
             </div>
           </div>
@@ -453,14 +453,14 @@ export default function Home() {
       </section>
 
       {/* ============================================================
-          3.5. VISI, MISI & SLOGAN ORGANISASI (RESMI 2027–2032)
+          3.5. VISI, MISI & SLOGAN ORGANISASI (RESMI 2027â€“2032)
           ============================================================ */}
       <section className="home-vision" aria-labelledby="vision-heading">
         <div className="home-container">
           <div className="home-section-intro">
             <span className="home-section-eyebrow">Arah Strategis</span>
             <h2 id="vision-heading" className="home-section-title">
-              Visi &amp; Misi DPW IFPI Riau 2027–2032
+              Visi &amp; Misi DPW IFPI Riau 2027â€“2032
             </h2>
             <p className="home-section-desc">
               Komitmen kepengurusan dalam mengembangkan kompetensi profesi, advokasi, dan tata kelola pengadaan barang/jasa yang transparan dan akuntabel.
@@ -473,7 +473,7 @@ export default function Home() {
               <div className="home-vision__card">
                 <div className="home-vision__card-header">
                   <span className="home-vision__tag">Visi Organisasi</span>
-                  <span className="home-vision__subtag">Periode 2027–2032</span>
+                  <span className="home-vision__subtag">Periode 2027â€“2032</span>
                 </div>
                 <blockquote className="home-vision__quote">
                   &ldquo;{VISI_MISI.visi}&rdquo;
@@ -579,14 +579,14 @@ export default function Home() {
 
           <div className="home-services__footer">
             <Link to="/layanan" className="home-services__all-link">
-              Buka Halaman Rincian Layanan Lengkap →
+              Buka Halaman Rincian Layanan Lengkap â†’
             </Link>
           </div>
         </div>
       </section>
 
       {/* ============================================================
-          4b. POTRET RIAU — galeri foto sebagai jeda visual antar bagian
+          4b. POTRET RIAU â€” galeri foto sebagai jeda visual antar bagian
           ============================================================ */}
       <section className="home-gallery" aria-labelledby="gallery-heading">
         <div className="home-container">
@@ -598,7 +598,7 @@ export default function Home() {
               </h2>
             </div>
             <p className="home-gallery__lede">
-              Pengadaan di Riau berlangsung di tengah lanskap yang luas — dari monumen
+              Pengadaan di Riau berlangsung di tengah lanskap yang luas â€” dari monumen
               budaya di pusat kota, sungai yang membelah Pekanbaru, hingga jejak
               kesultanan Melayu di pesisir.
             </p>
@@ -738,7 +738,7 @@ export default function Home() {
                   >
                     <span>{item.q}</span>
                     <span className="home-faq__icon" aria-hidden="true">
-                      {isOpen ? '−' : '+'}
+                      {isOpen ? 'âˆ’' : '+'}
                     </span>
                   </button>
 
@@ -798,9 +798,10 @@ export default function Home() {
                   <div>
                     <span className="home-contact__item-label">Alamat Sekretariat:</span>
                     <span className="home-contact__item-val">
-                      Gedung Dinas Komunikasi, Informatika dan Statistik Provinsi Riau<br />
-                      Jl. Jenderal Sudirman No. 460, Kel. Jadirejo, Kec. Sukajadi<br />
-                      Kota Pekanbaru, Riau 28126
+                      Gedung Menara Lancang Kuning Lt. 6<br />
+                      Biro Pengadaan Barang/Jasa Setda Prov Riau<br />
+                      Jl. Jend. Sudirman No. 460, Kel. Jadirejo, Kec. Sukajadi<br />
+                      Kota Pekanbaru, Provinsi Riau
                     </span>
                   </div>
                 </div>
@@ -808,10 +809,9 @@ export default function Home() {
                 <div className="home-contact__item">
                   <Icon name="phone" size={18} className="home-contact__item-icon" />
                   <div>
-                    <span className="home-contact__item-label">Telepon &amp; Call Center:</span>
+                    <span className="home-contact__item-label">Telepon &amp; Contact Person:</span>
                     <span className="home-contact__item-val">
-                      Telepon Kantor: (0761) 31256 / 31257<br />
-                      Hotline Bebas Pulsa: 112 (Siaga Kedaruratan Riau)
+                      Contact Person (CP): 0811762451
                     </span>
                   </div>
                 </div>
@@ -831,8 +831,8 @@ export default function Home() {
                   <div>
                     <span className="home-contact__item-label">Jam Pelayanan Verifikator:</span>
                     <span className="home-contact__item-val">
-                      Senin – Kamis : 08:00 – 16:00 WIB<br />
-                      Jumat : 08:00 – 16:30 WIB<br />
+                      Senin â€“ Kamis : 08:00 â€“ 16:00 WIB<br />
+                      Jumat : 08:00 â€“ 16:30 WIB<br />
                       Sabtu, Minggu &amp; Libur Nasional : Formulir online tetap aktif 24 jam
                     </span>
                   </div>
@@ -850,7 +850,7 @@ export default function Home() {
                   <span className="role">Bidang Permasalahan &amp; Konsultasi Hukum</span>
                   <p>
                     Gedung Menara Lancang Kuning Lt. 5, Kantor Gubernur Riau, Jl. Jend. Sudirman Pekanbaru<br />
-                    Layanan Konsultasi Regulasi: (0761) 31050 • birohukum@riau.go.id
+                    Layanan Konsultasi Regulasi: (0761) 31050 â€¢ birohukum@riau.go.id
                   </p>
                 </div>
 
@@ -859,7 +859,7 @@ export default function Home() {
                   <span className="role">Bidang Konsultasi Terkait Pengaduan</span>
                   <p>
                     Sekretariat Pengawasan &amp; Verifikasi Aduan Pelayanan Publik Riau<br />
-                    Helpdesk Pengaduan: (0761) 31256 • pengaduan@riau.go.id
+                    Helpdesk Pengaduan: (0761) 31256 â€¢ pengaduan@riau.go.id
                   </p>
                 </div>
 
@@ -868,7 +868,7 @@ export default function Home() {
                   <span className="role">Bidang Permintaan Narasumber &amp; Undangan</span>
                   <p>
                     Bagian Komunikasi dan Protokol Pimpinan Pemprov Riau<br />
-                    Koordinasi Agenda Resmi: (0761) 31258 • adpim@riau.go.id
+                    Koordinasi Agenda Resmi: (0761) 31258 â€¢ adpim@riau.go.id
                   </p>
                 </div>
               </div>
@@ -880,3 +880,6 @@ export default function Home() {
     </div>
   );
 }
+
+
+

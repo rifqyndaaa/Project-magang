@@ -5825,3 +5825,12 @@ code, kbd, samp, pre {
     grid-template-columns: 1fr;
   }
 }
+
+/* Foto sahabat IFPI pada halaman layanan */
+.services-friend { margin: 0 0 1rem; width: 160px; text-align: center; }
+.services-friend img { display: block; width: 100%; height: 160px; object-fit: cover; object-position: center 20%; border-radius: 4px; }
+.services-friend figcaption { padding-top: .55rem; line-height: 1.4; }
+.services-friend figcaption span, .services-friend figcaption strong { display: block; }
+.services-friend figcaption span { color: #64748b; font-size: .75rem; }
+.services-friend figcaption strong { color: var(--ifpi-ink); font-size: .9rem; }
+@media (max-width: 900px) { .services-friend { width: 140px; } .services-friend img { height: 140px; } }

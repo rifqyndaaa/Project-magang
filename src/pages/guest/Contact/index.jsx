@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import Icon from "../../../components/Icon";
 import PageHeader from "../../../components/PageHeader";
@@ -9,19 +9,19 @@ const KONTAK_SEKRETARIAT = [
     label: 'Alamat Kantor',
     value: (
       <>
-        Gedung Dinas Komunikasi, Informatika dan Statistik Provinsi Riau<br />
+        Gedung Menara Lancang Kuning Lt. 6<br />
+        Biro Pengadaan Barang/Jasa Setda Provinsi Riau<br />
         Jl. Jenderal Sudirman No. 460, Kel. Jadirejo, Kec. Sukajadi<br />
-        Kota Pekanbaru, Riau 28126
+        Kota Pekanbaru, Provinsi Riau
       </>
     ),
   },
   {
     icon: 'phone',
-    label: 'Telepon & Call Center',
+    label: 'Contact Person',
     value: (
       <>
-        Telepon Kantor: (0761) 31256 / 31257<br />
-        Hotline Bebas Pulsa: 112 (Siaga Kedaruratan Riau)
+        Contact Person (CP): 0811762451
       </>
     ),
   },
@@ -35,9 +35,9 @@ const KONTAK_SEKRETARIAT = [
     label: 'Jam Pelayanan Petugas',
     value: (
       <>
-        Senin – Kamis: 08.00 – 16.00 WIB<br />
-        Jumat: 08.00 – 16.30 WIB<br />
-        Sabtu, Minggu &amp; libur nasional: tutup — formulir daring tetap menerima laporan 24 jam
+        Senin â€“ Kamis: 08.00 â€“ 16.00 WIB<br />
+        Jumat: 08.00 â€“ 16.30 WIB<br />
+        Sabtu, Minggu &amp; libur nasional: tutup â€” formulir daring tetap menerima laporan 24 jam
       </>
     ),
   },
@@ -48,19 +48,19 @@ const OPD_PEMBINA = [
     nama: 'Biro Hukum Setda Prov. Riau',
     bidang: 'Bidang Permasalahan & Konsultasi Hukum',
     alamat: 'Gedung Menara Lancang Kuning Lt. 5, Kantor Gubernur Riau, Jl. Jend. Sudirman Pekanbaru',
-    kontak: 'Layanan Konsultasi Regulasi: (0761) 31050 · birohukum@riau.go.id',
+    kontak: 'Layanan Konsultasi Regulasi: (0761) 31050 Â· birohukum@riau.go.id',
   },
   {
     nama: 'Inspektorat Daerah & Diskominfotik Prov. Riau',
     bidang: 'Bidang Konsultasi Terkait Pengaduan',
     alamat: 'Sekretariat Pengawasan & Verifikasi Aduan Pelayanan Publik',
-    kontak: 'Helpdesk Pengaduan: (0761) 31256 · pengaduan@riau.go.id',
+    kontak: 'Helpdesk Pengaduan: (0761) 31256 Â· pengaduan@riau.go.id',
   },
   {
     nama: 'Biro Administrasi Pimpinan / Protokol Prov. Riau',
     bidang: 'Bidang Permintaan Narasumber dan Undangan',
     alamat: 'Bagian Komunikasi dan Protokol Pimpinan Pemprov Riau',
-    kontak: 'Koordinasi Agenda Resmi: (0761) 31258 · adpim@riau.go.id',
+    kontak: 'Koordinasi Agenda Resmi: (0761) 31258 Â· adpim@riau.go.id',
   },
 ];
 
@@ -76,7 +76,7 @@ export default function Contact() {
           lede="Hubungi sekretariat Ikatan Fungsional Pengadaan Indonesia untuk konsultasi pelayanan profesi, konfirmasi administrasi pengaduan, atau fasilitasi narasumber pengadaan."
           meta={[
             { label: 'Sekretariat', value: 'Pekanbaru, Riau' },
-            { label: 'Jam Layanan', value: 'Senin – Jumat' },
+            { label: 'Jam Layanan', value: 'Senin â€“ Jumat' },
             { label: 'OPD Pembina', value: '3 Instansi' },
           ]}
           action={{ to: '/report', label: 'Buka Formulir', icon: 'message' }}
@@ -148,3 +148,4 @@ export default function Contact() {
     </div>
   );
 }
+

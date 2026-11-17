@@ -1,18 +1,18 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import Icon from './Icon';
 
 /**
- * PageHeader — kepala halaman editorial untuk halaman dalam.
+ * PageHeader â€” kepala halaman editorial untuk halaman dalam.
  * Menggantikan pola "tag + judul + deskripsi" yang seragam dan datar.
  *
  * Props:
  *  - eyebrow  : label kecil di atas judul (uppercase)
- *  - title    : judul utama (string) — boleh berisi <em> untuk aksen merah
+ *  - title    : judul utama (string) â€” boleh berisi <em> untuk aksen merah
  *  - lede     : paragraf pengantar
  *  - meta     : array { label, value } untuk baris fakta singkat
  *  - action   : { to, label, icon } tombol aksi di kanan (opsional)
  */
-export default function PageHeader({ eyebrow, title, lede, meta = [], action = null }) {
+export default function PageHeader({ eyebrow, title, lede, meta = [], action = null, aside = null }) {
   return (
     <header className="pg-head">
       <div className="pg-head__grid">
@@ -33,15 +33,17 @@ export default function PageHeader({ eyebrow, title, lede, meta = [], action = n
           )}
         </div>
 
-        {action && (
+        {(action || aside) && (
           <div className="pg-head__aside">
-            <Link to={action.to} className="pg-head__action">
+            {aside}
+            {action && <Link to={action.to} className="pg-head__action">
               {action.icon && <Icon name={action.icon} size={15} />}
               <span>{action.label}</span>
-            </Link>
+            </Link>}
           </div>
         )}
       </div>
     </header>
   );
 }
+

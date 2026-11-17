@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import Icon from "../../../components/Icon";
-import { ORG_METADATA, getMemberById, getAllMembers, KETUA, PENGURUS_INTI } from '../../../data/orgData';
+import { getMemberById, KETUA, PENGURUS_INTI } from '../../../data/orgData';
 import './Organization.css';
 
 /**
@@ -21,26 +21,11 @@ function getInitials(name, fallback = 'IFPI') {
 
 export default function OrganizationDetail() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [member, setMember] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const member = getMemberById(id);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const found = getMemberById(id);
-    setMember(found);
-    setLoading(false);
   }, [id]);
-
-  if (loading) {
-    return (
-      <div className="pcr-profile-page">
-        <div className="gov-container" style={{ textAlign: 'center', padding: "6rem 1rem" }}>
-          <p style={{ color: '#64748B' }}>Memuat profil pengurus...</p>
-        </div>
-      </div>
-    );
-  }
 
   if (!member) {
     return (
@@ -255,11 +240,18 @@ export default function OrganizationDetail() {
                     </div>
                   )}
 
+                  {member.biodata?.ttl && (
+                    <div className="pcr-fact-card">
+                      <div className="pcr-fact-label">Kelahiran &amp; Zodiak</div>
+                      <div className="pcr-fact-val">{member.biodata.ttl}</div>
+                    </div>
+                  )}
+
                   {member.biodata?.keluarga && (
                     <div className="pcr-fact-card">
                       <div className="pcr-fact-label">Keluarga &amp; Tempat Tinggal</div>
                       <div className="pcr-fact-val">
-                        Lahir {member.biodata?.ttl || 'Pekanbaru'}. {member.biodata.keluarga}, bertempat tinggal di {member.biodata?.domisili || 'Kota Pekanbaru'}.
+                        {member.biodata.keluarga}. Bertempat tinggal di {member.biodata?.domisili || 'Kota Pekanbaru'}.
                       </div>
                     </div>
                   )}

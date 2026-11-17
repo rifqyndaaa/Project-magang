@@ -22,18 +22,18 @@ export const KETUA = {
   nama: 'Feri Saputra, SE., M.Si',
   foto: '/images/pengurus/feri-saputra.jpg',
   level: 'ketua',
-  jabatanFungsional: 'Pengelola pengadaan barang/jasa Madya',
-  unitKerja: 'Biro pengadaan barang/jasa Setda Provinsi Riau',
+  jabatanFungsional: 'Pengelola Pengadaan Barang/Jasa Madya',
+  unitKerja: 'Biro Pengadaan Barang dan Jasa Setda Provinsi Riau',
   biodata: {
-    ttl: 'Pekanbaru, 06 Nov 1978',
-    domisili: 'Kota Pekanbaru',
-    keluarga: 'Lima bersaudara, mempunyai 1 istri dan 3 orang anak',
-    pendidikan: 'Unri program magister manajemen pemerintah daerah tahun 2004',
-    dosen: 'Berprofesi sebagai dosen disalah satu universitas perguruan tinggi di Pekanbaru',
-    hobi: 'Traveling, camping dan menulis, ada beberapa tulisan terkait pengadaan brg/jasa',
-    karirASN: 'Mengawali karir sbg ASN pada tahun 2011 di tempatkan pada biro tata pemerintahan Setda Provinsi Riau, dan skrg Pjfa dari tahun 2017 sampai sekarang mengabdikan diri di biro pengadaan b/ja Setda provinsi Riau.',
+    ttl: 'Pekanbaru, 06 November 1978 (Zodiak Scorpio)',
+    domisili: 'Kota Pekanbaru, Provinsi Riau',
+    keluarga: 'Anak kelima dari lima bersaudara, berkeluarga dengan 1 orang istri dan 3 orang anak',
+    pendidikan: 'Alumni Universitas Riau (UNRI), Program Studi Ilmu Politik, Konsentrasi Manajemen Pemerintahan Daerah (Lulus 4 November 2006)',
+    dosen: 'Dosen di salah satu perguruan tinggi di Kota Pekanbaru',
+    hobi: 'Traveling, camping, dan menulis (penulis buku serta artikel terkait pengadaan barang/jasa)',
+    karirASN: 'Mengawali karir sebagai ASN pada tahun 2011 dengan penempatan pertama di Biro Tata Pemerintahan Setda Provinsi Riau sebagai Analis Tata Praja. Sejak tahun 2017 hingga sekarang, beliau mengabdikan diri di Biro Pengadaan Barang dan Jasa Setda Provinsi Riau sebagai Pengelola Pengadaan Barang/Jasa (PPBJ) Ahli Madya.',
     deskripsi:
-      'Lahir Pekanbaru, 06 Nov 1978. Lima persaudara yg juga berprofesi sebagai dosen disalah satu universitas perguruan tinggi di Pekanbaru. Merupakan Unri program magister manajemen pemerintah daerah tahun 2004 mempunyai hobi traveling, camping dan menulis, ada beberapa tulisan terkait pengadaan brg/jasa. Mempunyai 1 satu istri dan 3 orang anak, dn bertempat tinggal di kota Pekanbaru, yg mengawali karir sbg ASN pada tahun 2011 di tempatkan pada biro tata pemerintahan Setda Provinsi Riau, dan skrg Pjfa dari tahun 2017 sampai sekarang mengabdikan diri di biro pengadaan b/ja Setda provinsi Riau.',
+      'Feri Saputra, SE., M.Si adalah pria berzodiak Scorpio yang lahir di Pekanbaru pada 06 November 1978, serta merupakan anak kelima dari lima bersaudara. Beliau menempuh pendidikan tinggi di Universitas Riau (UNRI) pada Program Studi Ilmu Politik dengan Konsentrasi Manajemen Pemerintahan Daerah dan menyelesaikan studinya pada tanggal 4 November 2006.\n\nSelain menjalankan tugas dan pengabdiannya sebagai Aparatur Sipil Negara (ASN), beliau juga aktif mendedikasikan ilmunya sebagai dosen di salah satu perguruan tinggi di Kota Pekanbaru. Beliau memiliki kegemaran traveling, camping, dan menulis, dengan sejumlah karya publikasi berupa buku serta artikel ilmiah seputar pengadaan barang dan jasa pemerintah.\n\nDalam kehidupan berkeluarga, beliau bertempat tinggal di Kota Pekanbaru bersama seorang istri dan dikaruniai 3 orang anak. Mengawali karir birokrasi ASN pada tahun 2011 dengan penempatan pertama pada Biro Tata Pemerintahan Sekretariat Daerah Provinsi Riau sebagai Analis Tata Praja, sejak tahun 2017 hingga sekarang beliau mendedikasikan diri di Biro Pengadaan Barang dan Jasa Setda Provinsi Riau sebagai Pengelola Pengadaan Barang/Jasa (PPBJ) Ahli Madya sekaligus dipercaya memimpin Dewan Pengurus Wilayah IFPI Provinsi Riau.',
   },
 };
 

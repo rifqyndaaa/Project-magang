@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -67,16 +67,16 @@ export default function Footer() {
             <h3 className="gov-footer-heading">Sekretariat &amp; Pelayanan</h3>
             <ul className="gov-footer-contact-list">
               <li>
-                <strong>Alamat:</strong> Sekretariat IFPI, Jl. Jenderal Sudirman No. 460, Pekanbaru
+                <strong>Alamat:</strong> Gedung Menara Lancang Kuning Lt. 6, Biro Pengadaan Barang/Jasa Setda Provinsi Riau, Jl. Jend. Sudirman No. 460, Kel. Jadirejo, Kec. Sukajadi, Kota Pekanbaru, Provinsi Riau
               </li>
               <li>
                 <strong>Email:</strong> sekretariat@ifpi.or.id / layanan@ifpi.or.id
               </li>
               <li>
-                <strong>Telepon:</strong> (0761) 31256 / Call Center Pelayanan
+                <strong>Contact Person:</strong> 0811762451
               </li>
               <li>
-                <strong>Jam Layanan:</strong> Senin – Jumat, 08.00 – 16.00 WIB (Formulir daring 24 jam)
+                <strong>Jam Layanan:</strong> Senin â€“ Jumat, 08.00 â€“ 16.00 WIB (Formulir daring 24 jam)
               </li>
             </ul>
           </div>
@@ -97,3 +97,4 @@ export default function Footer() {
     </footer>
   );
 }
+
