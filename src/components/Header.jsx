@@ -131,96 +131,15 @@ export default function Header() {
               </NavLink>
             </li>
 
-            {/* 4. WILAYAH (PETA INTERAKTIF RIAU & DROPDOWN) */}
-            <li
-              className={`gov-nav-has-dropdown ${activeDropdown === 'wilayah' ? 'is-dropdown-open' : ''} ${mobileSubmenu === 'wilayah' ? 'is-mobile-submenu-open' : ''}`}
-              onMouseEnter={() => setActiveDropdown('wilayah')}
-              onMouseLeave={() => setActiveDropdown(null)}
-              onFocus={handleDropdownFocus('wilayah')}
-              onBlur={handleDropdownBlur}
-            >
-              <div className="gov-nav-parent-wrapper">
-                <NavLink
-                  to="/wilayah"
-                  className={`gov-nav-parent-link ${location.pathname.startsWith('/wilayah') ? 'active' : ''}`}
-                  onClick={(e) => {
-                    if (window.innerWidth <= 1024) {
-                      e.preventDefault();
-                      toggleMobileSubmenu('wilayah');
-                    } else {
-                      closeMenu();
-                    }
-                  }}
-                  aria-expanded={activeDropdown === 'wilayah' || mobileSubmenu === 'wilayah'}
-                  aria-haspopup="true"
-                >
-                  <span>Wilayah</span>
-                  <span className="gov-nav-arrow-icon" aria-hidden="true">
-                    <Icon name={mobileSubmenu === 'wilayah' ? 'chevron-up' : 'chevron-down'} size={14} />
-                  </span>
-                </NavLink>
-
-                {/* Tombol ekspansi mobile */}
-                <button
-                  type="button"
-                  className="gov-mobile-submenu-btn"
-                  aria-label="Buka submenu Wilayah"
-                  onClick={() => toggleMobileSubmenu('wilayah')}
-                >
-                  <Icon name={mobileSubmenu === 'wilayah' ? 'chevron-up' : 'chevron-down'} size={15} />
-                </button>
-              </div>
-
-              {/* Isi Dropdown Wilayah */}
-              <div className="gov-dropdown-menu" role="menu">
-                <Link
-                  to="/wilayah"
-                  className="gov-dropdown-item"
-                  role="menuitem"
-                  onClick={closeMenu}
-                >
-                  <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">Peta Interaktif Provinsi Riau</span>
-                    <span className="gov-dropdown-item-desc">Batas geografis 10 kabupaten dan 2 kota</span>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/wilayah/pekanbaru"
-                  className="gov-dropdown-item"
-                  role="menuitem"
-                  onClick={closeMenu}
-                >
-                  <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">Kota Pekanbaru</span>
-                    <span className="gov-dropdown-item-desc">Ibu kota provinsi dan pusat koordinasi</span>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/wilayah/siak"
-                  className="gov-dropdown-item"
-                  role="menuitem"
-                  onClick={closeMenu}
-                >
-                  <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">Kabupaten Siak</span>
-                    <span className="gov-dropdown-item-desc">Pusat peradaban Melayu dan kemitraan daerah</span>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/wilayah"
-                  className="gov-dropdown-item gov-dropdown-item-highlight"
-                  role="menuitem"
-                  onClick={closeMenu}
-                >
-                  <div className="gov-dropdown-item-content">
-                    <span className="gov-dropdown-item-title">Semua 12 Wilayah</span>
-                    <span className="gov-dropdown-item-desc">Peta lengkap dan status DPC IFPI</span>
-                  </div>
-                </Link>
-              </div>
+            {/* 4. WILAYAH (PETA INTERAKTIF RIAU LANGSUNG) */}
+            <li>
+              <NavLink
+                to="/wilayah"
+                className={location.pathname.startsWith('/wilayah') ? 'active' : ''}
+                onClick={closeMenu}
+              >
+                Wilayah
+              </NavLink>
             </li>
 
             {/* 5. KEGIATAN (DROPDOWN) */}
