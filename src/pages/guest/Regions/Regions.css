@@ -636,6 +636,26 @@
   flex-wrap: wrap;
 }
 
+/* Petunjuk Klik Peta Wilayah */
+.regions-map-hint-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.regions-map-hint-bar strong {
+  color: var(--ifpi-red, #B8202D);
+  font-weight: 700;
+}
+
 /* ================================================================
    RESPONSIVE DESIGN
    ================================================================ */
