@@ -1223,6 +1223,43 @@
   color: var(--adx-ink-soft);
 }
 
+/* Tab pengalih Masuk / Buat Akun */
+.adx-login__modes {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  margin-top: 1.35rem;
+  margin-bottom: 1.25rem;
+  background-color: #F1F1F1;
+  border: 1px solid var(--adx-line);
+  border-radius: 4px;
+}
+
+.adx-login__mode-btn {
+  flex: 1;
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--adx-ink-soft);
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.adx-login__mode-btn:hover {
+  color: var(--adx-ink);
+}
+
+.adx-login__mode-btn.is-active {
+  background-color: #FFFFFF;
+  color: var(--adx-ink);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
 .adx-login__error {
   display: flex;
   align-items: flex-start;

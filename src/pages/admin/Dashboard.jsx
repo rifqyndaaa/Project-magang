@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from "../../components/Icon";
 import StatusBadge from "../../components/StatusBadge";
@@ -8,16 +8,21 @@ import {
   ADMIN_STATUSES,
   getCategoryDetails
 } from '../../data/categories';
-import { getReportStats, filterReports, exportReportsToCSV } from "../../services/storage";
+import { getReportStats, filterReports, exportReportsToCSV, syncReportsFromSupabase } from "../../services/storage";
 
 const EMPTY_FILTER = { query: '', status: '', category: '', region: '' };
 
 export default function AdminDashboard() {
   const [filterState, setFilterState] = useState(EMPTY_FILTER);
-  // Data dibaca langsung dari penyimpanan pada setiap render. State hanya
-  // menyimpan filter dan penghitung penyegaran, sehingga tidak ada salinan
-  // yang bisa basi terhadap data yang ditulis halaman publik.
   const [, setRefreshKey] = useState(0);
+
+  useEffect(() => {
+    // Sinkronisasi otomatis data terbaru dari Supabase cloud saat dashboard dibuka
+    syncReportsFromSupabase().then(() => {
+      setRefreshKey(k => k + 1);
+    });
+  }, []);
+
   const reports = filterReports(filterState);
   const stats = getReportStats();
   const lastSynced = new Date();

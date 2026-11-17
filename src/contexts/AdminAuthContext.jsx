@@ -1,17 +1,21 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { getAdminSession, loginAdmin, logoutAdmin } from '../services/storage';
+import { createContext, useContext, useState } from 'react';
+import { getAdminSession, loginAdmin, registerAdmin, logoutAdmin } from '../services/storage';
 
 const AdminAuthContext = createContext(null);
 
 export function AdminAuthProvider({ children }) {
   const [session, setSession] = useState(() => getAdminSession());
 
-  useEffect(() => {
-    setSession(getAdminSession());
-  }, []);
+  const login = async (username, password) => {
+    const res = await loginAdmin(username, password);
+    if (res.success) {
+      setSession(getAdminSession());
+    }
+    return res;
+  };
 
-  const login = (username, password) => {
-    const res = loginAdmin(username, password);
+  const register = async (name, username, password) => {
+    const res = await registerAdmin(name, username, password);
     if (res.success) {
       setSession(getAdminSession());
     }
@@ -24,12 +28,13 @@ export function AdminAuthProvider({ children }) {
   };
 
   return (
-    <AdminAuthContext.Provider value={{ session, isAuthenticated: !!session, login, logout }}>
+    <AdminAuthContext.Provider value={{ session, isAuthenticated: !!session, login, register, logout }}>
       {children}
     </AdminAuthContext.Provider>
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAdminAuth() {
   const context = useContext(AdminAuthContext);
   return context;

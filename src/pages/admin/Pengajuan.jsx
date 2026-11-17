@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from "../../components/Icon";
 import StatusBadge from "../../components/StatusBadge";
 import { CATEGORIES, RIAU_REGIONS, ADMIN_STATUSES, getCategoryDetails } from '../../data/categories';
-import { filterReports, getAllReports, exportReportsToCSV } from "../../services/storage";
+import { filterReports, getAllReports, exportReportsToCSV, syncReportsFromSupabase } from "../../services/storage";
 
 const EMPTY = { query: '', status: '', category: '', region: '' };
 
@@ -13,6 +13,14 @@ const EMPTY = { query: '', status: '', category: '', region: '' };
  */
 export default function AdminPengajuan() {
   const [filterState, setFilterState] = useState(EMPTY);
+  const [, setTick] = useState(0);
+
+  useEffect(() => {
+    // Sinkronisasi data dari Supabase saat halaman pengajuan dibuka
+    syncReportsFromSupabase().then(() => {
+      setTick(t => t + 1);
+    });
+  }, []);
 
   const reports = filterReports(filterState);
   const total = getAllReports().length;

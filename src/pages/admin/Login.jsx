@@ -3,9 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import Icon from "../../components/Icon";
 import { loginAdmin, getAdminSession } from "../../services/storage";
 
-/* Foto latar diambil dari aset yang sudah ada di /public/images.
-   Tidak memakai video eksternal: tidak ada unduhan pihak ketiga, tidak ada
-   masalah lisensi, dan tidak menambah bobot jaringan yang tak terduga. */
+/* Foto latar resmi dari public/images */
 const SCENES = [
   {
     src: '/images/pelayanan-publik-riau.jpg',
@@ -43,7 +41,6 @@ export default function AdminLogin() {
     }
   }, [navigate]);
 
-  /* Pergantian latar dihentikan bila pengguna meminta gerak minimal. */
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return undefined;
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -54,16 +51,21 @@ export default function AdminLogin() {
     return () => window.clearInterval(timer);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setIsSubmitting(true);
 
-    const res = loginAdmin(username, password);
-    if (res.success) {
-      navigate('/admin', { replace: true });
-    } else {
-      setError(res.message);
+    try {
+      const res = await loginAdmin(username, password);
+      if (res.success) {
+        navigate('/admin', { replace: true });
+      } else {
+        setError(res.message);
+        setIsSubmitting(false);
+      }
+    } catch (err) {
+      setError(`Terjadi kendala: ${err.message}`);
       setIsSubmitting(false);
     }
   };
@@ -143,7 +145,7 @@ export default function AdminLogin() {
               <span className="adx-login__eyebrow">Akses terbatas</span>
               <h1 className="adx-login__title">Masuk Panel Petugas IFPI</h1>
               <p className="adx-login__lede">
-                Khusus pengurus dan verifikator DPW Ikatan Fungsional Pengadaan Indonesia
+                Khusus pengurus dan verifikator resmi DPW Ikatan Fungsional Pengadaan Indonesia
                 Provinsi Riau.
               </p>
             </header>
@@ -158,7 +160,9 @@ export default function AdminLogin() {
             <form onSubmit={handleSubmit} noValidate>
               <div className="adx-field-stack">
                 <div className="adx-field">
-                  <label htmlFor="admin-username" className="adx-field__label">Nama pengguna</label>
+                  <label htmlFor="admin-username" className="adx-field__label">
+                    Nama pengguna
+                  </label>
                   <div className="adx-login__control">
                     <Icon name="user" size={15} color="currentColor" className="adx-login__control-icon" />
                     <input
@@ -167,7 +171,7 @@ export default function AdminLogin() {
                       className="adx-input adx-login__input"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      placeholder="Masukkan username"
+                      placeholder="Masukkan nama pengguna"
                       autoComplete="username"
                       autoCapitalize="none"
                       spellCheck="false"
@@ -177,7 +181,9 @@ export default function AdminLogin() {
                 </div>
 
                 <div className="adx-field">
-                  <label htmlFor="admin-password" className="adx-field__label">Kata sandi</label>
+                  <label htmlFor="admin-password" className="adx-field__label">
+                    Kata sandi
+                  </label>
                   <div className="adx-login__control">
                     <Icon name="lock" size={15} color="currentColor" className="adx-login__control-icon" />
                     <input
@@ -226,8 +232,8 @@ export default function AdminLogin() {
               </div>
             </form>
 
-            <section className="adx-login__creds" aria-label="Akun evaluasi">
-              <h2 className="adx-login__creds-title">Akun evaluasi</h2>
+            <section className="adx-login__creds" aria-label="Akun resmi pengurus">
+              <h2 className="adx-login__creds-title">Akun Resmi Tersedia</h2>
               <div className="adx-login__creds-grid">
                 <button
                   type="button"
@@ -250,15 +256,12 @@ export default function AdminLogin() {
                 </button>
               </div>
               <p className="adx-login__note">
-                Kedua peran memiliki akses yang sama pada purwarupa ini. Nama petugas yang
-                masuk otomatis dipakai sebagai pencatat pada riwayat penanganan.
+                Klik kartu akun di atas untuk mengisi otomatis nama pengguna dan kata sandi resmi.
               </p>
             </section>
 
             <p className="adx-login__note adx-login__note--legal">
-              <strong>Catatan purwarupa.</strong> Autentikasi berjalan lokal di peramban ini
-              untuk keperluan demonstrasi. Sistem operasional memerlukan backend, token
-              terenkripsi, dan kendali akses berbasis peran.
+              <strong>Keamanan Portal.</strong> Akses halaman ini dilindungi dan hanya dapat digunakan oleh pengurus yang memiliki wewenang resmi DPW IFPI Provinsi Riau.
             </p>
           </div>
         </main>

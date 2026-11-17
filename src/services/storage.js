@@ -1,8 +1,9 @@
-// Layanan Penyimpanan Prototype (localStorage)
+// Layanan Penyimpanan Prototype & Sinkronisasi Cloud Supabase
 // Portal Pengaduan Masyarakat Pemerintah Provinsi Riau
 
 import { generateTicketNumber } from '../lib/ticket';
 import { getCategoryDetails, normalizeWorkflowStatus } from '../data/categories';
+import { supabase } from '../lib/supabase';
 
 const STORAGE_KEY = 'riau_pengaduan_reports_v1';
 const ADMIN_AUTH_KEY = 'riau_pengaduan_admin_session_v1';
@@ -352,11 +353,49 @@ export function saveReport(reportData) {
     console.error('Gagal menyimpan laporan ke localStorage:', error);
   }
 
+  // Kirim data baru ke Supabase Cloud
+  try {
+    const payload = {
+      ticket_number: newReport.ticketNumber,
+      name: newReport.name,
+      contact: newReport.contact,
+      category: newReport.category,
+      region: newReport.region,
+      message: newReport.message,
+      status: newReport.status,
+      title: newReport.title,
+      service_type: newReport.serviceType,
+      location_detail: newReport.locationDetail,
+      admin_response: newReport.adminResponse,
+      status_history: newReport.statusHistory
+    };
+
+    supabase
+      .from('reports')
+      .insert([payload])
+      .then(({ error }) => {
+        if (error) {
+          // Fallback jika kolom tambahan belum dibuat di Supabase
+          supabase.from('reports').insert([{
+            ticket_number: newReport.ticketNumber,
+            name: newReport.name,
+            contact: newReport.contact,
+            category: newReport.category,
+            region: newReport.region,
+            message: newReport.message,
+            status: newReport.status
+          }]);
+        }
+      });
+  } catch (err) {
+    console.warn('[Supabase Sync Warn]:', err);
+  }
+
   return newReport;
 }
 
 /**
- * Memperbarui status laporan dan mencatat riwayat perubahan
+ * Memperbarui status laporan dan mencatat riwayat perubahan (Lokal & Supabase)
  */
 export function updateReportStatus(id, newStatus, note = '', actor = 'Petugas Pemprov Riau') {
   const reports = getAllReports();
@@ -387,11 +426,32 @@ export function updateReportStatus(id, newStatus, note = '', actor = 'Petugas Pe
     console.error('Gagal memperbarui status laporan:', e);
   }
 
+  // Update status ke Supabase
+  try {
+    supabase
+      .from('reports')
+      .update({
+        status: newStatus,
+        status_history: updatedReport.statusHistory
+      })
+      .eq('ticket_number', current.ticketNumber)
+      .then(({ error }) => {
+        if (error) {
+          supabase
+            .from('reports')
+            .update({ status: newStatus })
+            .eq('ticket_number', current.ticketNumber);
+        }
+      });
+  } catch (err) {
+    console.warn('[Supabase Update Warn]:', err);
+  }
+
   return updatedReport;
 }
 
 /**
- * Menyimpan tanggapan resmi petugas / OPD
+ * Menyimpan tanggapan resmi petugas / OPD (Lokal & Supabase)
  */
 export function saveAdminResponse(id, responseText, responderName, opdName) {
   const reports = getAllReports();
@@ -421,7 +481,117 @@ export function saveAdminResponse(id, responseText, responderName, opdName) {
     console.error('Gagal menyimpan tanggapan admin:', e);
   }
 
+  // Simpan tanggapan ke Supabase
+  try {
+    supabase
+      .from('reports')
+      .update({ admin_response: adminResponse })
+      .eq('ticket_number', current.ticketNumber)
+      .then(({ error }) => {
+        if (error) console.warn('[Supabase Admin Response Error]:', error.message);
+      });
+  } catch (err) {
+    console.warn('[Supabase Response Warn]:', err);
+  }
+
   return updatedReport;
+}
+
+/**
+ * Menghapus laporan secara permanen (Lokal & Supabase)
+ */
+export function deleteReport(id) {
+  const reports = getAllReports();
+  const target = reports.find(r => r.id === id);
+  if (!target) return false;
+
+  const filtered = reports.filter(r => r.id !== id);
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+  } catch (e) {
+    console.error('Gagal menghapus laporan dari localStorage:', e);
+  }
+
+  // Hapus dari Supabase
+  try {
+    supabase
+      .from('reports')
+      .delete()
+      .eq('ticket_number', target.ticketNumber)
+      .then(({ error }) => {
+        if (error) console.warn('[Supabase Delete Warn]:', error.message);
+      });
+  } catch (err) {
+    console.warn('[Supabase Delete Warn]:', err);
+  }
+
+  return true;
+}
+
+/**
+ * Sinkronisasi otomatis data laporan dari Supabase ke aplikasi
+ */
+export async function syncReportsFromSupabase() {
+  if (typeof window === 'undefined') return getAllReports();
+
+  try {
+    const { data, error } = await supabase
+      .from('reports')
+      .select('*')
+      .order('id', { ascending: false });
+
+    if (error) {
+      return getAllReports();
+    }
+
+    if (data && data.length > 0) {
+      const existing = getAllReports();
+      const fromSupabase = data.map((row) => ({
+        id: `rep-sb-${row.id}`,
+        ticketNumber: row.ticket_number,
+        name: row.name || 'Masyarakat',
+        contact: row.contact || '-',
+        title: row.title || `Pengaduan Layanan (${row.ticket_number})`,
+        category: row.category || 'hukum',
+        serviceType: row.service_type || '',
+        region: row.region || 'Provinsi Riau',
+        locationDetail: row.location_detail || '',
+        location: row.region ? `${row.region} (${row.location_detail || ''})` : 'Provinsi Riau',
+        message: row.message || '',
+        status: row.status || 'Baru',
+        createdAt: row.created_at || new Date().toISOString(),
+        updatedAt: row.created_at || new Date().toISOString(),
+        adminResponse: row.admin_response || null,
+        statusHistory: Array.isArray(row.status_history) ? row.status_history : [
+          {
+            status: row.status || 'Baru',
+            timestamp: row.created_at || new Date().toISOString(),
+            note: 'Laporan tercatat di sistem layanan.',
+            actor: 'Pelapor (Masyarakat)'
+          }
+        ]
+      }));
+
+      // Merge data dari Supabase dengan data lokal
+      const sbTickets = new Set(fromSupabase.map(r => (r.ticketNumber || '').toLowerCase()));
+      const localOnly = existing.filter(r => !sbTickets.has((r.ticketNumber || '').toLowerCase()));
+      const merged = [...fromSupabase, ...localOnly];
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+      return merged;
+    }
+  } catch (err) {
+    console.warn('[Supabase Sync Error]:', err);
+  }
+
+  return getAllReports();
+}
+
+// Auto-sync data setiap aplikasi dibuka di browser
+if (typeof window !== 'undefined') {
+  setTimeout(() => {
+    syncReportsFromSupabase();
+  }, 300);
 }
 
 /**
@@ -554,30 +724,145 @@ export function getAdminSession() {
   }
 }
 
-export function loginAdmin(username, password) {
-  // Prototype credentials: admin / riauberkah2026 atau petugas / riau2026
-  const cleanU = (username || '').trim();
+/**
+ * Mendaftarkan akun admin pertama ke database Supabase
+ */
+export async function registerAdmin(name, username, password) {
+  const cleanName = (name || '').trim();
+  const cleanU = (username || '').trim().toLowerCase();
   const cleanP = (password || '').trim();
 
-  if (
-    (cleanU === 'admin' && cleanP === 'admin123') ||
-    (cleanU === 'petugas' && cleanP === 'riau2026') ||
-    (cleanU === 'admin' && cleanP === 'riauberkah2026')
-  ) {
-    const user = {
+  if (!cleanName || !cleanU || !cleanP) {
+    return { success: false, message: 'Semua kolom wajib diisi.' };
+  }
+
+  if (cleanP.length < 6) {
+    return { success: false, message: 'Kata sandi minimal 6 karakter demi keamanan.' };
+  }
+
+  try {
+    // Periksa apakah tabel admin_users sudah memiliki akun (batasi 1 akun admin utama)
+    const { data: existing, error: checkError } = await supabase
+      .from('admin_users')
+      .select('id, username')
+      .limit(2);
+
+    if (!checkError && existing && existing.length >= 1) {
+      return {
+        success: false,
+        message: `Akun admin sudah pernah dibuat (username: ${existing[0].username}). Sistem dibatasi untuk 1 akun admin utama. Silakan masuk.`
+      };
+    }
+
+    const newAdmin = {
+      name: cleanName,
       username: cleanU,
-      name: cleanU === 'admin' ? 'Administrator Utama' : 'Petugas Verifikator Diskominfo',
-      role: cleanU === 'admin' ? 'Super Admin' : 'Petugas OPD',
-      opd: 'Dinas Komunikasi, Informatika dan Statistik Prov. Riau',
+      password: cleanP,
+      role: 'Super Admin'
+    };
+
+    const { data, error } = await supabase
+      .from('admin_users')
+      .insert([newAdmin])
+      .select()
+      .single();
+
+    if (error) {
+      // Fallback lokal jika tabel admin_users belum dibuat di Supabase
+      console.warn('[Supabase Admin Warn]:', error.message);
+      const fallbackUser = {
+        username: cleanU,
+        name: cleanName,
+        role: 'Super Admin',
+        opd: 'Dewan Pengurus Wilayah IFPI Provinsi Riau',
+        loggedInAt: new Date().toISOString()
+      };
+      localStorage.setItem(ADMIN_AUTH_KEY, JSON.stringify(fallbackUser));
+      return { success: true, user: fallbackUser };
+    }
+
+    const userSession = {
+      username: data.username,
+      name: data.name,
+      role: data.role || 'Super Admin',
+      opd: 'Dewan Pengurus Wilayah IFPI Provinsi Riau',
       loggedInAt: new Date().toISOString()
     };
-    localStorage.setItem(ADMIN_AUTH_KEY, JSON.stringify(user));
-    return { success: true, user };
+
+    localStorage.setItem(ADMIN_AUTH_KEY, JSON.stringify(userSession));
+    return { success: true, user: userSession };
+  } catch (err) {
+    console.warn('[Supabase Register Error]:', err);
+    return { success: false, message: `Kendala koneksi pendaftaran: ${err.message}` };
+  }
+}
+
+/**
+ * Otentikasi Admin ke Database Supabase & Fallback Kredensial Resmi
+ */
+export async function loginAdmin(username, password) {
+  const cleanU = (username || '').trim().toLowerCase();
+  const cleanP = (password || '').trim();
+
+  if (!cleanU || !cleanP) {
+    return { success: false, message: 'Silakan isi nama pengguna dan kata sandi.' };
+  }
+
+  // 1. Cek kredensial ke Supabase tabel admin_users jika tabel tersedia
+  try {
+    const { data: userRow, error } = await supabase
+      .from('admin_users')
+      .select('*')
+      .eq('username', cleanU)
+      .single();
+
+    if (!error && userRow) {
+      if (userRow.password === cleanP) {
+        const user = {
+          username: userRow.username,
+          name: userRow.name || (userRow.role === 'Super Admin' ? 'Administrator Utama IFPI' : 'Petugas Verifikator IFPI'),
+          role: userRow.role || 'Super Admin',
+          opd: 'Dewan Pengurus Wilayah IFPI Provinsi Riau',
+          loggedInAt: new Date().toISOString()
+        };
+        localStorage.setItem(ADMIN_AUTH_KEY, JSON.stringify(user));
+        return { success: true, user };
+      } else {
+        return { success: false, message: 'Kata sandi tidak cocok. Silakan coba kembali.' };
+      }
+    }
+  } catch (err) {
+    console.warn('[Supabase Auth Warn]:', err);
+  }
+
+  // 2. Kredensial akun resmi bawaan (Siap langsung dipakai)
+  if (cleanU === 'admin' && (cleanP === 'admin123' || cleanP === 'riauberkah2026')) {
+    const adminUser = {
+      username: 'admin',
+      name: 'Administrator Utama IFPI',
+      role: 'Super Admin',
+      opd: 'Dewan Pengurus Wilayah IFPI Provinsi Riau',
+      loggedInAt: new Date().toISOString()
+    };
+    localStorage.setItem(ADMIN_AUTH_KEY, JSON.stringify(adminUser));
+    return { success: true, user: adminUser };
+  }
+
+  if (cleanU === 'petugas' && cleanP === 'riau2026') {
+    const verifikatorUser = {
+      username: 'petugas',
+      name: 'Petugas Verifikator IFPI',
+      role: 'Petugas Verifikator',
+      opd: 'Dewan Pengurus Wilayah IFPI Provinsi Riau',
+      loggedInAt: new Date().toISOString()
+    };
+    localStorage.setItem(ADMIN_AUTH_KEY, JSON.stringify(verifikatorUser));
+    return { success: true, user: verifikatorUser };
   }
 
   return {
     success: false,
-    message: 'Nama pengguna atau kata sandi tidak cocok. Silakan gunakan kredensial prototype yang tertera.'
+    message: 'Nama pengguna atau kata sandi tidak cocok. Silakan periksa kembali.'
   };
 }
 

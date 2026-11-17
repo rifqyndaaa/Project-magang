@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Icon from "../../components/Icon";
 import StatusBadge from "../../components/StatusBadge";
 import { ADMIN_STATUSES, getCategoryDetails, normalizeWorkflowStatus } from '../../data/categories';
-import { getReportById, updateReportStatus, saveAdminResponse, getAdminSession } from "../../services/storage";
+import { getReportById, updateReportStatus, saveAdminResponse, deleteReport, getAdminSession } from "../../services/storage";
 
 export default function AdminDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [adminUser] = useState(() => getAdminSession());
 
@@ -93,6 +94,13 @@ export default function AdminDetail() {
     }
   };
 
+  const handleDeleteReport = () => {
+    if (window.confirm(`Yakin ingin menghapus laporan "${report.ticketNumber}" secara permanen? Data akan dihapus dari sistem dan database Supabase.`)) {
+      deleteReport(report.id);
+      navigate('/admin/pengajuan');
+    }
+  };
+
   return (
     <div className="adx-detail-wrap">
       <header className="adx-page-head">
@@ -120,6 +128,16 @@ export default function AdminDetail() {
             <Icon name="search" size={14} color="currentColor" />
             <span>Lihat Tampilan Publik</span>
           </a>
+          <button
+            type="button"
+            className="adx-btn"
+            style={{ color: '#DC2626', borderColor: '#FCA5A5', backgroundColor: '#FEF2F2' }}
+            onClick={handleDeleteReport}
+            title="Hapus laporan ini secara permanen"
+          >
+            <Icon name="trash" size={14} color="#DC2626" />
+            <span>Hapus Pengajuan</span>
+          </button>
         </div>
       </header>
 
