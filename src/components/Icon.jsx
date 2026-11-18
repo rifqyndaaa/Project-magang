@@ -531,6 +531,13 @@ export default function Icon({ name, size = 18, className = '', color = 'current
           <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
         </svg>
       );
+    case 'book':
+      return (
+        <svg {...props}>{titleNode}
+          <path d="M4 19.5V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2Z" />
+          <path d="M8 3v18" />
+        </svg>
+      );
     default:
       return (
         <svg {...props}>{titleNode}

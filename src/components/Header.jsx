@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import Icon from './Icon';
 
@@ -287,6 +287,12 @@ export default function Header() {
                     <span className="gov-dropdown-item-desc">Plakat, piagam, dan paket kenang-kenangan</span>
                   </div>
                 </Link>
+                <Link to="/merchandise/buku" className="gov-dropdown-item" role="menuitem" onClick={closeMenu}>
+                  <div className="gov-dropdown-item-content">
+                    <span className="gov-dropdown-item-title">Buku</span>
+                    <span className="gov-dropdown-item-desc">Buku dan karya tulis pengadaan</span>
+                  </div>
+                </Link>
               </div>
             </li>
           </ul>
@@ -307,3 +313,4 @@ export default function Header() {
     </header>
   );
 }
+

@@ -223,5 +223,37 @@ export const GALERI_DATA = [
     tanggal: '2027',
     foto: '/images/istana-siak.jpg',
     keterangan: 'Simbol kearifan lokal Melayu yang mendasari semangat kejujuran, amanah, dan integritas pengadaan di Bumi Lancang Kuning.'
+  },
+  {
+    id: 'gal-3',
+    judul: 'Pengukuhan dan Pelantikan Ketua DPW IFPI Daerah Istimewa Yogyakarta',
+    kategori: 'Pelantikan Pengurus',
+    tanggal: '2026',
+    foto: '/images/pelantikan-ketua-dpw-ifpi-diy.jpg',
+    keterangan: 'Budi Sukiswo dikukuhkan sebagai Ketua DPW IFPI Daerah Istimewa Yogyakarta untuk periode 2026–2031 oleh DPN IFPI, sebagai bagian dari penguatan kepengurusan wilayah organisasi.'
+  },
+  {
+    id: 'gal-4',
+    judul: 'Pengukuhan dan Pelantikan Ketua DPW IFPI Jambi',
+    kategori: 'Pelantikan Pengurus',
+    tanggal: '12-11-2026',
+    foto: '/images/pelantikan-ketua-dpw-ifpi-jambi.jpg',
+    keterangan: 'Selvi Yuliarni, SE, CPSp, CCMS. dikukuhkan sebagai Ketua DPW IFPI Jambi periode 2026–2031 oleh DPN IFPI dalam rangkaian kegiatan di Denpasar pada 12 November 2026.'
+  },
+  {
+    id: 'gal-5',
+    judul: 'Pengukuhan dan Pelantikan Ketua DPW IFPI Bali',
+    kategori: 'Pelantikan Pengurus',
+    tanggal: '2026',
+    foto: '/images/pelantikan-ketua-dpw-ifpi-bali.jpg',
+    keterangan: 'I Gusti Ngurah Arya Astana dikukuhkan sebagai Ketua DPW IFPI Bali untuk periode 2026–2031 oleh DPN IFPI, menandai penguatan kepengurusan wilayah Bali.'
+  },
+  {
+    id: 'gal-6',
+    judul: 'Ucapan Selamat & Sukses atas Terpilihnya Ketua DPW IFPI DIY',
+    kategori: 'Kepengurusan Wilayah',
+    tanggal: '25-09-2026',
+    foto: '/images/ucapan-sukses-ketua-dpw-ifpi-diy.jpg',
+    keterangan: 'Budi Sukiswo, S.T. terpilih sebagai Ketua DPW IFPI Daerah Istimewa Yogyakarta periode 2026–2031 melalui Musyawarah Wilayah Luar Biasa (Muswilub) pada 25 September 2026 di Yogyakarta.'
   }
 ];

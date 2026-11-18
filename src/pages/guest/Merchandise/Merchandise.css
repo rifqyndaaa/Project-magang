@@ -525,3 +525,28 @@
   }
 }
 
+
+/* Kartu buku dengan sampul */
+.merch-card-visual.is-cover {
+  padding: 1.5rem 1.25rem;
+  min-height: 300px;
+  background: #F8FAFC;
+}
+
+.buku-cover-img {
+  display: block;
+  width: auto;
+  max-width: min(100%, 200px);
+  height: 230px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 2px;
+  border: 1px solid #E2E8F0;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+@media (max-width: 600px) {
+  .merch-card-visual.is-cover { min-height: 240px; }
+  .buku-cover-img { height: 190px; max-width: min(100%, 170px); }
+}

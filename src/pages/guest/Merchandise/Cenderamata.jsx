@@ -57,6 +57,14 @@ export default function Cenderamata() {
             <Icon name="award" size={16} />
             <span>Cenderamata</span>
           </NavLink>
+
+          <NavLink
+            to="/merchandise/buku"
+            className={({ isActive }) => `merch-nav-tab-btn ${isActive ? 'is-active' : ''}`}
+          >
+            <Icon name="book" size={16} />
+            <span>Buku</span>
+          </NavLink>
         </nav>
 
         {/* Filter Kategori Cenderamata */}

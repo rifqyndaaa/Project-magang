@@ -44,7 +44,7 @@ export const PENGURUS_INTI = [
     jabatan: 'BENDAHARA',
     jabatanLengkap: 'Bendahara DPW IFPI Provinsi Riau',
     nama: 'Dewi Ledyana, ST',
-    foto: null,
+    foto: '/images/pengurus/dewi-ledyana.jpg',
     level: 't2',
     biodata: {
       instansi: 'DPW IFPI Provinsi Riau',
@@ -64,7 +64,7 @@ export const PENGURUS_INTI = [
     jabatan: 'SEKRETARIS',
     jabatanLengkap: 'Sekretaris DPW IFPI Provinsi Riau',
     nama: 'Muh. Syahril, SE',
-    foto: null,
+    foto: '/images/pengurus/muh-syahril.jpg',
     level: 't2',
     biodata: {
       instansi: 'DPW IFPI Provinsi Riau',
@@ -91,11 +91,11 @@ export const DIVISI = [
     deskripsi:
       'Menangani penelaahan regulasi daerah, konsultasi perdata/tata usaha negara, serta advokasi perlindungan profesi pengadaan.',
     anggota: [
-      { id: 'div1-k',  jabatan: 'Koordinator', nama: 'Jaime Agustian', foto: null },
-      { id: 'div1-a1', jabatan: 'Anggota',     nama: 'Tri Handayani, ST', foto: null },
-      { id: 'div1-a2', jabatan: 'Anggota',     nama: 'Nelda Hefni, SE', foto: null },
-      { id: 'div1-a3', jabatan: 'Anggota',     nama: 'Fitri yuniar Handayani, ST', foto: null },
-      { id: 'div1-a4', jabatan: 'Anggota',     nama: 'Lussy Febrianita', foto: null },
+      { id: 'div1-k',  jabatan: 'Koordinator', nama: 'Jaime Agustian', foto: '/images/pengurus/jaime-agustian.jpg' },
+      { id: 'div1-a1', jabatan: 'Anggota',     nama: 'Tri Handayani, ST', foto: '/images/pengurus/tri-handayani.jpg' },
+      { id: 'div1-a2', jabatan: 'Anggota',     nama: 'Nelda Hefni, SE', foto: '/images/pengurus/nelda-hefni.jpg' },
+      { id: 'div1-a3', jabatan: 'Anggota',     nama: 'Fitri yuniar Handayani, ST', foto: '/images/pengurus/fitri-yuniar-handayani.jpg' },
+      { id: 'div1-a4', jabatan: 'Anggota',     nama: 'Lussy Febrianita', foto: '/images/pengurus/lussy-febrianita.jpg' },
     ],
   },
   {
@@ -106,12 +106,12 @@ export const DIVISI = [
     deskripsi:
       'Fasilitasi kesejahteraan, pendampingan moril, serta penguatan solidaritas antar-aparatur pengadaan di wilayah Riau.',
     anggota: [
-      { id: 'div2-k',  jabatan: 'Koordinator', nama: 'Andy Fuad, ST', foto: null },
-      { id: 'div2-a1', jabatan: 'Anggota',     nama: 'Fakhrurozi Afriyansyah., M. IP', foto: null },
-      { id: 'div2-a2', jabatan: 'Anggota',     nama: 'Hijra Nelvita, ST', foto: null },
-      { id: 'div2-a3', jabatan: 'Anggota',     nama: 'Susi Deswita, S. Sos', foto: null },
-      { id: 'div2-a4', jabatan: 'Anggota',     nama: 'Elfina, S. Sos', foto: null },
-      { id: 'div2-a5', jabatan: 'Anggota',     nama: 'Romi Harjo, ST', foto: null },
+      { id: 'div2-k',  jabatan: 'Koordinator', nama: 'Andy Fuad, ST', foto: '/images/pengurus/andy-fuad.jpg' },
+      { id: 'div2-a1', jabatan: 'Anggota',     nama: 'Fakhrurozi Afriyansyah., M. IP', foto: '/images/pengurus/fakhrurozi-afriyansyah.jpg' },
+      { id: 'div2-a2', jabatan: 'Anggota',     nama: 'Hijra Nelvita, ST', foto: '/images/pengurus/hijra-nelvita.jpg' },
+      { id: 'div2-a3', jabatan: 'Anggota',     nama: 'Susi Deswita, S. Sos', foto: '/images/pengurus/susi-deswita.jpg' },
+      { id: 'div2-a4', jabatan: 'Anggota',     nama: 'Elfina, S. Sos', foto: '/images/pengurus/elfina.jpg' },
+      { id: 'div2-a5', jabatan: 'Anggota',     nama: 'Romi Harjo, ST', foto: '/images/pengurus/romi-harjo.jpg' },
     ],
   },
   {
@@ -122,11 +122,11 @@ export const DIVISI = [
     deskripsi:
       'Membangun komunikasi publik, jejaring kemitraan dengan kementerian/lembaga/pemda, dan publikasi media organisasi.',
     anggota: [
-      { id: 'div3-k',  jabatan: 'Koordinator', nama: 'Sawali, SP', foto: null },
-      { id: 'div3-a1', jabatan: 'Anggota',     nama: 'Leni Surya, S. Ak', foto: null },
-      { id: 'div3-a2', jabatan: 'Anggota',     nama: 'Eka Firmanedi', foto: null },
-      { id: 'div3-a3', jabatan: 'Anggota',     nama: 'Yessi Nazrial, ST', foto: null },
-      { id: 'div3-a4', jabatan: 'Anggota',     nama: 'Bulkeri Gultom, SE., M. Si', foto: null },
+      { id: 'div3-k',  jabatan: 'Koordinator', nama: 'Sawali, SP', foto: '/images/pengurus/sawali.jpg' },
+      { id: 'div3-a1', jabatan: 'Anggota',     nama: 'Leni Surya, S. Ak', foto: '/images/pengurus/leni-surya.jpg' },
+      { id: 'div3-a2', jabatan: 'Anggota',     nama: 'Eka Firmanedi', foto: '/images/pengurus/eka-firmanedi.jpg' },
+      { id: 'div3-a3', jabatan: 'Anggota',     nama: 'Yessi Nazrial, ST', foto: '/images/pengurus/yessi-nazrial.jpg' },
+      { id: 'div3-a4', jabatan: 'Anggota',     nama: 'Bulkeri Gultom, SE., M. Si', foto: '/images/pengurus/bulkeri-gultom.jpg' },
     ],
   },
   {
@@ -137,11 +137,11 @@ export const DIVISI = [
     deskripsi:
       'Peningkatan standar kompetensi, sertifikasi keahlian, pembinaan angka kredit jabatan fungsional pengadaan barang/jasa.',
     anggota: [
-      { id: 'div4-k',  jabatan: 'Koordinator', nama: 'Andrian Kurniawan, S. Kom., M. Kom', foto: null },
-      { id: 'div4-a1', jabatan: 'Anggota',     nama: 'Aisyah S Baranyanan, M.T., M.Si', foto: null },
-      { id: 'div4-a2', jabatan: 'Anggota',     nama: 'Aliyas Mandri, ST., MM', foto: null },
-      { id: 'div4-a3', jabatan: 'Anggota',     nama: 'Joni Eka Putra, ST', foto: null },
-      { id: 'div4-a4', jabatan: 'Anggota',     nama: 'Zulfikar, S. Kom', foto: null },
+      { id: 'div4-k',  jabatan: 'Koordinator', nama: 'Andrian Kurniawan, S. Kom., M. Kom', foto: '/images/pengurus/andrian-kurniawan.jpg' },
+      { id: 'div4-a1', jabatan: 'Anggota',     nama: 'Aisyah S Baranyanan, M.T., M.Si', foto: '/images/pengurus/aisyah-baranyanan.jpg' },
+      { id: 'div4-a2', jabatan: 'Anggota',     nama: 'Aliyas Mandri, ST., MM', foto: '/images/pengurus/aliyas-mandri.jpg' },
+      { id: 'div4-a3', jabatan: 'Anggota',     nama: 'Joni Eka Putra, ST', foto: '/images/pengurus/joni-eka-putra.png' },
+      { id: 'div4-a4', jabatan: 'Anggota',     nama: 'Zulfikar, S. Kom', foto: '/images/pengurus/zulfikar.jpg' },
     ],
   },
   {
@@ -152,11 +152,11 @@ export const DIVISI = [
     deskripsi:
       'Penyelenggaraan bimbingan teknis (bimtek), workshop regulasi baru pengadaan, serta fasilitasi narasumber resmi.',
     anggota: [
-      { id: 'div5-k',  jabatan: 'Koordinator', nama: 'Cihe Aprilia Bintang, ST., MT', foto: null },
-      { id: 'div5-a1', jabatan: 'Anggota',     nama: 'Mohammad. Ridha', foto: null },
-      { id: 'div5-a2', jabatan: 'Anggota',     nama: 'Radhian Rapani', foto: null },
-      { id: 'div5-a3', jabatan: 'Anggota',     nama: 'Heriyanis, ST', foto: null },
-      { id: 'div5-a4', jabatan: 'Anggota',     nama: 'Ibnu Hajar, S. Pt', foto: null },
+      { id: 'div5-k',  jabatan: 'Koordinator', nama: 'Cihe Aprilia Bintang, ST., MT', foto: '/images/pengurus/cihe-aprilia-bintang.jpg' },
+      { id: 'div5-a1', jabatan: 'Anggota',     nama: 'Mohammad. Ridha', foto: '/images/pengurus/muhammad-ridha.jpg' },
+      { id: 'div5-a2', jabatan: 'Anggota',     nama: 'Ryan Rapani, ST', foto: '/images/pengurus/ryan-rapani.jpg' },
+      { id: 'div5-a3', jabatan: 'Anggota',     nama: 'Heriyanis, ST', foto: '/images/pengurus/heriyanis.jpg' },
+      { id: 'div5-a4', jabatan: 'Anggota',     nama: 'Ibnu Hajar, S. Pt', foto: '/images/pengurus/ibnu-hajar.jpg' },
     ],
   },
 ];

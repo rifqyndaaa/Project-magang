@@ -1,9 +1,9 @@
-import { Outlet } from 'react-router-dom';
+﻿import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function PublicLayout() {
-  return (
+return (
     <div className="public-shell">
       <a href="#main-content" className="gov-skip-link">
         Langsung ke konten utama
@@ -19,3 +19,5 @@ export default function PublicLayout() {
     </div>
   );
 }
+
+

@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+﻿import { useLayoutEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 
 // Layouts
 import PublicLayout from './layouts/PublicLayout';
@@ -25,6 +26,7 @@ import GaleriFoto         from './pages/guest/Activities/Galeri';
 import Merchandise        from './pages/guest/Merchandise';
 import PernakPernik       from './pages/guest/Merchandise/PernakPernik';
 import Cenderamata        from './pages/guest/Merchandise/Cenderamata';
+import Buku               from './pages/guest/Merchandise/Buku';
 import Products           from './pages/guest/Products';
 import ProductDetail      from './pages/guest/Products/Detail';
 import NotFound           from './pages/guest/NotFound';
@@ -43,9 +45,18 @@ import AdminPengaturan from './pages/admin/Pengaturan';
 
 import './App.css';
 
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  useLayoutEffect(() => {
+    if (!hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname, hash]);
+  return null;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <DocumentTitle />
       <Routes>
         {/* Rute Publik */}
@@ -71,6 +82,7 @@ export default function App() {
           <Route path="/merchandise"                 element={<Merchandise />} />
           <Route path="/merchandise/pernak-pernik"   element={<PernakPernik />} />
           <Route path="/merchandise/cenderamata"     element={<Cenderamata />} />
+          <Route path="/merchandise/buku"            element={<Buku />} />
           <Route path="*"              element={<NotFound />} />
         </Route>
 
@@ -94,3 +106,5 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
+
