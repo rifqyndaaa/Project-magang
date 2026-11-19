@@ -625,6 +625,17 @@ export default function Home() {
               </figure>
             ))}
           </div>
+
+          <div style={{ marginTop: '2.25rem', textAlign: 'center' }}>
+            <Link
+              to="/wilayah#tabel-rekapitulasi"
+              className="gov-btn-outline"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+            >
+              <span>Buka Tabel Rekapitulasi Sebaran 13 Wilayah</span>
+              <Icon name="arrow-right" size={14} />
+            </Link>
+          </div>
         </div>
       </section>
 

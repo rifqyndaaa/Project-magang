@@ -52,6 +52,133 @@
   line-height: 1.65;
 }
 
+/* Banner Akses Cepat Pemprov Riau */
+.regions-prov-banner {
+  margin: 1.75rem 0 1.25rem;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-left: 4px solid var(--ifpi-red, #B8202D);
+  border-radius: 12px;
+  padding: 1.15rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  transition: all 0.2s ease;
+}
+
+.regions-prov-banner:hover {
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.07);
+  transform: translateY(-1px);
+}
+
+.regions-prov-banner__info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.regions-prov-banner__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(184, 32, 45, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.regions-prov-banner__text {
+  min-width: 0;
+}
+
+.regions-prov-banner__tags {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.regions-prov-tag {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  background: rgba(184, 32, 45, 0.1);
+  color: var(--ifpi-red, #B8202D);
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.regions-prov-stat {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #15803D;
+}
+
+.regions-prov-banner__title {
+  margin: 0 0 0.2rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.3;
+}
+
+.regions-prov-banner__sub {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.regions-prov-banner__desc {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #64748B;
+  line-height: 1.45;
+}
+
+.regions-prov-banner__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.15rem;
+  background: var(--ifpi-red, #B8202D);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+  box-shadow: 0 2px 6px rgba(184, 32, 45, 0.25);
+}
+
+.regions-prov-banner__cta:hover {
+  background: #8F1723;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(184, 32, 45, 0.35);
+}
+
+@media (max-width: 768px) {
+  .regions-prov-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .regions-prov-banner__cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* Quick Pills Selector di Atas Peta */
 .regions-pills-bar {
   display: flex;

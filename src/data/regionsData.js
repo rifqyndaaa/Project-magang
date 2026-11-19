@@ -49,7 +49,7 @@ export const RIAU_REGIONS_DATA = [
     // Statistik Personel & Keanggotaan IFPI
     jfCount: 18,
     membersByLetter: 11,
-    membersBySystem: 10,
+    membersBySystem: 11,
     notYetMembers: 7,
     members: [
       {
@@ -294,7 +294,7 @@ export const RIAU_REGIONS_DATA = [
     ],
     jfCount: 16,
     membersByLetter: 12,
-    membersBySystem: 11,
+    membersBySystem: 12,
     notYetMembers: 4,
     members: [
       {
@@ -493,7 +493,7 @@ export const RIAU_REGIONS_DATA = [
     kepengurusan: null,
     jfCount: 5,
     membersByLetter: 3,
-    membersBySystem: 5,
+    membersBySystem: 3,
     notYetMembers: 2,
   },
   {
@@ -537,9 +537,9 @@ export const RIAU_REGIONS_DATA = [
       },
     ],
     jfCount: 30,
-    membersByLetter: 30,
-    membersBySystem: 30,
-    notYetMembers: 0,
+    membersByLetter: 12,
+    membersBySystem: 12,
+    notYetMembers: 18,
     members: [
       {
         no: 1,
@@ -915,7 +915,7 @@ export const RIAU_REGIONS_DATA = [
     ],
     jfCount: 5,
     membersByLetter: 2,
-    membersBySystem: 4,
+    membersBySystem: 2,
     notYetMembers: 3,
     members: [
       {
@@ -1017,7 +1017,7 @@ export const RIAU_REGIONS_DATA = [
     ],
     jfCount: 12,
     membersByLetter: 8,
-    membersBySystem: 9,
+    membersBySystem: 8,
     notYetMembers: 4,
     members: [
       {
@@ -1196,7 +1196,7 @@ export const RIAU_REGIONS_DATA = [
     ],
     jfCount: 14,
     membersByLetter: 3,
-    membersBySystem: 4,
+    membersBySystem: 3,
     notYetMembers: 11,
     members: [
       {
@@ -1397,7 +1397,7 @@ export const RIAU_REGIONS_DATA = [
     ],
     jfCount: 20,
     membersByLetter: 11,
-    membersBySystem: 3,
+    membersBySystem: 11,
     notYetMembers: 9,
     members: [
       {
@@ -1664,7 +1664,7 @@ export const RIAU_REGIONS_DATA = [
     ],
     jfCount: 14,
     membersByLetter: 5,
-    membersBySystem: 6,
+    membersBySystem: 5,
     notYetMembers: 9,
     members: [
       {
@@ -1865,7 +1865,7 @@ export const RIAU_REGIONS_DATA = [
     ],
     jfCount: 10,
     membersByLetter: 7,
-    membersBySystem: 5,
+    membersBySystem: 7,
     notYetMembers: 3,
     members: [
       {
@@ -2133,7 +2133,7 @@ export const RIAU_REGIONS_DATA = [
     ],
     jfCount: 5,
     membersByLetter: 2,
-    membersBySystem: 0,
+    membersBySystem: 2,
     notYetMembers: 3,
     members: [
       {
@@ -2517,16 +2517,45 @@ export const REKAPITULASI_JF_RIAU = [
 ];
 
 /**
+ * Urutan Resmi Rekapitulasi Sesuai Format Rekonsiliasi Pengurus DPW IFPI Riau:
+ * 1. INHU, 2. ROHIL, 3. DUMAI, 4. INHIL, 5. KAMPAR, 6. PELALAWAN, 7. ROHUL,
+ * 8. KEP MERANTI, 9. PROV. RIAU, 10. KAB. SIAK, 11. KOTA PEKANBARU, 12. BENGKALIS, 13. KUANSING.
+ */
+export const TABEL_REKAP_RESMI = [
+  { no: 1, id: 'indragiri-hulu', label: 'INHU', fullName: 'Kabupaten Indragiri Hulu' },
+  { no: 2, id: 'rokan-hilir', label: 'ROHIL', fullName: 'Kabupaten Rokan Hilir' },
+  { no: 3, id: 'dumai', label: 'DUMAI', fullName: 'Kota Dumai' },
+  { no: 4, id: 'indragiri-hilir', label: 'INHIL', fullName: 'Kabupaten Indragiri Hilir' },
+  { no: 5, id: 'kampar', label: 'KAMPAR', fullName: 'Kabupaten Kampar' },
+  { no: 6, id: 'pelalawan', label: 'PELALAWAN', fullName: 'Kabupaten Pelalawan' },
+  { no: 7, id: 'rokan-hulu', label: 'ROHUL', fullName: 'Kabupaten Rokan Hulu' },
+  { no: 8, id: 'kepulauan-meranti', label: 'KEP MERANTI', fullName: 'Kabupaten Kepulauan Meranti' },
+  { no: 9, id: 'prov-riau', label: 'PROV. RIAU', fullName: 'Pemerintah Provinsi Riau' },
+  { no: 10, id: 'siak', label: 'KAB. SIAK', fullName: 'Kabupaten Siak' },
+  { no: 11, id: 'pekanbaru', label: 'KOTA PEKANBARU', fullName: 'Kota Pekanbaru' },
+  { no: 12, id: 'bengkalis', label: 'BENGKALIS', fullName: 'Kabupaten Bengkalis' },
+  { no: 13, id: 'kuantan-singingi', label: 'KUANSING', fullName: 'Kabupaten Kuantan Singingi' },
+].map((item) => {
+  const reg = getRegionById(item.id);
+  return {
+    ...reg,
+    no: item.no,
+    tableLabel: item.label,
+    officialFullName: item.fullName,
+  };
+});
+
+/**
  * Total Akumulasi Statistik JF & Keanggotaan Se-Provinsi Riau
  */
 export const TOTAL_JF_RIAU = {
   totalWilayah: 13,
   totalJf: 192,
   totalMembersByLetter: 106,
-  totalMembersBySystem: 99,
+  totalMembersBySystem: 106,
   totalNotYetMembers: 86,
   percentageByLetter: '55.2%',
-  percentageBySystem: '51.6%',
+  percentageBySystem: '55.2%',
 };
 
 /**
