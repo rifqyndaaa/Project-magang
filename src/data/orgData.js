@@ -157,6 +157,23 @@ export const DIVISI = [
       { id: 'div5-a2', jabatan: 'Anggota',     nama: 'Ryan Rapani, ST', foto: '/images/pengurus/ryan-rapani.jpg' },
       { id: 'div5-a3', jabatan: 'Anggota',     nama: 'Heriyanis, ST', foto: '/images/pengurus/heriyanis.jpg' },
       { id: 'div5-a4', jabatan: 'Anggota',     nama: 'Ibnu Hajar, S. Pt', foto: '/images/pengurus/ibnu-hajar.jpg' },
+      {
+        id: 'div5-a5',
+        jabatan: 'Anggota',
+        nama: 'Lidya Hastuty, S.E., M.M',
+        foto: '/images/pengurus/lidya-hastuty.jpg',
+        jabatanFungsional: 'Pengelola Pengadaan Barang dan Jasa Ahli Pertama',
+        unitKerja: 'Biro Pengadaan Barang dan Jasa Sekretariat Daerah Provinsi Riau',
+        biodata: {
+          instansi: 'Biro Pengadaan Barang dan Jasa Setda Provinsi Riau',
+          periode: '2027–2032',
+          karirASN:
+            'Mengawali karir sebagai ASN pada tahun 2025 dengan penempatan di Biro Pengadaan Barang dan Jasa Sekretariat Daerah Provinsi Riau.',
+          pendidikan: 'Magister Manajemen SDM Universitas Lancang Kuning',
+          deskripsi:
+            'Lidya Hastuty, S.E., M.M adalah Pengelola Pengadaan Barang dan Jasa Ahli Pertama pada Biro Pengadaan Barang dan Jasa Sekretariat Daerah Provinsi Riau. Beliau mengawali karir sebagai Aparatur Sipil Negara (ASN) pada tahun 2025 dengan penempatan di Biro Pengadaan Barang dan Jasa Setda Provinsi Riau.\n\nBeliau menempuh pendidikan Magister Manajemen Sumber Daya Manusia di Universitas Lancang Kuning. Dalam kepengurusan DPW IFPI Provinsi Riau Masa Bakti 2027–2032, beliau dipercaya sebagai Anggota Divisi V (Pendidikan & Pelatihan Pengadaan).',
+        },
+      },
     ],
   },
 ];

@@ -106,7 +106,7 @@ export default function Buku() {
                     <ul className="merch-specs-list">
                       <li>Penulis: {item.penulis}</li>
                       <li>Penerbit: {item.penerbit}</li>
-                      <li>Tahun Terbit: {item.tahun}</li>
+                      {item.tahun && <li>Tahun Terbit: {item.tahun}</li>}
                       {item.halaman && <li>Jumlah Halaman: {item.halaman} halaman</li>}
                       {item.rujukanRegulasi && item.rujukanRegulasi.length > 0 && (
                         <li>Rujukan Regulasi: {item.rujukanRegulasi.join('; ')}</li>

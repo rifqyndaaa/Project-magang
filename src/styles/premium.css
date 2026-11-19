@@ -5834,3 +5834,31 @@ code, kbd, samp, pre {
 .services-friend figcaption span { color: #64748b; font-size: .75rem; }
 .services-friend figcaption strong { color: var(--ifpi-ink); font-size: .9rem; }
 @media (max-width: 900px) { .services-friend { width: 140px; } .services-friend img { height: 140px; } }
+
+/* ----------------------------------------------------------------------------
+   KETERBACAAN HEADER DIVISI — teks putih di atas latar merah
+   Sebelumnya `.org-divisi-code` & `.org-divisi-name` berwarna merah/ink
+   sehingga nyaris tak terbaca di atas gradien merah bawaan badge.
+   -------------------------------------------------------------------------- */
+.org-divisi-header-badge .org-divisi-code,
+.org-divisi-code {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28) !important;
+}
+
+.org-divisi-header-badge .org-divisi-name,
+.org-divisi-name {
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.32) !important;
+}
+
+/* Badge divisi: pastikan latar merah penuh + teks rata tengah vertikal */
+.org-divisi-header-badge {
+  background: linear-gradient(135deg, #B8202D 0%, #8F1723 100%) !important;
+  color: #FFFFFF !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 62px;
+}

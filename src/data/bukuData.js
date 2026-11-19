@@ -42,6 +42,22 @@ export const BUKU_DATA = [
     kodeBarang: 'IFPI-BKU-01',
     foto: '/images/buku/e-purchasing-katalog-v6.jpg',
   },
+  {
+    id: 'buku-2',
+    judul: 'Kupas Tuntas Persyaratan Teknis Tenaga Ahli (Undang-Undang Jasa Konstruksi)',
+    penulis: 'Feri Saputra, M.Si.',
+    tahun: null,
+    penerbit: 'Dandelion Publisher',
+    kategori: 'Buku Saku',
+    kategoriKode: 'saku',
+    deskripsi:
+      'Membedah persyaratan teknis tenaga ahli di bidang jasa konstruksi sesuai Undang-Undang Jasa Konstruksi, mulai dari persoalan kurangnya ketersediaan tenaga ahli berkualitas, pemanfaatan teknologi informasi dalam penyelenggaraan jasa konstruksi, hingga dorongan partisipasi masyarakat jasa konstruksi terhadap Rancangan Peraturan Pemerintah Cipta Kerja.',
+    isbn: null,
+    halaman: null,
+    statusKetersediaan: 'Tersedia untuk Pemesanan',
+    kodeBarang: 'IFPI-BKU-02',
+    foto: '/images/buku/kupas-tuntas-persyaratan-tenaga-ahli.jpg',
+  },
 ];
 
 /** Filter kategori katalog buku */
