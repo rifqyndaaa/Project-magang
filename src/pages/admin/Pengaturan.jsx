@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Icon from "../../components/Icon";
 import { getAdminSession, logoutAdmin, getAllReports, exportReportsToCSV } from '../../services/storage';
 import { CATEGORIES, ADMIN_STATUSES, RIAU_REGIONS } from '../../data/categories';
+import ArtikelPanel from './ArtikelPanel';
 
 /**
  * Pengaturan — informasi sesi petugas, integrasi cloud, dan pencadangan data.
@@ -156,6 +157,9 @@ export default function AdminPengaturan() {
           </div>
         </section>
       </div>
+
+      {/* Pengelolaan Artikel & Informasi di Beranda */}
+      <ArtikelPanel />
 
       {/* Pencadangan Data CSV */}
       <section className="adx-card">

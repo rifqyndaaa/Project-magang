@@ -1,6 +1,8 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Icon from "../../../components/Icon";
+import BerandaArtikel from "../../../components/BerandaArtikel";
+import { getPublishedArticles } from "../../../services/articleStorage";
 import './Home.css';
 
 /* ============================================================================
@@ -128,6 +130,9 @@ export default function Home() {
   const [showTicketHelp, setShowTicketHelp] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const [heroSlide, setHeroSlide] = useState(0);
+
+  // Artikel & Informasi — hanya entri berstatus "Terbit" yang dibaca.
+  const [articles] = useState(() => getPublishedArticles());
 
   // Pergantian latar hero. Dihentikan bila pengguna meminta gerak minimal.
   useEffect(() => {
@@ -622,6 +627,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ============================================================
+          4c. ARTIKEL & INFORMASI — pratinjau tautan pilihan
+          Hanya tampil bila ada informasi yang sudah diterbitkan Admin.
+          ============================================================ */}
+      <BerandaArtikel articles={articles} />
 
       {/* ============================================================
           5. PANDUAN PENGGUNAAN LAYANAN & TIPS EFEKTIF

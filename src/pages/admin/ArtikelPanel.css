@@ -1,0 +1,215 @@
+/* ============================================================
+   PANEL PENGELOLAAN ARTIKEL BERANDA (di halaman Pengaturan)
+   ============================================================ */
+
+.artp {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4E4;
+  border-radius: 2px;
+  padding: 1.35rem 1.4rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.artp-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ifpi-rule, #E8E8E8);
+  margin-bottom: 1.15rem;
+}
+
+.artp-head__title {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ifpi-ink, #252525);
+}
+
+.artp-head__desc {
+  margin: 0;
+  font-size: 0.78125rem;
+  line-height: 1.6;
+  color: #7A7A7A;
+  max-width: 58ch;
+}
+
+/* ---------- Formulir ---------- */
+.artp-form {
+  padding: 0 0 0.25rem;
+}
+
+.artp-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 0.9rem;
+}
+
+.artp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+  flex: 1 1 200px;
+}
+
+.artp-field--wide {
+  flex: 3 1 360px;
+}
+
+.artp-field--action {
+  flex: 1 1 170px;
+}
+
+.artp-field--block {
+  width: 100%;
+  margin-bottom: 0.9rem;
+}
+
+.artp-label {
+  font-size: 0.71875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #4A4A4A;
+}
+
+.artp-hint {
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: #8C8C8C;
+}
+
+.artp-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.84375rem;
+  color: var(--ifpi-ink, #252525);
+  background-color: #FFFFFF;
+  border: 1px solid #DCDCDC;
+  border-radius: 2px;
+  padding: 0.5rem 0.65rem;
+}
+
+.artp-input:focus {
+  outline: none;
+  border-color: var(--ifpi-red, #B8202D);
+  box-shadow: 0 0 0 2px rgba(184, 32, 45, 0.08);
+}
+
+.artp-textarea {
+  resize: vertical;
+  min-height: 76px;
+  line-height: 1.6;
+}
+
+.artp-proxy {
+  margin: 0 0 0.95rem;
+  border: 1px dashed #E0DADA;
+  border-radius: 2px;
+  padding: 0.6rem 0.75rem;
+  background-color: #FCFAFA;
+}
+
+.artp-proxy summary {
+  font-size: 0.71875rem;
+  font-weight: 700;
+  color: #6B6B6B;
+  cursor: pointer;
+}
+
+.artp-proxy summary:hover {
+  color: var(--ifpi-red, #B8202D);
+}
+
+.artp-proxy p {
+  margin: 0.5rem 0;
+}
+
+.artp-proxy code {
+  font-size: 0.6875rem;
+  background-color: #F2EDED;
+  padding: 0.05rem 0.28rem;
+  border-radius: 2px;
+}
+
+/* ---------- Unggahan gambar ---------- */
+.artp-upload {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+
+.artp-upload__img {
+  width: 150px;
+  height: 94px;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid #E4E4E4;
+  display: block;
+}
+
+.artp-upload__empty {
+  width: 150px;
+  height: 94px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  border: 1px dashed #E0DADA;
+  border-radius: 2px;
+  font-size: 0.6875rem;
+  color: #A8A2A2;
+  background-color: #FCFAFA;
+}
+
+.artp-upload__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.55rem;
+}
+
+.artp-upload__actions label.adx-btn {
+  cursor: pointer;
+}
+
+/* ---------- Footer ---------- */
+.artp-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ifpi-rule, #E8E8E8);
+}
+
+/* ---------- Tabel ---------- */
+.artp-table-scroll {
+  overflow-x: auto;
+}
+
+.artp-table td {
+  vertical-align: middle;
+}
+
+@media (max-width: 640px) {
+  .artp {
+    padding: 1.1rem 1rem 1.25rem;
+  }
+
+  .artp-field,
+  .artp-field--wide,
+  .artp-field--action {
+    flex: 1 1 100%;
+  }
+
+  .artp-footer .adx-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
