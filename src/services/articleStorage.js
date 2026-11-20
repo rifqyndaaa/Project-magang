@@ -24,6 +24,7 @@ const ARTICLE_STORAGE_KEY = 'ifpi_beranda_artikel_v1';
 
 const MAX_THUMB_EDGE = 1200;
 const MAX_THUMB_BYTES = 700 * 1024; // 700 KB setelah kompres
+const MAX_LAMPIRAN_BYTES = 2.5 * 1024 * 1024; // 2,5 MB bila disimpan di browser
 
 /**
  * Entri awal — tautan nyata yang diberikan pengurus, bukan berita rekaan.
@@ -45,6 +46,27 @@ const INITIAL_ARTICLES = [
     status: 'published',
     createdAt: '2026-11-18T09:10:46+07:00',
     updatedAt: '2026-11-18T09:10:46+07:00',
+  },
+  {
+    id: 'art-paparan-bpsdm-renaksi',
+    judul:
+      'Paparan BPSDM Riau: Renaksi Pemenuhan Kompetensi PPK 2027',
+    url: '',
+    sumber: 'BPSDM Provinsi Riau & DPW IFPI Riau',
+    tanggal: '2026-11-19',
+    ringkasan:
+      'Bahan paparan rencana aksi pemenuhan PPK se-Provinsi Riau: 13 pemda, 8 pemda belum mengisi Renaksi, dan kesenjangan 565 PPK pada 5 pemda yang sudah mengisi.',
+    thumbnail: '/images/artikel/paparan-bpsdm-renaksi.jpg',
+    lampiran: {
+      nama: 'Paparan-BPSDM-Riau-Renaksi-PPK-2027.pptx',
+      url: '/dokumen/Paparan-BPSDM-Riau-Renaksi-PPK-2027.pptx',
+      tipe:
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      ukuran: 3754424,
+    },
+    status: 'published',
+    createdAt: '2026-11-19T15:20:00+07:00',
+    updatedAt: '2026-11-19T15:20:00+07:00',
   },
 ];
 
@@ -107,6 +129,40 @@ export function initialOf(text) {
 /* Baca / Tulis                                                       */
 /* ------------------------------------------------------------------ */
 
+/** Nama berkas ringkas dari sebuah URL atau data URL */
+export function namaBerkasDari(url) {
+  if (!url) return '';
+  if (url.startsWith('data:')) return 'Berkas terunggah';
+  try {
+    const path = new URL(url, 'https://x.local').pathname;
+    return decodeURIComponent(path.split('/').pop() || '');
+  } catch {
+    return '';
+  }
+}
+
+/** Ukuran berkas → label ringkas */
+export function formatUkuran(bytes) {
+  const n = Number(bytes);
+  if (!n || n <= 0) return '';
+  if (n < 1024) return `${n} B`;
+  if (n < 1024 * 1024) return `${(n / 1024).toFixed(0)} KB`;
+  return `${(n / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function normalizeLampiran(item) {
+  const raw = item && typeof item === 'object' ? item : null;
+  if (!raw) return null;
+  const url = (raw.url || '').trim();
+  if (!url) return null;
+  return {
+    nama: (raw.nama || '').trim() || namaBerkasDari(url) || 'Dokumen lampiran',
+    url,
+    tipe: raw.tipe || '',
+    ukuran: Number(raw.ukuran) || 0,
+  };
+}
+
 function normalizeArticle(item) {
   if (!item || typeof item !== 'object') return null;
   return {
@@ -117,6 +173,7 @@ function normalizeArticle(item) {
     tanggal: item.tanggal || todayISO(),
     ringkasan: (item.ringkasan || '').trim(),
     thumbnail: item.thumbnail || null,
+    lampiran: normalizeLampiran(item.lampiran),
     status: item.status === 'draft' ? 'draft' : 'published',
     createdAt: item.createdAt || new Date().toISOString(),
     updatedAt: item.updatedAt || item.createdAt || new Date().toISOString(),
@@ -134,6 +191,32 @@ function sortByDate(list) {
 
 const SEED_FLAG_KEY = 'ifpi_beranda_artikel_seeded_v1';
 
+/**
+ * Entri susulan — disisipkan sekali ke penyimpanan yang sudah terisi,
+ * supaya dokumen resmi baru tetap tampil tanpa menghapus artikel admin.
+ */
+const BACKFILL_KEY = 'ifpi_beranda_artikel_backfill_v2';
+const BACKFILL_IDS = ['art-paparan-bpsdm-renaksi'];
+
+function applyBackfill(list) {
+  try {
+    if (localStorage.getItem(BACKFILL_KEY)) return list;
+    const have = new Set(list.map((a) => a.id));
+    const missing = INITIAL_ARTICLES.filter(
+      (a) => BACKFILL_IDS.includes(a.id) && !have.has(a.id)
+    )
+      .map(normalizeArticle)
+      .filter(Boolean);
+    localStorage.setItem(BACKFILL_KEY, '1');
+    if (!missing.length) return list;
+    const merged = [...missing, ...list];
+    localStorage.setItem(ARTICLE_STORAGE_KEY, JSON.stringify(merged));
+    return merged;
+  } catch {
+    return list;
+  }
+}
+
 export function getAllArticles() {
   try {
     const raw = localStorage.getItem(ARTICLE_STORAGE_KEY);
@@ -150,7 +233,7 @@ export function getAllArticles() {
     }
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
-    return sortByDate(parsed.map(normalizeArticle).filter(Boolean));
+    return sortByDate(applyBackfill(parsed.map(normalizeArticle).filter(Boolean)));
   } catch (err) {
     console.warn('[Artikel] Gagal membaca data:', err);
     return [];
@@ -269,6 +352,50 @@ export function fileToCompressedDataUrl(file) {
         resolve(dataUrl);
       };
       img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* Unggah lampiran dokumen (PPT/PDF/DOC)                              */
+/* ------------------------------------------------------------------ */
+
+const LAMPIRAN_EXT = /\.(pptx?|ppsx?|pdf|docx?|xlsx?|odp|odt|ods|zip|rar)$/i;
+
+/**
+ * Mengubah berkas dokumen menjadi objek lampiran.
+ * Berkas kecil (≤ 2,5 MB) disimpan langsung di browser sebagai data URL;
+ * berkas lebih besar harus ditempatkan di folder public lewat kolom URL.
+ */
+export function fileToAttachment(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      reject(new Error('Tidak ada berkas dipilih.'));
+      return;
+    }
+    if (!LAMPIRAN_EXT.test(file.name)) {
+      reject(new Error('Format dokumen belum didukung. Gunakan PPT/PPTX, PDF, DOC/DOCX, atau XLS/XLSX.'));
+      return;
+    }
+    if (file.size > MAX_LAMPIRAN_BYTES) {
+      reject(
+        new Error(
+          `Berkas ${formatUkuran(file.size)} melebihi batas 2,5 MB. Salin berkas ke folder ` +
+            'public/dokumen lalu isi kolom URL dokumen.'
+        )
+      );
+    }
+
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Gagal membaca berkas dokumen.'));
+    reader.onload = () => {
+      resolve({
+        nama: file.name,
+        url: reader.result,
+        tipe: file.type || '',
+        ukuran: file.size,
+      });
     };
     reader.readAsDataURL(file);
   });

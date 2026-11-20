@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Icon from "../../../components/Icon";
 import BerandaArtikel from "../../../components/BerandaArtikel";
+import HomeStruktur from './HomeStruktur';
 import { getPublishedArticles } from "../../../services/articleStorage";
 import './Home.css';
 
@@ -589,6 +590,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ============================================================
+          4b. STRUKTUR PENGURUS INTI — bagan 1 ketua + 2 sejajar
+          Ditempatkan tepat sebelum section "Potret Riau".
+          ============================================================ */}
+      <HomeStruktur />
 
       {/* ============================================================
           4b. POTRET RIAU — galeri foto sebagai jeda visual antar bagian

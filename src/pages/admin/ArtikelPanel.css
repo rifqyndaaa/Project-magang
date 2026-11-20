@@ -179,6 +179,64 @@
   cursor: pointer;
 }
 
+/* ---------- Lampiran dokumen ---------- */
+.artp-doc {
+  display: block;
+  padding: 0.85rem 0.9rem;
+  border: 1px dashed #E0DADA;
+  border-radius: 2px;
+  background-color: #FCFAFA;
+}
+
+.artp-doc__current {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  min-height: 2rem;
+}
+
+.artp-doc__badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 26px;
+  padding: 0 0.35rem;
+  border: 1px solid #E2DCDC;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--adx-red, #B8202D);
+}
+
+.artp-doc__meta {
+  display: block;
+  min-width: 0;
+}
+
+.artp-doc__name {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--adx-ink, #252525);
+  overflow-wrap: anywhere;
+}
+
+.artp-doc__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.6rem;
+}
+
+.artp-doc__actions label.adx-btn {
+  cursor: pointer;
+}
+
 /* ---------- Footer ---------- */
 .artp-footer {
   display: flex;

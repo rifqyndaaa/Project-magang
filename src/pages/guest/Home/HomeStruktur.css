@@ -1,0 +1,293 @@
+/* ============================================================
+   BAGAN PENGURUS INTI DI BERANDA
+   Satu ketua di puncak, dua pengurus sejajar di bawahnya.
+   Gaya editorial: garis tipis, tanpa gradien, tanpa bayangan.
+   ============================================================ */
+
+.hst {
+  --hst-gap: 2.5rem; /* gap antar kartu sejajar + garis penghubung */
+  padding: 4.25rem 0 4.5rem;
+  background-color: var(--ifpi-paper-alt, #F7F7F7);
+  border-top: 1px solid var(--ifpi-rule, #E8E8E8);
+  border-bottom: 1px solid var(--ifpi-rule, #E8E8E8);
+}
+
+.hst-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: 2rem;
+  align-items: end;
+  margin-bottom: 2.5rem;
+}
+
+.hst-head__lede {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--ifpi-ink-soft, #686868);
+}
+
+/* ---------- Kerangka bagan ---------- */
+.hst-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hst-level {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 2rem;
+}
+
+.hst-level--puncak {
+  justify-content: center;
+}
+
+.hst-level--sejajar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--hst-gap);
+  max-width: 760px;
+}
+
+/* ---------- Garis penghubung ---------- */
+.hst-connector {
+  /* Garis mengikuti gap kartu sejajar (lihat .hst --hst-gap). */
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  height: 46px;
+}
+
+.hst-connector__stem {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 22px;
+  background-color: #CFC9C9;
+  transform: translateX(-50%);
+}
+
+/* Bar mendatar: dari titik tengah kartu kiri ke titik tengah kartu kanan. */
+.hst-connector__bar {
+  position: absolute;
+  top: 22px;
+  left: calc((100% - var(--hst-gap)) / 4);
+  width: calc(50% + var(--hst-gap) / 2);
+  height: 1px;
+  background-color: #CFC9C9;
+}
+
+.hst-connector__drop {
+  position: absolute;
+  top: 22px;
+  width: 1px;
+  height: 24px;
+  background-color: #CFC9C9;
+}
+
+.hst-connector__drop--left {
+  left: calc((100% - var(--hst-gap)) / 4);
+}
+
+.hst-connector__drop--right {
+  left: calc(100% - (100% - var(--hst-gap)) / 4);
+}
+
+/* ---------- Kartu pengurus ---------- */
+.hst-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.15rem 1.25rem;
+  background-color: #FFFFFF;
+  border: 1px solid var(--ifpi-rule, #E8E8E8);
+  border-top: 2px solid var(--ifpi-red, #B8202D);
+  border-radius: 2px;
+}
+
+.hst-card--ketua {
+  max-width: 520px;
+  padding: 1.35rem 1.5rem;
+}
+
+.hst-card__body {
+  min-width: 0;
+}
+
+.hst-role {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ifpi-red, #B8202D);
+}
+
+.hst-name {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ifpi-ink, #252525);
+}
+
+.hst-name--kecil {
+  font-size: 1.0625rem;
+}
+
+/* Nama belum diisi — jangan dikarang, beri penanda netral. */
+.hst-name--kosong {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ifpi-ink-soft, #8A8A8A);
+}
+
+.hst-detail {
+  margin: 0 0 0.15rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--neutral-700, #4A4A4A);
+}
+
+.hst-unit {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--ifpi-ink-soft, #868686);
+}
+
+/* ---------- Foto ---------- */
+.hst-foto {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 78px;
+  height: 78px;
+  overflow: hidden;
+  border: 1px solid var(--ifpi-rule, #E8E8E8);
+  border-radius: 2px;
+  background-color: var(--ifpi-paper-alt, #F2F2F2);
+}
+
+.hst-foto--besar {
+  width: 104px;
+  height: 104px;
+}
+
+.hst-foto img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(100%) contrast(1.03);
+}
+
+.hst-foto__inisial {
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #B4AEAE;
+}
+
+/* ---------- Tautan bawah ---------- */
+.hst-foot {
+  margin-top: 2.25rem;
+  text-align: center;
+}
+
+.hst-foot__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ifpi-ink, #252525);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.hst-foot__link:hover,
+.hst-foot__link:focus-visible {
+  color: var(--ifpi-red, #B8202D);
+  border-bottom-color: var(--ifpi-red, #B8202D);
+}
+
+/* ---------- Responsif ---------- */
+@media (max-width: 900px) {
+  .hst {
+    --hst-gap: 1.25rem;
+  }
+
+  .hst-head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+  }
+
+  .hst-level--sejajar {
+    gap: var(--hst-gap);
+  }
+}
+
+@media (max-width: 720px) {
+  .hst {
+    padding: 3.25rem 0;
+  }
+
+  .hst-level--sejajar {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    max-width: 480px;
+  }
+
+  .hst-connector {
+    height: 30px;
+  }
+
+  .hst-connector__bar,
+  .hst-connector__drop--left,
+  .hst-connector__drop--right {
+    display: none;
+  }
+
+  .hst-connector__stem {
+    height: 30px;
+  }
+
+  .hst-card,
+  .hst-card--ketua {
+    max-width: 480px;
+    padding: 1rem;
+  }
+
+  .hst-foto {
+    width: 64px;
+    height: 64px;
+  }
+
+  .hst-foto--besar {
+    width: 84px;
+    height: 84px;
+  }
+
+  .hst-name {
+    font-size: 1.0625rem;
+  }
+
+  .hst-name--kecil {
+    font-size: 1rem;
+  }
+}

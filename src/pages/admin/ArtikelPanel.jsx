@@ -7,6 +7,9 @@ import {
   toggleArticleStatus,
   fetchLinkPreview,
   fileToCompressedDataUrl,
+  fileToAttachment,
+  formatUkuran,
+  namaBerkasDari,
   normalizeUrl,
   hostnameOf,
   todayISO,
@@ -22,6 +25,7 @@ const EMPTY_FORM = {
   tanggal: todayISO(),
   ringkasan: '',
   thumbnail: null,
+  lampiran: null,
   status: 'published',
 };
 
@@ -97,6 +101,21 @@ export default function ArtikelPanel() {
       const dataUrl = await fileToCompressedDataUrl(file);
       update({ thumbnail: dataUrl });
       flash('ok', 'Gambar diunggah dan dioptimalkan otomatis.');
+    } catch (err) {
+      flash('err', err.message);
+    }
+  };
+
+  /* ---------------- Unggahan lampiran dokumen ---------------- */
+
+  const handleLampiranFile = async (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    try {
+      const doc = await fileToAttachment(file);
+      update({ lampiran: doc });
+      flash('ok', 'Dokumen dilampirkan. Akan muncul sebagai tombol unduh di Beranda.');
     } catch (err) {
       flash('err', err.message);
     }
@@ -338,6 +357,81 @@ export default function ArtikelPanel() {
             </div>
           </div>
 
+          <div className="artp-field artp-field--block">
+            <span className="artp-label">Lampiran Dokumen (PPT, PDF, DOC, XLS)</span>
+            <div className="artp-doc">
+              <div className="artp-doc__current">
+                {form.lampiran?.url ? (
+                  <>
+                    <span className="artp-doc__badge">
+                      {(form.lampiran.nama || namaBerkasDari(form.lampiran.url))
+                        .split('.')
+                        .pop()
+                        .toUpperCase()}
+                    </span>
+                    <span className="artp-doc__meta">
+                      <span className="artp-doc__name">
+                        {form.lampiran.nama || namaBerkasDari(form.lampiran.url)}
+                      </span>
+                      <span className="artp-hint">
+                        {formatUkuran(form.lampiran.ukuran) || 'Ukuran tidak diketahui'} · akan tampil
+                        sebagai tombol unduh pada artikel di Beranda.
+                      </span>
+                    </span>
+                  </>
+                ) : (
+                  <span className="artp-hint">
+                    Belum ada dokumen dilampirkan. Artikel tanpa lampiran tetap dapat diterbitkan.
+                  </span>
+                )}
+              </div>
+
+              <div className="artp-doc__actions">
+                <label className="adx-btn adx-btn--xs">
+                  <Icon name="upload" size={13} color="currentColor" />
+                  <span>Pilih Dokumen</span>
+                  <input
+                    type="file"
+                    accept=".ppt,.pptx,.pps,.ppsx,.pdf,.doc,.docx,.xls,.xlsx,.odp,.odt,.ods"
+                    hidden
+                    onChange={handleLampiranFile}
+                  />
+                </label>
+                {form.lampiran?.url && (
+                  <button
+                    type="button"
+                    className="adx-btn adx-btn--xs adx-btn--quiet"
+                    onClick={() => update({ lampiran: null })}
+                  >
+                    Hapus
+                  </button>
+                )}
+              </div>
+
+              <label className="artp-field artp-field--block" style={{ marginTop: '0.75rem' }}>
+                <span className="artp-label">Atau isi URL dokumen</span>
+                <input
+                  type="text"
+                  className="artp-input"
+                  placeholder="/dokumen/Paparan-Renaksi.pptx"
+                  value={form.lampiran?.url?.startsWith('data:') ? '' : form.lampiran?.url || ''}
+                  onChange={(e) => {
+                    const url = e.target.value.trim();
+                    update({
+                      lampiran: url
+                        ? { nama: namaBerkasDari(url), url, tipe: '', ukuran: 0 }
+                        : null,
+                    });
+                  }}
+                />
+                <span className="artp-hint">
+                  Untuk berkas di atas 2,5 MB: salin ke folder <code>public/dokumen</code>, deploy,
+                  lalu tulis path-nya di sini (contoh di atas).
+                </span>
+              </label>
+            </div>
+          </div>
+
           <div className="artp-footer">
             <button type="submit" className="adx-btn adx-btn--primary">
               <Icon name="check" size={14} color="currentColor" />
@@ -377,6 +471,7 @@ export default function ArtikelPanel() {
                       <span className="adx-subject__title">{a.judul}</span>
                       <span className="adx-subject__desc">
                         {a.sumber || hostnameOf(a.url) || 'Tanpa sumber'}
+                        {a.lampiran?.url ? ' · ada lampiran dokumen' : ''}
                       </span>
                     </span>
                   </td>

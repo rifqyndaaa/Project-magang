@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import Icon from './Icon';
-import { formatTanggal, hostnameOf, initialOf } from '../services/articleStorage';
+import {
+  formatTanggal,
+  formatUkuran,
+  hostnameOf,
+  initialOf,
+  namaBerkasDari,
+} from '../services/articleStorage';
 import './BerandaArtikel.css';
 
 /**
@@ -54,8 +60,42 @@ function Thumb({ article, variant }) {
   );
 }
 
+function Lampiran({ article, variant = 'featured' }) {
+  const doc = article.lampiran;
+  if (!doc || !doc.url) return null;
+
+  const nama = doc.nama || namaBerkasDari(doc.url) || 'Dokumen lampiran';
+  const ext = (nama.split('.').pop() || '').toUpperCase();
+  const ukuran = formatUkuran(doc.ukuran);
+
+  return (
+    <a
+      className={`bart-attach bart-attach--${variant}`}
+      href={doc.url}
+      {...(doc.url.startsWith('data:')
+        ? { download: nama }
+        : { target: '_blank', rel: 'noopener noreferrer' })}
+    >
+      <span className="bart-attach__icon" aria-hidden="true">
+        {ext || 'DOC'}
+      </span>
+      <span className="bart-attach__body">
+        <span className="bart-attach__name">{nama}</span>
+        <span className="bart-attach__meta">
+          {ext ? `Dokumen ${ext}` : 'Dokumen'}
+          {ukuran ? ` · ${ukuran}` : ''}
+        </span>
+      </span>
+      <span className="bart-attach__cta">
+        Unduh
+        <Icon name="download" size={13} color="currentColor" />
+      </span>
+    </a>
+  );
+}
+
 function FeaturedItem({ article }) {
-  const href = article.url || '#';
+  const href = article.url || article.lampiran?.url || '#';
   return (
     <article className="bart-featured">
       <a
@@ -78,6 +118,7 @@ function FeaturedItem({ article }) {
         </h3>
         <Sumber article={article} />
         {article.ringkasan && <p className="bart-featured__summary">{article.ringkasan}</p>}
+        <Lampiran article={article} variant="featured" />
         {article.url && (
           <a
             className="bart-readmore"
@@ -95,18 +136,28 @@ function FeaturedItem({ article }) {
 }
 
 function ListItem({ article }) {
-  const href = article.url || '#';
+  const href = article.url || article.lampiran?.url || '#';
+  const external = Boolean(article.url);
   return (
     <li className="bart-item">
       <a
         className="bart-item__link"
         href={href}
-        {...(article.url ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        {...(!external && article.lampiran?.url ? { download: article.lampiran.nama } : {})}
       >
         <Thumb article={article} variant="list" />
         <span className="bart-item__body">
           <span className="bart-item__title">{article.judul}</span>
           <Sumber article={article} />
+          {article.lampiran?.url && !article.url && (
+            <span className="bart-item__doc">
+              <Icon name="download" size={11} color="currentColor" />
+              <span>
+                {article.lampiran.nama || namaBerkasDari(article.lampiran.url) || 'Unduh dokumen'}
+              </span>
+            </span>
+          )}
         </span>
       </a>
     </li>
