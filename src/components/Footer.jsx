@@ -76,7 +76,7 @@ export default function Footer() {
                 <strong>Contact Person:</strong> 0811762451
               </li>
               <li>
-                <strong>Jam Layanan:</strong> Senin â€“ Jumat, 08.00 â€“ 16.00 WIB (Formulir daring 24 jam)
+                <strong>Jam Layanan:</strong> Senin – Jumat, 08.00 – 16.00 WIB (Formulir daring 24 jam)
               </li>
             </ul>
           </div>

@@ -8,19 +8,19 @@ const SLA_STEPS = [
   {
     tahap: 'Tahap 1',
     judul: 'Verifikasi Berkas',
-    durasi: 'Maks. 1Ã—24 Jam',
+    durasi: 'Maks. 1×24 Jam',
     isi: 'Pemeriksaan keabsahan laporan, lokasi administratif, dan kelengkapan bukti oleh verifikator pada hari kerja.',
   },
   {
     tahap: 'Tahap 2',
     judul: 'Disposisi OPD',
-    durasi: 'Maks. 3Ã—24 Jam',
-    isi: 'Penerusan berkas permohonan ke biro/badan teknis â€” Biro Hukum, Inspektorat Daerah, atau Biro Administrasi Pimpinan â€” untuk telaah substansi.',
+    durasi: 'Maks. 3×24 Jam',
+    isi: 'Penerusan berkas permohonan ke biro/badan teknis — Biro Hukum, Inspektorat Daerah, atau Biro Administrasi Pimpinan — untuk telaah substansi.',
   },
   {
     tahap: 'Tahap 3',
     judul: 'Tindak Lanjut',
-    durasi: '3 â€“ 14 Hari Kerja',
+    durasi: '3 – 14 Hari Kerja',
     isi: 'Pelaksanaan telaah regulasi hukum, fasilitasi tindak lanjut pengaduan, konfirmasi penugasan narasumber, serta pengunggahan tanggapan resmi.',
   },
 ];
@@ -61,7 +61,7 @@ export default function Services() {
           lede="Tiga pilar layanan konsultasi hukum, penanganan pengaduan, dan fasilitasi narasumber pengadaan barang/jasa pemerintah. Pilih kategori yang sesuai, lalu lengkapi formulir permohonan resmi."
           meta={[
             { label: 'Kategori Layanan', value: '3 Pilar' },
-            { label: 'Verifikasi', value: 'Maks. 1Ã—24 Jam' },
+            { label: 'Verifikasi', value: 'Maks. 1×24 Jam' },
             { label: 'Kanal', value: 'Daring 24 Jam' },
           ]}
           aside={<figure className="services-friend"><img src="/images/khalid-mustafa.jpg" alt="Khalid Mustafa" /><figcaption><span>Sahabat DPW IFPI Riau</span><strong>Khalid Mustafa</strong></figcaption></figure>}

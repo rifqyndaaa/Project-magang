@@ -2,12 +2,12 @@
 import Icon from './Icon';
 
 /**
- * PageHeader â€” kepala halaman editorial untuk halaman dalam.
+ * PageHeader — kepala halaman editorial untuk halaman dalam.
  * Menggantikan pola "tag + judul + deskripsi" yang seragam dan datar.
  *
  * Props:
  *  - eyebrow  : label kecil di atas judul (uppercase)
- *  - title    : judul utama (string) â€” boleh berisi <em> untuk aksen merah
+ *  - title    : judul utama (string) — boleh berisi <em> untuk aksen merah
  *  - lede     : paragraf pengantar
  *  - meta     : array { label, value } untuk baris fakta singkat
  *  - action   : { to, label, icon } tombol aksi di kanan (opsional)
