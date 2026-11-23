@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Icon from "../../../components/Icon";
 import BerandaArtikel from "../../../components/BerandaArtikel";
 import HomeStruktur from './HomeStruktur';
+import HomeSambutan from './HomeSambutan';
 import { getPublishedArticles } from "../../../services/articleStorage";
 import './Home.css';
 
@@ -283,6 +284,12 @@ export default function Home() {
           <span className="home-hero__scroll-line" />
         </div>
       </section>
+
+      {/* ============================================================
+          1b. SAMBUTAN AUDIO — ucapan selamat datang dari pimpinan DPW
+          Berkas audio: public/audio/sambutan-dpw-ifpi-riau.mp3
+          ============================================================ */}
+      <HomeSambutan />
 
       {/* ============================================================
           2. LACAK STATUS LAPORAN CEPAT
