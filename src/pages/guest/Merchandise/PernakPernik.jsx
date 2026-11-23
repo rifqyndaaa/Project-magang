@@ -9,7 +9,6 @@ import './Merchandise.css';
 const CATEGORY_FILTERS = [
   { id: 'all', label: 'Semua Kategori' },
   { id: 'atribut', label: 'Atribut & Aksesoris' },
-  { id: 'perlengkapan', label: 'Perlengkapan Harian' },
   { id: 'pakaian', label: 'Pakaian & Tekstil' }
 ];
 
@@ -37,7 +36,7 @@ export default function PernakPernik() {
         <PageHeader
           eyebrow="Atribut & Identitas Organisasi"
           title={<>Pernak-pernik <em>IFPI Riau</em></>}
-          lede="Koleksi resmi atribut identitas, pin logam, lencana, kaos, tumbler, dan perlengkapan profesi Ikatan Fungsional Pengadaan Indonesia."
+          lede="Koleksi resmi atribut identitas, lencana, stiker, aksesoris, serta pakaian dinas Ikatan Fungsional Pengadaan Indonesia."
         />
 
         {/* Tab Navigasi 2 Submenu Merchandise */}
@@ -93,13 +92,22 @@ export default function PernakPernik() {
               return (
                 <article key={prod.id} className="merch-card">
                   {/* Visual Produk / Ikon Resmi */}
-                  <div className="merch-card-visual">
+                  <div className={`merch-card-visual ${prod.foto ? 'is-foto' : ''}`}>
                     <span className={`merch-card-status-pill ${statusClass}`}>
                       {prod.statusKetersediaan}
                     </span>
-                    <div className="merch-card-icon-wrap" aria-hidden="true">
-                      <Icon name="shield" size={32} />
-                    </div>
+                    {prod.foto ? (
+                      <img
+                        src={prod.foto}
+                        alt={`Foto produk ${prod.nama}`}
+                        className="merch-produk-img"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="merch-card-icon-wrap" aria-hidden="true">
+                        <Icon name="shield" size={32} />
+                      </div>
+                    )}
                     <span className="merch-card-code-pill">{prod.kodeBarang}</span>
                   </div>
 
@@ -186,6 +194,20 @@ export default function PernakPernik() {
               </div>
 
               <div className="merch-modal-body">
+                {selectedItem.fotoDetail && selectedItem.fotoDetail.length > 0 && (
+                  <div className="merch-modal-foto-row">
+                    {selectedItem.fotoDetail.map((f) => (
+                      <img
+                        key={f.src}
+                        src={f.src}
+                        alt={f.alt}
+                        className="merch-modal-foto"
+                        loading="lazy"
+                      />
+                    ))}
+                  </div>
+                )}
+
                 <div className="merch-modal-info-box">
                   <p style={{ margin: '0 0 0.5rem', fontSize: '0.875rem', color: '#475569', lineHeight: 1.6 }}>
                     {selectedItem.deskripsi}

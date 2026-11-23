@@ -9,57 +9,6 @@
 
 export const PERNAK_PERNIK_DATA = [
   {
-    id: 'pernak-1',
-    nama: 'Pin Logam Enamel Lambang Resmi IFPI',
-    kategori: 'Atribut & Aksesoris',
-    kategoriKode: 'atribut',
-    deskripsi: 'Pin logam kuningan cor dengan lapisan enamel keras dan logo resmi IFPI berlapis resin bening. Menggunakan peniti magnetik khusus yang tidak merusak kain jas atau seragam dinas.',
-    spesifikasi: [
-      'Bahan: Logam kuningan cor + finishing gold polish',
-      'Ukuran: Diameter 32 mm',
-      'Pengait: Double magnet neodymium kuat (anti-geser)',
-      'Finishing: Enamel warna presisi berlapis resin bening'
-    ],
-    harga: 'Rp 45.000',
-    statusKetersediaan: 'Tersedia di Sekretariat',
-    kodeBarang: 'IFPI-PIN-01',
-    foto: null
-  },
-  {
-    id: 'pernak-2',
-    nama: 'Lanyard & ID Card Holder Kulit Sintetis IFPI',
-    kategori: 'Perlengkapan Harian',
-    kategoriKode: 'perlengkapan',
-    deskripsi: 'Tali lanyard anyam tebal bertuliskan Ikatan Fungsional Pengadaan Indonesia lengkap dengan card holder kulit sintetis premium berwarna merah marun elegan.',
-    spesifikasi: [
-      'Bahan: Tali nilon tisik premium + Card holder faux leather',
-      'Lebar Tali: 2 cm, panjang total 90 cm',
-      'Aksesori: Pengait putar nikel chrome + stopper safety',
-      'Slot Kartu: 2 slot (kartu identitas & kartu akses elektronik)'
-    ],
-    harga: 'Rp 55.000',
-    statusKetersediaan: 'Tersedia di Sekretariat',
-    kodeBarang: 'IFPI-LNY-02',
-    foto: null
-  },
-  {
-    id: 'pernak-3',
-    nama: 'Tumbler Stainless Vacuum Insulated IFPI',
-    kategori: 'Perlengkapan Harian',
-    kategoriKode: 'perlengkapan',
-    deskripsi: 'Botol minum vakum isolasi ganda berbahan food-grade SUS 304. Mampu menahan suhu panas hingga 8 jam dan dingin hingga 12 jam, diukir grafir laser logo IFPI Riau yang tahan luntur.',
-    spesifikasi: [
-      'Kapasitas: 500 ml',
-      'Bahan: Double-wall Stainless Steel SUS 304 (BPA Free)',
-      'Grafir: Laser etching permanen logo IFPI',
-      'Fitur: Tutup berulir kedap bocor + saringan teh mikro'
-    ],
-    harga: 'Rp 115.000',
-    statusKetersediaan: 'Tersedia di Sekretariat',
-    kodeBarang: 'IFPI-TMB-03',
-    foto: null
-  },
-  {
     id: 'pernak-4',
     nama: 'Polo Shirt Bordir Resmi Anggota IFPI Riau',
     kategori: 'Pakaian & Tekstil',
@@ -71,7 +20,7 @@ export const PERNAK_PERNIK_DATA = [
       'Bordir: Komputer benang poliester tahan cuci',
       'Ukuran: S, M, L, XL, XXL, XXXL'
     ],
-    harga: 'Rp 140.000',
+    harga: 'Rp 200.000 (di luar ongkos kirim)',
     statusKetersediaan: 'Pre-Order Khusus Anggota',
     kodeBarang: 'IFPI-PLO-04',
     foto: null
@@ -109,6 +58,36 @@ export const PERNAK_PERNIK_DATA = [
     statusKetersediaan: 'Tersedia di Sekretariat',
     kodeBarang: 'IFPI-GCI-06',
     foto: null
+  },
+  {
+    id: 'pernak-7',
+    nama: 'Baju PDH Lengan Panjang Resmi DPW IFPI Riau',
+    kategori: 'Pakaian & Tekstil',
+    kategoriKode: 'pakaian',
+    deskripsi:
+      'Pakaian Dinas Harian (PDH) lengan panjang resmi organisasi berbahan Ventura warna abu gelap. Bordir empat titik: logo IFPI pada dada kiri, name tag pada dada kanan, tulisan "DPW IFPI RIAU" pada punggung, serta badge bendera pada lengan. Model kerah PDH dengan dua saku berpenutup dan manset lipat.',
+    spesifikasi: [
+      'Bahan: Ventura (tidak mudah kusut, menyerap keringat)',
+      'Warna: Abu gelap — Kode Warna 286',
+      'Model: PDH lengan panjang, kerah standar, manset lipat',
+      'Bordir: 4 titik (logo IFPI, name tag, punggung, badge lengan)',
+      'Ukuran: S, M, L, XL, 2XL, 3XL, 4XL, 5XL',
+      'Produksi: Konveksi Pekanbaru Creative — Jl. Rambutan No. 116B, Sidomulyo Timur, Marpoyan Damai'
+    ],
+    harga: 'Berdasarkan Permohonan',
+    statusKetersediaan: 'Pre-Order Anggota',
+    kodeBarang: 'IFPI-PDH-07',
+    foto: '/images/merchandise/baju-pdh-ifpi-riau.jpg',
+    fotoDetail: [
+      {
+        src: '/images/merchandise/baju-pdh-ifpi-riau.jpg',
+        alt: 'Tampak depan dan belakang Baju PDH Lengan Panjang IFPI Riau'
+      },
+      {
+        src: '/images/merchandise/baju-pdh-ifpi-riau-form.jpg',
+        alt: 'Form order produksi Baju PDH IFPI Riau — PKC-124'
+      }
+    ]
   }
 ];
 

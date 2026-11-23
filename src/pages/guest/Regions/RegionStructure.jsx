@@ -8,6 +8,7 @@ import './Regions.css';
 export default function RegionStructure() {
   const { id } = useParams();
   const region = getRegionById(id);
+  const isProvinsi = region?.type === 'provinsi';
 
   const [searchQuery, setSearchQuery] = useState('');
   const [asnFilter, setAsnFilter] = useState('ALL');
@@ -100,11 +101,15 @@ export default function RegionStructure() {
         <header className="reg-struct-header">
           <div className="regions-badge">
             <Icon name="shield" size={14} />
-            <span>Dewan Pengurus Cabang (DPC) IFPI</span>
+            <span>{isProvinsi ? 'Dewan Pengurus Wilayah (DPW) IFPI' : 'Dewan Pengurus Cabang (DPC) IFPI'}</span>
           </div>
 
           <h1 className="regions-title">
-            Daftar Personel &amp; Kepengurusan IFPI <span className="regions-title-accent">{region.name}</span>
+            {isProvinsi ? (
+              <>Daftar Nominatif JF PPBJ <span className="regions-title-accent">{region.name}</span></>
+            ) : (
+              <>Daftar Personel &amp; Kepengurusan IFPI <span className="regions-title-accent">{region.name}</span></>
+            )}
           </h1>
 
           <p className="regions-desc">

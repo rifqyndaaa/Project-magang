@@ -25,7 +25,7 @@ export const KEPALA_BIRO = {
   id: 'biro-kabiro',
   jabatan: 'KEPALA BIRO',
   nama: 'Zulfahmi, S.T., M.T.',
-  foto: null,
+  foto: '/images/pejabat/zulfahmi.jpg',
   jabatanFungsional: null,
   unitKerja: 'Biro Pengadaan Barang dan Jasa Setda Provinsi Riau',
 };

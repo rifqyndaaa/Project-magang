@@ -550,3 +550,47 @@
   .merch-card-visual.is-cover { min-height: 240px; }
   .buku-cover-img { height: 190px; max-width: min(100%, 170px); }
 }
+
+/* ================================================================
+   FOTO PRODUK (Pernak-pernik dengan gambar)
+   ================================================================ */
+.merch-card-visual.is-foto {
+  padding: 1.25rem 1rem 2.1rem;
+  min-height: 240px;
+  background: #FFFFFF;
+}
+
+.merch-produk-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 260px;
+  object-fit: contain;
+  object-position: center;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+}
+
+/* Galeri foto di dalam modal detail */
+.merch-modal-foto-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+}
+
+.merch-modal-foto {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 340px;
+  object-fit: contain;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+  .merch-card-visual.is-foto { min-height: 200px; }
+  .merch-produk-img { height: 160px; }
+}
