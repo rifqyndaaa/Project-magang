@@ -2,25 +2,61 @@ import { useEffect, useRef, useState } from 'react';
 import './HomeSambutan.css';
 
 /* ============================================================================
-   SAMBUTAN AUDIO DI BERANDA
+   AUDIO RESMI & SAMBUTAN DI BERANDA (MULTI-TREK)
    ----------------------------------------------------------------------------
-   CARA MENARUH BERKAS AUDIO:
-   1. Siapkan rekaman sambutan dalam format .mp3
-      (disarankan bitrate 96–128 kbps, durasi 1–3 menit, ukuran < 5 MB).
-   2. Simpan berkasnya di:  public/audio/sambutan-dpw-ifpi-riau.mp3
-   3. Selesai — pemutar di Beranda langsung aktif tanpa mengubah kode.
+   Mendukung 3 trek audio resmi:
+   1. Sambutan Musyawarah (Pak Khalid Mustafa) -> /audio/sambutan-dpw-ifpi-riau.wav
+   2. Mars IFPI -> /audio/mars-ifpi.wav (atau .mp3)
+   3. Indonesia Raya -> /audio/indonesia-raya.wav (atau .mp3)
 
-   Selama berkas belum ada, kartu tetap tampil rapi namun kontrol pemutar
-   diganti keterangan "Rekaman belum tersedia" (bukan kotak rusak / ikon error).
-
-   Audio TIDAK diputar otomatis — pengunjung yang menekan tombol putar.
+   Begitu berkas tersedia di public/audio/, trek langsung otomatis aktif.
+   Audio TIDAK diputar otomatis demi kenyamanan pengunjung.
    ========================================================================== */
 
-const AUDIO_SRC = '/audio/sambutan-dpw-ifpi-riau.wav';
-const AUDIO_JUDUL = 'Ucapan Musyawarah DPW IFPI Provinsi Riau';
-const AUDIO_PEMBICARA = 'Khalid Mustafa';
-const AUDIO_JABATAN = 'Praktisi & Ahli Pengadaan Barang/Jasa Pemerintah';
-const AUDIO_FOTO = '/images/khalid-mustafa.jpg';
+const AUDIO_TRACKS = [
+  {
+    id: 'sambutan',
+    tabLabel: 'Sambutan Musyawarah',
+    eyebrow: 'Sambutan',
+    sectionTitle: 'Ucapan Selamat Datang',
+    judul: 'Ucapan Musyawarah DPW IFPI Provinsi Riau',
+    pembicara: 'Khalid Mustafa',
+    jabatan: 'Praktisi & Ahli Pengadaan Barang/Jasa Pemerintah',
+    foto: '/images/khalid-mustafa.jpg',
+    monogram: 'KM',
+    lede: 'Rekaman ucapan dan sambutan resmi dari Pak Khalid Mustafa pada Musyawarah DPW IFPI Provinsi Riau bagi aparatur pengadaan dan anggota organisasi.',
+    src: '/audio/sambutan-dpw-ifpi-riau.wav',
+    pesanKosong: 'Rekaman sambutan sedang disiapkan. Audio akan dapat diputar begitu berkas resmi tersedia.',
+  },
+  {
+    id: 'mars-ifpi',
+    tabLabel: 'Mars IFPI',
+    eyebrow: 'Himne Organisasi',
+    sectionTitle: 'Mars IFPI Resmi',
+    judul: 'Mars Ikatan Fungsional Pengadaan Indonesia',
+    pembicara: 'Dewan Pengurus IFPI',
+    jabatan: 'Himne Resmi Korps Fungsional Pengadaan',
+    foto: null,
+    monogram: 'IFPI',
+    lede: 'Himne kehormatan dan penyemangat integritas, profesionalitas, serta dedikasi seluruh fungsional pengadaan barang/jasa.',
+    src: '/audio/mars-ifpi.wav',
+    pesanKosong: 'Rekaman audio Mars IFPI sedang disiapkan. Begitu berkas audio ditambahkan, pemutar ini akan langsung aktif.',
+  },
+  {
+    id: 'indonesia-raya',
+    tabLabel: 'Indonesia Raya',
+    eyebrow: 'Lagu Kebangsaan',
+    sectionTitle: 'Indonesia Raya',
+    judul: 'Indonesia Raya — W.R. Soepratman',
+    pembicara: 'Republik Indonesia',
+    jabatan: 'Lagu Kebangsaan Resmi Negara Kesatuan Republik Indonesia',
+    foto: null,
+    monogram: 'RI',
+    lede: 'Lagu kebangsaan Indonesia Raya sebagai pengingat amanah pengabdian aparatur pengadaan barang dan jasa kepada nusa dan bangsa.',
+    src: '/audio/indonesia-raya.wav',
+    pesanKosong: 'Rekaman lagu Indonesia Raya sedang disiapkan. Begitu berkas audio ditambahkan, pemutar ini akan langsung aktif.',
+  },
+];
 
 function formatWaktu(detik) {
   if (!Number.isFinite(detik) || detik < 0) return '00:00';
@@ -31,16 +67,28 @@ function formatWaktu(detik) {
 }
 
 export default function HomeSambutan() {
+  const [activeTrackIndex, setActiveTrackIndex] = useState(0);
+  const track = AUDIO_TRACKS[activeTrackIndex];
+
   const audioRef = useRef(null);
   const [memutar, setMemutar] = useState(false);
   const [durasi, setDurasi] = useState(0);
   const [posisi, setPosisi] = useState(0);
-  // null = belum diketahui, true = rekaman siap, false = berkas tidak ditemukan
+  // null = memeriksa, true = siap, false = berkas belum ada
   const [tersedia, setTersedia] = useState(null);
 
+  // Pasang listener dan muat berkas setiap kali trek berganti
   useEffect(() => {
     const el = audioRef.current;
     if (!el) return undefined;
+
+    // Reset state saat berganti trek
+    el.pause();
+    el.currentTime = 0;
+    setMemutar(false);
+    setPosisi(0);
+    setDurasi(0);
+    setTersedia(null);
 
     const onMeta = () => {
       if (Number.isFinite(el.duration) && el.duration > 0) {
@@ -71,8 +119,9 @@ export default function HomeSambutan() {
     el.addEventListener('ended', onEnd);
     el.addEventListener('error', onError);
 
-    // Berkas bisa saja sudah termuat sebelum listener terpasang.
-    if (el.readyState >= 1) onMeta();
+    // Muat sumber trek baru
+    el.src = track.src;
+    el.load();
 
     return () => {
       el.removeEventListener('loadedmetadata', onMeta);
@@ -84,11 +133,11 @@ export default function HomeSambutan() {
       el.removeEventListener('ended', onEnd);
       el.removeEventListener('error', onError);
     };
-  }, []);
+  }, [track.src]);
 
   const alihkan = () => {
     const el = audioRef.current;
-    if (!el) return;
+    if (!el || tersedia !== true) return;
     if (el.paused) {
       const janji = el.play();
       if (janji && typeof janji.catch === 'function') {
@@ -113,23 +162,37 @@ export default function HomeSambutan() {
   return (
     <section className="smb" aria-labelledby="smb-heading">
       <div className="home-container">
+        {/* Tab Pilihan Trek Audio Resmi */}
+        <div className="smb-tabs" role="tablist" aria-label="Pilihan Trek Audio Resmi">
+          {AUDIO_TRACKS.map((t, idx) => (
+            <button
+              key={t.id}
+              type="button"
+              role="tab"
+              aria-selected={activeTrackIndex === idx}
+              className={`smb-tab-btn ${activeTrackIndex === idx ? 'is-active' : ''}`}
+              onClick={() => setActiveTrackIndex(idx)}
+            >
+              <span className="smb-tab-btn__dot" aria-hidden="true" />
+              <span>{t.tabLabel}</span>
+            </button>
+          ))}
+        </div>
+
         <div className="smb-card">
           <div className="smb-card__intro">
-            <span className="home-section-eyebrow">Sambutan</span>
+            <span className="home-section-eyebrow">{track.eyebrow}</span>
             <h2 id="smb-heading" className="home-section-title">
-              Ucapan Selamat Datang
+              {track.sectionTitle}
             </h2>
-            <p className="smb-lede">
-              Rekaman ucapan dan sambutan resmi dari Pak Khalid Mustafa pada Musyawarah
-              DPW IFPI Provinsi Riau bagi aparatur pengadaan dan anggota organisasi.
-            </p>
+            <p className="smb-lede">{track.lede}</p>
 
             <div className="smb-speaker">
               <div className="smb-speaker__foto-wrap">
-                {AUDIO_FOTO ? (
+                {track.foto ? (
                   <img
-                    src={AUDIO_FOTO}
-                    alt={AUDIO_PEMBICARA}
+                    src={track.foto}
+                    alt={track.pembicara}
                     className="smb-speaker__foto"
                     loading="lazy"
                     onError={(e) => {
@@ -137,19 +200,23 @@ export default function HomeSambutan() {
                     }}
                   />
                 ) : (
-                  <span className="smb-speaker__monogram" aria-hidden="true">IFPI</span>
+                  <span className="smb-speaker__monogram" aria-hidden="true">
+                    {track.monogram}
+                  </span>
                 )}
               </div>
               <div className="smb-speaker__identitas">
-                <span className="smb-speaker__label">Disampaikan oleh</span>
-                <span className="smb-speaker__nama">{AUDIO_PEMBICARA}</span>
-                <span className="smb-speaker__jabatan">{AUDIO_JABATAN}</span>
+                <span className="smb-speaker__label">
+                  {track.id === 'sambutan' ? 'Disampaikan oleh' : 'Identitas Resmi'}
+                </span>
+                <span className="smb-speaker__nama">{track.pembicara}</span>
+                <span className="smb-speaker__jabatan">{track.jabatan}</span>
               </div>
             </div>
           </div>
 
           <div className={`smb-player ${siap ? '' : 'is-gagal'}`}>
-            <audio ref={audioRef} src={AUDIO_SRC} preload="metadata" playsInline>
+            <audio ref={audioRef} preload="metadata" playsInline>
               Peramban Anda tidak mendukung pemutar audio HTML5.
             </audio>
 
@@ -160,7 +227,7 @@ export default function HomeSambutan() {
               </span>
             </div>
 
-            <p className="smb-player__judul">{AUDIO_JUDUL}</p>
+            <p className="smb-player__judul">{track.judul}</p>
 
             {siap ? (
               <>
@@ -169,7 +236,7 @@ export default function HomeSambutan() {
                     type="button"
                     className="smb-play"
                     onClick={alihkan}
-                    aria-label={memutar ? 'Jeda rekaman sambutan' : 'Putar rekaman sambutan'}
+                    aria-label={memutar ? `Jeda ${track.judul}` : `Putar ${track.judul}`}
                   >
                     {memutar ? (
                       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
@@ -195,7 +262,7 @@ export default function HomeSambutan() {
                       step="0.1"
                       value={posisi}
                       onChange={geser}
-                      aria-label="Posisi pemutaran rekaman sambutan"
+                      aria-label={`Posisi pemutaran ${track.judul}`}
                     />
                     <div className="smb-track__waktu">
                       <span>{formatWaktu(posisi)}</span>
@@ -211,10 +278,7 @@ export default function HomeSambutan() {
             ) : (
               <div className="smb-kosong">
                 <span className="smb-kosong__baris" aria-hidden="true" />
-                <p className="smb-kosong__teks">
-                  Rekaman sambutan sedang disiapkan. Audio akan dapat diputar di bagian ini
-                  begitu berkas resmi tersedia.
-                </p>
+                <p className="smb-kosong__teks">{track.pesanKosong}</p>
               </div>
             )}
           </div>

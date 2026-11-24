@@ -35,7 +35,7 @@ export const BAGIAN = [
   {
     id: 'biro-bag-pengelolaan',
     jabatan: 'KEPALA BAGIAN',
-    nama: null,
+    nama: 'Gunawan Agus Riyanto',
     foto: null,
     unit: 'Bagian Pengelolaan Pengadaan Barang dan Jasa',
     keterangan: 'Pengelolaan & pelaksanaan pengadaan barang/jasa',
@@ -43,7 +43,7 @@ export const BAGIAN = [
   {
     id: 'biro-subbag-pembinaan',
     jabatan: 'KEPALA SUBBAGIAN',
-    nama: null,
+    nama: 'Lenny Arsanti, SKM',
     foto: null,
     unit: 'Subbagian Pembinaan Kelembagaan & Advokasi PBJ',
     keterangan: 'Pembinaan kelembagaan, SDM, LPSE, dan advokasi',

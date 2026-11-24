@@ -9,6 +9,52 @@
   background: #ffffff;
 }
 
+/* --------------------------------------------------------- Tab selector */
+
+.smb-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.smb-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border: 1px solid #e2e2e2;
+  background: #ffffff;
+  color: #4b4b4b;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: all 0.15s ease;
+}
+
+.smb-tab-btn:hover {
+  border-color: var(--ifpi-red, #b8202d);
+  color: var(--ifpi-red, #b8202d);
+}
+
+.smb-tab-btn__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c4c4c4;
+}
+
+.smb-tab-btn.is-active {
+  border-color: var(--ifpi-red, #b8202d);
+  background: var(--ifpi-red, #b8202d);
+  color: #ffffff;
+}
+
+.smb-tab-btn.is-active .smb-tab-btn__dot {
+  background: #ffffff;
+}
+
 .smb-card {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
