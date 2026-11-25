@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RiauMap from '../../../components/RiauMap';
 import Icon from "../../../components/Icon";
@@ -7,13 +7,16 @@ import PageHeader from "../../../components/PageHeader";
 import RegionRecapTable from './RegionRecapTable';
 import {
   RIAU_REGIONS_DATA,
-  TOTAL_JF_RIAU,
+  REKAPITULASI_JF_RIAU,
+  PROV_RIAU_DATA,
   getRegionById,
 } from '../../../data/regionsData';
+import { fetchMemberCounts } from '../../../services/regionDataService';
 import './Regions.css';
 
 export default function RegionsPage() {
   const navigate = useNavigate();
+  const [dbCounts, setDbCounts] = useState({});
   const [selectedId, setSelectedId] = useState(() => {
     if (typeof window !== 'undefined' && window.location.hash) {
       const hashId = window.location.hash.replace('#', '');
@@ -26,13 +29,28 @@ export default function RegionsPage() {
   const selectedRegion = getRegionById(selectedId) || RIAU_REGIONS_DATA[0];
 
   useEffect(() => {
+    let active = true;
+    fetchMemberCounts().then(({ counts, error }) => {
+      if (active && !error && counts) {
+        setDbCounts(counts);
+      }
+    });
     if (typeof window !== 'undefined' && window.location.hash === '#tabel-rekapitulasi') {
       const el = document.getElementById('tabel-rekapitulasi');
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
+    return () => {
+      active = false;
+    };
   }, []);
+
+  const totalJf = useMemo(
+    () => REKAPITULASI_JF_RIAU.reduce((sum, r) => sum + (dbCounts[r.id] ?? r.jfCount ?? 0), 0),
+    [dbCounts]
+  );
+  const provJf = dbCounts['prov-riau'] ?? PROV_RIAU_DATA.jfCount;
 
   // Klik wilayah di peta -> buka halaman detail data personel
   const handleSelectRegion = (id) => {
@@ -59,8 +77,8 @@ export default function RegionsPage() {
           meta={[
             { label: 'Kabupaten', value: '10 Wilayah' },
             { label: 'Kota', value: '2 Wilayah' },
-            { label: 'Pemprov Riau', value: '1 Unit Kerja (36 JF)' },
-            { label: 'Total JF Se-Riau', value: `${TOTAL_JF_RIAU.totalJf} Personel` },
+            { label: 'Pemprov Riau', value: `1 Unit Kerja (${provJf} JF)` },
+            { label: 'Total JF Se-Riau', value: `${totalJf} Personel` },
           ]}
         />
 
@@ -73,7 +91,7 @@ export default function RegionsPage() {
             <div className="regions-prov-banner__text">
               <div className="regions-prov-banner__tags">
                 <span className="regions-prov-tag">Entitas Tingkat Provinsi</span>
-                <span className="regions-prov-stat">36 Personel JF PBJ (24 Terdaftar)</span>
+                <span className="regions-prov-stat">{provJf} Personel JF PBJ (24 Terdaftar)</span>
               </div>
               <h3 className="regions-prov-banner__title">
                 Pemerintah Provinsi Riau <span className="regions-prov-banner__sub">(Biro PBJ Setdaprov &amp; OPD)</span>

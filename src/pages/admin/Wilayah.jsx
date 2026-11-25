@@ -1,13 +1,38 @@
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from "../../components/Icon";
 import { REKAPITULASI_JF_RIAU, TOTAL_JF_RIAU } from '../../data/regionsData';
+import { fetchMemberCounts } from '../../services/regionDataService';
+import RegionStructurePanel from './RegionStructurePanel';
 
 /**
  * Wilayah — Tabel pandangan data 12 kabupaten/kota + Pemprov Riau.
  * Menampilkan data rekonsiliasi Jabatan Fungsional (JF) & status DPC serta SK resmi.
  */
 export default function AdminWilayah() {
+  const [dbCounts, setDbCounts] = useState({});
   const totalDpc = REKAPITULASI_JF_RIAU.filter(r => r.isAvailable).length;
+
+  useEffect(() => {
+    let active = true;
+    fetchMemberCounts().then(({ counts, error }) => {
+      if (active && !error && counts) {
+        setDbCounts(counts);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const totalJf = useMemo(
+    () => REKAPITULASI_JF_RIAU.reduce((sum, r) => sum + (dbCounts[r.id] ?? r.jfCount ?? 0), 0),
+    [dbCounts]
+  );
+
+  const totalRatioByLetter = totalJf > 0
+    ? `${((TOTAL_JF_RIAU.totalMembersByLetter / totalJf) * 100).toFixed(1)}%`
+    : TOTAL_JF_RIAU.percentageByLetter;
 
   return (
     <div>
@@ -32,7 +57,7 @@ export default function AdminWilayah() {
       <section className="adx-kpis" style={{ marginBottom: '1.5rem' }}>
         <div className="adx-kpi adx-kpi--total">
           <span className="adx-kpi__label">Total Personel JF PBJ</span>
-          <span className="adx-kpi__value">{TOTAL_JF_RIAU.totalJf}</span>
+          <span className="adx-kpi__value">{totalJf}</span>
           <span className="adx-kpi__note">13 entitas se-Provinsi Riau</span>
         </div>
         <div className="adx-kpi adx-kpi--baru">
@@ -75,8 +100,9 @@ export default function AdminWilayah() {
             </thead>
             <tbody>
               {REKAPITULASI_JF_RIAU.map((region, index) => {
-                const ratio = region.jfCount
-                  ? Math.round(((region.membersByLetter || 0) / region.jfCount) * 100)
+                const jfCount = dbCounts[region.id] ?? region.jfCount;
+                const ratio = jfCount
+                  ? Math.round(((region.membersByLetter || 0) / jfCount) * 100)
                   : 0;
 
                 return (
@@ -91,7 +117,7 @@ export default function AdminWilayah() {
                       )}
                     </td>
                     <td style={{ textTransform: 'capitalize' }}>{region.type}</td>
-                    <td style={{ textAlign: 'right', fontWeight: 700 }}>{region.jfCount}</td>
+                    <td style={{ textAlign: 'right', fontWeight: 700 }}>{jfCount}</td>
                     <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--adx-red)' }}>
                       {region.membersByLetter}
                     </td>
@@ -125,13 +151,13 @@ export default function AdminWilayah() {
                 <td colSpan={3} style={{ textAlign: 'left', padding: '0.9rem 1rem' }}>
                   JUMLAH TOTAL SE-PROVINSI RIAU
                 </td>
-                <td style={{ textAlign: 'right', padding: '0.9rem 1rem' }}>{TOTAL_JF_RIAU.totalJf}</td>
+                <td style={{ textAlign: 'right', padding: '0.9rem 1rem' }}>{totalJf}</td>
                 <td style={{ textAlign: 'right', padding: '0.9rem 1rem', color: 'var(--adx-red)' }}>
                   {TOTAL_JF_RIAU.totalMembersByLetter}
                 </td>
                 <td style={{ textAlign: 'right', padding: '0.9rem 1rem' }}>{TOTAL_JF_RIAU.totalMembersBySystem}</td>
                 <td style={{ textAlign: 'right', padding: '0.9rem 1rem' }}>{TOTAL_JF_RIAU.totalNotYetMembers}</td>
-                <td style={{ textAlign: 'right', padding: '0.9rem 1rem' }}>{TOTAL_JF_RIAU.percentageByLetter}</td>
+                <td style={{ textAlign: 'right', padding: '0.9rem 1rem' }}>{totalRatioByLetter}</td>
                 <td colSpan={2} style={{ textAlign: 'center', color: '#64748B', fontSize: '0.78125rem' }}>
                   13 Entitas Resmi
                 </td>
@@ -140,6 +166,9 @@ export default function AdminWilayah() {
           </table>
         </div>
       </section>
+
+      {/* Kelola Personel & Kepengurusan (Supabase) */}
+      <RegionStructurePanel />
     </div>
   );
 }

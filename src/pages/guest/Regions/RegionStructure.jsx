@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import Icon from "../../../components/Icon";
 import { getRegionById } from '../../../data/regionsData';
+import { fetchRegionData, staticMembers } from '../../../services/regionDataService';
 import './Regions.css';
 
 export default function RegionStructure() {
@@ -14,45 +15,73 @@ export default function RegionStructure() {
   const [asnFilter, setAsnFilter] = useState('ALL');
   const [statusFilter, setStatusFilter] = useState('ALL');
 
+  // Data personel: tampil dari file statis lebih dulu agar halaman tidak kosong,
+  // lalu diganti data terbaru dari Supabase bila tersedia.
+  // `dbData` menyimpan regionId agar data wilayah lama tidak bocor ke wilayah baru.
+  const [dbData, setDbData] = useState(null);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [id]);
 
-  const hasMembers = Boolean(region && region.members && region.members.length > 0);
-  const hasStructure = Boolean(region && region.isAvailable && ((region.kepengurusan && region.kepengurusan.length > 0) || hasMembers));
+  useEffect(() => {
+    if (!region) return undefined;
+    let active = true;
+    fetchRegionData(region.id).then((res) => {
+      if (!active) return;
+      setDbData({ regionId: region.id, members: res.members });
+    });
+    return () => {
+      active = false;
+    };
+  }, [region]);
+
+  const members = useMemo(
+    () =>
+      dbData && region && dbData.regionId === region.id && dbData.members.length > 0
+        ? dbData.members
+        : region
+        ? staticMembers(region.id)
+        : [],
+    [dbData, region]
+  );
+
+  const hasMembers = members.length > 0;
+  const hasStructure = Boolean(
+    region && region.isAvailable && ((region.kepengurusan && region.kepengurusan.length > 0) || hasMembers)
+  );
 
   const filteredMembers = useMemo(() => {
-    if (!region || !region.members) return [];
-    let list = region.members;
+    let list = members;
     if (asnFilter !== 'ALL') {
-      list = list.filter(m => m.asn.toUpperCase() === asnFilter);
+      list = list.filter((m) => m.asn.toUpperCase() === asnFilter);
     }
     if (statusFilter !== 'ALL') {
-      list = list.filter(m => m.membershipStatus === statusFilter);
+      list = list.filter((m) => m.membershipStatus === statusFilter);
     }
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
       list = list.filter(
-        m =>
+        (m) =>
           m.name.toLowerCase().includes(q) ||
-          m.nip.includes(q) ||
+          (m.nip || '').includes(q) ||
           (m.kta && m.kta.includes(q)) ||
-          m.position.toLowerCase().includes(q) ||
+          (m.position || '').toLowerCase().includes(q) ||
           (m.email && m.email.toLowerCase().includes(q))
       );
     }
     return list;
-  }, [region, searchQuery, asnFilter, statusFilter]);
+  }, [members, searchQuery, asnFilter, statusFilter]);
 
   const stats = useMemo(() => {
-    if (!region || !region.members) return null;
-    const total = region.members.length;
-    const pns = region.members.filter(m => m.asn.toUpperCase() === 'PNS').length;
-    const pppk = region.members.filter(m => m.asn.toUpperCase() === 'PPPK').length;
-    const cpns = region.members.filter(m => m.asn.toUpperCase() === 'CPNS').length;
-    const aktif = region.members.filter(m => m.membershipStatus === 'Aktif').length;
+    if (!members.length) return null;
+    const total = members.length;
+    const pns = members.filter((m) => m.asn.toUpperCase() === 'PNS').length;
+    const pppk = members.filter((m) => m.asn.toUpperCase() === 'PPPK').length;
+    const cpns = members.filter((m) => m.asn.toUpperCase() === 'CPNS').length;
+    const aktif = members.filter((m) => m.membershipStatus === 'Aktif').length;
     return { total, pns, pppk, cpns, aktif };
-  }, [region]);
+  }, [members]);
 
   if (!region) {
     return (
@@ -271,7 +300,7 @@ export default function RegionStructure() {
                       <th style={{ textAlign: 'center' }}>Status Keanggotaan</th>
                       <th>No. HP</th>
                       <th>Email</th>
-                      {hasMembers && region.members.some((m) => m.note) && <th>Keterangan</th>}
+                      {members.some((m) => m.note) && <th>Keterangan</th>}
                     </tr>
                   </thead>
                   <tbody>
@@ -345,7 +374,7 @@ export default function RegionStructure() {
                               '—'
                             )}
                           </td>
-                          {region.members.some((item) => item.note) && (
+                          {members.some((item) => item.note) && (
                             <td style={{ fontSize: '0.75rem', color: '#64748B', fontStyle: m.note ? 'italic' : 'normal' }}>
                               {m.note || '—'}
                             </td>
@@ -354,7 +383,7 @@ export default function RegionStructure() {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={region.members.some((m) => m.note) ? 10 : 9} style={{ textAlign: 'center', padding: '3rem 1rem', color: '#64748B' }}>
+                        <td colSpan={members.some((m) => m.note) ? 10 : 9} style={{ textAlign: 'center', padding: '3rem 1rem', color: '#64748B' }}>
                           <Icon name="search" size={28} color="#94A3B8" />
                           <p style={{ marginTop: '0.5rem', fontWeight: 600 }}>Tidak ada data yang sesuai dengan filter pencarian.</p>
                         </td>

@@ -1,0 +1,317 @@
+/* ============================================================
+   PANEL KELOLA PERSONEL & KEPENGURUSAN WILAYAH
+   (di halaman admin Wilayah & Personel)
+   ============================================================ */
+
+.rsp {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4E4;
+  border-radius: 2px;
+  padding: 1.35rem 1.4rem 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.rsp-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #E8E8E8;
+  margin-bottom: 1.1rem;
+}
+
+.rsp-head__title {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: #252525;
+}
+
+.rsp-head__desc {
+  margin: 0;
+  font-size: 0.78125rem;
+  line-height: 1.6;
+  color: #7A7A7A;
+  max-width: 64ch;
+}
+
+/* ---------- Tab ---------- */
+.rsp-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #E8E8E8;
+  margin-bottom: 1.1rem;
+}
+
+.rsp-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  margin-bottom: -1px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #7A7A7A;
+  cursor: pointer;
+}
+
+.rsp-tab:hover {
+  color: #B8202D;
+}
+
+.rsp-tab.is-active {
+  color: #B8202D;
+  border-bottom-color: #B8202D;
+}
+
+.rsp-tab__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 18px;
+  padding: 0 0.3rem;
+  border-radius: 9px;
+  background-color: #F1EDED;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: #6B6B6B;
+}
+
+.rsp-tab.is-active .rsp-tab__count {
+  background-color: #FBEAEC;
+  color: #B8202D;
+}
+
+/* ---------- Formulir ---------- */
+.rsp-form {
+  border: 1px solid #E8E8E8;
+  background-color: #FCFCFC;
+  border-radius: 2px;
+  padding: 1rem 1rem 1.1rem;
+  margin-bottom: 1.15rem;
+}
+
+.rsp-form__title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #252525;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid #EDEDED;
+}
+
+.rsp-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-bottom: 0.85rem;
+}
+
+.rsp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  min-width: 0;
+  flex: 1 1 170px;
+}
+
+.rsp-field--wide {
+  flex: 3 1 280px;
+}
+
+.rsp-field--narrow {
+  flex: 0 1 110px;
+}
+
+.rsp-field--block {
+  width: 100%;
+  margin-bottom: 0.85rem;
+}
+
+.rsp-field--filter {
+  flex: 0 1 220px;
+}
+
+.rsp-field--search {
+  flex: 1 1 240px;
+}
+
+.rsp-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #4A4A4A;
+}
+
+.rsp-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: #252525;
+  background-color: #FFFFFF;
+  border: 1px solid #DCDCDC;
+  border-radius: 2px;
+  padding: 0.45rem 0.6rem;
+}
+
+.rsp-input:focus {
+  outline: none;
+  border-color: #B8202D;
+  box-shadow: 0 0 0 2px rgba(184, 32, 45, 0.08);
+}
+
+.rsp-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.rsp-search svg {
+  position: absolute;
+  left: 0.55rem;
+  pointer-events: none;
+}
+
+.rsp-input--search {
+  padding-left: 1.85rem;
+}
+
+.rsp-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid #EDEDED;
+}
+
+/* ---------- Toolbar ---------- */
+.rsp-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.rsp-toolbar__spacer {
+  flex: 1 1 auto;
+}
+
+.rsp-count {
+  margin: 0 0 0.7rem;
+  font-size: 0.71875rem;
+  color: #8C8C8C;
+}
+
+/* ---------- Tabel ---------- */
+.rsp-table-scroll {
+  overflow-x: auto;
+}
+
+.rsp-table td {
+  vertical-align: middle;
+}
+
+.rsp-table th {
+  white-space: nowrap;
+}
+
+.rsp-note {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.6875rem;
+  font-style: italic;
+  color: #96756F;
+}
+
+.rsp-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
+  border: 1px solid #E2DCDC;
+  background-color: #FAFAFA;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #5B5B5B;
+}
+
+.rsp-badge--pns {
+  border-color: #C7D8EC;
+  background-color: #F2F7FC;
+  color: #1F5C99;
+}
+
+.rsp-badge--pppk {
+  border-color: #D6E4CC;
+  background-color: #F5FAF1;
+  color: #3F6B2B;
+}
+
+.rsp-badge--cpns {
+  border-color: #EBDCC4;
+  background-color: #FDFAF3;
+  color: #8A6417;
+}
+
+.rsp-status {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.rsp-status.is-active {
+  background-color: #EDF6EC;
+  color: #2F6B2A;
+}
+
+.rsp-status.is-inactive {
+  background-color: #FBEDEE;
+  color: #A52633;
+}
+
+.rsp-status.is-pending {
+  background-color: #F5F1E8;
+  color: #8A6417;
+}
+
+.rsp-btn-danger {
+  color: #B8202D;
+  border-color: #B8202D;
+}
+
+@media (max-width: 720px) {
+  .rsp {
+    padding: 1.1rem 1rem 1.25rem;
+  }
+
+  .rsp-field,
+  .rsp-field--wide,
+  .rsp-field--narrow,
+  .rsp-field--filter {
+    flex: 1 1 100%;
+  }
+
+  .rsp-toolbar__spacer {
+    display: none;
+  }
+
+  .rsp-toolbar .adx-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

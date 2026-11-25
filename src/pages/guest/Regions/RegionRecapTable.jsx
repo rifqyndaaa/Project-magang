@@ -1,16 +1,42 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../../../components/Icon';
 import { TABEL_REKAP_RESMI, TOTAL_JF_RIAU } from '../../../data/regionsData';
+import { fetchMemberCounts } from '../../../services/regionDataService';
 import './RegionRecapTable.css';
 
 export default function RegionRecapTable() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('all'); // 'all' | 'kabupaten' | 'kota-prov'
+  const [dbCounts, setDbCounts] = useState({});
+
+  useEffect(() => {
+    let active = true;
+    fetchMemberCounts().then(({ counts, error }) => {
+      if (active && !error && counts) {
+        setDbCounts(counts);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const rowsWithDb = useMemo(() => {
+    return TABEL_REKAP_RESMI.map((row) => ({
+      ...row,
+      jfCount: dbCounts[row.id] ?? row.jfCount,
+    }));
+  }, [dbCounts]);
+
+  const totalJfAll = useMemo(
+    () => rowsWithDb.reduce((acc, cur) => acc + (cur.jfCount || 0), 0),
+    [rowsWithDb]
+  );
 
   // Filter baris tabel berdasarkan tipe dan pencarian
   const filteredList = useMemo(() => {
-    return TABEL_REKAP_RESMI.filter((item) => {
+    return rowsWithDb.filter((item) => {
       // Filter tipe
       if (filterType === 'kabupaten' && item.type !== 'kabupaten') return false;
       if (filterType === 'kota-prov' && item.type === 'kabupaten') return false;
@@ -24,17 +50,20 @@ export default function RegionRecapTable() {
         (item.officialFullName && item.officialFullName.toLowerCase().includes(q))
       );
     });
-  }, [searchQuery, filterType]);
+  }, [rowsWithDb, searchQuery, filterType]);
 
   // Hitung total ringkasan untuk data yang sedang difilter
   const summary = useMemo(() => {
     if (filterType === 'all' && !searchQuery.trim()) {
+      const jf = totalJfAll;
+      const bySys = TOTAL_JF_RIAU.totalMembersBySystem;
+      const percent = jf > 0 ? `${((bySys / jf) * 100).toFixed(1)}%` : TOTAL_JF_RIAU.percentageBySystem;
       return {
         count: TOTAL_JF_RIAU.totalWilayah,
-        jf: TOTAL_JF_RIAU.totalJf,
-        bySys: TOTAL_JF_RIAU.totalMembersBySystem,
+        jf,
+        bySys,
         notYet: TOTAL_JF_RIAU.totalNotYetMembers,
-        percent: TOTAL_JF_RIAU.percentageBySystem,
+        percent,
       };
     }
     const count = filteredList.length;
@@ -43,7 +72,7 @@ export default function RegionRecapTable() {
     const notYet = filteredList.reduce((acc, cur) => acc + (cur.notYetMembers || 0), 0);
     const percent = jf > 0 ? `${((bySys / jf) * 100).toFixed(1)}%` : '0%';
     return { count, jf, bySys, notYet, percent };
-  }, [filteredList, filterType, searchQuery]);
+  }, [filteredList, filterType, searchQuery, totalJfAll]);
 
   return (
     <section className="recap-section" id="tabel-rekapitulasi" aria-labelledby="recap-table-heading">
@@ -71,7 +100,7 @@ export default function RegionRecapTable() {
           <div className="recap-kpi-card__body">
             <span className="recap-kpi-card__label">Total Personel JF</span>
             <div className="recap-kpi-card__value-row">
-              <span className="recap-kpi-card__value">{TOTAL_JF_RIAU.totalJf}</span>
+              <span className="recap-kpi-card__value">{totalJfAll}</span>
               <span className="recap-kpi-card__unit">Orang</span>
             </div>
             <span className="recap-kpi-card__hint">13 entitas se-Provinsi Riau</span>
@@ -86,7 +115,9 @@ export default function RegionRecapTable() {
             <span className="recap-kpi-card__label">Anggota by Sistem</span>
             <div className="recap-kpi-card__value-row">
               <span className="recap-kpi-card__value">{TOTAL_JF_RIAU.totalMembersBySystem}</span>
-              <span className="recap-kpi-card__badge-ratio">{TOTAL_JF_RIAU.percentageBySystem}</span>
+              <span className="recap-kpi-card__badge-ratio">
+                {totalJfAll > 0 ? `${((TOTAL_JF_RIAU.totalMembersBySystem / totalJfAll) * 100).toFixed(1)}%` : TOTAL_JF_RIAU.percentageBySystem}
+              </span>
             </div>
             <span className="recap-kpi-card__hint">Akun aktif terverifikasi portal</span>
           </div>
@@ -101,7 +132,7 @@ export default function RegionRecapTable() {
             <div className="recap-kpi-card__value-row">
               <span className="recap-kpi-card__value">{TOTAL_JF_RIAU.totalNotYetMembers}</span>
               <span className="recap-kpi-card__badge-ratio recap-kpi-card__badge-ratio--warm">
-                {((TOTAL_JF_RIAU.totalNotYetMembers / TOTAL_JF_RIAU.totalJf) * 100).toFixed(1)}%
+                {totalJfAll > 0 ? `${((TOTAL_JF_RIAU.totalNotYetMembers / totalJfAll) * 100).toFixed(1)}%` : '0%'}
               </span>
             </div>
             <span className="recap-kpi-card__hint">Potensi pendaftaran anggota baru</span>
