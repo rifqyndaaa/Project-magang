@@ -68,6 +68,25 @@ const INITIAL_ARTICLES = [
     createdAt: '2026-11-19T15:20:00+07:00',
     updatedAt: '2026-11-19T15:20:00+07:00',
   },
+  {
+    id: 'art-sosialisasi-perlem3-se3-muswil',
+    judul: 'Sosialisasi Perlem 3 & SE 3 — Muswil DPW IFPI Riau',
+    url: '',
+    sumber: 'Muswil DPW IFPI Provinsi Riau',
+    tanggal: '2026-11-26',
+    ringkasan:
+      'Materi sosialisasi Peraturan Lembaga (Perlem) 3 dan Surat Edaran (SE) 3 pada Musyawarah Wilayah DPW IFPI Provinsi Riau, 26 November 2026.',
+    thumbnail: null,
+    lampiran: {
+      nama: 'Sosialisasi_Perlem3_SE3_Muswil_IFPI_Riau_26Nov2026.pdf',
+      url: '/dokumen/Sosialisasi_Perlem3_SE3_Muswil_IFPI_Riau_26Nov2026.pdf',
+      tipe: 'application/pdf',
+      ukuran: 1921569,
+    },
+    status: 'published',
+    createdAt: '2026-11-26T12:16:00+07:00',
+    updatedAt: '2026-11-26T12:16:00+07:00',
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -195,8 +214,11 @@ const SEED_FLAG_KEY = 'ifpi_beranda_artikel_seeded_v1';
  * Entri susulan — disisipkan sekali ke penyimpanan yang sudah terisi,
  * supaya dokumen resmi baru tetap tampil tanpa menghapus artikel admin.
  */
-const BACKFILL_KEY = 'ifpi_beranda_artikel_backfill_v2';
-const BACKFILL_IDS = ['art-paparan-bpsdm-renaksi'];
+const BACKFILL_KEY = 'ifpi_beranda_artikel_backfill_v3';
+const BACKFILL_IDS = [
+  'art-paparan-bpsdm-renaksi',
+  'art-sosialisasi-perlem3-se3-muswil',
+];
 
 function applyBackfill(list) {
   try {
