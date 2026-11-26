@@ -286,6 +286,49 @@ export default function Home() {
       </section>
 
       {/* ============================================================
+          1a. UCAPAN SELAMAT PENGUKUHAN & PELANTIKAN KETUA DPW IFPI
+          ============================================================ */}
+      <section className="home-pelantikan" aria-labelledby="pelantikan-heading">
+        <div className="home-container">
+          <div className="home-pelantikan__grid">
+            <div className="home-pelantikan__media">
+              <img
+                src="/images/ucapan-pelantikan-ketua.jpg"
+                alt="Ucapan Selamat Atas Pengukuhan dan Pelantikan Feri Saputra, M.Si sebagai Ketua DPW IFPI Riau Periode 2027–2032"
+                className="home-pelantikan__img"
+                loading="lazy"
+              />
+            </div>
+
+            <div className="home-pelantikan__body">
+              <span className="home-section-eyebrow">Steering Committee DPW IFPI Riau</span>
+              <h2 id="pelantikan-heading" className="home-section-title">
+                Selamat Atas Pengukuhan dan Pelantikan Ketua DPW IFPI Riau
+              </h2>
+              <p className="home-pelantikan__role">
+                <strong>Feri Saputra, M.Si</strong> &middot; Ketua DPW IFPI Provinsi Riau Periode 2027–2032
+              </p>
+              <p className="home-pelantikan__desc">
+                Segenap keluarga besar dan Steering Committee DPW IFPI Provinsi Riau mengucapkan
+                selamat dan sukses atas pengukuhan serta pelantikan Ketua DPW IFPI Riau masa bakti
+                2027–2032. Semoga senantiasa amanah dalam memajukan kompetensi, integritas, dan
+                solidaritas Pengelola Pengadaan Barang/Jasa di Bumi Lancang Kuning.
+              </p>
+              <div className="home-pelantikan__actions">
+                <Link to="/struktur/ketua-1" className="home-pelantikan__btn home-pelantikan__btn--primary">
+                  <span>Lihat Profil Ketua</span>
+                  <Icon name="arrow-right" size={14} color="currentColor" />
+                </Link>
+                <Link to="/struktur" className="home-pelantikan__btn home-pelantikan__btn--ghost">
+                  <span>Struktur Organisasi</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
           1b. SAMBUTAN AUDIO — ucapan selamat datang dari pimpinan DPW
           Berkas audio: public/audio/sambutan-dpw-ifpi-riau.mp3
           ============================================================ */}
